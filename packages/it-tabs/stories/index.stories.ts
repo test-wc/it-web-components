@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import '../src/it-tabs.ts';
+import '@it-web-components/it-tabs/it-tabs.js';
 
 export default {
   title: 'ItTabs',

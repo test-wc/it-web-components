@@ -1,15 +1,15 @@
 {
-  "name": "it-tabs",
+  "name": "@it-web-components/it-tabs",
   "description": "Webcomponent it-tabs following open-wc recommendations",
   "license": "MIT",
   "author": "it-tabs",
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
   "exports": {
-    ".": "./dist/src/index.js",
-    "./it-tabs.js": "./dist/src/it-tabs.js"
+    ".": "./src/index.js",
+    "./it-tabs.js": "./src/it-tabs.js"
   },
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
