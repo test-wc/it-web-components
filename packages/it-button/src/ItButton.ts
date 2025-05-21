@@ -80,6 +80,6 @@ export class ItButton extends BaseComponent(styles) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'it-button': Button;
+    'it-button': ItButton;
   }
 }

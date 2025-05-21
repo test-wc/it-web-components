@@ -13,7 +13,6 @@
   },
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"web-dev-server\"",
     "build": "pnpm analyze && tsc --build tsconfig.build.json",
     "prepublish": "build",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
