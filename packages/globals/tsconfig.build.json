@@ -1,3 +1,4 @@
 {
-  "extends": "../../tsconfig-all.build.json"
+  "extends": "../../tsconfig-all.build.json",
+  "rootDir": "./"
 }

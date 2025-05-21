@@ -29,6 +29,6 @@ export class ItTabs extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'it-button': ItTabs;
+    'it-tabs': ItTabs;
   }
 }
