@@ -5,11 +5,11 @@
   "author": "italia",
   "version": "0.0.0",
   "type": "module",
-  "main": "./src/index.js",
-  "module": "./src/index.js",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
   "exports": {
-    ".": "./src/index.js",
-    "./it-tabs.js": "./src/it-tabs.js"
+    ".": "./dist/src/index.js",
+    "./it-tabs.js": "./dist/src/it-tabs.js"
   },
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
@@ -17,8 +17,8 @@
     "prepublish": "build",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "test": "tsc && wtr --coverage",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\""
+    "test": "tsc --build tsconfig.build.json && wtr --coverage",
+    "test:watch": "tsc --build tsconfig.build.json && concurrently -k -r \"tsc --build tsconfig.build.json --watch --preserveWatchOutput\" \"wtr --watch\""
   },
   "dependencies": {
     "lit": "^3.1.4"
