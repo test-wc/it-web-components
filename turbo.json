@@ -10,11 +10,18 @@
       "cache": false
     },
     "analyze": {
-      "dependsOn": ["^analyze"],
-      "outputs": ["dist/**"]
+      "dependsOn": [],
+      "outputs": ["custom-elements.json"]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [],
+      "outputs": ["coverage/**"]
+    },
+    "lint": {
+      "dependsOn": []
+    },
+    "format": {
+      "dependsOn": []
     },
     "clean": {
       "dependsOn": [],

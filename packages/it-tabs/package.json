@@ -8,8 +8,8 @@
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
   "exports": {
-    ".": "./src/index.js",
-    "./it-tabs.js": "./src/it-tabs.js"
+    ".": "./dist/src/index.js",
+    "./it-tabs.js": "./dist/src/it-tabs.js"
   },
   "files": [
     "dist/src",
@@ -18,11 +18,11 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "build": "pnpm analyze && tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json",
     "clean": "rm -rf node_modules",
     "prepublish": "build",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore"
+    "lint": "eslint --ext .ts ./{src,stories,test} && prettier \"{src,stories,test}/**/*.ts\" --check",
+    "format": "eslint --ext .ts ./{src,stories,test} --fix && prettier \"{src,stories,test}/**/*.ts\" --write"
   },
   "dependencies": {
     "lit": "^3.1.4"
