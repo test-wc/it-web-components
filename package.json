@@ -1,13 +1,16 @@
 {
   "name": "it-web-components",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
+    "prepare": "husky && pnpm test:setup",
     "release": "turbo run build",
-    "prepare": "husky",
+    "test:setup": "pnpm dlx playwright install",
+    "test": "turbo run build && wtr --config packages/test-config/web-test-runner.config.js --coverage --node-resolve ",
     "oldstorybook": "pnpm build && turbo run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"storybook dev -p 8080\"",
     "storybook:build": "pnpm build && turbo run analyze && storybook build",
     "storybook": "storybook dev -p 6006"
@@ -25,6 +28,7 @@
     "@storybook/web-components-vite": "^8.6.14",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
+    "@web/test-runner": "^0.18.2",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

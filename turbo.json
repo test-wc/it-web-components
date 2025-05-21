@@ -12,6 +12,13 @@
     "analyze": {
       "dependsOn": ["^analyze"],
       "outputs": ["dist/**"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "dependsOn": [],
+      "cache": false
     }
   }
 }

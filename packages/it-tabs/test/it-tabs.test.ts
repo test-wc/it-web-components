@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { fixture, expect } from '@open-wc/testing';
-import { ItTabs } from '../src/ItTabs.js';
-import '../src/it-tabs.js';
+import { ItTabs } from '../src/it-tabs.js';
 
 describe('ItTabs', () => {
   it('has a default header "Hey there" and counter 5', async () => {
@@ -19,7 +18,9 @@ describe('ItTabs', () => {
   });
 
   it('can override the header via attribute', async () => {
-    const el = await fixture<ItTabs>(html`<it-tabs header="attribute header"></it-tabs>`);
+    const el = await fixture<ItTabs>(
+      html`<it-tabs header="attribute header"></it-tabs>`,
+    );
 
     expect(el.header).to.equal('attribute header');
   });
