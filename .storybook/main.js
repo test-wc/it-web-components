@@ -23,5 +23,6 @@ const config = {
     name: getAbsolutePath('@storybook/web-components-vite'),
     options: {},
   },
+  staticDirs: ['./assets'],
 };
 export default config;
