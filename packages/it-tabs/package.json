@@ -11,6 +11,11 @@
     ".": "./src/index.js",
     "./it-tabs.js": "./src/it-tabs.js"
   },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
     "build": "pnpm analyze && tsc --build tsconfig.build.json",
