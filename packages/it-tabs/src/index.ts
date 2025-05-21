@@ -1,1 +1,1 @@
-export { ItTabs } from './ItTabs.js';
+export { ItTabs } from './it-tabs.js';
