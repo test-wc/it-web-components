@@ -18,12 +18,8 @@
     "incremental": true,
     "skipLibCheck": true
   },
-  "include": ["packages/**/*.ts"],
-  "exclude": [
-    "packages/**/dist",
-    "packages/**/build",
-    "packages/**/node_modules"
-  ],
+  "include": ["packages/*/src/**/*.ts"],
+  "exclude": ["packages/*/dist", "packages/*/build", "packages/*/node_modules"],
   "references": [
     {
       "path": "packages/it-tabs"
