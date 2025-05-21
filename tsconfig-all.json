@@ -26,6 +26,9 @@
   ],
   "references": [
     {
+      "path": "packages/globals"
+    },
+    {
       "path": "packages/it-tabs"
     }
   ]
