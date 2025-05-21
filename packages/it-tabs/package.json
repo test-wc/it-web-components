@@ -1,0 +1,38 @@
+{
+  "name": "it-tabs",
+  "description": "Webcomponent it-tabs following open-wc recommendations",
+  "license": "MIT",
+  "author": "it-tabs",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./it-tabs.js": "./dist/src/it-tabs.js"
+  },
+  "scripts": {
+    "analyze": "cem analyze --litelement --exclude dist",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"web-dev-server\"",
+    "build": "tsc && pnpm analyze --exclude dist",
+    "prepublish": "tsc && pnpm analyze --exclude dist",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "test": "tsc && wtr --coverage",
+    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\""
+  },
+  "dependencies": {
+    "lit": "^3.1.4"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@open-wc/testing": "^4.0.0",
+    "@types/mocha": "^10.0.7",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.18.2",
+    "concurrently": "^8.2.2",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3"
+  },
+  "customElements": "custom-elements.json"
+}

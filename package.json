@@ -1,0 +1,51 @@
+{
+  "name": "it-web-components",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "release": "turbo run build",
+    "prepare": "husky",
+    "oldstorybook": "pnpm build && turbo run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"storybook dev -p 8080\"",
+    "storybook:build": "pnpm build && turbo run analyze && storybook build",
+    "storybook": "storybook dev -p 6006"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.6",
+    "@open-wc/eslint-config": "^12.0.3",
+    "@storybook/addon-a11y": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
+    "@storybook/blocks": "^8.6.14",
+    "@storybook/experimental-addon-test": "^8.6.14",
+    "@storybook/test": "^8.6.14",
+    "@storybook/web-components": "^8.6.14",
+    "@storybook/web-components-vite": "^8.6.14",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "@web/storybook-builder": "^0.2.2",
+    "@web/storybook-framework-web-components": "^0.2.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-storybook": "^0.12.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "lit": "^3.3.0",
+    "prettier": "^3.3.2",
+    "storybook": "^8.6.14",
+    "turbo": "^2.5.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": "< 23"
+  },
+  "packageManager": "pnpm@10.11.0"
+}
