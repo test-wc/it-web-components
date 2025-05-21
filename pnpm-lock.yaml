@@ -82,7 +82,7 @@ importers:
         specifier: ^2.5.0
         version: 2.5.3
 
-  packages/it-tabs:
+  packages/globals:
     dependencies:
       lit:
         specifier: ^3.1.4
@@ -100,6 +100,65 @@ importers:
       '@web/dev-server':
         specifier: ^0.4.6
         version: 0.4.6
+      '@web/test-runner':
+        specifier: ^0.18.2
+        version: 0.18.3
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: ^5.5.3
+        version: 5.8.3
+
+  packages/it-button:
+    dependencies:
+      lit:
+        specifier: ^3.1.4
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@open-wc/testing':
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@types/mocha':
+        specifier: ^10.0.7
+        version: 10.0.10
+      '@web/dev-server':
+        specifier: ^0.4.6
+        version: 0.4.6
+      '@web/test-runner':
+        specifier: ^0.18.2
+        version: 0.18.3
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: ^5.5.3
+        version: 5.8.3
+
+  packages/it-tabs:
+    dependencies:
+      lit:
+        specifier: ^3.1.4
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@open-wc/testing':
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@types/mocha':
+        specifier: ^10.0.7
+        version: 10.0.10
       '@web/test-runner':
         specifier: ^0.18.2
         version: 0.18.3
