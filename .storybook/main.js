@@ -8,12 +8,11 @@ function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));
 }
 
-/** @type { import('@web/storybook-framework-web-components').StorybookConfig } */
+/** @type { import('@storybook/web-components-vite').StorybookConfig } */
 const config = {
   stories: [
-    '../stories/**/*.mdx',
-    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    // '../**/dist/stories/*.stories.{js,md,mdx}',
+    '../packages/**/stories/**/*.mdx',
+    '../packages/**/stories/**/*.stories.@(js|ts|tsx|jsx|mjs)',
   ],
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
@@ -21,7 +20,7 @@ const config = {
     getAbsolutePath('@storybook/experimental-addon-test'),
   ],
   framework: {
-    name: getAbsolutePath('@web/storybook-framework-web-components'),
+    name: getAbsolutePath('@storybook/web-components-vite'),
     options: {},
   },
 };

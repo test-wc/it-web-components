@@ -14,8 +14,8 @@
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"web-dev-server\"",
-    "build": "tsc && pnpm analyze --exclude dist",
-    "prepublish": "tsc && pnpm analyze --exclude dist",
+    "build": "tsc --build tsconfig.build.json && pnpm analyze --exclude dist",
+    "prepublish": "build",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --coverage",
