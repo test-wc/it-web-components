@@ -1,6 +1,6 @@
 /** @type { import('@storybook/web-components').Preview } */
-// window.exports = {};
-// window.require = () => {};
+import './main.scss';
+
 const preview = {
   parameters: {
     controls: {
