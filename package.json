@@ -1,5 +1,5 @@
 {
-  "name": "it-web-components",
+  "name": "@italia/it-web-components",
   "private": true,
   "scripts": {
     "build": "turbo run build",
