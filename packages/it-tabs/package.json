@@ -18,20 +18,20 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "build": "pnpm analyze && tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "rm -rf node_modules",
     "prepublish": "build",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "test": "tsc --build tsconfig.build.json && wtr --coverage",
-    "test:watch": "tsc --build tsconfig.build.json && concurrently -k -r \"tsc --build tsconfig.build.json --watch --preserveWatchOutput\" \"wtr --watch\""
+    "lint": "eslint --ext .ts ./{src,stories,test} && prettier \"{src,stories,test}/**/*.ts\" --check",
+    "format": "eslint --ext .ts ./{src,stories,test} --fix && prettier \"{src,stories,test}/**/*.ts\" --write"
   },
   "dependencies": {
     "lit": "^3.1.4"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@it-web-components/test-config": "workspace:^",
     "@open-wc/testing": "^4.0.0",
-    "@types/mocha": "^10.0.7",
+    "@types/mocha": "^10.0.10",
     "@web/test-runner": "^0.18.2",
     "concurrently": "^8.2.2",
     "tslib": "^2.6.3",

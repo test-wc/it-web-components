@@ -28,14 +28,12 @@ const Template: Story<ArgTypes> = ({
   header = 'Hello world',
   counter = 5,
   textColor,
-  slot,
 }: ArgTypes) => html`
   <it-tabs
     style="--it-tabs-text-color: ${textColor || 'black'}"
     .header=${header}
     .counter=${counter}
   >
-    ${slot}
   </it-tabs>
 `;
 
@@ -50,11 +48,20 @@ export const CustomCounter = Template.bind({});
 CustomCounter.args = {
   counter: 123456,
 };
-
-export const SlottedContent = Template.bind({});
-SlottedContent.args = {
-  slot: html`<p>Slotted content</p>`,
-};
+const SlottedTemplate: Story<ArgTypes> = ({
+  header = 'Hello world',
+  counter = 5,
+  textColor,
+}: ArgTypes) => html`
+  <it-tabs
+    style="--it-tabs-text-color: ${textColor || 'black'}"
+    .header=${header}
+    .counter=${counter}
+  >
+    <p slot="content">Slotted content</p>
+  </it-tabs>
+`;
+export const SlottedContent = SlottedTemplate.bind({});
 SlottedContent.argTypes = {
   slot: { table: { disable: true } },
 };

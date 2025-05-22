@@ -23,6 +23,9 @@
   "references": [
     {
       "path": "packages/it-tabs"
+    },
+    {
+      "path": "packages/test-config"
     }
   ]
 }

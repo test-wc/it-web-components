@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { fixture, expect } from '@open-wc/testing';
-import { ItTabs } from '../src/it-tabs.js';
+import type { ItTabs } from '../src/it-tabs.js';
 import '../src/it-tabs.js';
 
 describe('ItTabs', () => {
