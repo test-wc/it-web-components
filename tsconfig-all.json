@@ -22,6 +22,9 @@
   "exclude": ["packages/*/dist", "packages/*/build", "packages/*/node_modules"],
   "references": [
     {
+      "path": "packages/globals"
+    },
+    {
       "path": "packages/it-tabs"
     },
     {
