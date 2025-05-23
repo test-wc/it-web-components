@@ -18,7 +18,7 @@
     "incremental": true,
     "skipLibCheck": true
   },
-  "include": ["packages/*/src/**/*.ts"],
+  "include": ["packages/*/src/**/*.ts", "./typings.d.ts"],
   "exclude": ["packages/*/dist", "packages/*/build", "packages/*/node_modules"],
   "references": [
     {
@@ -26,9 +26,6 @@
     },
     {
       "path": "packages/it-tabs"
-    },
-    {
-      "path": "packages/it-button"
     },
     {
       "path": "packages/test-config"
