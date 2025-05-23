@@ -116,6 +116,40 @@ importers:
         specifier: ^5.5.3
         version: 5.8.3
 
+  packages/it-button:
+    dependencies:
+      lit:
+        specifier: ^3.1.4
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@it-web-components/globals':
+        specifier: workspace:^
+        version: link:../globals
+      '@it-web-components/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@open-wc/testing':
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@types/mocha':
+        specifier: ^10.0.10
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: ^0.18.2
+        version: 0.18.3
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: ^5.5.3
+        version: 5.8.3
+
   packages/it-tabs:
     dependencies:
       lit:

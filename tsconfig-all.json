@@ -25,6 +25,9 @@
       "path": "packages/globals"
     },
     {
+      "path": "packages/it-button"
+    },
+    {
       "path": "packages/it-tabs"
     },
     {
