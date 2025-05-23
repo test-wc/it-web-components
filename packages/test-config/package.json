@@ -4,13 +4,15 @@
   "description": "",
   "type": "module",
   "exports": {
-    "./utils": "./utils/index.js"
+    "./utils": "./utils/index.js",
+    "./web-test-runner.config.js": "./web-test-runner.config.js"
   },
   "files": [
-    "utils/index.js"
+    "utils/index.js",
+    "web-test-runner.config.js"
   ],
   "scripts": {
-    "clean": "rm -rf node_modules"
+    "clean": "rimraf node_modules"
   },
   "keywords": [],
   "author": "",
