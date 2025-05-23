@@ -5,32 +5,37 @@
   "author": "italia",
   "version": "0.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./dist/src/index.js",
+    "./globals.js": "./dist/src/globals.js"
   },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"web-dev-server\"",
-    "build": "pnpm analyze && tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "rm -rf node_modules",
     "prepublish": "build",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "test": "tsc && wtr --coverage",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\""
+    "lint": "eslint --ext .ts ./{src,stories,test} && prettier \"{src,stories,test}/**/*.ts\" --check",
+    "format": "eslint --ext .ts ./{src,stories,test} --fix && prettier \"{src,stories,test}/**/*.ts\" --write"
   },
   "dependencies": {
     "lit": "^3.1.4"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@it-web-components/test-config": "workspace:^",
     "@open-wc/testing": "^4.0.0",
-    "@types/mocha": "^10.0.7",
-    "@web/dev-server": "^0.4.6",
+    "@types/mocha": "^10.0.10",
     "@web/test-runner": "^0.18.2",
     "concurrently": "^8.2.2",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

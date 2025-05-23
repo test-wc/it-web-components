@@ -28,6 +28,9 @@
       "path": "packages/it-tabs"
     },
     {
+      "path": "packages/it-button"
+    },
+    {
       "path": "packages/test-config"
     }
   ]
