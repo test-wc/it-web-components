@@ -1,8 +1,8 @@
 import { LitElement, unsafeCSS } from 'lit';
 import { TrackFocus } from '@it-web-components/globals';
 
-export const BaseComponent = (style: any) => {
-  return class extends LitElement {
+export const BaseComponent = (style: any): typeof LitElement => {
+  return class BaseComponentInternal extends LitElement {
     static override styles = [unsafeCSS(style)];
 
     protected addFocus(element: HTMLElement) {
