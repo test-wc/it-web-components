@@ -14,7 +14,7 @@
       "outputs": ["custom-elements.json"]
     },
     "test": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "outputs": ["coverage/**"]
     },
     "lint": {
