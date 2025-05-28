@@ -4,20 +4,23 @@
   "description": "",
   "type": "module",
   "exports": {
-    "./utils": "./utils/index.js"
+    "./utils": "./utils/index.js",
+    "./web-test-runner.config.js": "./web-test-runner.config.js"
   },
   "files": [
-    "utils/index.js"
+    "utils/index.js",
+    "web-test-runner.config.js"
   ],
   "scripts": {
-    "clean": "rm -rf node_modules"
+    "clean": "rimraf node_modules"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@it-web-components/typescript-config": "workspace:^",
     "@open-wc/testing": "^3.2.2",
-    "@web/dev-server-esbuild": "^1.0.4",
+    "@web/dev-server-esbuild": "1.0.2",
     "@web/dev-server-rollup": "^0.6.4",
     "@web/test-runner": "^0.18.2",
     "@web/test-runner-commands": "^0.9.0",
