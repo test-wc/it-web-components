@@ -1,5 +1,5 @@
 {
-  "name": "@it-web-components/it-tabs",
+  "name": "@italia/tabs",
   "description": "Webcomponent it-tabs following open-wc recommendations",
   "license": "MIT",
   "author": "italia",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@it-web-components/test-config": "workspace:^",
-    "@it-web-components/typescript-config": "workspace:^",
+    "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "^4.0.0",
     "@types/mocha": "^10.0.10",
     "@web/test-runner": "^0.18.2",
