@@ -1,4 +1,4 @@
-import baseConfig from '@it-web-components/test-config/web-test-runner.config.js';
+import baseConfig from '@italia/test-config/web-test-runner.config.js';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 

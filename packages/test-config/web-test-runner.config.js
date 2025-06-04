@@ -5,7 +5,7 @@ import {
   configuredVisualRegressionPlugin,
   rollupAdapter,
   esBuildPlugin,
-} from '@it-web-components/test-config/utils';
+} from '@italia/test-config/utils';
 import {
   a11ySnapshotPlugin,
   sendKeysPlugin,
