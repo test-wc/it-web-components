@@ -2,10 +2,9 @@
   "extends": "@italia/typescript-config/tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "dist",
-    "lib": ["DOM", "ESNext"]
+    "outDir": "dist"
   },
   "include": ["src/**/*.ts", "../../typings.d.ts"],
   "exclude": ["dist", "build", "node_modules"],
-  "references": [{ "path": "../typescript-config" }]
+  "references": [{ "path": "../typescript-config" }, { "path": "../globals" }]
 }
