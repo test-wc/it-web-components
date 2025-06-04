@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig-all.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "useDefineForClassFields": false
-  }
+    "outDir": "dist",
+    "rootDir": "utils"
+  },
+  "include": ["utils"],
+  "exclude": ["dist", "node_modules"]
 }

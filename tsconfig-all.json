@@ -1,22 +1,8 @@
 {
+  "extends": "@it-web-components/typescript-config/tsconfig.base.json",
   "compilerOptions": {
-    "target": "es2021",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "noEmitOnError": true,
-    "lib": ["es2021", "dom", "DOM.Iterable"],
-    "strict": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
     "outDir": "dist",
-    "sourceMap": true,
-    "inlineSources": true,
-    "rootDir": "./",
-    "declaration": true,
-    "incremental": true,
-    "skipLibCheck": true
+    "rootDir": "./"
   },
   "include": ["packages/*/src/**/*.ts", "./typings.d.ts"],
   "exclude": ["packages/*/dist", "packages/*/build", "packages/*/node_modules"],
@@ -29,9 +15,6 @@
     },
     {
       "path": "packages/it-tabs"
-    },
-    {
-      "path": "packages/test-config"
     }
   ]
 }
