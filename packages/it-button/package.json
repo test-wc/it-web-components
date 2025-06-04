@@ -19,10 +19,11 @@
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
     "build": "tsc --build tsconfig.build.json",
-    "clean": "rm -rf node_modules",
+    "clean": "rimraf node_modules",
     "prepublish": "build",
     "lint": "eslint --ext .ts ./{src,stories,test} && prettier \"{src,stories,test}/**/*.ts\" --check",
-    "format": "eslint --ext .ts ./{src,stories,test} --fix && prettier \"{src,stories,test}/**/*.ts\" --write"
+    "format": "eslint --ext .ts ./{src,stories,test} --fix && prettier \"{src,stories,test}/**/*.ts\" --write",
+    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
     "lit": "^3.1.4"
@@ -31,6 +32,7 @@
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@it-web-components/test-config": "workspace:^",
     "@it-web-components/globals": "workspace:^",
+    "@it-web-components/typescript-config": "workspace:^",
     "@open-wc/testing": "^4.0.0",
     "@types/mocha": "^10.0.10",
     "@web/test-runner": "^0.18.2",

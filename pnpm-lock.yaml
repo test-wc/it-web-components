@@ -103,6 +103,9 @@ importers:
       '@it-web-components/test-config':
         specifier: workspace:^
         version: link:../test-config
+      '@it-web-components/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
       '@open-wc/testing':
         specifier: ^4.0.0
         version: 4.0.0
@@ -137,6 +140,9 @@ importers:
       '@it-web-components/test-config':
         specifier: workspace:^
         version: link:../test-config
+      '@it-web-components/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
       '@open-wc/testing':
         specifier: ^4.0.0
         version: 4.0.0
