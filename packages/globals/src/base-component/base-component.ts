@@ -26,9 +26,11 @@ export const BaseComponent = (style: string | CSSResult): BaseComponentType => {
     // eslint-disable-next-line class-methods-use-this
     composeClass(...classes: any) {
       let composedClass = '';
-      classes.forEach((newClass: string) => {
-        composedClass += ` ${newClass}`;
-      });
+      classes
+        .filter((c: string) => c.length > 0)
+        .forEach((newClass: string) => {
+          composedClass += ` ${newClass}`;
+        });
       return composedClass.trim();
     }
   }

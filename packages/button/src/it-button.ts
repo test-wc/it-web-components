@@ -20,8 +20,14 @@ export class ItButton extends BaseComponent(styles) {
   @property({ type: String })
   variant = '';
 
+  @property({ type: String })
+  size = '';
+
   @property({ type: Boolean })
   outline = false;
+
+  @property({ type: Boolean })
+  block = false;
 
   @property({ type: Boolean })
   disabled = false;
@@ -48,6 +54,8 @@ export class ItButton extends BaseComponent(styles) {
         ? `${this.variant ? 'btn-outline-' : ''}${this.variant}`
         : '',
       this.disabled ? 'disabled' : '',
+      this.size ? `btn-${this.size}` : '',
+      this.block ? 'd-block w-100' : '',
     );
   }
 
