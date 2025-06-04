@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/ItButton.js';
+import '@italia/button';
 
 interface ButtonProps {
   variant: string;

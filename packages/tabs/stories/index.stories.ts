@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import '@italia/it-tabs';
+import '@italia/tabs';
 
 export default {
   title: 'ItTabs',
