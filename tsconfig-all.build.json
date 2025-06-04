@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig-all.json",
-  "exclude": [
-    "packages/*/dist",
-    "packages/*/build",
-    "packages/*/node_modules",
-    "packages/*/stories"
-  ]
-}

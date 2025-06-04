@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html } from 'lit';
 import '../src/ItButton.js';
 
 interface ButtonProps {
@@ -9,16 +9,14 @@ interface ButtonProps {
   slot: string;
 }
 
-const renderComponent = (params: any) => {
-  return html`
-    <it-button
-      variant="${params.variant}"
-      ?disabled="${params.disabled}"
-      ?outline="${params.outline}"
-      >${params.slot}</it-button
-    >
-  `;
-};
+const renderComponent = (params: any) => html`
+  <it-button
+    variant="${params.variant}"
+    ?disabled="${params.disabled}"
+    ?outline="${params.outline}"
+    >${params.slot}</it-button
+  >
+`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {

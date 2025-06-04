@@ -1,27 +1,36 @@
 import { LitElement, unsafeCSS, CSSResult } from 'lit';
 // import TrackFocus from '../utils/track-focus.js';
+type Constructor<T = {}> = new (...args: any[]) => T;
 
-// // Tipo costruttore generico che restituisce una sottoclasse di LitElement
-// type LitElementConstructor = new (...args: any[]) => LitElement;
+export interface BaseComponentInterface {
+  addFocus(element: HTMLElement): void;
+  composeClass(...classes: any): string;
+}
+
+export type BaseComponentType = typeof LitElement &
+  Constructor<BaseComponentInterface>;
 
 /**
  * Factory function per creare una base class estendibile
  * con stili personalizzati.
  */
-
-export const BaseComponent = (style: string | CSSResult): typeof LitElement =>
+export const BaseComponent = (style: string | CSSResult): BaseComponentType => {
   class BaseComponentInternal extends LitElement {
     static override styles = [unsafeCSS(style)];
 
-    protected static addFocus(/* element: HTMLElement */) {
+    // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+    addFocus(element: HTMLElement) {
       // new TrackFocus(element); //per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
     }
 
-    protected static composeClass(...classes: any) {
+    // eslint-disable-next-line class-methods-use-this
+    composeClass(...classes: any) {
       let composedClass = '';
       classes.forEach((newClass: string) => {
         composedClass += ` ${newClass}`;
       });
       return composedClass.trim();
     }
-  };
+  }
+  return BaseComponentInternal as BaseComponentType;
+};

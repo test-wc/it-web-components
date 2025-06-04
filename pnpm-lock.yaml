@@ -18,9 +18,6 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.6
         version: 3.2.6(react@19.1.0)(storybook@8.6.14(prettier@3.5.3))
-      '@it-web-components/typescript-config':
-        specifier: workspace:^
-        version: link:packages/typescript-config
       '@open-wc/eslint-config':
         specifier: ^12.0.3
         version: 12.0.3(@babel/core@7.27.1)(eslint-plugin-html@7.1.0)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1))(eslint-plugin-lit-a11y@4.1.4(eslint@8.57.1))(eslint-plugin-lit@1.15.0(eslint@8.57.1))(eslint-plugin-no-only-tests@3.3.0)(eslint-plugin-wc@1.5.0(eslint@8.57.1))(eslint@8.57.1)
@@ -91,6 +88,53 @@ importers:
         specifier: ^2.5.0
         version: 2.5.3
 
+  packages/bundle:
+    dependencies:
+      '@italia/tabs':
+        specifier: workspace:^
+        version: link:../tabs
+    devDependencies:
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+
+  packages/button:
+    dependencies:
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
+      lit:
+        specifier: ^3.1.4
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@types/mocha':
+        specifier: ^10.0.10
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: ^0.18.2
+        version: 0.18.3
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: ^5.5.3
+        version: 5.8.3
+
   packages/globals:
     dependencies:
       lit:
@@ -100,10 +144,10 @@ importers:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3
         version: 0.10.4
-      '@it-web-components/test-config':
+      '@italia/test-config':
         specifier: workspace:^
         version: link:../test-config
-      '@it-web-components/typescript-config':
+      '@italia/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config
       '@open-wc/testing':
@@ -125,7 +169,7 @@ importers:
         specifier: ^5.5.3
         version: 5.8.3
 
-  packages/it-button:
+  packages/tabs:
     dependencies:
       lit:
         specifier: ^3.1.4
@@ -134,47 +178,10 @@ importers:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3
         version: 0.10.4
-      '@it-web-components/globals':
-        specifier: workspace:^
-        version: link:../globals
-      '@it-web-components/test-config':
+      '@italia/test-config':
         specifier: workspace:^
         version: link:../test-config
-      '@it-web-components/typescript-config':
-        specifier: workspace:^
-        version: link:../typescript-config
-      '@open-wc/testing':
-        specifier: ^4.0.0
-        version: 4.0.0
-      '@types/mocha':
-        specifier: ^10.0.10
-        version: 10.0.10
-      '@web/test-runner':
-        specifier: ^0.18.2
-        version: 0.18.3
-      concurrently:
-        specifier: ^8.2.2
-        version: 8.2.2
-      tslib:
-        specifier: ^2.6.3
-        version: 2.8.1
-      typescript:
-        specifier: ^5.5.3
-        version: 5.8.3
-
-  packages/it-tabs:
-    dependencies:
-      lit:
-        specifier: ^3.1.4
-        version: 3.3.0
-    devDependencies:
-      '@custom-elements-manifest/analyzer':
-        specifier: ^0.10.3
-        version: 0.10.4
-      '@it-web-components/test-config':
-        specifier: workspace:^
-        version: link:../test-config
-      '@it-web-components/typescript-config':
+      '@italia/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config
       '@open-wc/testing':
@@ -198,7 +205,7 @@ importers:
 
   packages/test-config:
     devDependencies:
-      '@it-web-components/typescript-config':
+      '@italia/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config
       '@open-wc/testing':

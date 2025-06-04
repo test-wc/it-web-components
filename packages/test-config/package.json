@@ -1,5 +1,5 @@
 {
-  "name": "@it-web-components/test-config",
+  "name": "@italia/test-config",
   "version": "0.0.0",
   "description": "",
   "type": "module",
@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@it-web-components/typescript-config": "workspace:^",
+    "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "^3.2.2",
     "@web/dev-server-esbuild": "1.0.2",
     "@web/dev-server-rollup": "^0.6.4",

@@ -1,0 +1,64 @@
+{
+  "name": "@italia/design-web-components",
+  "description": "Bundle dei web components del Design System .italia",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/italia/design-web-components.git",
+    "directory": "packages/bundle"
+  },
+  "author": "Team Digitale",
+  "homepage": "https://designers.italia.it",
+  "bugs": {
+    "url": "https://github.com/italia/design-web-components/issues"
+  },
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.js"
+    },
+    "./package.json": "./package.json",
+    "./src/index.js": {
+      "default": "./src/index.js"
+    },
+    "./elements.js": {
+      "default": "./elements.js"
+    }
+  },
+  "scripts": {},
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json",
+    "!stories/",
+    "!test/"
+  ],
+  "keywords": [
+    "web components",
+    "web-components",
+    "design-system",
+    "italia",
+    "components",
+    "ui",
+    "lit-element",
+    "lit-html"
+  ],
+  "dependencies": {
+    "@italia/tabs": "workspace:^"
+  },
+  "devDependencies": {
+    "@italia/typescript-config": "workspace:^"
+  },
+  "types": "./src/index.d.ts",
+  "customElements": "custom-elements.json",
+  "sideEffects": [
+    "./elements.js"
+  ]
+}

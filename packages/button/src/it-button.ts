@@ -1,4 +1,4 @@
-import { BaseComponent } from '@it-web-components/globals';
+import { BaseComponent } from '@italia/globals';
 import { html, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -29,9 +29,10 @@ export class ItButton extends BaseComponent(styles) {
   @property({ type: String })
   value = '';
 
-  @property({ type: ElementInternals })
+  @property()
   internals = this.attachInternals();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     const button = this.renderRoot.querySelector('button');
     if (button) {
@@ -42,9 +43,9 @@ export class ItButton extends BaseComponent(styles) {
   override updated() {
     this._buttonClasses = this.composeClass(
       'btn',
-      this.outline ? '' : this.variant !== '' ? `btn-${this.variant}` : '',
+      !this.outline && this.variant !== '' ? `btn-${this.variant}` : '',
       this.outline
-        ? `${this.outline ? 'btn-outline-' : ''}${this.variant}`
+        ? `${this.variant ? 'btn-outline-' : ''}${this.variant}`
         : '',
       this.disabled ? 'disabled' : '',
     );

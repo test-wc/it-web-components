@@ -1,6 +1,6 @@
 {
-  "name": "@it-web-components/it-tabs",
-  "description": "Webcomponent it-tabs following open-wc recommendations",
+  "name": "@italia/button",
+  "description": "Webcomponent it-button following open-wc recommendations",
   "license": "MIT",
   "author": "italia",
   "version": "0.0.0",
@@ -9,7 +9,7 @@
   "module": "./dist/src/index.js",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-tabs.js": "./dist/src/it-tabs.js"
+    "./it-button.js": "./dist/src/it-button.js"
   },
   "files": [
     "dist/src",
@@ -26,12 +26,13 @@
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
-    "lit": "^3.1.4"
+    "lit": "^3.1.4",
+    "@italia/globals": "workspace:^"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
-    "@it-web-components/test-config": "workspace:^",
-    "@it-web-components/typescript-config": "workspace:^",
+    "@italia/test-config": "workspace:^",
+    "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "^4.0.0",
     "@types/mocha": "^10.0.10",
     "@web/test-runner": "^0.18.2",

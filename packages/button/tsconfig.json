@@ -2,7 +2,8 @@
   "extends": "@italia/typescript-config/tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": ["DOM", "ESNext"]
   },
   "include": ["src/**/*.ts", "../../typings.d.ts"],
   "exclude": ["dist", "build", "node_modules"],
