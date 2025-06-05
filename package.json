@@ -12,7 +12,7 @@
     "analyze": "turbo run analyze",
     "build": "turbo run build analyze",
     "dev": "turbo run dev",
-    "lint": "turbo run lint --",
+    "lint": "turbo run lint",
     "format": "turbo run format",
     "clean": "turbo run clean && rimraf node_modules",
     "prepare": "husky && pnpm test:setup",
