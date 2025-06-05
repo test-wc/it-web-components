@@ -24,17 +24,8 @@ interface ArgTypes {
   slot?: TemplateResult;
 }
 
-const Template: Story<ArgTypes> = ({
-  header = 'Hello world',
-  counter = 5,
-  textColor,
-}: ArgTypes) => html`
-  <it-tabs
-    style="--it-tabs-text-color: ${textColor || 'black'}"
-    .header=${header}
-    .counter=${counter}
-  >
-  </it-tabs>
+const Template: Story<ArgTypes> = ({ header = 'Hello world', counter = 5, textColor }: ArgTypes) => html`
+  <it-tabs style="--it-tabs-text-color: ${textColor || 'black'}" .header=${header} .counter=${counter}> </it-tabs>
 `;
 
 export const Regular = Template.bind({});
@@ -48,16 +39,8 @@ export const CustomCounter = Template.bind({});
 CustomCounter.args = {
   counter: 123456,
 };
-const SlottedTemplate: Story<ArgTypes> = ({
-  header = 'Hello world',
-  counter = 5,
-  textColor,
-}: ArgTypes) => html`
-  <it-tabs
-    style="--it-tabs-text-color: ${textColor || 'black'}"
-    .header=${header}
-    .counter=${counter}
-  >
+const SlottedTemplate: Story<ArgTypes> = ({ header = 'Hello world', counter = 5, textColor }: ArgTypes) => html`
+  <it-tabs style="--it-tabs-text-color: ${textColor || 'black'}" .header=${header} .counter=${counter}>
     <p slot="content">Slotted content</p>
   </it-tabs>
 `;

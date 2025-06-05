@@ -1,0 +1,62 @@
+# This repository adheres to the publiccode.yml standard by including this
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+categories:
+  - website-builder
+description:
+  it:
+    documentation: 'https://italia.github.io/TODO'
+    features:
+      - responsive
+      - accessibility
+      - inclusion
+      - web development
+      - PNRR
+      - PNRR/Misura/1.4.1
+      - PNRR/Beneficiari/Comuni
+      - PNRR/Beneficiari/Scuole
+    genericName: Design TODO
+    longDescription: |
+      La libreria ecc..
+    shortDescription: |-
+      La libreria ecc..
+developmentStatus: stable
+isBasedOn:
+  - Bootstrap Italia
+it:
+  conforme:
+    gdpr: false
+    lineeGuidaDesign: false
+    misureMinimeSicurezza: false
+    modelloInteroperabilita: false
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+  riuso:
+    codiceIPA: pcm
+landingURL: 'https://italia.github.io/TODO'
+legal:
+  authorsFile: 'https://github.com/italia/TODO/blob/main/AUTHORS'
+  license: BSD-3-Clause
+  mainCopyrightOwner: Presidenza del Consiglio dei Ministri
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  contacts:
+    - name: Designers Italia
+  type: community
+name: Design TODO
+platforms:
+  - web
+releaseDate: '2025-04-10'
+roadmap: 'https://github.com/italia/TODO/issues'
+softwareType: library
+softwareVersion: v5.7.1
+url: 'https://github.com/italia/TODO'
