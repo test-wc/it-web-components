@@ -1,5 +1,5 @@
 {
-  "name": "@italia/it-web-components",
+  "name": "design-web-components",
   "private": true,
   "type": "module",
   "scripts": {

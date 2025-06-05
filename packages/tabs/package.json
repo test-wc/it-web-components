@@ -36,6 +36,7 @@
     "@types/mocha": "^10.0.10",
     "@web/test-runner": "^0.18.2",
     "concurrently": "^8.2.2",
+    "rimraf": "^6.0.1",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3"
   },
