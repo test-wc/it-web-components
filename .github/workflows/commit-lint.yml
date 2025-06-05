@@ -22,4 +22,4 @@ jobs:
       - name: Enable corepack
         run: npm i -g corepack@latest && corepack enable
 
-      - run: p dlx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
+      - run: pnpm dlx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
