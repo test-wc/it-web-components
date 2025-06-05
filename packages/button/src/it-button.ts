@@ -21,7 +21,7 @@ export class ItButton extends BaseComponent(styles) {
   variant = '';
 
   @property({ type: String })
-  size = '';
+  size = 'sm';
 
   @property({ type: Boolean })
   outline = false;
