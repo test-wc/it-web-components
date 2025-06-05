@@ -11,6 +11,10 @@ jobs:
   lint-commits:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
       - name: Set up Node.js environment
         uses: ./.github/actions/node_env_setup
         with:
