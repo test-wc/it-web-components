@@ -16,6 +16,7 @@ interface ButtonProps {
 const colors = ['primary', 'secondary', 'success', 'info', 'danger', 'warning', 'link'];
 const sizes = ['lg', 'sm', 'xs'];
 
+//Renderizza il wc it-button di default
 const renderComponent = (params: any, defaultSlot = '') => {
   const slot = params.slot?.length > 0 ? params.slot : defaultSlot;
   return html`
@@ -23,6 +24,7 @@ const renderComponent = (params: any, defaultSlot = '') => {
       variant="${params.variant}"
       ?outline="${params.outline}"
       size="${params.size}"
+      ?block="${params.block}"
       ?disabled="${params.disabled}"
       type="${params.type}"
       >${slot}</it-button
@@ -74,6 +76,7 @@ const renderSizeVariant = (args, defaultText) => {
     )}
   </div>`;
 };
+
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Componenti/Button',
@@ -196,7 +199,6 @@ export const VariantiColore: Story = {
   },
 };
 
-// TODO: capire come gestire lo sfondo scuro con i wc
 export const SfondoScuro: Story = {
   args: { slot: '' },
   argTypes: {
@@ -217,6 +219,16 @@ export const SfondoScuro: Story = {
     },
   },
   render: (args) => html`
+    <h1>
+      TODO: capire come gestire lo sfondo scuro coi bottoni <br /><br />
+      !!! è praticamente impossibile, perchè
+      <a
+        href="https://github.com/italia/bootstrap-italia/blob/67b3a245b219fe6ac17277193caebbd8e4824797/src/scss/components/_buttons.scss#L309"
+        >qui</a
+      >
+      sono definiti gli stili per bottoni su sfondo scuro, ma i bottoni al suo interno sono componenti con shadowdom ,
+      per cui cambiare lo stile di quei bottoni è praticamente impossibile con gli stili che abbiamo ora su bsi
+    </h1>
     <div class="bg-dark">
       ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
       ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
@@ -224,7 +236,6 @@ export const SfondoScuro: Story = {
   `,
 };
 
-// TODO: negli stili, non c'è d-block come classe. Importarla da bootsrap-italia.
 export const VariantiDiDimensione: Story = {
   args: { slot: '' },
   argTypes: {
@@ -246,7 +257,26 @@ export const VariantiDiDimensione: Story = {
   },
   render: (args) => html`
     ${renderSizeVariant({ ...args, size: 'lg' }, 'large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'small')}
-    ${renderSizeVariant({ ...args, size: 'xs' }, 'mini')} ${renderSizeVariant({ ...args, size: 'block' }, 'block')}
+    <div class="flex">
+      ${renderComponent(
+        {
+          ...args,
+          block: true,
+          variant: 'primary',
+        },
+        'Primary block',
+      )}
+    </div>
+    <div class="flex">
+      ${renderComponent(
+        {
+          ...args,
+          block: true,
+          variant: 'secondary',
+        },
+        'Secondary block',
+      )}
+    </div>
   `,
 };
 

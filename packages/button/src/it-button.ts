@@ -50,9 +50,7 @@ export class ItButton extends BaseComponent(styles) {
     this._buttonClasses = this.composeClass(
       'btn',
       !this.outline && this.variant !== '' ? `btn-${this.variant}` : '',
-      this.outline
-        ? `${this.variant ? 'btn-outline-' : ''}${this.variant}`
-        : '',
+      this.outline ? `${this.variant ? 'btn-outline-' : ''}${this.variant}` : '',
       this.disabled ? 'disabled' : '',
       this.size ? `btn-${this.size}` : '',
       this.block ? 'd-block w-100' : '',
@@ -71,6 +69,12 @@ export class ItButton extends BaseComponent(styles) {
     return this.internals ? this.internals.form : null;
   }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+    if (this.block) {
+      this.classList.add('d-block', 'w-100');
+    }
+  }
   // Render the UI as a function of component state
   override render() {
     return html`

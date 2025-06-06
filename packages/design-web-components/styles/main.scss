@@ -1,0 +1,33 @@
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+@import 'bootstrap-italia/src/scss/base/utilities';
+@import 'bootstrap-italia/src/scss/base/root';
+@import 'bootstrap-italia/src/scss/base/reboot';
+
+@import 'bootstrap-italia/src/scss/base/containers';
+@import 'bootstrap-italia/src/scss/base/helpers';
+
+@import 'bootstrap-italia/src/scss/base/utilities/api';
+@import 'bootstrap-italia/src/scss/utilities/colors';
+@import 'bootstrap-italia/src/scss/utilities/focus';
+@import 'bootstrap-italia/src/scss/utilities/icons';
+@import 'bootstrap-italia/src/scss/utilities/text-colors';
+
+// .bg-dark {
+//   --#{$prefix}btn-link-text-color: var(--#{$prefix}color-text-inverse);
+
+//   .btn-outline-primary,
+//   a.btn-outline-primary,
+//   .btn-outline-secondary,
+//   a.btn-outline-secondary {
+//     --#{$prefix}btn-outline-border-color: var(--#{$prefix}color-border-inverse);
+//     --#{$prefix}btn-text-color: var(--#{$prefix}color-text-inverse);
+//   }
+// }
+
+.btn[block] {
+  @extend .d-block;
+  @extend .w-100;
+}

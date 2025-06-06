@@ -1,6 +1,28 @@
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+
+@import 'bootstrap-italia/src/scss/base/utilities'; //all utilities from bsi
+
+$utilities: (
+  'display': map-merge(
+      map-get($utilities, 'display'),
+      (
+        'values': block,
+      )
+    ),
+  'width': map-merge(
+      map-get($utilities, 'width'),
+      (
+        'values': (
+          100: 100%,
+        ),
+      )
+    ),
+);
+@import 'bootstrap-italia/src/scss/base/utilities/api';
+
 //@import 'bootstrap-italia/src/scss/utilities/focus';
 
 @import 'bootstrap-italia/src/scss/components/buttons';
