@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../src/it-button.ts';
-import './it-button-stories.scss';
 
 interface ButtonProps {
   variant: string;
@@ -14,27 +13,22 @@ interface ButtonProps {
   value: string;
 }
 
-const colors = [
-  'primary',
-  'secondary',
-  'success',
-  'info',
-  'danger',
-  'warning',
-  'link',
-];
+const colors = ['primary', 'secondary', 'success', 'info', 'danger', 'warning', 'link'];
 const sizes = ['lg', 'sm', 'xs'];
 
-const renderComponent = (params: any) => html`
-  <it-button
-    variant="${params.variant}"
-    ?outline="${params.outline}"
-    size="${params.size}"
-    ?disabled="${params.disabled}"
-    type="${params.type}"
-    >${params.slot}</it-button
-  >
-`;
+const renderComponent = (params: any, defaultSlot = '') => {
+  const slot = params.slot?.length > 0 ? params.slot : defaultSlot;
+  return html`
+    <it-button
+      variant="${params.variant}"
+      ?outline="${params.outline}"
+      size="${params.size}"
+      ?disabled="${params.disabled}"
+      type="${params.type}"
+      >${slot}</it-button
+    >
+  `;
+};
 
 const renderDefault = (params: any) => html`
   <div class="flex">
@@ -46,12 +40,46 @@ const renderDefault = (params: any) => html`
     })}
   </div>
 `;
+
+const renderVariant = (args, defaultText) => {
+  const slot = args.slot?.length > 0 ? args.slot : null;
+  return html`<div class="flex">
+    ${renderDefault({
+      ...args,
+      slot: slot ?? defaultText,
+    })}
+    ${renderDefault({
+      ...args,
+      slot: slot ?? defaultText + ' outline',
+      outline: true,
+    })}
+  </div>`;
+};
+
+const renderSizeVariant = (args, defaultText) => {
+  return html`<div class="flex">
+    ${renderComponent(
+      {
+        ...args,
+        variant: 'primary',
+      },
+      'Primary ' + defaultText,
+    )}
+    ${renderComponent(
+      {
+        ...args,
+        variant: 'secondary',
+      },
+      'Secondary ' + defaultText,
+    )}
+  </div>`;
+};
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Componenti/Button',
   tags: ['autodocs'],
   component: 'it-button',
-  render: args => renderDefault(args),
+  render: (args) => renderDefault(args),
   args: {
     slot: 'Testo bottone',
     variant: 'primary',
@@ -76,8 +104,7 @@ const meta = {
     block: {
       control: 'boolean',
       type: 'boolean',
-      description:
-        'Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile',
+      description: 'Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile',
     },
     disabled: {
       control: 'boolean',
@@ -86,8 +113,7 @@ const meta = {
     outline: {
       control: 'boolean',
       type: 'boolean',
-      description:
-        'Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del bottone.',
+      description: 'Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del bottone.',
     },
     slot: {
       control: 'text',
@@ -116,7 +142,7 @@ export const Default: Story = {
 
 export const Tipologie: Story = {
   ...meta,
-  render: params => html`
+  render: (params) => html`
     ${renderDefault({
       ...params,
       slot: `Button - ${params.slot}`,
@@ -140,132 +166,60 @@ export const Tipologie: Story = {
 
 export const VariantiColore: Story = {
   args: { slot: '' },
-  render: args => html`
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Primary ${args.slot}`,
-        variant: 'primary',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `Primary outline ${args.slot}`,
-        variant: 'primary',
-        outline: true,
-      })}
-    </div>
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Secondary ${args.slot}`,
-        variant: 'secondary',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `Secondary outline ${args.slot}`,
-        variant: 'secondary',
-        outline: true,
-      })}
-    </div>
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Success ${args.slot}`,
-        variant: 'success',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `Success outline ${args.slot}`,
-        variant: 'success',
-        outline: true,
-      })}
-    </div>
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Danger ${args.slot}`,
-        variant: 'danger',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `Danger outline ${args.slot}`,
-        variant: 'danger',
-        outline: true,
-      })}
-    </div>
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Warning ${args.slot}`,
-        variant: 'warning',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `warning outline ${args.slot}`,
-        variant: 'warning',
-        outline: true,
-      })}
-    </div>
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Info ${args.slot}`,
-        variant: 'info',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `Info outline ${args.slot}`,
-        variant: 'info',
-        outline: true,
-      })}
-    </div>
-    <div class="flex">
-      ${renderDefault({
-        ...args,
-        slot: `Link ${args.slot}`,
-        variant: 'link',
-      })}
-      ${renderDefault({
-        ...args,
-        slot: `Link outline ${args.slot}`,
-        variant: 'link',
-        outline: true,
-      })}
-    </div>
-  `,
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    outline: {
+      table: {
+        disable: true,
+      },
+    },
+    disabled: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  render: (args) => {
+    const slot = args.slot?.length > 0 ? args.slot : null;
+    return html`
+      ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
+      ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
+      ${renderVariant({ ...args, variant: 'success' }, 'Success')}
+      ${renderVariant({ ...args, variant: 'danger' }, 'Danger')}
+      ${renderVariant({ ...args, variant: 'warning' }, 'Warning')}
+      ${renderVariant({ ...args, variant: 'info' }, 'Info')} ${renderVariant({ ...args, variant: 'link' }, 'Link')}
+    `;
+  },
 };
 
 // TODO: capire come gestire lo sfondo scuro con i wc
 export const SfondoScuro: Story = {
   args: { slot: '' },
-  render: args => html`
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    outline: {
+      table: {
+        disable: true,
+      },
+    },
+    disabled: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  render: (args) => html`
     <div class="bg-dark">
-      <div class="flex">
-        ${renderDefault({
-          ...args,
-          slot: `Primary ${args.slot}`,
-          variant: 'primary',
-        })}
-        ${renderDefault({
-          ...args,
-          slot: `Primary outline ${args.slot}`,
-          variant: 'primary',
-          outline: true,
-        })}
-      </div>
-      <div class="flex">
-        ${renderDefault({
-          ...args,
-          slot: `Secondary ${args.slot}`,
-          variant: 'secondary',
-        })}
-        ${renderDefault({
-          ...args,
-          slot: `Secondary outline ${args.slot}`,
-          variant: 'secondary',
-          outline: true,
-        })}
-      </div>
+      ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
+      ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
     </div>
   `,
 };
@@ -273,63 +227,26 @@ export const SfondoScuro: Story = {
 // TODO: negli stili, non c'è d-block come classe. Importarla da bootsrap-italia.
 export const VariantiDiDimensione: Story = {
   args: { slot: '' },
-  render: args => html`
-    <div class="flex">
-      ${renderComponent({
-        ...args,
-        slot: `Primary large ${args.slot}`,
-        variant: 'primary',
-        size: 'lg',
-      })}
-      ${renderComponent({
-        ...args,
-        slot: `Secondary large ${args.slot}`,
-        variant: 'secondary',
-        size: 'lg',
-      })}
-    </div>
-    <div class="flex">
-      ${renderComponent({
-        ...args,
-        slot: `Primary small ${args.slot}`,
-        variant: 'primary',
-        size: 'sm',
-      })}
-      ${renderComponent({
-        ...args,
-        slot: `Secondary small ${args.slot}`,
-        variant: 'secondary',
-        size: 'sm',
-      })}
-    </div>
-    <div class="flex">
-      ${renderComponent({
-        ...args,
-        slot: `Primary mini ${args.slot}`,
-        variant: 'primary',
-        size: 'xs',
-      })}
-      ${renderComponent({
-        ...args,
-        slot: `Secondary mini ${args.slot}`,
-        variant: 'secondary',
-        size: 'xs',
-      })}
-    </div>
-    <div class="flex">
-      ${renderComponent({
-        ...args,
-        slot: `Primary block ${args.slot}`,
-        variant: 'primary',
-        block: true,
-      })}
-      ${renderComponent({
-        ...args,
-        slot: `Secondary block ${args.slot}`,
-        variant: 'secondary',
-        block: true,
-      })}
-    </div>
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    size: {
+      table: {
+        disable: true,
+      },
+    },
+    block: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  render: (args) => html`
+    ${renderSizeVariant({ ...args, size: 'lg' }, 'large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'small')}
+    ${renderSizeVariant({ ...args, size: 'xs' }, 'mini')} ${renderSizeVariant({ ...args, size: 'block' }, 'block')}
   `,
 };
 
