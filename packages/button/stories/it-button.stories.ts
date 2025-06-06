@@ -45,7 +45,7 @@ const renderDefault = (params: any) => html`
 
 const renderVariant = (args, defaultText) => {
   const slot = args.slot?.length > 0 ? args.slot : null;
-  return html`<div class="flex">
+  return html`<div class="flex p-0">
     ${renderDefault({
       ...args,
       slot: slot ?? defaultText,
@@ -219,19 +219,10 @@ export const SfondoScuro: Story = {
     },
   },
   render: (args) => html`
-    <h1>
-      TODO: capire come gestire lo sfondo scuro coi bottoni <br /><br />
-      !!! è praticamente impossibile, perchè
-      <a
-        href="https://github.com/italia/bootstrap-italia/blob/67b3a245b219fe6ac17277193caebbd8e4824797/src/scss/components/_buttons.scss#L309"
-        >qui</a
-      >
-      sono definiti gli stili per bottoni su sfondo scuro, ma i bottoni al suo interno sono componenti con shadowdom ,
-      per cui cambiare lo stile di quei bottoni è praticamente impossibile con gli stili che abbiamo ora su bsi
-    </h1>
-    <div class="bg-dark">
+    <div class="bg-dark p-4">
       ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
       ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
+      ${renderVariant({ ...args, variant: 'link' }, 'Link')}
     </div>
   `,
 };

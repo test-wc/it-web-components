@@ -71,14 +71,17 @@ export class ItButton extends BaseComponent(styles) {
 
   connectedCallback(): void {
     super.connectedCallback();
+
     if (this.block) {
       this.classList.add('d-block', 'w-100');
     }
   }
+
   // Render the UI as a function of component state
   override render() {
     return html`
       <button
+        part="${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
         disabled=${ifDefined(this.disabled || undefined)}
         class="${this._buttonClasses}"

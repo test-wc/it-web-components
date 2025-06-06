@@ -15,17 +15,10 @@
 @import 'bootstrap-italia/src/scss/utilities/icons';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 
-// .bg-dark {
-//   --#{$prefix}btn-link-text-color: var(--#{$prefix}color-text-inverse);
-
-//   .btn-outline-primary,
-//   a.btn-outline-primary,
-//   .btn-outline-secondary,
-//   a.btn-outline-secondary {
-//     --#{$prefix}btn-outline-border-color: var(--#{$prefix}color-border-inverse);
-//     --#{$prefix}btn-text-color: var(--#{$prefix}color-text-inverse);
-//   }
-// }
+.bg-dark {
+  --#{$prefix}btn-color-text-inverse: var(--#{$prefix}color-text-inverse);
+  --#{$prefix}btn-color-border-inverse: var(--#{$prefix}color-border-inverse);
+}
 
 .btn[block] {
   @extend .d-block;
