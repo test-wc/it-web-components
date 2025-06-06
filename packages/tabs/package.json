@@ -21,8 +21,8 @@
     "build": "tsc --build tsconfig.build.json",
     "clean": "rimraf node_modules .turbo",
     "prepublish": "build",
-    "lint": "eslint --ext .ts ./{src,stories,test} && prettier \"{src,stories,test}/**/*.ts\" --check",
-    "format": "eslint --ext .ts ./{src,stories,test} --fix && prettier \"{src,stories,test}/**/*.ts\" --write",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {

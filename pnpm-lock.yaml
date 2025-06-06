@@ -114,9 +114,30 @@ importers:
       '@italia/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config
+      '@typescript-eslint/eslint-plugin':
+        specifier: 'catalog:'
+        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)
+      '@typescript-eslint/parser':
+        specifier: 'catalog:'
+        version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
+      eslint:
+        specifier: 'catalog:'
+        version: 8.57.1
+      eslint-config-prettier:
+        specifier: 'catalog:'
+        version: 9.1.0(eslint@8.57.1)
+      eslint-plugin-storybook:
+        specifier: 'catalog:'
+        version: 0.12.0(eslint@8.57.1)(typescript@5.8.3)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.5.3
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
 
   packages/tabs:
     dependencies:
