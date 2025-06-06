@@ -10,6 +10,7 @@ const DATA_MOUSE_FOCUS = 'data-focus-mouse'
 
 class TrackFocus {
   private _usingMouse: boolean
+
   private _element: HTMLElement;
 
   constructor(element: HTMLElement) {

@@ -16,7 +16,7 @@ interface ButtonProps {
 const colors = ['primary', 'secondary', 'success', 'info', 'danger', 'warning', 'link'];
 const sizes = ['lg', 'sm', 'xs'];
 
-//Renderizza il wc it-button di default
+// Renderizza il wc it-button di default
 const renderComponent = (params: any, defaultSlot = '') => {
   const slot = params.slot?.length > 0 ? params.slot : defaultSlot;
   return html`
@@ -52,30 +52,28 @@ const renderVariant = (args, defaultText) => {
     })}
     ${renderDefault({
       ...args,
-      slot: slot ?? defaultText + ' outline',
+      slot: slot ?? `${defaultText  } outline`,
       outline: true,
     })}
   </div>`;
 };
 
-const renderSizeVariant = (args, defaultText) => {
-  return html`<div class="flex">
+const renderSizeVariant = (args, defaultText) => html`<div class="flex">
     ${renderComponent(
       {
         ...args,
         variant: 'primary',
       },
-      'Primary ' + defaultText,
+      `Primary ${  defaultText}`,
     )}
     ${renderComponent(
       {
         ...args,
         variant: 'secondary',
       },
-      'Secondary ' + defaultText,
+      `Secondary ${  defaultText}`,
     )}
   </div>`;
-};
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
