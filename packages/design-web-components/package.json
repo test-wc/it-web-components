@@ -29,10 +29,15 @@
     },
     "./elements.js": {
       "default": "./elements.js"
-    }
+    },
+    "./styles/*": "./styles/*"
   },
   "scripts": {
-    "clean": "rimraf node_modules .turbo"
+    "build": "tsc",
+    "clean": "rimraf node_modules .turbo",
+    "prepublish": "build",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" \"styles/**/*.scss\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"styles/**/*.scss\" --write"
   },
   "files": [
     "**/*.d.ts",
@@ -53,11 +58,19 @@
     "lit-html"
   ],
   "dependencies": {
-    "@italia/tabs": "workspace:^"
+    "@italia/tabs": "workspace:^",
+    "bootstrap-italia": "catalog:"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
-    "rimraf": "^6.0.1"
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-storybook": "catalog:",
+    "prettier": "catalog:",
+    "rimraf": "^6.0.1",
+    "typescript": "catalog:"
   },
   "types": "./src/index.d.ts",
   "customElements": "custom-elements.json",

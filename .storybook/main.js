@@ -10,10 +10,7 @@ function getAbsolutePath(value) {
 
 /** @type { import('@storybook/web-components-vite').StorybookConfig } */
 const config = {
-  stories: [
-    '../packages/**/stories/**/*.mdx',
-    '../packages/**/stories/**/*.stories.@(js|ts|tsx|jsx|mjs)',
-  ],
+  stories: ['../packages/**/stories/**/*.mdx', '../packages/**/stories/**/*.stories.@(js|ts|tsx|jsx|mjs)'],
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
@@ -24,5 +21,14 @@ const config = {
     options: {},
   },
   staticDirs: ['./assets'],
+  viteFinal: async (config) => {
+    config.css = config.css || {};
+    config.css.preprocessorOptions = config.css.preprocessorOptions || {};
+    config.css.preprocessorOptions.scss = {
+      // Modificare gli import ora significherebbe una riscrittura pesante di bootstrap-italia.
+      silenceDeprecations: ['import'],
+    };
+    return config;
+  },
 };
 export default config;
