@@ -29,14 +29,15 @@
     },
     "./elements.js": {
       "default": "./elements.js"
-    }
+    },
+    "./styles/*": "./styles/*"
   },
   "scripts": {
     "build": "tsc",
     "clean": "rimraf node_modules .turbo",
     "prepublish": "build",
-    "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" --check",
-    "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" --write"
+    "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" \"styles/**/*.scss\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"styles/**/*.scss\" --write"
   },
   "files": [
     "**/*.d.ts",
@@ -57,7 +58,8 @@
     "lit-html"
   ],
   "dependencies": {
-    "@italia/tabs": "workspace:^"
+    "@italia/tabs": "workspace:^",
+    "bootstrap-italia": "catalog:"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
