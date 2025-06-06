@@ -31,7 +31,9 @@
       "default": "./elements.js"
     }
   },
-  "scripts": {},
+  "scripts": {
+    "clean": "rimraf node_modules .turbo"
+  },
   "files": [
     "**/*.d.ts",
     "**/*.js",
@@ -54,7 +56,8 @@
     "@italia/tabs": "workspace:^"
   },
   "devDependencies": {
-    "@italia/typescript-config": "workspace:^"
+    "@italia/typescript-config": "workspace:^",
+    "rimraf": "^6.0.1"
   },
   "types": "./src/index.d.ts",
   "customElements": "custom-elements.json",

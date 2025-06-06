@@ -19,9 +19,7 @@ describe('ItTabs', () => {
   });
 
   it('can override the header via attribute', async () => {
-    const el = await fixture<ItTabs>(
-      html`<it-tabs header="attribute header"></it-tabs>`,
-    );
+    const el = await fixture<ItTabs>(html`<it-tabs header="attribute header"></it-tabs>`);
 
     expect(el.header).to.equal('attribute header');
   });
