@@ -15,6 +15,7 @@ const config = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/experimental-addon-test'),
+    getAbsolutePath('storybook-preset-inline-svg'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/web-components-vite'),

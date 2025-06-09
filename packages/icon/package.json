@@ -1,0 +1,52 @@
+{
+  "name": "@italia/icon",
+  "description": "Webcomponent it-icon following open-wc recommendations",
+  "license": "MIT",
+  "author": "italia",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./it-icon.js": "./dist/src/it-icon.js"
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "analyze": "cem analyze --litelement --exclude dist",
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "rimraf node_modules .turbo",
+    "prepublish": "build",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
+    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
+  },
+  "dependencies": {
+    "@italia/globals": "workspace:^",
+    "bootstrap-italia": "catalog:",
+    "lit": "catalog:"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@italia/test-config": "workspace:^",
+    "@italia/typescript-config": "workspace:^",
+    "@open-wc/testing": "catalog:",
+    "@types/mocha": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "@web/test-runner": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-storybook": "catalog:",
+    "prettier": "catalog:",
+    "rimraf": "^6.0.1",
+    "sass": "catalog:",
+    "tslib": "^2.6.3",
+    "typescript": "catalog:"
+  },
+  "customElements": "custom-elements.json"
+}
