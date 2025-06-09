@@ -1,15 +1,11 @@
-import { html, css, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+
+import styles from './it-tabs.scss';
 
 @customElement('it-tabs')
 export class ItTabs extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-      padding: 25px;
-      color: var(--it-tabs-text-color, #000);
-    }
-  `;
+  static styles = styles;
 
   @property({ type: String }) header = 'Hey there';
 
