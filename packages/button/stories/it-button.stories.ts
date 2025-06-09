@@ -191,7 +191,6 @@ export const VariantiColore: Story = {
     ${renderVariant({ ...args, variant: 'success' }, 'Success')}
     ${renderVariant({ ...args, variant: 'danger' }, 'Danger')}
     ${renderVariant({ ...args, variant: 'warning' }, 'Warning')} ${renderVariant({ ...args, variant: 'info' }, 'Info')}
-    ${renderVariant({ ...args, variant: 'link' }, 'Link')}
   `,
 };
 
