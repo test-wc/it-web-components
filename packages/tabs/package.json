@@ -7,6 +7,7 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
+  "types": "./dist/src/it-tabs.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
     "./it-tabs.js": "./dist/src/it-tabs.js"
