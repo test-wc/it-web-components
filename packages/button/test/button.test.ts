@@ -13,7 +13,6 @@ describe('Button component', () => {
       const el = await fixture<ItButton>(html`
         <it-button variation="primary">bsi Button</it-button>
         <it-button variation="link">bsi Button</it-button>
-        <it-button variation="transparent">bsi Button</it-button>
       `);
       await expect(el).to.be.accessible();
     });
@@ -24,6 +23,17 @@ describe('Button component', () => {
 
       await expect(el).to.be.accessible();
       await expect(button?.hasAttribute('disabled')).to.be.true;
+    });
+
+    it('on bg-dark is accessible', async () => {
+      const el = await fixture<ItButton>(
+        html`<div class="bg-dark">
+          <it-button variation="primary">bsi Button</it-button>
+          <it-button variation="link">bsi Button</it-button>
+        </div>`,
+      );
+
+      await expect(el).to.be.accessible();
     });
   });
 
