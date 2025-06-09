@@ -52,26 +52,27 @@ const renderVariant = (args, defaultText) => {
     })}
     ${renderDefault({
       ...args,
-      slot: slot ?? `${defaultText  } outline`,
+      slot: slot ?? `${defaultText} outline`,
       outline: true,
     })}
   </div>`;
 };
 
-const renderSizeVariant = (args, defaultText) => html`<div class="flex">
+const renderSizeVariant = (args, defaultText) =>
+  html`<div class="flex">
     ${renderComponent(
       {
         ...args,
         variant: 'primary',
       },
-      `Primary ${  defaultText}`,
+      `Primary ${defaultText}`,
     )}
     ${renderComponent(
       {
         ...args,
         variant: 'secondary',
       },
-      `Secondary ${  defaultText}`,
+      `Secondary ${defaultText}`,
     )}
   </div>`;
 
@@ -184,17 +185,14 @@ export const VariantiColore: Story = {
       },
     },
   },
-  render: (args) => {
-    const slot = args.slot?.length > 0 ? args.slot : null;
-    return html`
-      ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
-      ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
-      ${renderVariant({ ...args, variant: 'success' }, 'Success')}
-      ${renderVariant({ ...args, variant: 'danger' }, 'Danger')}
-      ${renderVariant({ ...args, variant: 'warning' }, 'Warning')}
-      ${renderVariant({ ...args, variant: 'info' }, 'Info')} ${renderVariant({ ...args, variant: 'link' }, 'Link')}
-    `;
-  },
+  render: (args) => html`
+    ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
+    ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
+    ${renderVariant({ ...args, variant: 'success' }, 'Success')}
+    ${renderVariant({ ...args, variant: 'danger' }, 'Danger')}
+    ${renderVariant({ ...args, variant: 'warning' }, 'Warning')} ${renderVariant({ ...args, variant: 'info' }, 'Info')}
+    ${renderVariant({ ...args, variant: 'link' }, 'Link')}
+  `,
 };
 
 export const SfondoScuro: Story = {

@@ -7,8 +7,7 @@ export interface BaseComponentInterface {
   composeClass(...classes: any): string;
 }
 
-export type BaseComponentType = typeof LitElement &
-  Constructor<BaseComponentInterface>;
+export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInterface>;
 
 /**
  * Factory function per creare una base class estendibile

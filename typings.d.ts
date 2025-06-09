@@ -1,3 +1,7 @@
 declare module '*.scss?inline';
 
-type Constructor<T = {}> = new (...args: any[]) => T;
+export {}; // <== Aggiungi questo
+
+declare global {
+  type Constructor<T = {}> = new (...args: any[]) => T;
+}

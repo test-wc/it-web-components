@@ -5,9 +5,7 @@ import { ItButton } from '../src/ItButton.js';
 describe('Button component', () => {
   describe('accessibility', () => {
     it('default is accessible', async () => {
-      const el = await fixture<ItButton>(
-        html`<it-button>My Button</it-button>`,
-      );
+      const el = await fixture<ItButton>(html`<it-button>My Button</it-button>`);
       await expect(el).to.be.accessible();
     });
 
@@ -21,9 +19,7 @@ describe('Button component', () => {
     });
 
     it('disabled is accessible', async () => {
-      const el = await fixture<ItButton>(
-        html`<it-button disabled>bsi Button</it-button>`,
-      );
+      const el = await fixture<ItButton>(html`<it-button disabled>bsi Button</it-button>`);
       const button = el.shadowRoot?.querySelector('button');
 
       await expect(el).to.be.accessible();

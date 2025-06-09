@@ -70,7 +70,7 @@ export class ItButton extends BaseComponent(styles) {
   }
 
   connectedCallback(): void {
-    super.connectedCallback();
+    super.connectedCallback?.();
 
     if (this.block) {
       this.classList.add('d-block', 'w-100');
