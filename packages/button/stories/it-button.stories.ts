@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../src/it-button.ts';
+import MainDescription from './main-description.ts';
 
 interface ButtonProps {
   variant: string;
@@ -130,6 +131,13 @@ const meta = {
       control: 'text',
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        component: MainDescription(),
+      },
+    },
+  },
 } satisfies Meta<ButtonProps>;
 
 export default meta;
@@ -185,6 +193,21 @@ export const VariantiColore: Story = {
       },
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        story: `Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
+        <div class="py-4">
+          <h4>Note sullo stato disabilitato</h4>
+    <ul>
+      <li>
+        I bottoni disabilitati includeranno l’attributo aria-disabled="true" per indicare lo stato dell’elemento alle
+        tecnologie assistive.
+      </li>
+    </ul></div>`,
+      },
+    },
+  },
   render: (args) => html`
     ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
     ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
@@ -213,6 +236,15 @@ export const SfondoScuro: Story = {
       },
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        story: `<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div><p>L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
+come gli screen reader. Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
+visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>`,
+      },
+    },
+  },
   render: (args) => html`
     <div class="bg-dark p-4">
       ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
@@ -238,6 +270,13 @@ export const VariantiDiDimensione: Story = {
     block: {
       table: {
         disable: true,
+      },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `<p>Per ottenere bottoni di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo <code flex>size</code> con i valori <code>"lg"</code>, <code flex>"sm"</code>, <code flex>"xs"</code>.</p><p>Utilizzando invece l'attributo <code>block</code> si ottengono invece bottoni che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.</p>`,
       },
     },
   },
