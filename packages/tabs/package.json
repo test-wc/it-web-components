@@ -7,6 +7,7 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
+  "types": "./dist/src/it-tabs.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
     "./it-tabs.js": "./dist/src/it-tabs.js"
@@ -18,9 +19,9 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "build": "tsc --build tsconfig.build.json",
-    "clean": "rimraf node_modules .turbo",
-    "prepublish": "build",
+    "build": "rollup --config rollup.config.js",
+    "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
+    "prepublish": "pnpm build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
@@ -33,6 +34,8 @@
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
@@ -42,7 +45,8 @@
     "eslint-plugin-storybook": "catalog:",
     "prettier": "catalog:",
     "rimraf": "^6.0.1",
-    "sass": "catalog:",
+    "rollup": "^4.42.0",
+    "rollup-plugin-scss-lit": "^2.1.0",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
   },
