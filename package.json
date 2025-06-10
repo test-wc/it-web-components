@@ -2,19 +2,23 @@
   "name": "design-web-components",
   "description": "Web components del Design System .italia",
   "private": true,
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/design-web-components.git"
   },
+  "author": "Presidenza del Consiglio dei Ministri",
+  "homepage": "https://italia.github.io/design-web-components",
+  "bugs": {
+    "url": "https://github.com/italia/design-web-components/issues"
+  },
   "type": "module",
   "scripts": {
     "analyze": "turbo run analyze",
-    "build": "turbo run build analyze",
-    "dev": "turbo run dev",
+    "build": "turbo run build build:styles analyze",
     "lint": "turbo run lint",
     "format": "turbo run format",
-    "clean": "turbo run clean && rimraf node_modules",
+    "clean": "turbo run clean && rimraf .turbo storybook-static coverage node_modules",
     "prepare": "husky && pnpm test:setup",
     "release": "turbo run build",
     "test:setup": "pnpm dlx playwright install",
@@ -26,7 +30,6 @@
     "@chromatic-com/storybook": "^3.2.6",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@italia/design-web-components": "workspace:^",
     "@open-wc/eslint-config": "^12.0.3",
     "@storybook/addon-a11y": "^8.6.14",
     "@storybook/addon-essentials": "^8.6.14",
@@ -43,7 +46,7 @@
     "turbo": "^2.5.0"
   },
   "engines": {
-    "node": "< 23"
+    "node": "20.x || 22.x"
   },
   "packageManager": "pnpm@10.11.0"
 }

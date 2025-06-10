@@ -3,14 +3,14 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**/*.js", "dist/**/*.js.map", "dist/**/*.d.ts", "dist/**/*.d.ts.map"]
     },
-    "dev": {
-      "persistent": true,
-      "cache": false
+    "build:styles": {
+      "dependsOn": [],
+      "outputs": ["dist/styles.css"]
     },
     "analyze": {
-      "dependsOn": [],
+      "dependsOn": ["^build"],
       "outputs": ["custom-elements.json"]
     },
     "test": {

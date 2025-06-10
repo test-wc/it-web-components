@@ -7,7 +7,6 @@ import { litScss } from 'rollup-plugin-scss-lit';
  */
 export default {
   input: ['src/index.ts', 'src/it-tabs.ts'],
-  // input: 'src/index.ts',
   output: {
     dir: 'dist',
     sourcemap: true,
