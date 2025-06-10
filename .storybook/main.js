@@ -21,6 +21,9 @@ const config = {
     options: {},
   },
   staticDirs: ['./assets'],
+  docs: {
+    defaultName: 'Documentazione',
+  },
   viteFinal: async (config) => {
     config.css = config.css || {};
     config.css.preprocessorOptions = config.css.preprocessorOptions || {};
