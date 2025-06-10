@@ -144,34 +144,31 @@ export default meta;
 type Story = StoryObj<ButtonProps>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Default: Story = {
-  args: {
-    variant: 'primary',
-  },
-};
 
 export const Tipologie: Story = {
   ...meta,
-  render: (params) => html`
-    ${renderDefault({
-      ...params,
-      slot: `Button - ${params.slot}`,
-      type: 'button',
-    })}
-    ${renderDefault({
-      ...params,
-      slot: `Submit - ${params.slot}`,
-      type: 'submit',
-    })}
-    ${renderDefault({
-      ...params,
-      slot: `Reset - ${params.slot}`,
-      type: 'reset',
-    })}
-  `,
   args: {
     variant: 'primary',
   },
+  render: (params) => html`
+    <div class="flex tipologie-buttons">
+      ${renderDefault({
+        ...params,
+        slot: `Button - ${params.slot}`,
+        type: 'button',
+      })}
+      ${renderDefault({
+        ...params,
+        slot: `Submit - ${params.slot}`,
+        type: 'submit',
+      })}
+      ${renderDefault({
+        ...params,
+        slot: `Reset - ${params.slot}`,
+        type: 'reset',
+      })}
+    </div>
+  `,
 };
 
 export const VariantiColore: Story = {
