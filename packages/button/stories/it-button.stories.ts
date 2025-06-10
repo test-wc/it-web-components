@@ -144,6 +144,16 @@ export default meta;
 type Story = StoryObj<ButtonProps>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+export const EsempioInterattivo: Story = {
+  ...meta,
+  args: {
+    variant: 'primary',
+  },
+  render: (params) =>
+    html` ${renderComponent({
+      ...params,
+    })}`,
+};
 
 export const Tipologie: Story = {
   ...meta,
