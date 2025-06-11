@@ -114,6 +114,36 @@ In quanto icone puramente di presentazione, vengono aggiunti di default \`role="
 <it-icon name="it-user" size="sm" label="Utente"></it-icon>
 \`\`\`
 
+### Personalizzazione degli stili
+
+Il componente \`<it-icon>\` utilizza Shadow DOM per incapsulare internamente il contenuto SVG e proteggerne gli stili. Per consentire la personalizzazione da parte degli utilizzatori, espone il part nativo \`part="icon"\` direttamente sull'elemento \`<svg>\`.
+
+#### Come applicare stili personalizzati
+
+Si possono applicare gli stili dall’esterno usando il selettore \`::part()\` https://developer.mozilla.org/en-US/docs/Web/CSS/::part:
+
+\`\`\`css
+it-icon::part(icon) {
+  width: 48px;
+  height: 48px;
+  fill: #007a33;
+  stroke: #000;
+  stroke-width: 1px;
+}
+\`\`\`
+####**Nota: il fill può essere sovrascritto solo se lo specifico SVG non imposta già un fill inline.**
+
+\`\`\`html
+<it-icon name="check" size="lg" title="Check"></it-icon>
+
+<style>
+  it-icon::part(icon) {
+    fill: red;
+    width: 64px;
+    height: 64px;
+  }
+</style>
+\`\`\`
 
 ### Elemento interattivo
 `,
