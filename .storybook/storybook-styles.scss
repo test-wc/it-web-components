@@ -1,18 +1,19 @@
 #storybook-root {
-  box-sizing: border-box;
-  margin: auto;
-  padding: 1rem;
-  max-height: 100%;
   width: fit-content;
+  max-height: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin: auto;
 }
 
 .flex {
   display: flex;
-  gap: 0.6rem;
   padding: 0.3rem 0;
+  gap: 0.6rem;
 
   &.tipologie-buttons {
     justify-content: center;
+
     .flex {
       flex-direction: column;
       align-items: center;
