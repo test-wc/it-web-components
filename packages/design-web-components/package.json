@@ -1,51 +1,44 @@
 {
   "name": "@italia/design-web-components",
   "description": "Bundle dei web components del Design System .italia",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/design-web-components.git",
-    "directory": "packages/bundle"
+    "directory": "packages/design-web-components"
   },
-  "author": "Team Digitale",
-  "homepage": "https://designers.italia.it",
+  "author": "Presidenza del Consiglio dei Ministri",
+  "homepage": "https://italia.github.io/design-web-components",
   "bugs": {
     "url": "https://github.com/italia/design-web-components/issues"
   },
-  "main": "./src/index.js",
-  "module": "./src/index.js",
   "type": "module",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
   "exports": {
-    ".": {
-      "default": "./src/index.js"
-    },
-    "./package.json": "./package.json",
-    "./src/index.js": {
-      "default": "./src/index.js"
-    },
-    "./elements.js": {
-      "default": "./elements.js"
-    },
-    "./styles/*": "./styles/*"
+    ".": "./dist/src/index.js",
+    "./elements.js": "./dist/elements.js",
+    "./styles.css": "./dist/styles.css"
   },
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf node_modules .turbo",
-    "prepublish": "build",
+    "build": "rollup --config rollup.config.js",
+    "build:styles": "sass --style=compressed --silence-deprecation=import --load-path=node_modules styles/index.scss dist/styles.css",
+    "clean": "rimraf node_modules .turbo .rollup.cache dist",
+    "prepublish": "pnpm build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" \"styles/**/*.scss\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"styles/**/*.scss\" --write"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
+    "dist",
+    "!dist/tsconfig.tsbuildinfo",
     "custom-elements.json",
-    "!stories/",
-    "!test/"
+    "README.md",
+    "AUTHORS",
+    "LICENSE"
   ],
   "keywords": [
     "web components",
@@ -58,21 +51,28 @@
     "lit-html"
   ],
   "dependencies": {
-    "@italia/tabs": "workspace:^",
-    "bootstrap-italia": "catalog:"
+    "@italia/tabs": "workspace:^"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
+    "bootstrap-italia": "catalog:",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-storybook": "catalog:",
     "prettier": "catalog:",
     "rimraf": "^6.0.1",
+    "rollup": "^4.42.0",
+    "sass": "catalog:",
     "typescript": "catalog:"
   },
-  "types": "./src/index.d.ts",
+  "peerDependencies": {
+    "lit": "catalog:"
+  },
+  "types": "./dist/src/index.d.ts",
   "customElements": "custom-elements.json",
   "sideEffects": [
     "./elements.js"
