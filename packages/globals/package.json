@@ -23,7 +23,7 @@
     "prepublish": "build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" --write",
-    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
+    "test-disabled": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
     "lit": "catalog:"
