@@ -24,9 +24,9 @@ export class ItIcon extends BaseComponent {
   @property({ type: String }) src?: string;
 
   @state() private svgElement?: HTMLElement;
-  @state() private titleId?: string;
   @query('slot')
   private slotEl!: HTMLSlotElement;
+  private titleId?: string;
 
   override async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('name') && this.name) {
@@ -77,7 +77,6 @@ export class ItIcon extends BaseComponent {
     } catch (e) {
       console.error(e);
       this.svgElement = undefined;
-      this.requestUpdate();
       this.announceSvgLoadError(e as Error);
     }
   }

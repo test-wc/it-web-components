@@ -13,7 +13,6 @@ describe('<it-icon>', () => {
   it('renders an icon with correct SVG markup and role', async () => {
     const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" title="Utente"></it-icon>`);
 
-    await new Promise((res) => setTimeout(res, 100));
     const svg = el.shadowRoot?.querySelector('svg');
     expect(svg).to.exist;
     expect(svg?.getAttribute('role')).to.equal('img');
@@ -65,7 +64,7 @@ describe('<it-icon>', () => {
     await expect(el).to.be.accessible();
   });
 
-  it('passes a11y checks without label and aria-hidden', async () => {
+  it('passes a11y checks', async () => {
     const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user"></it-icon>`);
     await expect(el).to.be.accessible();
   });
