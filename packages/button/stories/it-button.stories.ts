@@ -80,7 +80,7 @@ const renderSizeVariant = (args, defaultText) =>
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Componenti/Button',
-  tags: ['autodocs'],
+  // tags: ['autodocs'],
   component: 'it-button',
   render: (args) => renderDefault(args),
   args: {

@@ -4,7 +4,7 @@
     "rootDir": ".",
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts", "../../typings.d.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["dist", "build", "node_modules"],
-  "references": [{ "path": "../typescript-config" }, { "path": "../../typings.d.ts" }]
+  "references": [{ "path": "../typescript-config" }]
 }

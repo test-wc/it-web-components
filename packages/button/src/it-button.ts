@@ -3,10 +3,12 @@ import { html, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import styles from './button.scss?inline';
+import styles from './button.scss';
 
 @customElement('it-button')
-export class ItButton extends BaseComponent(styles) {
+export class ItButton extends BaseComponent {
+  static styles = styles;
+
   static get formAssociated() {
     return true;
   }

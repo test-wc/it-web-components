@@ -1,6 +1,6 @@
-import './button.js';
+import '@italia/button';
 import { expect, fixture, html } from '@open-wc/testing';
-import { ItButton } from '../src/it-button.ts';
+import { ItButton } from '@italia/button';
 
 describe('Button component', () => {
   describe('accessibility', () => {
@@ -39,6 +39,7 @@ describe('Button component', () => {
 
   describe('form', () => {
     it('submits a form', async () => {
+      //verificare se c'è qualcosa in openwc testing (mocha e playwright per testare il submit)
       const submitHandler = sinon.spy(); /* per verificare che l’evento sia stato attivato. */
 
       const el = await fixture<HTMLFormElement>(html`

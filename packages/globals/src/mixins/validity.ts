@@ -1,3 +1,4 @@
+import { Constructor } from '../index.js';
 /**
  * @license
  *
