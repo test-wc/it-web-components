@@ -100,7 +100,12 @@ const meta: Meta<IconProps> = {
 Il componente \`<it-icon>\` consente di visualizzare una delle icone SVG disponibili nel Design System, usare un icona proprietaria o un icona tramite URL.
 Tutte le icone vengono caricate unicamente in modalià asincrona.
 
-Supporta accessibilità tramite \`label\` e \`role\`. In presenza di \`label\`, viene inserito un tag \`<label>\` all'interno dell'SVG per screen reader.
+<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<p>
+Il componente garantisce accessibilità di default, e la estende tramite l'attributo \`label\` e gli attributi Aria \`role\` e \`aria-hidden\`. \n
+In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n
+In quanto icone puramente di presentazione, vengono aggiunti di default \`role="img"\` e \`aria-hidden="true"\` all'icona svg. \n
+\n\nIn caso di particolari necessità di definizione di ruolo e visibilità e/o uso di icone e svg esterni, l'utente può comunque sovrascrivere gli attributi \`role\` e \`aria-hidden\`, ma sarà responsabile di rendere accessibile l'icona.</p></div></div>
 
 
 #### Esempio di utilizzo:
@@ -374,17 +379,17 @@ export const SVGEsterno: Story = {
     html`<div style="display: flex; gap: 20px; align-items: baseline;">
       ${renderIcon({
         src: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Palermo-Stemma_%281999%29.svg',
-        label: 'Stemma Roma',
+        label: 'Stemma 1',
         size: 'xl',
       })}
       ${renderIcon({
         src: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg',
-        label: 'Stemma Roma',
+        label: 'Stemma 2',
         size: 'xl',
       })}
       ${renderIcon({
         src: 'https://upload.wikimedia.org/wikipedia/commons/9/93/CoA_Citt%C3%A0_di_Milano.svg',
-        label: 'Stemma Roma',
+        label: 'Stemma 3',
         size: 'xl',
       })}
     </div>`,
@@ -393,7 +398,6 @@ export const SVGEsterno: Story = {
       description: {
         story: `
 È possibile utilizzare un'immagine esterna come icona, utilizzando l'URL dell'immagine nell'attributo src del componente.
-Uso:
 
 \`\`\`html
 <it-icon src="https://…/logo.svg" label="Logo"></it-icon>

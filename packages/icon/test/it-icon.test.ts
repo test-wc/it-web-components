@@ -19,7 +19,7 @@ describe('<it-icon>', () => {
     expect(svg).to.exist;
     expect(svg?.getAttribute('role')).to.equal('img');
 
-    const title = svg?.querySelector('label');
+    const title = svg?.querySelector('title');
     expect(title?.textContent).to.equal('Utente');
   });
 
@@ -35,7 +35,7 @@ describe('<it-icon>', () => {
     expect(svg?.hasAttribute('aria-hidden')).to.be.true;
     expect(svg?.getAttribute('aria-hidden')).to.equal('true');
 
-    expect(svg?.querySelector('label')).to.not.exist;
+    expect(svg?.querySelector('title')).to.not.exist;
   });
 
   it('respects role when explicitly set', async () => {
@@ -61,13 +61,25 @@ describe('<it-icon>', () => {
     expect(svg?.classList.contains('icon-padded')).to.be.true;
   });
 
+  it('passes a11y checks', async () => {
+    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user"></it-icon>`);
+    await expect(el).to.be.accessible();
+  });
+
   it('passes a11y checks with label', async () => {
     const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" label="Icona utente"></it-icon>`);
     await expect(el).to.be.accessible();
   });
 
-  it('passes a11y checks', async () => {
-    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user"></it-icon>`);
+  it('does not pass a11y checks with overridden aria-hidden and missing label', async () => {
+    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" aria-hidden="false"></it-icon>`);
+    await expect(el).to.not.be.accessible();
+  });
+
+  it('passes a11y checks with overridden aria-hidden and provided label', async () => {
+    const el = await fixtureWithDelay<ItIcon>(
+      html`<it-icon name="it-user" aria-hidden="false" label="Label"></it-icon>`,
+    );
     await expect(el).to.be.accessible();
   });
 
@@ -88,7 +100,7 @@ describe('<it-icon>', () => {
       const el = await fixtureWithDelay(html`<it-icon name="it-user" label="User"></it-icon>`);
 
       let svg = el.shadowRoot!.querySelector('svg');
-      let title = svg?.querySelector('label');
+      let title = svg?.querySelector('title');
       expect(svg).to.exist;
       expect(title?.textContent).to.equal('User');
 
@@ -100,7 +112,7 @@ describe('<it-icon>', () => {
       });
 
       svg = el.shadowRoot!.querySelector('svg');
-      title = svg?.querySelector('label');
+      title = svg?.querySelector('title');
       expect(svg).to.exist;
       expect(title?.textContent).to.equal('Android');
       expect(el.getAttribute('name')).to.equal('it-android');
@@ -141,7 +153,7 @@ describe('<it-icon>', () => {
       expect(svg.getAttribute('focusable')).to.equal('false');
       expect(svg.getAttribute('aria-hidden')).to.equal('true');
 
-      const title = svg.querySelector('label');
+      const title = svg.querySelector('title');
       expect(title?.textContent).to.equal('Custom title');
     });
   });
@@ -166,7 +178,7 @@ describe('<it-icon>', () => {
       };
     });
 
-    it('loads and renders SVG from URL', async () => {
+    it('loads and renders SVG from URL, label provided and component accessible ', async () => {
       const el = await fixtureWithDelay<ItIcon>(
         html`<it-icon src="https://example.com/fake-icon.svg" label="SVG da URL"></it-icon>`,
       );
@@ -178,8 +190,24 @@ describe('<it-icon>', () => {
 
       expect(svg).to.exist;
       expect(svg?.getAttribute('role')).to.equal('img');
-      expect(svg?.querySelector('label')?.textContent).to.equal('SVG da URL');
+      expect(svg?.querySelector('title')?.textContent).to.equal('SVG da URL');
       expect(svg?.outerHTML).to.include('<circle');
+      expect(el).to.be.accessible();
+    });
+
+    it('loads and renders SVG from URL, fails a11y due to user mistake in attrs', async () => {
+      const el = await fixtureWithDelay<ItIcon>(html`<it-icon src="https://example.com/fake-icon.svg"></it-icon>`);
+
+      // aspettiamo che venga caricata e renderizzata la svg
+      await elementUpdated(el);
+
+      const svg = el.shadowRoot?.querySelector('svg');
+
+      expect(svg).to.exist;
+      expect(svg?.getAttribute('role')).to.equal('img');
+      expect(svg?.outerHTML).to.include('<circle');
+
+      expect(el).to.not.be.accessible();
     });
 
     it('renders nothing on fetch error', async () => {

@@ -119,10 +119,10 @@ export class ItIcon extends BaseComponent {
     svgEl.setAttribute('aria-hidden', this.ariaHidden !== null ? this.ariaHidden : 'true');
 
     svgEl.removeAttribute('aria-labelledby');
-    svgEl.querySelectorAll('label').forEach((t) => t.remove());
+    svgEl.querySelectorAll('title').forEach((t) => t.remove());
 
     if (this.label && this.titleId) {
-      const titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'label');
+      const titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'title');
       titleEl.id = this.titleId;
       titleEl.textContent = this.label;
       svgEl.prepend(titleEl);
