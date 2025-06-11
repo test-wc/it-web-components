@@ -1,5 +1,6 @@
 import '@italia/button';
 import { expect, fixture, html } from '@open-wc/testing';
+
 import { type ItButton } from '@italia/button';
 
 describe('Button component', () => {
@@ -39,8 +40,11 @@ describe('Button component', () => {
 
   describe('form', () => {
     it('submits a form', async () => {
-      // verificare se c'è qualcosa in openwc testing (mocha e playwright per testare il submit)
-      const submitHandler = sinon.spy(); /* per verificare che l’evento sia stato attivato. */
+      let called = false;
+      function submitHandler() {
+        /* per verificare che l’evento sia stato attivato. */
+        called = true;
+      }
 
       const el = await fixture<HTMLFormElement>(html`
         <form
@@ -58,10 +62,15 @@ describe('Button component', () => {
 
       innerButton?.click();
 
-      expect(submitHandler.calledOnce).to.be.true;
+      expect(called).to.be.true;
     });
+
     it('does not submit the form when the button is disabled', async () => {
-      const submitHandler = sinon.spy();
+      let called = false;
+      function submitHandler() {
+        /* per verificare che l’evento sia stato attivato. */
+        called = true;
+      }
 
       const el = await fixture<HTMLFormElement>(html`
         <form
@@ -79,7 +88,7 @@ describe('Button component', () => {
 
       innerButton?.click();
 
-      expect(submitHandler.called).to.be.false;
+      expect(called).to.be.false;
     });
   });
 });
