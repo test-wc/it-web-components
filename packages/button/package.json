@@ -1,6 +1,6 @@
 {
-  "name": "@italia/tabs",
-  "description": "Web component it-tabs del Design System .italia",
+  "name": "@italia/button",
+  "description": "Web component it-button del Design System .italia",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/design-web-components.git",
-    "directory": "packages/tabs"
+    "directory": "packages/button"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "homepage": "https://italia.github.io/design-web-components",
@@ -22,7 +22,7 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-tabs.js": "./dist/src/it-tabs.js"
+    "./it-button.js": "./dist/src/it-button.js"
   },
   "files": [
     "dist/src",
@@ -35,12 +35,14 @@
     "analyze": "cem analyze --litelement --exclude dist",
     "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
-    "prepublish": "pnpm build",
+    "prepublish": "build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
+    "@italia/globals": "workspace:^",
+    "bootstrap-italia": "catalog:",
     "lit": "catalog:"
   },
   "devDependencies": {
@@ -58,9 +60,9 @@
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-storybook": "catalog:",
     "prettier": "catalog:",
-    "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
     "rollup-plugin-scss-lit": "^2.1.0",
+    "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
   },

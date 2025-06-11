@@ -1,12 +1,11 @@
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { litScss } from 'rollup-plugin-scss-lit';
-
 /**
  * @type {import('rollup').RollupOptions}
  */
 export default {
-  input: ['src/index.ts', 'src/it-tabs.ts'],
+  input: ['src/index.ts', 'src/it-button.ts'],
   output: {
     dir: 'dist',
     sourcemap: true,
@@ -20,10 +19,10 @@ export default {
     }),
     litScss({
       minify: process.env.NODE_ENV === 'production',
-      // options: {
-      //   loadPaths: ['node_modules'],
-      //   silenceDeprecations: ['import'],
-      // },
+      options: {
+        loadPaths: ['node_modules'],
+        silenceDeprecations: ['import'],
+      },
     }),
   ],
   external: [/^lit(\/|$)/],

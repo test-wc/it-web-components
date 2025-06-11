@@ -62,9 +62,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
-      '@italia/design-web-components':
-        specifier: workspace:^
-        version: link:packages/design-web-components
       '@open-wc/eslint-config':
         specifier: ^12.0.3
         version: 12.0.3(@babel/core@7.27.1)(eslint-plugin-html@7.1.0)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint-plugin-lit-a11y@4.1.4(eslint@8.57.1))(eslint-plugin-lit@1.15.0(eslint@8.57.1))(eslint-plugin-no-only-tests@3.3.0)(eslint-plugin-wc@1.5.0(eslint@8.57.1))(eslint@8.57.1)
@@ -92,6 +89,9 @@ importers:
       '@storybook/web-components-vite':
         specifier: ^8.6.14
         version: 8.6.14(lit@3.3.0)(storybook@8.6.14(prettier@3.5.3))(vite@6.3.5(@types/node@22.15.19)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.0)(terser@5.39.2)(yaml@2.7.1))
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
       husky:
         specifier: ^9.0.11
         version: 9.1.7
@@ -108,24 +108,103 @@ importers:
         specifier: ^2.5.0
         version: 2.5.3
 
-  packages/design-web-components:
+  packages/button:
     dependencies:
-      '@italia/tabs':
+      '@italia/globals':
         specifier: workspace:^
-        version: link:../tabs
+        version: link:../globals
       bootstrap-italia:
         specifier: 'catalog:'
         version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
     devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
       '@italia/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
       '@typescript-eslint/eslint-plugin':
         specifier: 'catalog:'
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)
       '@typescript-eslint/parser':
         specifier: 'catalog:'
         version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
+      eslint:
+        specifier: 'catalog:'
+        version: 8.57.1
+      eslint-config-prettier:
+        specifier: 'catalog:'
+        version: 9.1.0(eslint@8.57.1)
+      eslint-plugin-storybook:
+        specifier: 'catalog:'
+        version: 0.12.0(eslint@8.57.1)(typescript@5.8.3)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.5.3
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
+  packages/design-web-components:
+    dependencies:
+      '@italia/tabs':
+        specifier: workspace:^
+        version: link:../tabs
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+    devDependencies:
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@typescript-eslint/eslint-plugin':
+        specifier: 'catalog:'
+        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)
+      '@typescript-eslint/parser':
+        specifier: 'catalog:'
+        version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
       eslint:
         specifier: 'catalog:'
         version: 8.57.1
@@ -141,6 +220,12 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
       typescript:
         specifier: 'catalog:'
         version: 5.8.3

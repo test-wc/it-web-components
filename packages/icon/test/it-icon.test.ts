@@ -1,23 +1,25 @@
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
-import '@italia/icon';
-import { ItIcon } from '@italia/icon';
+import type { ItIcon } from '@italia/icon';
 import { LitElement, TemplateResult } from 'lit';
+import '@italia/icon';
 
 async function fixtureWithDelay<T extends LitElement>(template: TemplateResult, delayMs = 10): Promise<T> {
   const el = await fixture<T>(template);
-  await new Promise((res) => setTimeout(res, delayMs));
+  await new Promise((res) => {
+    setTimeout(res, delayMs);
+  });
   return el;
 }
 
 describe('<it-icon>', () => {
   it('renders an icon with correct SVG markup and role', async () => {
-    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" title="Utente"></it-icon>`);
+    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" label="Utente"></it-icon>`);
 
     const svg = el.shadowRoot?.querySelector('svg');
     expect(svg).to.exist;
     expect(svg?.getAttribute('role')).to.equal('img');
 
-    const title = svg?.querySelector('title');
+    const title = svg?.querySelector('label');
     expect(title?.textContent).to.equal('Utente');
   });
 
@@ -33,7 +35,7 @@ describe('<it-icon>', () => {
     expect(svg?.hasAttribute('aria-hidden')).to.be.true;
     expect(svg?.getAttribute('aria-hidden')).to.equal('true');
 
-    expect(svg?.querySelector('title')).to.not.exist;
+    expect(svg?.querySelector('label')).to.not.exist;
   });
 
   it('respects role when explicitly set', async () => {
@@ -60,7 +62,7 @@ describe('<it-icon>', () => {
   });
 
   it('passes a11y checks with label', async () => {
-    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" title="Icona utente"></it-icon>`);
+    const el = await fixtureWithDelay<ItIcon>(html`<it-icon name="it-user" label="Icona utente"></it-icon>`);
     await expect(el).to.be.accessible();
   });
 
@@ -83,20 +85,22 @@ describe('<it-icon>', () => {
 
   describe('ItIcon dynamic behavior', () => {
     it('updates icon and title dynamically', async () => {
-      const el = await fixtureWithDelay(html`<it-icon name="it-user" title="User"></it-icon>`);
+      const el = await fixtureWithDelay(html`<it-icon name="it-user" label="User"></it-icon>`);
 
       let svg = el.shadowRoot!.querySelector('svg');
-      let title = svg?.querySelector('title');
+      let title = svg?.querySelector('label');
       expect(svg).to.exist;
       expect(title?.textContent).to.equal('User');
 
       el.setAttribute('name', 'it-android');
-      el.setAttribute('title', 'Android');
+      el.setAttribute('label', 'Android');
 
-      await new Promise((res) => setTimeout(res, 100));
+      await new Promise((res) => {
+        setTimeout(res, 100);
+      });
 
       svg = el.shadowRoot!.querySelector('svg');
-      title = svg?.querySelector('title');
+      title = svg?.querySelector('label');
       expect(svg).to.exist;
       expect(title?.textContent).to.equal('Android');
       expect(el.getAttribute('name')).to.equal('it-android');
@@ -124,7 +128,7 @@ describe('<it-icon>', () => {
 
     it('applies attributes correctly to custom slotted svg', async () => {
       const el = await fixtureWithDelay<ItIcon>(html`
-        <it-icon size="lg" title="Custom title" padded>
+        <it-icon size="lg" label="Custom title" padded>
           <svg viewBox="0 0 24 24"><path d="..."></path></svg>
         </it-icon>
       `);
@@ -137,7 +141,7 @@ describe('<it-icon>', () => {
       expect(svg.getAttribute('focusable')).to.equal('false');
       expect(svg.getAttribute('aria-hidden')).to.equal('true');
 
-      const title = svg.querySelector('title');
+      const title = svg.querySelector('label');
       expect(title?.textContent).to.equal('Custom title');
     });
   });
@@ -146,7 +150,7 @@ describe('<it-icon>', () => {
 
     before(() => {
       // Mock globale fetch
-      globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+      globalThis.fetch = async (input: RequestInfo | URL): Promise<Response> => {
         let url: string;
         if (typeof input === 'string') url = input;
         else if (input instanceof URL) url = input.toString();
@@ -164,7 +168,7 @@ describe('<it-icon>', () => {
 
     it('loads and renders SVG from URL', async () => {
       const el = await fixtureWithDelay<ItIcon>(
-        html`<it-icon src="https://example.com/fake-icon.svg" title="SVG da URL"></it-icon>`,
+        html`<it-icon src="https://example.com/fake-icon.svg" label="SVG da URL"></it-icon>`,
       );
 
       // aspettiamo che venga caricata e renderizzata la svg
@@ -174,7 +178,7 @@ describe('<it-icon>', () => {
 
       expect(svg).to.exist;
       expect(svg?.getAttribute('role')).to.equal('img');
-      expect(svg?.querySelector('title')?.textContent).to.equal('SVG da URL');
+      expect(svg?.querySelector('label')?.textContent).to.equal('SVG da URL');
       expect(svg?.outerHTML).to.include('<circle');
     });
 

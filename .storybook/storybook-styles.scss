@@ -10,4 +10,12 @@
   display: flex;
   gap: 0.6rem;
   padding: 0.3rem 0;
+
+  &.tipologie-buttons {
+    justify-content: center;
+    .flex {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 }

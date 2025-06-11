@@ -1,3 +1,4 @@
+import { Constructor } from '../index.js';
 /**
  * @license
  *
@@ -27,10 +28,7 @@ const FormMixin = <TBase extends Constructor<HTMLElement>>(Base: TBase) => {
       // @ts-ignore
       super.connectedCallback();
       if (this.closest('form')) {
-        this.closest('form')?.addEventListener(
-          'formdata',
-          this._handleFormdata.bind(this),
-        );
+        this.closest('form')?.addEventListener('formdata', this._handleFormdata.bind(this));
       }
     }
 

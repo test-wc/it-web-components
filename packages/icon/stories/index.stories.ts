@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { type AvailableIcons, registry } from '../src/icon-registry';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { type AvailableIcons, registry } from '../src/icon-registry.ts';
 import '@italia/icon';
 
 interface IconProps {
   name?: string;
   size?: 'xs' | 'sm' | 'lg' | 'xl';
-  title?: string;
+  label?: string;
   color?: string;
   background?: string;
   align?: 'top' | 'middle' | 'bottom';
@@ -24,7 +24,7 @@ const renderIcon = (params: IconProps) => html`
   <it-icon
     name=${ifDefined(params.name)}
     size=${ifDefined(params.size)}
-    title=${ifDefined(params.title)}
+    label=${ifDefined(params.label)}
     color=${ifDefined(params.color)}
     background=${ifDefined(params.background)}
     align=${ifDefined(params.align)}
@@ -40,7 +40,7 @@ const meta: Meta<IconProps> = {
   tags: ['autodocs'],
   args: {
     name: 'it-star-full',
-    title: 'Titolo A11y',
+    label: 'Titolo A11y',
     align: 'middle',
     role: 'img',
     padded: false,
@@ -73,7 +73,7 @@ const meta: Meta<IconProps> = {
       options: colors,
       description: 'Background disponibili',
     },
-    title: {
+    label: {
       control: 'text',
       description: 'Testo accessibile per tecnologie assistive (A11Y)',
     },
@@ -100,13 +100,13 @@ const meta: Meta<IconProps> = {
 Il componente \`<it-icon>\` consente di visualizzare una delle icone SVG disponibili nel Design System, usare un icona proprietaria o un icona tramite URL.
 Tutte le icone vengono caricate unicamente in modalià asincrona.
 
-Supporta accessibilità tramite \`title\` e \`role\`. In presenza di \`title\`, viene inserito un tag \`<title>\` all'interno dell'SVG per screen reader.
+Supporta accessibilità tramite \`label\` e \`role\`. In presenza di \`label\`, viene inserito un tag \`<label>\` all'interno dell'SVG per screen reader.
 
 
 #### Esempio di utilizzo:
 
 \`\`\`html
-<it-icon name="it-user" size="sm" title="Utente"></it-icon>
+<it-icon name="it-user" size="sm" label="Utente"></it-icon>
 \`\`\`
 
 
@@ -121,9 +121,7 @@ export default meta;
 type Story = StoryObj<IconProps>;
 
 export const EsempioInterattivo: Story = {
-  render: (args) => {
-    return html`${renderIcon(args)}`;
-  },
+  render: (args) => html`${renderIcon(args)}`,
   tags: ['!autodocs', '!dev'],
 };
 
@@ -131,7 +129,8 @@ export const TutteLeIconeDisponibili: Story = {
   render: () => {
     const inputId = `search-${Math.random().toString(36).slice(2)}`;
 
-    const showCopiedFeedback = (el: HTMLElement) => {
+    const showCopiedFeedback = (element: HTMLElement) => {
+      const el = element;
       const original = el.innerHTML;
       el.innerHTML = '✅ Copiato!';
       el.style.color = '#007a33';
@@ -139,6 +138,14 @@ export const TutteLeIconeDisponibili: Story = {
         el.innerHTML = original;
         el.style.color = '#444';
       }, 1200);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent, name: string, label: HTMLElement) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navigator.clipboard.writeText(name);
+        showCopiedFeedback(label);
+      }
     };
 
     return html`
@@ -193,9 +200,10 @@ export const TutteLeIconeDisponibili: Story = {
           @input=${(e: InputEvent) => {
             const value = (e.target as HTMLInputElement).value.toLowerCase();
             const items = document.querySelectorAll('[data-icon-name]');
-            items.forEach((el) => {
-              const name = el.getAttribute('data-icon-name') || '';
-              (el as HTMLElement).style.display = name.includes(value) ? '' : 'none';
+            items.forEach((item) => {
+              const el = item as HTMLElement;
+              const nameAttr = el.getAttribute('data-icon-name') || '';
+              el.style.display = nameAttr.includes(value) ? '' : 'none';
             });
           }}
         />
@@ -205,14 +213,20 @@ export const TutteLeIconeDisponibili: Story = {
               <div
                 class="icon-item"
                 data-icon-name="${name.toLowerCase()}"
-                title="Clicca per copiare"
+                role="button"
+                tabindex="0"
+                label="Clicca per copiare"
                 @click=${(e: Event) => {
                   navigator.clipboard.writeText(name);
-                  const label = (e.currentTarget as HTMLElement).querySelector('.icon-label');
-                  if (label) showCopiedFeedback(label as HTMLElement);
+                  const label = (e.currentTarget as HTMLElement).querySelector('.icon-label') as HTMLElement;
+                  showCopiedFeedback(label);
+                }}
+                @keydown=${(e: KeyboardEvent) => {
+                  const label = (e.currentTarget as HTMLElement).querySelector('.icon-label') as HTMLElement;
+                  handleKeyDown(e, name, label);
                 }}
               >
-                <it-icon name="${name}" size="lg" title="${name}"></it-icon>
+                <it-icon name="${name}" size="lg" label="${name}"></it-icon>
                 <div class="icon-label">${name}</div>
               </div>
             `,
@@ -233,7 +247,7 @@ Puoi cercare un'icona per nome e cliccarla per copiarne il nome identificativo n
 Questo identificativo può poi essere utilizzato nel componente \`<it-icon>\`:
 
 \`\`\`html
-<it-icon name="it-user" size="sm" title="Utente"></it-icon>
+<it-icon name="it-user" size="sm" label="Utente"></it-icon>
 \`\`\`
         `,
       },
@@ -265,7 +279,7 @@ Il componente \`<it-icon>\` supporta tre dimensioni predefinite:
 Esempio:
 
 \`\`\`html
-<it-icon name="it-user" size="lg" title="Utente"></it-icon>
+<it-icon name="it-user" size="lg" label="Utente"></it-icon>
 \`\`\`
         `,
       },
@@ -276,10 +290,10 @@ Esempio:
 export const VariantiColore: Story = {
   render: () => html`
     <div style="display:flex; gap:20px; align-items:center; background-color:#ddd;padding:2rem">
-      ${colors.map((color) => renderIcon({ name: 'it-star-full', title: `col ${color}`, color }))}
-      ${renderIcon({ name: 'it-user', title: 'bg', background: 'light' })}
-      ${renderIcon({ name: 'it-user', title: 'bg', background: 'dark' })}
-      ${renderIcon({ name: 'it-user', title: 'bg', background: 'inverse' })}
+      ${colors.map((color) => renderIcon({ name: 'it-star-full', label: `col ${color}`, color }))}
+      ${renderIcon({ name: 'it-user', label: 'bg', background: 'light' })}
+      ${renderIcon({ name: 'it-user', label: 'bg', background: 'dark' })}
+      ${renderIcon({ name: 'it-user', label: 'bg', background: 'inverse' })}
     </div>
   `,
   parameters: {
@@ -297,7 +311,7 @@ export const VariantiAllineamento: Story = {
     <div>
       ${['top', 'middle', 'bottom'].map((align) =>
         // @ts-ignore
-        renderIcon({ name: 'it-star-full', title: `align ${align}`, align, size: 'lg' }),
+        renderIcon({ name: 'it-star-full', label: `align ${align}`, align, size: 'lg' }),
       )}
     </div>
   `,
@@ -315,11 +329,11 @@ export const VariantiAllineamento: Story = {
 export const CustomSVG: Story = {
   args: {
     size: 'sm',
-    title: 'Icona utente',
+    label: 'Icona utente',
   },
   render: (args) => html`
     <div style="display: flex; gap: 20px; align-items: baseline;">
-      <it-icon title="Icona utente" size="sm">
+      <it-icon ${args}>
         <svg viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10" fill="red"></circle>
         </svg>
@@ -336,7 +350,7 @@ export const CustomSVG: Story = {
 \`\`\`html
 <it-icon
     size='sm'
-    title='Icona utente'
+    label='Icona utente'
   >
   <svg viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10" fill="red"></circle>
@@ -347,7 +361,7 @@ export const CustomSVG: Story = {
 In questo caso:
 
 - il componente si occupa comunque di gestire l'accessibilità.
-- vengono rimossi eventuali \`title\` duplicati.
+- vengono rimossi eventuali \`label\` duplicati.
 - viene forzato \`aria-hidden="true"\` se necessario.
         `,
       },
@@ -360,17 +374,17 @@ export const SVGEsterno: Story = {
     html`<div style="display: flex; gap: 20px; align-items: baseline;">
       ${renderIcon({
         src: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Palermo-Stemma_%281999%29.svg',
-        title: 'Stemma Roma',
+        label: 'Stemma Roma',
         size: 'xl',
       })}
       ${renderIcon({
         src: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg',
-        title: 'Stemma Roma',
+        label: 'Stemma Roma',
         size: 'xl',
       })}
       ${renderIcon({
         src: 'https://upload.wikimedia.org/wikipedia/commons/9/93/CoA_Citt%C3%A0_di_Milano.svg',
-        title: 'Stemma Roma',
+        label: 'Stemma Roma',
         size: 'xl',
       })}
     </div>`,
@@ -382,7 +396,7 @@ export const SVGEsterno: Story = {
 Uso:
 
 \`\`\`html
-<it-icon src="https://…/logo.svg" title="Logo"></it-icon>
+<it-icon src="https://…/logo.svg" label="Logo"></it-icon>
 \`\`\`
         `,
       },

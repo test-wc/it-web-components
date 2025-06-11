@@ -1,6 +1,6 @@
-import { LitElement, unsafeCSS, CSSResult } from 'lit';
+import { LitElement } from 'lit';
+import { Constructor } from '../index.js';
 // import TrackFocus from '../utils/track-focus.js';
-type Constructor<T = {}> = new (...args: any[]) => T;
 
 export interface BaseComponentInterface {
   addFocus(element: HTMLElement): void;

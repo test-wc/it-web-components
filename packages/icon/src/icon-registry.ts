@@ -180,7 +180,7 @@ export const registry = {
   'it-wifi': () => import('./icons/it-wifi.js'),
   'it-youtube': () => import('./icons/it-youtube.js'),
   'it-zoom-in': () => import('./icons/it-zoom-in.js'),
-  'it-zoom-out': () => import('./icons/it-zoom-out.js')
+  'it-zoom-out': () => import('./icons/it-zoom-out.js'),
 } as const;
 
 export type AvailableIcons = keyof typeof registry;
@@ -188,5 +188,4 @@ export type AvailableIcons = keyof typeof registry;
 /**
  * Get a dynamic icon loader by name.
  */
-export const getIcon = (name: AvailableIcons): IconLoader | undefined =>
-  registry[name];
+export const getIcon = (name: AvailableIcons): IconLoader | undefined => registry[name];

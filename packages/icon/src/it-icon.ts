@@ -14,18 +14,26 @@ export class ItIcon extends BaseComponent {
   static styles = styles;
 
   @property({ type: String }) size?: Sizes;
+
   @property({ type: String }) name?: AvailableIcons;
+
   @property({ type: String }) color?: Colors;
+
   @property({ type: String }) background?: Colors;
+
   @property({ type: String }) align?: Alignments = 'middle';
-  @property({ type: String }) role: string = 'img';
-  @property({ type: String, reflect: true }) title = '';
+
+  @property({ type: String, reflect: true }) label = '';
+
   @property({ type: Boolean }) padded = false;
+
   @property({ type: String }) src?: string;
 
   @state() private svgElement?: HTMLElement;
+
   @query('slot')
   private slotEl!: HTMLSlotElement;
+
   private titleId?: string;
 
   override async updated(changedProps: PropertyValues<this>) {
@@ -41,16 +49,17 @@ export class ItIcon extends BaseComponent {
       await this.loadSvgFromUrl(this.src);
     }
 
-    if (changedProps.has('title')) {
+    if (changedProps.has('label')) {
       this.handleTitleId();
     }
 
     if (
-      changedProps.has('title') ||
+      changedProps.has('label') ||
       changedProps.has('size') ||
       changedProps.has('color') ||
       changedProps.has('background') ||
       changedProps.has('padded') ||
+      changedProps.has('role') ||
       changedProps.has('align')
     ) {
       this.updateSvgAttributes();
@@ -58,9 +67,9 @@ export class ItIcon extends BaseComponent {
   }
 
   private handleTitleId() {
-    if (this.title) {
+    if (this.label) {
       if (!this.titleId) {
-        this.titleId = `icon-title-${crypto.randomUUID()}`;
+        this.titleId = `icon-label-${crypto.randomUUID()}`;
       }
     } else {
       this.titleId = undefined;
@@ -75,13 +84,12 @@ export class ItIcon extends BaseComponent {
       const raw = await res.text();
       this.parseAndStoreSvg(raw);
     } catch (e) {
-      console.error(e);
       this.svgElement = undefined;
-      this.announceSvgLoadError(e as Error);
+      this.announceSvgLoadError();
     }
   }
 
-  private announceSvgLoadError(error: Error): void {
+  private announceSvgLoadError(): void {
     this.dispatchEvent(
       new Event('error', {
         bubbles: false,
@@ -94,32 +102,32 @@ export class ItIcon extends BaseComponent {
   private parseAndStoreSvg(raw: string) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(raw, 'image/svg+xml');
-    const svg = doc.documentElement;
-    this.svgElement = svg;
+    const _svg = doc.documentElement;
+    this.svgElement = _svg;
     this.updateSvgAttributes();
   }
 
-  private applySvgAttributes(svg: HTMLElement) {
-    svg.removeAttribute('width');
-    svg.removeAttribute('height');
+  private applySvgAttributes(svgEl: HTMLElement) {
+    svgEl.removeAttribute('width');
+    svgEl.removeAttribute('height');
 
     const classList = this.updateClasses();
-    svg.setAttribute('class', classList);
-    svg.setAttribute('part', 'icon');
-    svg.setAttribute('focusable', 'false');
-    svg.setAttribute('role', this.role);
-    svg.setAttribute('aria-hidden', this.ariaHidden !== null ? this.ariaHidden : 'true');
+    svgEl.setAttribute('class', classList);
+    svgEl.setAttribute('part', 'icon');
+    svgEl.setAttribute('focusable', 'false');
+    svgEl.setAttribute('role', this.role ?? 'img');
+    svgEl.setAttribute('aria-hidden', this.ariaHidden !== null ? this.ariaHidden : 'true');
 
-    svg.removeAttribute('aria-labelledby');
-    svg.querySelectorAll('title').forEach((t) => t.remove());
+    svgEl.removeAttribute('aria-labelledby');
+    svgEl.querySelectorAll('label').forEach((t) => t.remove());
 
-    if (this.title && this.titleId) {
-      const titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    if (this.label && this.titleId) {
+      const titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'label');
       titleEl.id = this.titleId;
-      titleEl.textContent = this.title;
-      svg.prepend(titleEl);
+      titleEl.textContent = this.label;
+      svgEl.prepend(titleEl);
 
-      svg.setAttribute('aria-labelledby', this.titleId);
+      svgEl.setAttribute('aria-labelledby', this.titleId);
     }
   }
 
@@ -142,13 +150,13 @@ export class ItIcon extends BaseComponent {
 
   private handleSlotChange() {
     const nodes = this.slotEl.assignedNodes({ flatten: true });
-    const svg = nodes.find(
+    const _svg = nodes.find(
       (node): node is HTMLElement =>
         node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName.toLowerCase() === 'svg',
     );
 
-    if (svg) {
-      this.applySvgAttributes(svg);
+    if (_svg) {
+      this.applySvgAttributes(_svg);
     }
   }
 
