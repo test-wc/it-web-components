@@ -7,9 +7,11 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
+  "types": "./dist/src/it-icon.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-icon.js": "./dist/src/it-icon.js"
+    "./it-icon.js": "./dist/src/it-icon.js",
+    "./icons/*": "./dist/src/icons/*"
   },
   "files": [
     "dist/src",
@@ -18,8 +20,8 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "build": "tsc --build tsconfig.build.json",
-    "clean": "rimraf node_modules .turbo",
+    "build": "rollup --config rollup.config.js",
+    "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
     "prepublish": "build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
@@ -35,15 +37,20 @@
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@web/test-runner": "catalog:",
+    "@web/test-runner-commands": "catalog:",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-storybook": "catalog:",
     "prettier": "catalog:",
     "rimraf": "^6.0.1",
+    "rollup": "^4.42.0",
+    "rollup-plugin-scss-lit": "^2.1.0",
     "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"

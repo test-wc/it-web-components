@@ -7,6 +7,7 @@ catalog:
   '@typescript-eslint/eslint-plugin': '^7.16.0'
   '@typescript-eslint/parser': '^7.16.0'
   '@web/test-runner': '^0.18.2'
+  '@web/test-runner-commands': '^0.9.0'
   bootstrap-italia: 'github:italia/bootstrap-italia#67b3a245b219fe6ac17277193caebbd8e4824797'
   eslint: '^8.57.0'
   eslint-config-prettier: '^9.1.0'
