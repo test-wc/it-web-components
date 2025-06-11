@@ -1,0 +1,49 @@
+{
+  "name": "@italia/globals",
+  "description": "Globals utils for web-components",
+  "license": "MIT",
+  "author": "italia",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./globals.js": "./dist/src/globals.js"
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "analyze": "cem analyze --litelement --exclude dist",
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "rimraf node_modules .turbo",
+    "prepublish": "build",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" --write",
+    "test-disabled": "wtr --coverage --node-resolve --config web-test-runner.config.js"
+  },
+  "dependencies": {
+    "lit": "catalog:"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@italia/test-config": "workspace:^",
+    "@italia/typescript-config": "workspace:^",
+    "@open-wc/testing": "catalog:",
+    "@types/mocha": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "@web/test-runner": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-storybook": "catalog:",
+    "prettier": "catalog:",
+    "rimraf": "^6.0.1",
+    "tslib": "^2.6.3",
+    "typescript": "catalog:"
+  },
+  "customElements": "custom-elements.json"
+}
