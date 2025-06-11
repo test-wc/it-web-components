@@ -5,6 +5,7 @@
 
 @import 'bootstrap-italia/src/scss/base/utilities'; //all utilities from bsi
 
+//ovveride utilities: get only needed utilities
 $utilities: (
   'display': map-merge(
       map-get($utilities, 'display'),
@@ -21,7 +22,7 @@ $utilities: (
       )
     ),
 );
-@import 'bootstrap-italia/src/scss/base/utilities/api';
+@import 'bootstrap-italia/src/scss/base/utilities/api'; //use $utilities
 
 //@import 'bootstrap-italia/src/scss/utilities/focus';
 

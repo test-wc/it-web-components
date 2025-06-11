@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../src/it-button.ts';
-import MainDescription from './main-description.ts';
+import '@italia/button';
 
 interface ButtonProps {
   variant: string;
@@ -80,7 +79,7 @@ const renderSizeVariant = (args, defaultText) =>
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Componenti/Button',
-  // tags: ['autodocs'],
+  tags: ['autodocs'],
   component: 'it-button',
   render: (args) => renderDefault(args),
   args: {
@@ -134,7 +133,18 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: MainDescription(),
+        component: `
+<Description>Pulsante con etichetta di testo o icona che al clic inizia un'azione o un evento.</Description>
+<br/><br/><br/>
+## Come usarlo
+Per aggiungere un bottone personalizzato, è sufficiente utilizzare il componente
+\`<it-button />\` ed i relativi attributi per applicarne le varianti di stile, dimensione, ecc.
+
+- Usa la variante **"primary"** per valorizzare l’azione principale.
+- Usa la variante **"secondary"** per valorizzare l’azione secondaria.
+- Per comunicare senza ambiguità la gerarchia delle azioni generate dai pulsanti, usa le varianti di grandezza e tipologia.
+- Usa un pulsante con icona per aggiungere un’informazione visiva all’interazione (es. pulsante di accesso ad area riservata).
+`,
       },
     },
   },
@@ -149,6 +159,7 @@ export const EsempioInterattivo: Story = {
   args: {
     variant: 'primary',
   },
+  tags: ['!autodocs', '!dev'],
   render: (params) =>
     html` ${renderComponent({
       ...params,
@@ -203,15 +214,12 @@ export const VariantiColore: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
-        <div class="py-4">
-          <h4>Note sullo stato disabilitato</h4>
-    <ul>
-      <li>
-        I bottoni disabilitati includeranno l’attributo aria-disabled="true" per indicare lo stato dell’elemento alle
-        tecnologie assistive.
-      </li>
-    </ul></div>`,
+        story: `
+Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
+
+#### Note sullo stato disabilitato
+- I bottoni disabilitati includeranno l’attributo aria-disabled="true" per indicare lo stato dell’elemento alle tecnologie assistive.
+`,
       },
     },
   },
@@ -246,8 +254,12 @@ export const SfondoScuro: Story = {
   parameters: {
     docs: {
       description: {
-        story: `<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div><p>L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
-come gli screen reader. Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
+        story: `
+<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<p>
+L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
+come gli screen reader.
+Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
 visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>`,
       },
     },
@@ -283,7 +295,11 @@ export const VariantiDiDimensione: Story = {
   parameters: {
     docs: {
       description: {
-        story: `<p>Per ottenere bottoni di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo <code flex>size</code> con i valori <code>"lg"</code>, <code flex>"sm"</code>, <code flex>"xs"</code>.</p><p>Utilizzando invece l'attributo <code>block</code> si ottengono invece bottoni che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.</p>`,
+        story: `
+Per ottenere bottoni di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo \`size\` con i valori \`"lg"\`, \`"sm"\`, \`"xs"\`.
+
+Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.
+`,
       },
     },
   },
