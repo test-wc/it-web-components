@@ -7,8 +7,12 @@
 
 @import 'bootstrap-italia/src/scss/utilities/icons';
 
+@import 'bootstrap-italia/src/scss/base/utilities/api';
+
 :host {
   display: inline-block;
 }
 
-@import 'bootstrap-italia/src/scss/base/utilities/api';
+.icon-white {
+  fill: #fff !important;
+}

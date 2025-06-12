@@ -5,7 +5,17 @@ import { getIcon, type AvailableIcons } from './icon-registry.js';
 
 import styles from './icon.scss';
 
-export type Colors = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'inverse' | 'light' | 'disabled';
+export type Colors =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'inverse'
+  | 'light'
+  | 'disabled'
+  | 'white'
+  | string;
 export type Sizes = 'xs' | 'sm' | 'lg' | 'xl';
 export type Alignments = 'top' | 'middle' | 'bottom';
 

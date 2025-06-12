@@ -1,12 +1,25 @@
 {
   "name": "@italia/globals",
-  "description": "Globals utils for web-components",
-  "license": "MIT",
-  "author": "italia",
+  "description": "Utilities per i Web components del Design System .italia",
   "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/italia/design-web-components.git",
+    "directory": "packages/button"
+  },
+  "author": "Presidenza del Consiglio dei Ministri",
+  "homepage": "https://italia.github.io/design-web-components",
+  "bugs": {
+    "url": "https://github.com/italia/design-web-components/issues"
+  },
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
     "./globals.js": "./dist/src/globals.js"
@@ -14,7 +27,9 @@
   "files": [
     "dist/src",
     "README.md",
-    "LICENSE"
+    "AUTHORS",
+    "LICENSE",
+    "custom-elements.json"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",

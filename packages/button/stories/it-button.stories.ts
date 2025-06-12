@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '@italia/button';
+import '@italia/icon';
 
 interface ButtonProps {
   variant: string;
@@ -13,7 +14,7 @@ interface ButtonProps {
   value: string;
 }
 
-const colors = ['primary', 'secondary', 'success', 'info', 'danger', 'warning', 'link'];
+const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'link'];
 const sizes = ['lg', 'sm', 'xs'];
 
 // Renderizza il wc it-button di default
@@ -228,7 +229,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
     ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
     ${renderVariant({ ...args, variant: 'success' }, 'Success')}
     ${renderVariant({ ...args, variant: 'danger' }, 'Danger')}
-    ${renderVariant({ ...args, variant: 'warning' }, 'Warning')} ${renderVariant({ ...args, variant: 'info' }, 'Info')}
+    ${renderVariant({ ...args, variant: 'warning' }, 'Warning')} ${renderVariant({ ...args, variant: 'link' }, 'Link')}
   `,
 };
 
@@ -304,7 +305,7 @@ Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta
     },
   },
   render: (args) => html`
-    ${renderSizeVariant({ ...args, size: 'lg' }, 'large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'small')}
+    ${renderSizeVariant({ ...args, size: 'lg' }, 'Large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'Small')} ${renderSizeVariant({ ...args, size: 'xs' }, 'Extra Small')}
     <div class="flex">
       ${renderComponent(
         {
@@ -312,7 +313,7 @@ Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta
           block: true,
           variant: 'primary',
         },
-        'Primary block',
+        'Primary Block',
       )}
     </div>
     <div class="flex">
@@ -322,59 +323,162 @@ Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta
           block: true,
           variant: 'secondary',
         },
-        'Secondary block',
+        'Secondary Block',
       )}
     </div>
   `,
 };
 
-// Todo: fare le prove con l'icona
-// export const BottoniConIcona: Story = {
-//     render: () => (
-//         <div>
-//             <Button className="me-2" color="success" size="lg" icon>
-//                 <Icon color="white" icon="it-star-full" /> Icon Button Large
-//             </Button>
-//             <Button className="me-2" color="primary" icon>
-//                 <Icon color="white" icon="it-star-full" /> Icon Button
-//             </Button>
-//             <Button className="me-2" color="danger" size="sm" icon>
-//                 <Icon color="white" icon="it-star-full" /> Icon Button Small
-//             </Button>
-//             <Button color="info" size="xs" icon>
-//                 <Icon color="white" icon="it-star-full" /> Icon Button Extra Small
-//             </Button>
-//         </div>
-//     ),
-// };
 
-// export const BottoniConIconaCerchiata: Story = {
-//     render: () => (
-//         <div>
-//             <Button className="me-2" color="success" size="lg" icon>
-//                 <span className="rounded-icon">
-//                     <Icon color="success" icon="it-user" />
-//                 </span>
-//                 <span>Round Icon Large</span>
-//             </Button>
-//             <Button className="me-2" color="primary" icon>
-//                 <span className="rounded-icon">
-//                     <Icon color="primary" icon="it-user" />
-//                 </span>
-//                 <span>Round Icon</span>
-//             </Button>
-//             <Button className="me-2" color="danger" size="sm" icon>
-//                 <span className="rounded-icon">
-//                     <Icon color="danger" icon="it-user" />
-//                 </span>
-//                 <span>Round Icon Small</span>
-//             </Button>
-//             <Button color="info" size="xs" icon>
-//                 <span className="rounded-icon">
-//                     <Icon color="secondary" icon="it-user" />
-//                 </span>
-//                 <span>Round Icon Extra Small</span>
-//             </Button>
-//         </div>
-//     ),
-// };
+
+export const BottoniConIcona: Story = {
+  ...meta,
+  args: {
+  },
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    size: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  render: (params) => {
+    const slot = params.slot?.length>0?params.slot : null;
+    return html`
+    <div class="flex">
+     <it-button
+      variant="success"
+      size="lg"
+      icon
+      ?outline="${params.outline}"
+      ?block="${params.block}"
+      ?disabled="${params.disabled}"
+      type="${params.type}"
+      >
+        <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Large'}
+      </it-button>
+
+      <it-button
+      variant="primary"
+      size="sm"
+      icon
+      ?outline="${params.outline}"
+      ?block="${params.block}"
+      ?disabled="${params.disabled}"
+      type="${params.type}"
+      >
+         <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button'}
+      </it-button>
+
+      <it-button
+      variant="danger"
+      size="xs"
+      icon
+      ?outline="${params.outline}"
+      ?block="${params.block}"
+      ?disabled="${params.disabled}"
+      type="${params.type}"
+      >
+         <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Small'}
+      </it-button>
+
+      <it-button
+      variant="link"
+      size="xs"
+      icon
+      ?outline="${params.outline}"
+      ?block="${params.block}"
+      ?disabled="${params.disabled}"
+      type="${params.type}"
+      >
+         <it-icon name="it-star-full" color="primary"></it-icon> ${slot ?? 'Icon Button Extra Small'}
+      </it-button>
+
+    </div>`;
+  },
+};
+
+export const BottoniConIconaCerchiata: Story = {
+    ...meta,
+    args: {
+    },
+    argTypes: {
+      variant: {
+        table: {
+          disable: true,
+        },
+      },
+      size: {
+        table: {
+          disable: true,
+        },
+      },
+    },
+    render: (params) => {
+       const slot = params.slot?.length>0?params.slot : null;
+       return html`
+        <div class="flex">
+          <it-button
+            variant="success"
+            size="lg"
+            icon
+            ?outline="${params.outline}"
+            ?block="${params.block}"
+            ?disabled="${params.disabled}"
+            type="${params.type}"
+          >
+            <span class="rounded-icon">
+              <it-icon name="it-user" color="success"></it-icon>
+            </span> ${slot ?? 'Icon Button Large'}
+          </it-button>
+
+
+          <it-button
+            variant="primary"
+            size="sm"
+            icon
+            ?outline="${params.outline}"
+            ?block="${params.block}"
+            ?disabled="${params.disabled}"
+            type="${params.type}"
+          >
+            <span class="rounded-icon">
+              <it-icon name="it-user" color="primary"></it-icon>
+            </span> ${slot ?? 'Icon Button'}
+          </it-button>
+
+          <it-button
+            variant="danger"
+            size="xs"
+            icon
+            ?outline="${params.outline}"
+            ?block="${params.block}"
+            ?disabled="${params.disabled}"
+            type="${params.type}"
+          >
+            <span class="rounded-icon">
+              <it-icon name="it-user" color="danger"></it-icon>
+            </span> ${slot ?? 'Icon Button Small'}
+          </it-button>
+
+          <it-button
+            variant="link"
+            size="xs"
+            icon
+            ?outline="${params.outline}"
+            ?block="${params.block}"
+            ?disabled="${params.disabled}"
+            type="${params.type}"
+          >
+            <span class="rounded-icon bg-primary">
+              <it-icon name="it-user" color="white"></it-icon>
+            </span> ${slot ?? 'Icon Button Small'}
+          </it-button>
+        </div>`;},
+};
+
