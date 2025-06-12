@@ -95,17 +95,15 @@ const meta: Meta<IconProps> = {
     docs: {
       description: {
         component: `
-### Componente \`<it-icon>\`
-
-Il componente \`<it-icon>\` consente di visualizzare una delle icone SVG disponibili nel Design System, usare un icona proprietaria o un icona tramite URL.
+Il componente \`<it-icon>\` consente di visualizzare una delle icone SVG disponibili nel Design System, usare un icona SVG proprietaria o un icona SVG tramite URL.
 Tutte le icone vengono caricate unicamente in modalià asincrona.
 
 <div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 Il componente garantisce accessibilità di default, e la estende tramite l'attributo \`label\` e gli attributi Aria \`role\` e \`aria-hidden\`. \n
 In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n
-In quanto icone puramente di presentazione, vengono aggiunti di default \`role="img"\` e \`aria-hidden="true"\` all'icona svg. \n
-\n\nIn caso di particolari necessità di definizione di ruolo e visibilità e/o uso di icone e svg esterni, l'utente può comunque sovrascrivere gli attributi \`role\` e \`aria-hidden\`, ma sarà responsabile di rendere accessibile l'icona.</p></div></div>
+In quanto icone puramente di presentazione, vengono aggiunti di default \`role="img"\` e \`aria-hidden="true"\` all'icona SVG. \n
+\n\nIn caso di particolari necessità di definizione di ruolo e visibilità e/o uso di icone e SVG esterni, l'utente può comunque sovrascrivere gli attributi \`role\` e \`aria-hidden\`, ma sarà responsabile di rendere accessibile l'icona.</p></div></div>
 
 
 #### Esempio di utilizzo:
@@ -292,8 +290,13 @@ Questo identificativo può poi essere utilizzato nel componente \`<it-icon>\`:
 
 export const VariantiDiDimensione: Story = {
   render: (args) => html`
-    <div style="display: flex; gap: 20px; align-items: baseline;">
-      ${sizes.map((size) => html`<div>${renderIcon({ ...args, size })}</div>`)}
+    <div>
+      <div style="display: flex; gap: 20px; align-items: baseline;">
+        ${sizes.map((size) => html`<div>${renderIcon({ ...args, size })}</div>`)}
+      </div>
+      <div style="display: flex; gap: 20px; align-items: baseline;">
+        ${sizes.map((size) => html`<div>${renderIcon({ ...args, size, padded: true })}</div>`)}
+      </div>
     </div>
   `,
   args: {
@@ -311,12 +314,13 @@ Il componente \`<it-icon>\` supporta tre dimensioni predefinite:
 - \`lg\`
 - \`xl\`
 
-Esempio:
-
 \`\`\`html
 <it-icon name="it-user" size="lg" label="Utente"></it-icon>
 \`\`\`
-        `,
+
+È anche possibile applicare il modificatore \`padded\` all'icona per creare un padding proporzionale alla dimensione dell'icona attorno ad essa.
+
+`,
       },
     },
   },
@@ -326,9 +330,9 @@ export const VariantiColore: Story = {
   render: () => html`
     <div style="display:flex; gap:20px; align-items:center; background-color:#ddd;padding:2rem">
       ${colors.map((color) => renderIcon({ name: 'it-star-full', label: `col ${color}`, color }))}
-      ${renderIcon({ name: 'it-user', label: 'bg', background: 'light' })}
-      ${renderIcon({ name: 'it-user', label: 'bg', background: 'dark' })}
-      ${renderIcon({ name: 'it-user', label: 'bg', background: 'inverse' })}
+      ${renderIcon({ name: 'it-star-full', label: 'bg-light', background: 'light' })}
+      ${renderIcon({ name: 'it-star-full', label: 'bg-dark', background: 'dark' })}
+      ${renderIcon({ name: 'it-star-full', label: 'bg-inverse', background: 'inverse' })}
     </div>
   `,
   parameters: {
@@ -396,7 +400,7 @@ export const CustomSVG: Story = {
 In questo caso:
 
 - il componente si occupa comunque di gestire l'accessibilità.
-- vengono rimossi eventuali \`label\` duplicati.
+- vengono rimossi eventuali \`<title>\` duplicati.
 - viene forzato \`aria-hidden="true"\` se necessario.
         `,
       },

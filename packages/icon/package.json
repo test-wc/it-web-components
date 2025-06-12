@@ -34,7 +34,8 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "build": "rollup --config rollup.config.js",
+    "build:iconset": "node generate-icon-registry.js",
+    "build": "pnpm build:iconset && rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
     "prepublish": "build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
