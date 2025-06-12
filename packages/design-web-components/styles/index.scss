@@ -19,6 +19,7 @@
   it-button::part(link) {
     --#{$prefix}btn-text-color: var(--#{$prefix}color-text-inverse);
   }
+
   it-button::part(outline) {
     --#{$prefix}btn-outline-border-color: var(--#{$prefix}color-border-inverse);
     --#{$prefix}btn-text-color: var(--#{$prefix}color-text-inverse);

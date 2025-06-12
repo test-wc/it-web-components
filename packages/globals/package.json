@@ -35,13 +35,7 @@
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
     "@types/mocha": "catalog:",
-    "@typescript-eslint/eslint-plugin": "catalog:",
-    "@typescript-eslint/parser": "catalog:",
     "@web/test-runner": "catalog:",
-    "eslint": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-plugin-storybook": "catalog:",
-    "prettier": "catalog:",
     "rimraf": "^6.0.1",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
