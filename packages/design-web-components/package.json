@@ -51,7 +51,8 @@
     "lit-html"
   ],
   "dependencies": {
-    "@italia/tabs": "workspace:^"
+    "@italia/tabs": "workspace:^",
+    "@italia/icon": "workspace:^"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
