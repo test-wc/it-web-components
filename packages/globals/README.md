@@ -1,6 +1,6 @@
 # Globals
 
-This package contains extendable base componente, utils and mixins, reusable in all web-components packages.
+This package contains extendable BaseComponent, utils and mixins, reusable in all web-components packages.
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm i globals
 
 ```html
 <script type="module">
-  import 'globals/globals.js';
+  import '@italia/globals';
 </script>
 ```
 

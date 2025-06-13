@@ -5,7 +5,16 @@ import { getIcon, type AvailableIcons } from './icon-registry.js';
 
 import styles from './icon.scss';
 
-export type Colors = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'inverse' | 'light' | 'disabled';
+export type Colors =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'inverse'
+  | 'light'
+  | 'disabled'
+  | 'white';
 export type Sizes = 'xs' | 'sm' | 'lg' | 'xl';
 export type Alignments = 'top' | 'middle' | 'bottom';
 
@@ -19,7 +28,7 @@ export class ItIcon extends BaseComponent {
 
   @property({ type: String }) color?: Colors;
 
-  @property({ type: String }) background?: Colors;
+  // @property({ type: String }) background?: Colors;
 
   @property({ type: String }) align?: Alignments = 'middle';
 
@@ -57,7 +66,7 @@ export class ItIcon extends BaseComponent {
       changedProps.has('label') ||
       changedProps.has('size') ||
       changedProps.has('color') ||
-      changedProps.has('background') ||
+      // changedProps.has('background') ||
       changedProps.has('padded') ||
       changedProps.has('role') ||
       changedProps.has('align')
@@ -142,7 +151,7 @@ export class ItIcon extends BaseComponent {
       'icon',
       this.size ? `icon-${this.size}` : '',
       this.color ? `icon-${this.color}` : '',
-      this.background ? `bg-${this.background}` : '',
+      // this.background ? `bg-${this.background}` : '',
       this.align ? `align-${this.align}` : '',
       this.padded ? `icon-padded` : '',
     );

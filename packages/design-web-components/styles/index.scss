@@ -16,6 +16,10 @@
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 
 .bg-dark {
+  it-icon::part(icon) {
+    --#{$prefix}icon-default: var(--#{$prefix}color-text-inverse);
+  }
+
   it-button::part(link) {
     --#{$prefix}btn-text-color: var(--#{$prefix}color-text-inverse);
   }
