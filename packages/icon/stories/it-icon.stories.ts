@@ -135,22 +135,22 @@ Il componente garantisce accessibilità di default, e la estende tramite l'attri
 In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n
 In quanto icone puramente di presentazione, vengono aggiunti di default \`role="img"\` e \`aria-hidden="true"\` all'icona SVG. \n
 \n\nIn caso di particolari necessità di definizione di ruolo e visibilità e/o uso di icone e SVG esterni, l'utente può comunque sovrascrivere gli attributi \`role\` e \`aria-hidden\`, ma sarà responsabile di rendere accessibile l'icona.</p></div></div>
+`,
+      },
+    },
+  },
+  render: () => html`<div></div>`,
+};
 
-### Personalizzazione degli stili
-
-Per la personalizzazione degli stili si può usare il selettore \`::part\`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
-
-*Nota: il \`fill\` può essere sovrascritto solo se lo specifico SVG non imposta già un \`fill: inline\`.*
-
-\`\`\`css
-it-icon::part(icon) {
-  width: 48px;
-  height: 48px;
-  fill: #007a33;
-  stroke: #000;
-  stroke-width: 1px;
-}
-\`\`\`
+export const PersonalizzazioneDegliStili: Story = {
+  tags: ['!dev'],
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
+      description: {
+        story: `
+Per la personalizzazione degli stili si può usare il selettore \`::part\` passando il valore \`icon\`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
 `,
       },
     },

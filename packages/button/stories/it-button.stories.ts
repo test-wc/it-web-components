@@ -165,6 +165,22 @@ export const EsempioInterattivo: Story = {
     })}`,
 };
 
+export const PersonalizzazioneDegliStili: Story = {
+  tags: ['!dev'],
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
+      description: {
+        story: `
+Per la personalizzazione degli stili si può usare il selettore \`::part\` passando il valore \`button\`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
+`,
+      },
+    },
+  },
+  render: () => html`<div></div>`,
+};
+
 export const Tipologie: Story = {
   ...meta,
   args: {
