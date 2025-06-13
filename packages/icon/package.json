@@ -1,6 +1,6 @@
 {
   "name": "@italia/icon",
-  "description": "Web component it-icon del Design System .italia",
+  "description": "Web component it-icon del Design system .italia",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
