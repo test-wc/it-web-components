@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/blocks';
+import { Code } from '@storybook/components';
+
+<Meta title='Personalizzazione degli stili' />
+
+# Personalizzazione degli stili dei componenti
+
+Il componenti di design-web-components utilizzano Shadow DOM per incapsulare internamente il contenuto HTML e proteggerne gli stili.
+
+## Selettore ::part
+
+Per consentire la personalizzazione degli stili da parte degli utilizzatori, espongono l'attributo `part` nativo direttamente sull'elemento renderizzato.
+Grazie a questo attributo, si possono applicare gli stili sull'elemento dall’esterno dello Shadow DOM usando il selettore `::part()`. [https://developer.mozilla.org/en-US/docs/Web/CSS/::part:](https://developer.mozilla.org/en-US/docs/Web/CSS/::part:).
+
+### Esempio
+
+Applichiamo all'icona creata con il componente `<it-icon>` il colore `#6c007a` (viola):
+
+```css
+it-icon::part(icon) {
+  width: 48px;
+  height: 48px;
+  fill: #6c007a;
+  stroke: #000;
+  stroke-width: 1px;
+}
+```

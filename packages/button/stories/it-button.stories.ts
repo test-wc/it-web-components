@@ -82,9 +82,8 @@ const meta = {
   title: 'Componenti/Button',
   tags: ['autodocs'],
   component: 'it-button',
-  render: (args) => renderDefault(args),
   args: {
-    slot: 'Testo bottone',
+    slot: 'Testo del pulsante',
     variant: 'primary',
     size: 'sm',
     block: false,
@@ -101,7 +100,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      description: 'Dimensione del bottone',
+      description: 'Dimensione del pulsante',
       options: sizes,
     },
     block: {
@@ -116,15 +115,15 @@ const meta = {
     outline: {
       control: 'boolean',
       type: 'boolean',
-      description: 'Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del bottone.',
+      description: 'Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante.',
     },
     slot: {
       control: 'text',
-      description: 'Testo del bottone',
+      description: 'Testo del pulsante',
     },
     type: {
       control: 'select',
-      description: 'Tipologia di bottone',
+      description: 'Tipologia di pulsante',
       options: ['button', 'submit', 'reset'],
     },
     value: {
@@ -136,15 +135,8 @@ const meta = {
       description: {
         component: `
 <Description>Pulsante con etichetta di testo o icona che al clic inizia un'azione o un evento.</Description>
-<br/><br/><br/>
-## Come usarlo
-Per aggiungere un bottone personalizzato, è sufficiente utilizzare il componente
-\`<it-button />\` ed i relativi attributi per applicarne le varianti di stile, dimensione, ecc.
 
-- Usa la variante **"primary"** per valorizzare l’azione principale.
-- Usa la variante **"secondary"** per valorizzare l’azione secondaria.
-- Per comunicare senza ambiguità la gerarchia delle azioni generate dai pulsanti, usa le varianti di grandezza e tipologia.
-- Usa un pulsante con icona per aggiungere un’informazione visiva all’interazione (es. pulsante di accesso ad area riservata).
+Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/buttons/).
 `,
       },
     },
@@ -154,13 +146,19 @@ Per aggiungere un bottone personalizzato, è sufficiente utilizzare il component
 export default meta;
 type Story = StoryObj<ButtonProps>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const EsempioInterattivo: Story = {
   ...meta,
   args: {
     variant: 'primary',
   },
   tags: ['!autodocs', '!dev'],
+  parameters: {
+    docs: {
+      canvas: {
+        sourceState: 'shown',
+      },
+    },
+  },
   render: (params) =>
     html` ${renderComponent({
       ...params,
@@ -219,7 +217,7 @@ export const VariantiColore: Story = {
 Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
 
 #### Note sullo stato disabilitato
-- I bottoni disabilitati includeranno l’attributo aria-disabled="true" per indicare lo stato dell’elemento alle tecnologie assistive.
+- I bottoni disabilitati includeranno l’attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive.
 `,
       },
     },
@@ -345,6 +343,19 @@ export const BottoniConIcona: Story = {
       },
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
+<br/><br/>
+#### Dimensione dell'icona
+- Nei pulsanti di dimensione \`"lg"\` e \`"sm"\` non è necessario passare l'attributo \`size\` all'icona.
+- Nei pulsaanti di dimensione \`"xs"\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
+`,
+      },
+    },
+  },
   render: (params) => {
     const slot = params.slot?.length > 0 ? params.slot : null;
     return html` <div class="flex">
@@ -357,19 +368,18 @@ export const BottoniConIcona: Story = {
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Large'}
+        <it-icon name="it-star-full" color="white"></it-icon> <span>${slot ?? 'Pulsante Large con icona'}</span>
       </it-button>
 
       <it-button
         variant="primary"
-        size="sm"
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button'}
+        <it-icon name="it-star-full" color="white"></it-icon> <span>${slot ?? 'Pulsante con icona'}</span>
       </it-button>
 
       <it-button
@@ -381,7 +391,8 @@ export const BottoniConIcona: Story = {
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Small'}
+        <it-icon name="it-star-full" color="white" size="xs"></it-icon>
+        <span>${slot ?? 'Pulsante Smal con icona'}</span>
       </it-button>
 
       <it-button
@@ -393,7 +404,8 @@ export const BottoniConIcona: Story = {
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <it-icon name="it-star-full" color="primary"></it-icon> ${slot ?? 'Icon Button Extra Small'}
+        <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
+        <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
       </it-button>
     </div>`;
   },
@@ -414,6 +426,20 @@ export const BottoniConIconaCerchiata: Story = {
       },
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
+Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` per poter avere il contorno circolare.
+<br/><br/>
+#### Dimensione dell'icona
+- Nei pulsanti di dimensione \`"lg"\` e \`"sm"\`, l'attributo \`size\` dell'icona deve essere \`"sm"\`.
+- Nei pulsaanti di dimensione \`"xs"\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
+`,
+      },
+    },
+  },
   render: (params) => {
     const slot = params.slot?.length > 0 ? params.slot : null;
     return html` <div class="flex">
@@ -427,9 +453,9 @@ export const BottoniConIconaCerchiata: Story = {
         type="${params.type}"
       >
         <span class="rounded-icon">
-          <it-icon name="it-user" color="success"></it-icon>
+          <it-icon name="it-user" color="success" size="sm"></it-icon>
         </span>
-        ${slot ?? 'Icon Button Large'}
+        <span>${slot ?? 'Pulsante Large con icona'}</span>
       </it-button>
 
       <it-button
@@ -441,10 +467,10 @@ export const BottoniConIconaCerchiata: Story = {
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <span class="rounded-icon">
-          <it-icon name="it-user" color="primary"></it-icon>
+        <span class="rounded-icon" size="sm">
+          <it-icon name="it-user" color="primary" size="sm"></it-icon>
         </span>
-        ${slot ?? 'Icon Button'}
+        <span>${slot ?? 'Pulsante con icona'}</span>
       </it-button>
 
       <it-button
@@ -457,9 +483,9 @@ export const BottoniConIconaCerchiata: Story = {
         type="${params.type}"
       >
         <span class="rounded-icon">
-          <it-icon name="it-user" color="danger"></it-icon>
+          <it-icon name="it-user" color="danger" size="xs"></it-icon>
         </span>
-        ${slot ?? 'Icon Button Small'}
+        <span>${slot ?? 'Pulsante Small con icona'}</span>
       </it-button>
 
       <it-button
@@ -472,9 +498,9 @@ export const BottoniConIconaCerchiata: Story = {
         type="${params.type}"
       >
         <span class="rounded-icon bg-primary">
-          <it-icon name="it-user" color="white"></it-icon>
+          <it-icon name="it-user" color="white" size="xs"></it-icon>
         </span>
-        ${slot ?? 'Icon Button Small'}
+        <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
       </it-button>
     </div>`;
   },
