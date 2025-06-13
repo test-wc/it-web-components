@@ -5,8 +5,6 @@
 
 @import 'bootstrap-italia/src/scss/base/utilities'; //all utilities from bsi
 
-
-
 //ovveride utilities: get only needed utilities
 $utilities: (
   'display': map-merge(
@@ -25,16 +23,13 @@ $utilities: (
     ),
 );
 
-:host{
-  --bs-icon-size-s: 1.5em;
-  --bs-icon-size-m: 1.5em;
-}
-
 @import 'bootstrap-italia/src/scss/base/utilities/api'; //use $utilities
 
 //@import 'bootstrap-italia/src/scss/utilities/focus';
 
 @import 'bootstrap-italia/src/scss/components/buttons';
 
-
-
+:host {
+  --bs-icon-size-s: 1.5em;
+  --bs-icon-size-m: 1.5em;
+}

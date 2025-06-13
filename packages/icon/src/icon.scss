@@ -7,6 +7,16 @@
 
 @import 'bootstrap-italia/src/scss/utilities/icons';
 
+$utilities: (
+  'align': map-merge(
+      map-get($utilities, 'align'),
+      (
+        values: top middle bottom,
+      )
+    ),
+  'background-color': map-get($utilities, 'background-color'),
+);
+
 @import 'bootstrap-italia/src/scss/base/utilities/api';
 
 :host {

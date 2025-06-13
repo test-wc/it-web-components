@@ -198,6 +198,9 @@ importers:
 
   packages/design-web-components:
     dependencies:
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
       '@italia/tabs':
         specifier: workspace:^
         version: link:../tabs

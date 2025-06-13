@@ -305,7 +305,8 @@ Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta
     },
   },
   render: (args) => html`
-    ${renderSizeVariant({ ...args, size: 'lg' }, 'Large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'Small')} ${renderSizeVariant({ ...args, size: 'xs' }, 'Extra Small')}
+    ${renderSizeVariant({ ...args, size: 'lg' }, 'Large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'Small')}
+    ${renderSizeVariant({ ...args, size: 'xs' }, 'Extra Small')}
     <div class="flex">
       ${renderComponent(
         {
@@ -329,12 +330,9 @@ Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta
   `,
 };
 
-
-
 export const BottoniConIcona: Story = {
   ...meta,
-  args: {
-  },
+  args: {},
   argTypes: {
     variant: {
       table: {
@@ -348,137 +346,136 @@ export const BottoniConIcona: Story = {
     },
   },
   render: (params) => {
-    const slot = params.slot?.length>0?params.slot : null;
-    return html`
-    <div class="flex">
-     <it-button
-      variant="success"
-      size="lg"
-      icon
-      ?outline="${params.outline}"
-      ?block="${params.block}"
-      ?disabled="${params.disabled}"
-      type="${params.type}"
+    const slot = params.slot?.length > 0 ? params.slot : null;
+    return html` <div class="flex">
+      <it-button
+        variant="success"
+        size="lg"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
       >
         <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Large'}
       </it-button>
 
       <it-button
-      variant="primary"
-      size="sm"
-      icon
-      ?outline="${params.outline}"
-      ?block="${params.block}"
-      ?disabled="${params.disabled}"
-      type="${params.type}"
+        variant="primary"
+        size="sm"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
       >
-         <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button'}
+        <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button'}
       </it-button>
 
       <it-button
-      variant="danger"
-      size="xs"
-      icon
-      ?outline="${params.outline}"
-      ?block="${params.block}"
-      ?disabled="${params.disabled}"
-      type="${params.type}"
+        variant="danger"
+        size="xs"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
       >
-         <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Small'}
+        <it-icon name="it-star-full" color="white"></it-icon> ${slot ?? 'Icon Button Small'}
       </it-button>
 
       <it-button
-      variant="link"
-      size="xs"
-      icon
-      ?outline="${params.outline}"
-      ?block="${params.block}"
-      ?disabled="${params.disabled}"
-      type="${params.type}"
+        variant="link"
+        size="xs"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
       >
-         <it-icon name="it-star-full" color="primary"></it-icon> ${slot ?? 'Icon Button Extra Small'}
+        <it-icon name="it-star-full" color="primary"></it-icon> ${slot ?? 'Icon Button Extra Small'}
       </it-button>
-
     </div>`;
   },
 };
 
 export const BottoniConIconaCerchiata: Story = {
-    ...meta,
-    args: {
-    },
-    argTypes: {
-      variant: {
-        table: {
-          disable: true,
-        },
-      },
-      size: {
-        table: {
-          disable: true,
-        },
+  ...meta,
+  args: {},
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
       },
     },
-    render: (params) => {
-       const slot = params.slot?.length>0?params.slot : null;
-       return html`
-        <div class="flex">
-          <it-button
-            variant="success"
-            size="lg"
-            icon
-            ?outline="${params.outline}"
-            ?block="${params.block}"
-            ?disabled="${params.disabled}"
-            type="${params.type}"
-          >
-            <span class="rounded-icon">
-              <it-icon name="it-user" color="success"></it-icon>
-            </span> ${slot ?? 'Icon Button Large'}
-          </it-button>
+    size: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  render: (params) => {
+    const slot = params.slot?.length > 0 ? params.slot : null;
+    return html` <div class="flex">
+      <it-button
+        variant="success"
+        size="lg"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon">
+          <it-icon name="it-user" color="success"></it-icon>
+        </span>
+        ${slot ?? 'Icon Button Large'}
+      </it-button>
 
+      <it-button
+        variant="primary"
+        size="sm"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon">
+          <it-icon name="it-user" color="primary"></it-icon>
+        </span>
+        ${slot ?? 'Icon Button'}
+      </it-button>
 
-          <it-button
-            variant="primary"
-            size="sm"
-            icon
-            ?outline="${params.outline}"
-            ?block="${params.block}"
-            ?disabled="${params.disabled}"
-            type="${params.type}"
-          >
-            <span class="rounded-icon">
-              <it-icon name="it-user" color="primary"></it-icon>
-            </span> ${slot ?? 'Icon Button'}
-          </it-button>
+      <it-button
+        variant="danger"
+        size="xs"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon">
+          <it-icon name="it-user" color="danger"></it-icon>
+        </span>
+        ${slot ?? 'Icon Button Small'}
+      </it-button>
 
-          <it-button
-            variant="danger"
-            size="xs"
-            icon
-            ?outline="${params.outline}"
-            ?block="${params.block}"
-            ?disabled="${params.disabled}"
-            type="${params.type}"
-          >
-            <span class="rounded-icon">
-              <it-icon name="it-user" color="danger"></it-icon>
-            </span> ${slot ?? 'Icon Button Small'}
-          </it-button>
-
-          <it-button
-            variant="link"
-            size="xs"
-            icon
-            ?outline="${params.outline}"
-            ?block="${params.block}"
-            ?disabled="${params.disabled}"
-            type="${params.type}"
-          >
-            <span class="rounded-icon bg-primary">
-              <it-icon name="it-user" color="white"></it-icon>
-            </span> ${slot ?? 'Icon Button Small'}
-          </it-button>
-        </div>`;},
+      <it-button
+        variant="link"
+        size="xs"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon bg-primary">
+          <it-icon name="it-user" color="white"></it-icon>
+        </span>
+        ${slot ?? 'Icon Button Small'}
+      </it-button>
+    </div>`;
+  },
 };
-
