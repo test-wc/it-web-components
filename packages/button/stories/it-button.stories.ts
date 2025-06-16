@@ -134,7 +134,7 @@ const meta = {
     docs: {
       description: {
         component: `
-<Description>Pulsante con etichetta di testo o icona che al clic inizia un'azione o un evento.</Description>
+<Description>Pulsante con etichetta di testo o icona che al click inizia un'azione o un evento.</Description>
 
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/buttons/).
 `,
