@@ -51,13 +51,14 @@
     "lit-html"
   ],
   "dependencies": {
-    "@italia/tabs": "workspace:^",
+    "@italia/button": "workspace:^",
     "@italia/icon": "workspace:^"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
+    "rollup-plugin-scss": "^4.0.1",
     "bootstrap-italia": "catalog:",
     "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
