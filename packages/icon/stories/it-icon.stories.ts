@@ -36,7 +36,7 @@ const renderComponent = (params: IconProps) => html`
 `;
 
 const meta: Meta<IconProps> = {
-  title: 'Componenti/Icona',
+  title: 'Componenti/Icon',
   tags: ['autodocs'],
   component: 'it-icon',
   args: {
@@ -269,6 +269,53 @@ export const TutteLeIconeDisponibili: Story = {
     `;
   },
 
+  argTypes: {
+    size: {
+      table: {
+        disable: true,
+      },
+    },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
+    color: {
+      table: {
+        disable: true,
+      },
+    },
+    align: {
+      table: {
+        disable: true,
+      },
+    },
+    label: {
+      table: {
+        disable: true,
+      },
+    },
+    padded: {
+      table: {
+        disable: true,
+      },
+    },
+    src: {
+      table: {
+        disable: true,
+      },
+    },
+    role: {
+      table: {
+        disable: true,
+      },
+    },
+    background: {
+      table: {
+        disable: true,
+      },
+    },
+  },
   parameters: {
     docs: {
       description: {
