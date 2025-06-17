@@ -1,0 +1,23 @@
+name: Code linting
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    concurrency: ci-test-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js environment
+        uses: ./.github/actions/node_env_setup
+        with:
+          node-version: '22'
+
+      - name: Lint
+        run: pnpm lint
