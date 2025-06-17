@@ -1,0 +1,12 @@
+{
+  "extends": "@italia/typescript-config/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "build", "node_modules"],
+  "references": [{ "path": "../typescript-config" }]
+}

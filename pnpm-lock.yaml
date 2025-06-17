@@ -6,9 +6,30 @@ settings:
 
 catalogs:
   default:
+    '@open-wc/testing':
+      specifier: ^4.0.0
+      version: 4.0.0
+    '@types/mocha':
+      specifier: ^10.0.10
+      version: 10.0.10
+    '@web/test-runner':
+      specifier: ^0.18.2
+      version: 0.18.3
+    '@web/test-runner-commands':
+      specifier: ^0.9.0
+      version: 0.9.0
     bootstrap-italia:
       specifier: github:italia/bootstrap-italia#67b3a245b219fe6ac17277193caebbd8e4824797
       version: 2.14.0
+    lit:
+      specifier: ^3.3.0
+      version: 3.3.0
+    sass:
+      specifier: ^1.89.0
+      version: 1.89.0
+    typescript:
+      specifier: ^5.5.3
+      version: 5.8.3
 
 importers:
 
@@ -384,6 +405,55 @@ importers:
         version: 5.8.3
 
   packages/typescript-config: {}
+
+  packages/video:
+    dependencies:
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+      video.js:
+        specifier: ^8.23.3
+        version: 8.23.3
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
 
 packages:
 

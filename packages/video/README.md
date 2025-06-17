@@ -1,21 +1,21 @@
-# \<it-tabs>
+# \<it-video>
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
 ## Installation
 
 ```bash
-npm i it-tabs
+npm i it-video
 ```
 
 ## Usage
 
 ```html
 <script type="module">
-  import '@italia/it-tabs';
+  import '@italia/it-video';
 </script>
 
-<it-tabs></it-tabs>
+<it-video></it-video>
 ```
 
 ## Linting and formatting
