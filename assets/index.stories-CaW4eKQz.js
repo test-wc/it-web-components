@@ -1,4 +1,4 @@
-import{i as W,E as Y,b as J,x as n,a as X}from"./lit-element-Dfkv_UsO.js";import{o as E}from"./if-defined--qm2G2ez.js";import{_ as t}from"./iframe-lzPAaY3V.js";import{n as d,t as Z}from"./property-D9jmBfGY.js";/**
+import{i as W,E as Y,b as J,x as n,a as X}from"./lit-element-Dfkv_UsO.js";import{n as d,t as Z,o as E}from"./if-defined-RF8uyZSi.js";import{_ as t}from"./iframe-BB45jMyU.js";/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
@@ -270,7 +270,7 @@ import{i as W,E as Y,b as J,x as n,a as X}from"./lit-element-Dfkv_UsO.js";import
     src=${E(r.src)}
     role=${E(r.role)}
   ></it-icon>
-`,ct={title:"Componenti/Icona",component:"it-icon",tags:["autodocs"],args:{name:"it-star-full",label:"Titolo A11y",align:"middle",role:"img",padded:!1},argTypes:{name:{description:"Nome dell'icona da visualizzare",options:K,control:"select"},size:{control:"select",options:R,description:"Dimensione dell'icona: 'xs' | 'sm' | 'lg' | 'xl'",defaultValue:void 0},align:{control:"select",options:nt,description:"Allineamento verticale dell'icona: 'top' | 'middle' | 'bottom' ",defaultValue:"middle"},color:{control:"select",options:V,description:"Colori disponibili"},background:{control:"select",options:V,description:"Background disponibili"},label:{control:"text",description:"Testo accessibile per tecnologie assistive (A11Y)"},role:{control:"text",description:'Ruolo accessibile. Default: "img"'},src:{control:"text",description:"Attributo per caricare un svg esterno"},padded:{control:"boolean",description:"Crea un padding proporzionale alla dimensione dell’icona attorno ad essa"}},parameters:{layout:"padded",docs:{description:{component:`
+`,dt={title:"Componenti/Icona",component:"it-icon",tags:["autodocs"],args:{name:"it-star-full",label:"Titolo A11y",align:"middle",role:"img",padded:!1},argTypes:{name:{description:"Nome dell'icona da visualizzare",options:K,control:"select"},size:{control:"select",options:R,description:"Dimensione dell'icona: 'xs' | 'sm' | 'lg' | 'xl'",defaultValue:void 0},align:{control:"select",options:nt,description:"Allineamento verticale dell'icona: 'top' | 'middle' | 'bottom' ",defaultValue:"middle"},color:{control:"select",options:V,description:"Colori disponibili"},background:{control:"select",options:V,description:"Background disponibili"},label:{control:"text",description:"Testo accessibile per tecnologie assistive (A11Y)"},role:{control:"text",description:'Ruolo accessibile. Default: "img"'},src:{control:"text",description:"Attributo per caricare un svg esterno"},padded:{control:"boolean",description:"Crea un padding proporzionale alla dimensione dell’icona attorno ad essa"}},parameters:{layout:"padded",docs:{description:{component:`
 Il componente \`<it-icon>\` consente di visualizzare una delle icone SVG disponibili nel Design System, usare un icona SVG proprietaria o un icona SVG tramite URL.
 Tutte le icone vengono caricate unicamente in modalià asincrona.
 
@@ -758,4 +758,4 @@ In questo caso:
       }
     }
   }
-}`,...(B=(F=L.parameters)==null?void 0:F.docs)==null?void 0:B.source}}};const Et=["EsempioInterattivo","TutteLeIconeDisponibili","VariantiDiDimensione","VariantiColore","VariantiAllineamento","CustomSVG","SVGEsterno"];export{A as CustomSVG,v as EsempioInterattivo,L as SVGEsterno,g as TutteLeIconeDisponibili,T as VariantiAllineamento,I as VariantiColore,b as VariantiDiDimensione,Et as __namedExportsOrder,ct as default};
+}`,...(B=(F=L.parameters)==null?void 0:F.docs)==null?void 0:B.source}}};const ct=["EsempioInterattivo","TutteLeIconeDisponibili","VariantiDiDimensione","VariantiColore","VariantiAllineamento","CustomSVG","SVGEsterno"];export{A as CustomSVG,v as EsempioInterattivo,L as SVGEsterno,g as TutteLeIconeDisponibili,T as VariantiAllineamento,I as VariantiColore,b as VariantiDiDimensione,ct as __namedExportsOrder,dt as default};
