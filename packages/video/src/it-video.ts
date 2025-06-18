@@ -6,6 +6,8 @@ import videojs from 'video.js';
 import itLang from './locales/it.js';
 
 import styles from './it-video.scss';
+//import 'video.js/dist/video-js.css';
+import videojsStyles from './video-js.min.scss';
 
 type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
 type LocaleTranslations = typeof itLang;
@@ -14,7 +16,7 @@ type Translations = Record<Locale, LocaleTranslations>;
 
 @customElement('it-video')
 export class ItVideo extends LitElement {
-  static styles = styles;
+  static styles = [styles, videojsStyles];
 
   @property({ type: String }) src = '';
 

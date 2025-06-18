@@ -56,7 +56,6 @@
     "@web/test-runner": "catalog:",
     "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
-    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-scss-lit": "^2.1.0",
     "tslib": "^2.6.3",
     "typescript": "catalog:"

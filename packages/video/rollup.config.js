@@ -4,6 +4,8 @@ import typescript from '@rollup/plugin-typescript';
 
 import { litScss } from 'rollup-plugin-scss-lit';
 
+// import externalGlobals from 'rollup-plugin-external-globals';
+
 /**
  * @type {import('rollup').RollupOptions}
  */
@@ -17,10 +19,18 @@ export default {
   plugins: [
     resolve(),
     commonjs(),
+    // externalGlobals({
+    //   global: 'window',
+    //   'global/window': 'window',
+    //   'global/document': 'document',
+    //   'video.js': 'video.js',
+    // }),
+
     typescript({
       tsconfig: './tsconfig.build.json',
       module: 'NodeNext',
     }),
+
     litScss({
       minify: process.env.NODE_ENV === 'production',
       // options: {
