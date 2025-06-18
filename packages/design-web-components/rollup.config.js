@@ -1,5 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
+import scss from 'rollup-plugin-scss';
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -19,6 +20,21 @@ export default [
       }),
     ],
     external: [/^lit(\/|$)/],
+  },
+  {
+    input: 'src/styles.js',
+    output: {
+      dir: 'dist',
+      sourcemap: true,
+      output: { file: 'design-web-components-styles.js', format: 'esm' },
+    },
+    plugins: [
+      resolve(),
+      scss({
+        fileName: 'design-web-components.css',
+        //  outputStyle: 'compressed',
+      }),
+    ],
   },
   {
     input: 'elements.ts',

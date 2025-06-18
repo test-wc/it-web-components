@@ -20,7 +20,8 @@ const iconNames = Object.keys(registry) as AvailableIcons[];
 const sizes: IconProps['size'][] = ['xs', 'sm', undefined, 'lg', 'xl'];
 const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'inverse', 'light', 'disabled'];
 const alignments = ['top', 'middle', 'bottom'];
-const renderIcon = (params: IconProps) => html`
+
+const renderComponent = (params: IconProps) => html`
   <it-icon
     name=${ifDefined(params.name)}
     size=${ifDefined(params.size)}
@@ -35,9 +36,9 @@ const renderIcon = (params: IconProps) => html`
 `;
 
 const meta: Meta<IconProps> = {
-  title: 'Componenti/Icona',
-  component: 'it-icon',
+  title: 'Componenti/Icon',
   tags: ['autodocs'],
+  component: 'it-icon',
   args: {
     name: 'it-star-full',
     label: 'Titolo A11y',
@@ -54,7 +55,7 @@ const meta: Meta<IconProps> = {
     size: {
       control: 'select',
       options: sizes,
-      description: "Dimensione dell'icona: 'xs' | 'sm' | 'lg' | 'xl'",
+      description: "Dimensione dell'icona: 'xs' | 'sm' | (stringa vuota) | 'lg' | 'xl'",
       defaultValue: undefined,
     },
     align: {
@@ -66,16 +67,16 @@ const meta: Meta<IconProps> = {
     color: {
       control: 'select',
       options: colors,
-      description: 'Colori disponibili',
+      description: 'Varianti di colore',
     },
     background: {
       control: 'select',
       options: colors,
-      description: 'Background disponibili',
+      description: 'Colore di Background',
     },
     label: {
       control: 'text',
-      description: 'Testo accessibile per tecnologie assistive (A11Y)',
+      description: 'Testo accessibile per le tecnologie assistive (A11Y)',
     },
     role: {
       control: 'text',
@@ -83,11 +84,11 @@ const meta: Meta<IconProps> = {
     },
     src: {
       control: 'text',
-      description: 'Attributo per caricare un svg esterno',
+      description: 'Attributo per caricare un SVG esterno',
     },
     padded: {
       control: 'boolean',
-      description: 'Crea un padding proporzionale alla dimensione dell’icona attorno ad essa',
+      description: "Crea un padding attorno all'icona, proporzionale alla dimensione dell’icona",
     },
   },
   parameters: {
@@ -97,53 +98,6 @@ const meta: Meta<IconProps> = {
         component: `
 Il componente \`<it-icon>\` consente di visualizzare una delle icone SVG disponibili nel Design System, usare un icona SVG proprietaria o un icona SVG tramite URL.
 Tutte le icone vengono caricate unicamente in modalià asincrona.
-
-<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
-<p>
-Il componente garantisce accessibilità di default, e la estende tramite l'attributo \`label\` e gli attributi Aria \`role\` e \`aria-hidden\`. \n
-In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n
-In quanto icone puramente di presentazione, vengono aggiunti di default \`role="img"\` e \`aria-hidden="true"\` all'icona SVG. \n
-\n\nIn caso di particolari necessità di definizione di ruolo e visibilità e/o uso di icone e SVG esterni, l'utente può comunque sovrascrivere gli attributi \`role\` e \`aria-hidden\`, ma sarà responsabile di rendere accessibile l'icona.</p></div></div>
-
-
-#### Esempio di utilizzo:
-
-\`\`\`html
-<it-icon name="it-user" size="sm" label="Utente"></it-icon>
-\`\`\`
-
-### Personalizzazione degli stili
-
-Il componente \`<it-icon>\` utilizza Shadow DOM per incapsulare internamente il contenuto SVG e proteggerne gli stili. Per consentire la personalizzazione da parte degli utilizzatori, espone il part nativo \`part="icon"\` direttamente sull'elemento \`<svg>\`.
-
-#### Come applicare stili personalizzati
-
-Si possono applicare gli stili dall’esterno usando il selettore \`::part()\` https://developer.mozilla.org/en-US/docs/Web/CSS/::part:
-
-\`\`\`css
-it-icon::part(icon) {
-  width: 48px;
-  height: 48px;
-  fill: #007a33;
-  stroke: #000;
-  stroke-width: 1px;
-}
-\`\`\`
-####**Nota: il fill può essere sovrascritto solo se lo specifico SVG non imposta già un fill inline.**
-
-\`\`\`html
-<it-icon name="check" size="lg" title="Check"></it-icon>
-
-<style>
-  it-icon::part(icon) {
-    fill: red;
-    width: 64px;
-    height: 64px;
-  }
-</style>
-\`\`\`
-
-### Elemento interattivo
 `,
       },
     },
@@ -154,8 +108,54 @@ export default meta;
 type Story = StoryObj<IconProps>;
 
 export const EsempioInterattivo: Story = {
-  render: (args) => html`${renderIcon(args)}`,
+  ...meta,
   tags: ['!autodocs', '!dev'],
+  parameters: {
+    docs: {
+      canvas: {
+        sourceState: 'shown',
+      },
+    },
+  },
+  render: (args) => html`${renderComponent(args)}`,
+};
+
+export const InformazioniUtili: Story = {
+  name: 'Informazioni utili',
+  tags: ['!dev'],
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
+      description: {
+        story: `
+  <div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<p>
+Il componente garantisce accessibilità di default, e la estende tramite l'attributo \`label\` e gli attributi Aria \`role\` e \`aria-hidden\`. \n
+In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n
+In quanto icone puramente di presentazione, vengono aggiunti di default \`role="img"\` e \`aria-hidden="true"\` all'icona SVG. \n
+\n\nIn caso di particolari necessità di definizione di ruolo e visibilità e/o uso di icone e SVG esterni, l'utente può comunque sovrascrivere gli attributi \`role\` e \`aria-hidden\`, ma sarà responsabile di rendere accessibile l'icona.</p></div></div>
+`,
+      },
+    },
+  },
+  render: () => html`<div></div>`,
+};
+
+export const PersonalizzazioneDegliStili: Story = {
+  tags: ['!dev'],
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
+      description: {
+        story: `
+Per la personalizzazione degli stili si può usare il selettore \`::part\` passando il valore \`icon\`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
+`,
+      },
+    },
+  },
+  render: () => html`<div></div>`,
 };
 
 export const TutteLeIconeDisponibili: Story = {
@@ -269,19 +269,59 @@ export const TutteLeIconeDisponibili: Story = {
     `;
   },
 
+  argTypes: {
+    size: {
+      table: {
+        disable: true,
+      },
+    },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
+    color: {
+      table: {
+        disable: true,
+      },
+    },
+    align: {
+      table: {
+        disable: true,
+      },
+    },
+    label: {
+      table: {
+        disable: true,
+      },
+    },
+    padded: {
+      table: {
+        disable: true,
+      },
+    },
+    src: {
+      table: {
+        disable: true,
+      },
+    },
+    role: {
+      table: {
+        disable: true,
+      },
+    },
+    background: {
+      table: {
+        disable: true,
+      },
+    },
+  },
   parameters: {
     docs: {
       description: {
         story: `
-
 Questa sezione mostra tutte le icone SVG disponibili nel Design System.
-Puoi cercare un'icona per nome e cliccarla per copiarne il nome identificativo nel formato \`name\`.
-
-Questo identificativo può poi essere utilizzato nel componente \`<it-icon>\`:
-
-\`\`\`html
-<it-icon name="it-user" size="sm" label="Utente"></it-icon>
-\`\`\`
+Puoi cercare un'icona per nome, e cliccarla per copiarne il nome identificativo da usare nell'attributo \`name\`.
         `,
       },
     },
@@ -292,10 +332,7 @@ export const VariantiDiDimensione: Story = {
   render: (args) => html`
     <div>
       <div style="display: flex; gap: 20px; align-items: baseline;">
-        ${sizes.map((size) => html`<div>${renderIcon({ ...args, size })}</div>`)}
-      </div>
-      <div style="display: flex; gap: 20px; align-items: baseline;">
-        ${sizes.map((size) => html`<div>${renderIcon({ ...args, size, padded: true })}</div>`)}
+        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size })}</div>`)}
       </div>
     </div>
   `,
@@ -306,20 +343,29 @@ export const VariantiDiDimensione: Story = {
     docs: {
       description: {
         story: `
+Il componente \`<it-icon>\` supporta quattro dimensioni predefinite: \`xs\`, \`sm\`, \`lg\`, \`xl\`.
+`,
+      },
+    },
+  },
+};
 
-Il componente \`<it-icon>\` supporta tre dimensioni predefinite:
-
-- \`xs\`
-- \`sm\`
-- \`lg\`
-- \`xl\`
-
-\`\`\`html
-<it-icon name="it-user" size="lg" label="Utente"></it-icon>
-\`\`\`
-
-È anche possibile applicare il modificatore \`padded\` all'icona per creare un padding proporzionale alla dimensione dell'icona attorno ad essa.
-
+export const Padding: Story = {
+  render: (args) => html`
+    <div>
+      <div style="display: flex; gap: 20px; align-items: baseline;">
+        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size, padded: true })}</div>`)}
+      </div>
+    </div>
+  `,
+  args: {
+    name: 'it-star-full',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+È anche possibile applicare l'attributo \`padded\` all'icona per creare attorno all'icona un padding proporzionale alla dimensione dell'icona stessa.
 `,
       },
     },
@@ -329,10 +375,9 @@ Il componente \`<it-icon>\` supporta tre dimensioni predefinite:
 export const VariantiColore: Story = {
   render: () => html`
     <div style="display:flex; gap:20px; align-items:center; background-color:#ddd;padding:2rem">
-      ${colors.map((color) => renderIcon({ name: 'it-star-full', label: `col ${color}`, color }))}
-      ${renderIcon({ name: 'it-star-full', label: 'bg-light', background: 'light' })}
-      ${renderIcon({ name: 'it-star-full', label: 'bg-dark', background: 'dark' })}
-      ${renderIcon({ name: 'it-star-full', label: 'bg-inverse', background: 'inverse' })}
+      ${colors.map((color) => renderComponent({ name: 'it-star-full', label: `col ${color}`, color }))}
+      <span class="bg-light"> ${renderComponent({ name: 'it-star-full', label: 'bg-light' })} </span>
+      <span class="bg-dark"> ${renderComponent({ name: 'it-star-full', label: 'bg-dark' })} </span>
     </div>
   `,
   parameters: {
@@ -350,7 +395,7 @@ export const VariantiAllineamento: Story = {
     <div>
       ${['top', 'middle', 'bottom'].map((align) =>
         // @ts-ignore
-        renderIcon({ name: 'it-star-full', label: `align ${align}`, align, size: 'lg' }),
+        renderComponent({ name: 'it-star-full', label: `align ${align}`, align, size: 'lg' }),
       )}
     </div>
   `,
@@ -411,17 +456,17 @@ In questo caso:
 export const SVGEsterno: Story = {
   render: () =>
     html`<div style="display: flex; gap: 20px; align-items: baseline;">
-      ${renderIcon({
+      ${renderComponent({
         src: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Palermo-Stemma_%281999%29.svg',
         label: 'Stemma 1',
         size: 'xl',
       })}
-      ${renderIcon({
+      ${renderComponent({
         src: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg',
         label: 'Stemma 2',
         size: 'xl',
       })}
-      ${renderIcon({
+      ${renderComponent({
         src: 'https://upload.wikimedia.org/wikipedia/commons/9/93/CoA_Citt%C3%A0_di_Milano.svg',
         label: 'Stemma 3',
         size: 'xl',

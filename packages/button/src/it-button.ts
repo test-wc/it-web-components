@@ -34,6 +34,9 @@ export class ItButton extends BaseComponent {
   @property({ type: Boolean })
   disabled = false;
 
+  @property({ type: Boolean })
+  icon = false;
+
   @property({ type: String })
   value = '';
 
@@ -56,6 +59,7 @@ export class ItButton extends BaseComponent {
       this.disabled ? 'disabled' : '',
       this.size ? `btn-${this.size}` : '',
       this.block ? 'd-block w-100' : '',
+      this.icon ? 'btn-icon' : '',
     );
   }
 

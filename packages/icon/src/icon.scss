@@ -17,8 +17,12 @@ $utilities: (
   'background-color': map-get($utilities, 'background-color'),
 );
 
+@import 'bootstrap-italia/src/scss/base/utilities/api';
+
 :host {
   display: inline-block;
 }
 
-@import 'bootstrap-italia/src/scss/base/utilities/api';
+.icon-white {
+  fill: #fff !important;
+}
