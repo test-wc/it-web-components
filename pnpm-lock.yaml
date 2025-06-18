@@ -125,6 +125,9 @@ importers:
       '@italia/globals':
         specifier: workspace:^
         version: link:../globals
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
       bootstrap-italia:
         specifier: 'catalog:'
         version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
@@ -174,12 +177,12 @@ importers:
 
   packages/design-web-components:
     dependencies:
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon
-      '@italia/tabs':
-        specifier: workspace:^
-        version: link:../tabs
       lit:
         specifier: 'catalog:'
         version: 3.3.0
@@ -202,6 +205,9 @@ importers:
       rollup:
         specifier: ^4.42.0
         version: 4.42.0
+      rollup-plugin-scss:
+        specifier: ^4.0.1
+        version: 4.0.1
       sass:
         specifier: 'catalog:'
         version: 1.89.0
@@ -3030,6 +3036,9 @@ packages:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
 
+  estree-walker@0.6.1:
+    resolution: {integrity: sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==}
+
   estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
@@ -4726,6 +4735,12 @@ packages:
     peerDependencies:
       lit: ^2 || ^3
       rollup: ^2 || ^3 || ^4
+
+  rollup-plugin-scss@4.0.1:
+    resolution: {integrity: sha512-3W3+3OzR+shkDl3hJ1XTAuGkP4AfiLgIjie2GtcoZ9pHfRiNqeDbtCu1EUnkjZ98EPIM6nnMIXkKlc7Sx5bRvA==}
+
+  rollup-pluginutils@2.8.2:
+    resolution: {integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==}
 
   rollup@4.42.0:
     resolution: {integrity: sha512-LW+Vse3BJPyGJGAJt1j8pWDKPd73QM8cRXYK1IxOBgL2AGLu7Xd2YOW0M2sLUBCkF5MshXXtMApyEAEzMVMsnw==}
@@ -8453,6 +8468,8 @@ snapshots:
 
   estraverse@5.3.0: {}
 
+  estree-walker@0.6.1: {}
+
   estree-walker@2.0.2: {}
 
   estree-walker@3.0.3:
@@ -10129,6 +10146,14 @@ snapshots:
       rollup: 4.42.0
       rollup-copy-transform-css: 2.1.0(rollup@4.42.0)
       sass: 1.89.0
+
+  rollup-plugin-scss@4.0.1:
+    dependencies:
+      rollup-pluginutils: 2.8.2
+
+  rollup-pluginutils@2.8.2:
+    dependencies:
+      estree-walker: 0.6.1
 
   rollup@4.42.0:
     dependencies:

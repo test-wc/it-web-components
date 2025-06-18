@@ -1,2 +1,2 @@
-export * from '@italia/tabs';
+export * from '@italia/button';
 export * from '@italia/icon';
