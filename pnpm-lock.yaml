@@ -6,30 +6,9 @@ settings:
 
 catalogs:
   default:
-    '@open-wc/testing':
-      specifier: ^4.0.0
-      version: 4.0.0
-    '@types/mocha':
-      specifier: ^10.0.10
-      version: 10.0.10
-    '@web/test-runner':
-      specifier: ^0.18.2
-      version: 0.18.3
-    '@web/test-runner-commands':
-      specifier: ^0.9.0
-      version: 0.9.0
     bootstrap-italia:
       specifier: github:italia/bootstrap-italia#67b3a245b219fe6ac17277193caebbd8e4824797
       version: 2.14.0
-    lit:
-      specifier: ^3.3.0
-      version: 3.3.0
-    sass:
-      specifier: ^1.89.0
-      version: 1.89.0
-    typescript:
-      specifier: ^5.5.3
-      version: 5.8.3
 
 importers:
 

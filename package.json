@@ -1,6 +1,6 @@
 {
   "name": "design-web-components",
-  "description": "Web components del Design System .italia",
+  "description": "Web components del Design system .italia",
   "private": true,
   "license": "BSD-3-Clause",
   "repository": {
@@ -24,6 +24,7 @@
     "test:setup": "pnpm dlx playwright install",
     "test": "turbo run test",
     "storybook:build": "pnpm build && storybook build",
+    "storybook:deploy": "pnpm dlx gh-pages -d storybook-static -m 'chore: update documentation [ci skip]' --nojekyll",
     "storybook": "storybook dev -p 6006"
   },
   "devDependencies": {
