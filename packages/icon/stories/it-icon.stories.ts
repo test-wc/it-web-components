@@ -129,7 +129,7 @@ export const InformazioniUtili: Story = {
       canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
       description: {
         story: `
-  <div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+  <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 Il componente garantisce accessibilità di default, e la estende tramite l'attributo \`label\` e gli attributi Aria \`role\` e \`aria-hidden\`. \n
 In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n

@@ -1,20 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '@italia/video';
+import itLang from '../src/locales/it.js';
 
 interface VideoProps {
-  src?: string;
+  src: string;
+  poster: string;
   type?: string;
   options?: object;
   translations?: object;
-  language: string;
+  language?: string;
 }
 type Story = StoryObj<VideoProps>;
 
-// Renderizza il wc it-button di default
-const renderComponent = (params: VideoProps) => html`
+// Renderizza il wc it-video di default
+const renderComponent = (params: any) => html`
   <it-video
     src="${params.src}"
+    ?poster="${params.poster}"
     ?type="${params.type}"
     ?options="${params.options}"
     ?translations="${params.translations}"
@@ -22,20 +25,22 @@ const renderComponent = (params: VideoProps) => html`
   ></it-video>
 `;
 
+// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Componenti/Video',
   tags: ['autodocs'],
   component: 'it-video',
-  render: (args) => renderComponent(args),
   args: {
     src: 'https://vjs.zencdn.net/v/oceans.webm',
+    poster: '',
     type: 'video/mp4',
     options: {},
-    translations: {},
     language: 'it',
+    translations: { it: itLang },
   },
   argTypes: {
     src: { control: 'text', description: 'Sorgente del video' },
+    poster: { control: 'text', description: "Sorgente dell'immagine di anteprima" },
     type: { control: 'text', description: "Tipo del video. Il default è 'video/mp4'" },
     options: {
       control: 'object',
@@ -57,20 +62,18 @@ const meta = {
         component: `
 <Description>Componente Video Payer.</Description>
 <br/><br/>
-Il tag video HTML5 consente di incorporare video all’interno di una pagina web senza dover utilizzare plugin esterni. Questo componente utilizza la libreria video.js per implementare funzionalità avanzate come il supporto a diversi formati video, la personalizzazione dell’interfaccia utente e l’integrazione con API esterne.
+Il tag video HTML5 consente di incorporare video all’interno di una pagina web senza dover utilizzare plugin esterni.
+Questo componente utilizza la libreria [video.js](https://videojs.com/) per implementare funzionalità avanzate come il supporto a diversi formati video, la personalizzazione dell’interfaccia utente e l’integrazione con API esterne.
 
-<br/><br/>
-<div class="bd-callout bd-callout-accessibility">
-<h4 id="accessibilità">Accessibilità</h4>
-
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità</span></div>
 <p>Le persone che utilizzano le tecnologie assistive possono agevolmente accedere ai comandi di questo player video, tuttavia per rendere accessibile un contenuto video è necessario soddisfare i Criteri di Successo contenuti nelle <a href="https://www.w3.org/Translations/WCAG21-it/#time-based-media">linee guida 1.2 Media temporizzati delle WCAG (versione corrente)</a>. In particolare:</p>
 <ul>
-  <li>Se il contenuto è costituito da “solo video” oppure “solo audio”, è necessario fornire una trascrizione (Criterio di Successo 1.2.1)</li>
-  <li>Fornire sempre sottotitoli (Criterio di Successo 1.2.2).</li>
-  <li>Fornire audio descrizioni quando sono presenti scene o contenuti non descritte dalla traccia audio primaria. (Criteri di Successo 1.2.3 e 1.2.5)</li>
-</ul>
+<li>Se il contenuto è costituito da “solo video” oppure “solo audio”, è necessario fornire una trascrizione (Criterio di Successo 1.2.1)</li>
+<li>Fornire sempre sottotitoli (Criterio di Successo 1.2.2).</li>
+<li>Fornire audio descrizioni quando sono presenti scene o contenuti non descritte dalla traccia audio primaria. (Criteri di Successo 1.2.3 e 1.2.5)</li>
+</ul></div></div>
 
-</div>
+
 
 ## Come usarlo
 Per aggiungere un video, è sufficiente utilizzare il componente
@@ -113,25 +116,19 @@ L’utilizzo di un overlay per il consenso è una soluzione comune per garantire
 
 export default meta;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const EsempioInterattivo: Story = {
   ...meta,
-  args: {
-    src: 'https://vjs.zencdn.net/v/oceans.webm',
+  // args: {
+  //   src: 'https://vjs.zencdn.net/v/oceans.webm',
+  // },
+  //tags: ['!autodocs', '!dev'],
+  parameters: {
+    docs: {
+      canvas: {
+        sourceState: 'shown',
+      },
+    },
   },
-  tags: ['!autodocs', '!dev'],
-  render: (params) =>
-    html` ${renderComponent({
-      ...params,
-    })}`,
-};
-
-export const SottotitoliDidascalieCapitoliDescrizioni: Story = {
-  ...meta,
-  args: {
-    src: 'https://vjs.zencdn.net/v/oceans.webm',
-  },
-  tags: ['!autodocs', '!dev'],
   render: (params) =>
     html` ${renderComponent({
       ...params,

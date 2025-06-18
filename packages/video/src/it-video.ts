@@ -18,6 +18,8 @@ export class ItVideo extends LitElement {
 
   @property({ type: String }) src = '';
 
+  @property({ type: String }) poster = '';
+
   @property({ type: String }) type = 'video/mp4';
 
   @property({ type: Object }) options: any = {};
@@ -35,16 +37,19 @@ export class ItVideo extends LitElement {
 
   private player: any = null;
 
+  private videoElement: any = null;
+
   render() {
     return html`
-      <video id="${this.videoId}" class="video-js vjs-default-skin" controls crossorigin="anonymous">
+      <video id="${this.videoId}" class="video-js vjs-default-skin" controls playsinline crossorigin="anonymous">
         <source src="${this.src}" type="${this.type}" />
       </video>
     `;
   }
 
   firstUpdated() {
-    const video = this.shadowRoot!.getElementById(this.videoId) as HTMLVideoElement;
+    this.videoElement = this.shadowRoot!.getElementById(this.videoId) as HTMLVideoElement;
+
     const mergedOptions = {
       fluid: true,
       language: this.language,
@@ -52,7 +57,9 @@ export class ItVideo extends LitElement {
       ...this.options,
     };
 
-    this.player = videojs.default(video, mergedOptions, () => {
+    console.log(videojs);
+
+    this.player = videojs.default(this.videoElement, mergedOptions, () => {
       // this is the ready callback
       // const p = this.player!;
       // initYoutubePlugin(p); // plugin YouTube
@@ -63,10 +70,10 @@ export class ItVideo extends LitElement {
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     if (this.player && !this.player.isDisposed()) {
       this.player.dispose();
     }
-    super.disconnectedCallback();
   }
 }
 

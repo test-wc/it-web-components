@@ -270,7 +270,7 @@ export const SfondoScuro: Story = {
     docs: {
       description: {
         story: `
-<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
 come gli screen reader.
