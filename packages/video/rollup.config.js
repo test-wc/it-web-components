@@ -15,10 +15,6 @@ export default {
     entryFileNames: 'src/[name].js',
   },
   plugins: [
-    //resolve({
-    // browser: true, // importantissimo per pacchetti che usano window/browser API
-    // preferBuiltins: false,
-    //}),
     resolve(),
     commonjs(),
     typescript({

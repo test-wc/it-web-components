@@ -1,6 +1,7 @@
 {
   "extends": "@italia/typescript-config/tsconfig.base.json",
   "compilerOptions": {
+    "esModuleInterop": true,
     "rootDir": ".",
     "outDir": "dist"
   },

@@ -56,10 +56,8 @@ export class ItVideo extends LitElement {
       languages: this.translations,
       ...this.options,
     };
-
-    console.log(videojs);
-
-    this.player = videojs.default(this.videoElement, mergedOptions, () => {
+    const videojsFn = videojs.default || videojs;
+    this.player = videojsFn(this.videoElement, mergedOptions, () => {
       // this is the ready callback
       // const p = this.player!;
       // initYoutubePlugin(p); // plugin YouTube
