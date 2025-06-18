@@ -110,10 +110,23 @@ L’utilizzo di un overlay per il consenso è una soluzione comune per garantire
     },
   },
 } satisfies Meta<VideoProps>;
+
 export default meta;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const EsempioInterattivo: Story = {
+  ...meta,
+  args: {
+    src: 'https://vjs.zencdn.net/v/oceans.webm',
+  },
+  tags: ['!autodocs', '!dev'],
+  render: (params) =>
+    html` ${renderComponent({
+      ...params,
+    })}`,
+};
+
+export const SottotitoliDidascalieCapitoliDescrizioni: Story = {
   ...meta,
   args: {
     src: 'https://vjs.zencdn.net/v/oceans.webm',

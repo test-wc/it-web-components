@@ -204,6 +204,9 @@ importers:
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon
+      '@italia/video':
+        specifier: workspace:^
+        version: link:../video
       lit:
         specifier: 'catalog:'
         version: 3.3.0

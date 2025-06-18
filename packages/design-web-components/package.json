@@ -52,7 +52,8 @@
   ],
   "dependencies": {
     "@italia/button": "workspace:^",
-    "@italia/icon": "workspace:^"
+    "@italia/icon": "workspace:^",
+    "@italia/video": "workspace:^"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
