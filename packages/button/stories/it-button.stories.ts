@@ -233,7 +233,7 @@ export const VariantiColore: Story = {
 Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
 
 #### Note sullo stato disabilitato
-- I bottoni disabilitati includeranno l’attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive.
+- I pulsanti disabilitati includeranno l’attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive.
 `,
       },
     },
@@ -311,9 +311,9 @@ export const VariantiDiDimensione: Story = {
     docs: {
       description: {
         story: `
-Per ottenere bottoni di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo \`size\` con i valori \`"lg"\`, \`"sm"\`, \`"xs"\`.
+Per ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo \`size\` con i valori \`"lg"\`, \`"sm"\`, \`"xs"\`.
 
-Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.
+Utilizzando invece l'attributo \`block\` si ottengono pulsanti che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.
 `,
       },
     },
@@ -344,7 +344,7 @@ Utilizzando invece l'attributo \`block\` si ottengono bottoni che prendono tutta
   `,
 };
 
-export const BottoniConIcona: Story = {
+export const PulsantiConIcona: Story = {
   ...meta,
   args: {},
   argTypes: {
@@ -366,8 +366,8 @@ export const BottoniConIcona: Story = {
 L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \`"lg"\` e \`"sm"\` non è necessario passare l'attributo \`size\` all'icona.
-- Nei pulsaanti di dimensione \`"xs"\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
+- Nei pulsanti di dimensione \`lg\` e \`sm\` non è necessario passare l'attributo \`size\` all'icona.
+- Nei pulsaanti di dimensione \`xs\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
 `,
       },
     },
@@ -427,7 +427,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
   },
 };
 
-export const BottoniConIconaCerchiata: Story = {
+export const PulsantiConIconaCerchiata: Story = {
   ...meta,
   args: {},
   argTypes: {
@@ -450,8 +450,8 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
 Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` per poter avere il contorno circolare.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \`"lg"\` e \`"sm"\`, l'attributo \`size\` dell'icona deve essere \`"sm"\`.
-- Nei pulsaanti di dimensione \`"xs"\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
+- Nei pulsanti di dimensione \`lg\` e \`sm\`, l'attributo \`size\` dell'icona deve essere \`sm\`.
+- Nei pulsaanti di dimensione \`xs\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
 `,
       },
     },
