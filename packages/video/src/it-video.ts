@@ -2,14 +2,10 @@ import { LitElement, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
 import videojs from 'video.js';
-import Player from 'video.js/dist/types/player.js';
-
-//import { initYoutubePlugin } from './util/youtube-video.js'; // importa da plugin originale
 
 import itLang from './locales/it.js';
 
 import styles from './it-video.scss';
-import 'video.js/dist/video-js.css';
 
 type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
 type LocaleTranslations = typeof itLang;
@@ -37,7 +33,7 @@ export class ItVideo extends LitElement {
     return Math.random().toString(36).slice(2, 11);
   }
 
-  private player: Player = null;
+  private player: any = null;
 
   render() {
     return html`
@@ -57,10 +53,9 @@ export class ItVideo extends LitElement {
     };
 
     this.player = videojs.default(video, mergedOptions, () => {
-      //this is the ready callback
-      const p = this.player!;
-
-      //initYoutubePlugin(p); // plugin YouTube
+      // this is the ready callback
+      // const p = this.player!;
+      // initYoutubePlugin(p); // plugin YouTube
       // eventuali eventi o logiche aggiuntive
       // Puoi inizializzare qui eventuali plugin, ad esempio per YouTube
       // (window as any).youtube?.(this.player);

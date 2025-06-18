@@ -1,5 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+
 import { litScss } from 'rollup-plugin-scss-lit';
 
 /**
@@ -13,7 +15,11 @@ export default {
     entryFileNames: 'src/[name].js',
   },
   plugins: [
-    resolve(),
+    resolve({
+      browser: true, // importantissimo per pacchetti che usano window/browser API
+      preferBuiltins: false,
+    }),
+    commonjs(),
     typescript({
       tsconfig: './tsconfig.build.json',
       module: 'NodeNext',
