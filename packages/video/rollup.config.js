@@ -1,10 +1,19 @@
 import resolve from '@rollup/plugin-node-resolve';
+
 import commonjs from '@rollup/plugin-commonjs';
+
 import typescript from '@rollup/plugin-typescript';
 
 import { litScss } from 'rollup-plugin-scss-lit';
 
+import path from 'path';
+
 // import externalGlobals from 'rollup-plugin-external-globals';
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -18,12 +27,12 @@ export default {
   },
   plugins: [
     resolve(),
-    commonjs(),
+    commonjs({}),
     // externalGlobals({
     //   global: 'window',
     //   'global/window': 'window',
     //   'global/document': 'document',
-    //   'video.js': 'video.js',
+    //   videojs: 'videojs',
     // }),
 
     typescript({
@@ -33,10 +42,10 @@ export default {
 
     litScss({
       minify: process.env.NODE_ENV === 'production',
-      // options: {
-      //   loadPaths: ['node_modules'],
-      //   silenceDeprecations: ['import'],
-      // },
+      options: {
+        loadPaths: ['node_modules'],
+        silenceDeprecations: ['import'],
+      },
     }),
   ],
   external: [/^lit(\/|$)/],

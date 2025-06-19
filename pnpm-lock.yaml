@@ -417,12 +417,18 @@ importers:
 
   packages/video:
     dependencies:
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
       lit:
         specifier: 'catalog:'
         version: 3.3.0
       video.js:
         specifier: ^8.23.3
         version: 8.23.3
+      videojs-font:
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3

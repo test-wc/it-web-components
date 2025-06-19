@@ -7,10 +7,6 @@ import itLang from './locales/it.js';
 
 import styles from './it-video.scss';
 
-// import 'video.js/dist/video-js.css';
-
-import videojsStyles from './video-js.min.scss';
-
 type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
 type LocaleTranslations = typeof itLang;
 
@@ -18,7 +14,7 @@ type Translations = Record<Locale, LocaleTranslations>;
 
 @customElement('it-video')
 export class ItVideo extends LitElement {
-  static styles = [styles, videojsStyles];
+  static styles = [styles];
 
   @property({ type: String }) src = '';
 
@@ -44,8 +40,14 @@ export class ItVideo extends LitElement {
   private videoElement: any = null;
 
   render() {
+    // return html`
+    //   <video-js id="${this.videoId}" class="vjs-theme-bootstrap-italia">
+    //     <source src="${this.src}" type="${this.type}" />
+    //   </video-js>
+    // `;
+
     return html`
-      <video id="${this.videoId}" class="video-js vjs-default-skin" controls playsinline crossorigin="anonymous">
+      <video id="${this.videoId}" class="video-js">
         <source src="${this.src}" type="${this.type}" />
       </video>
     `;
@@ -55,11 +57,15 @@ export class ItVideo extends LitElement {
     this.videoElement = this.shadowRoot!.getElementById(this.videoId) as HTMLVideoElement;
 
     const mergedOptions = {
-      fluid: true,
+      //  fluid: true,
       language: this.language,
       languages: this.translations,
+      controls: true,
+      autoplay: false,
+      preload: 'auto',
       ...this.options,
     };
+
     const videojsFn = videojs.default || videojs;
     this.player = videojsFn(this.videoElement, mergedOptions, () => {
       // this is the ready callback
@@ -69,14 +75,16 @@ export class ItVideo extends LitElement {
       // Puoi inizializzare qui eventuali plugin, ad esempio per YouTube
       // (window as any).youtube?.(this.player);
     });
+    this.player.addClass('vjs-theme-bootstrap-italia').addClass('vjs-big-play-centered');
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    if (this.player && !this.player.isDisposed()) {
-      this.player.dispose();
-    }
-  }
+  // disconnectedCallback() {
+  //   super.disconnectedCallback();
+
+  //   if (this.player && !this.player.isDisposed()) {
+  //     this.player.dispose();
+  //   }
+  // }
 }
 
 declare global {

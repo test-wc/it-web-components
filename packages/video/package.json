@@ -41,8 +41,10 @@
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
+    "bootstrap-italia": "catalog:",
     "lit": "catalog:",
-    "video.js": "^8.23.3"
+    "video.js": "^8.23.3",
+    "videojs-font": "^4.2.0"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
