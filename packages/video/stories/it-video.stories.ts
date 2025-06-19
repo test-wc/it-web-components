@@ -72,42 +72,6 @@ Questo componente utilizza la libreria [video.js](https://videojs.com/) per impl
 <li>Fornire sempre sottotitoli (Criterio di Successo 1.2.2).</li>
 <li>Fornire audio descrizioni quando sono presenti scene o contenuti non descritte dalla traccia audio primaria. (Criteri di Successo 1.2.3 e 1.2.5)</li>
 </ul></div></div>
-
-
-
-## Come usarlo
-Per aggiungere un video, è sufficiente utilizzare il componente
-\`<it-video />\` ed i relativi attributi per gestirne la sorgente, e le opzioni del video player.
-
-- Usa l'attributo \`options\` per passare ala player le opzioni definite qui [https://videojs.com/guides/options/](https://videojs.com/guides/options/).
-- Usa l'attributo \`translations\` per definire le traduzioni diverse dalla lingua italiana, o per sovrascrivere le traduzioni italiane pre-impostate.
-
-## Plugin
-Esistono numerosi plugin disponibili per video.js, che consentono di aggiungere nuove funzionalità, come la riproduzione di video in VR, l’analisi delle statistiche di visualizzazione del video, le utility per la UI mobile e molto altro ancora.
-
-## Sottotitoli, didascalie, capitoli e descrizioni
-## Immagine di anteprima
-Per aggiungere un’immagine di anteprima come copertina al video occorre utilizzare l’attributo poster inizializzato con la url dell’anteprima.
-
-
-## Streaming
-Servire i video tramite dei file in formato mp4 o webm (che sono i formati più supportati) non è la migliore soluzione in termini di performance e di ottimizzazione della banda. Per garantire una buona esperienza utente è fondamentale scegliere il formato di riproduzione più adatto. In questo contesto, i formati di streaming HLS e DASH offrono importanti vantaggi rispetto al tradizionale file MP4. L’uso dei formati di streaming permette una riproduzione fluida dei video online grazie alla loro capacità di adattarsi alla larghezza di banda disponibile. In questo modo si evitano interruzioni o rallentamenti durante la visualizzazione, migliorando l’esperienza utente. Inoltre, questi formati consentono di distribuire il contenuto su diverse piattaforme e dispositivi, aumentando la portabilità del video.
-<div class="bd-callout bd-callout-info">
-<h5 id="tip">Tip</h5>
-
-<p>FFmpeg è uno strumento di conversione multimediale open-source che consente di convertire
-facilmente i file MP4 in formati adattivi come HLS o DASH, ti permette la conversione del
-video MP4 in un formato a bitrate variabile per adattare la qualità del video alle diverse
-velocità di connessione degli utenti.
-Approfondisci su <a href="https://ffmpeg.org/">FFmpeg</a></p>
-</div>
-
-## Gestire più tracce audio
-
-## Embed da piattaforme terze
-
-## Attivazione dell’overlay di consenso
-L’utilizzo di un overlay per il consenso è una soluzione comune per garantire la conformità alla normativa sulla privacy in materia di cookie e tracciamento degli utenti. L’overlay per il consenso consente di informare l’utente sui cookie utilizzati e di ottenere il suo consenso in modo esplicito e consapevole alla riproduzione del video prima dell’installazione di qualunque cookie.
 `,
       },
     },
@@ -121,7 +85,8 @@ export const EsempioInterattivo: Story = {
   // args: {
   //   src: 'https://vjs.zencdn.net/v/oceans.webm',
   // },
-  //tags: ['!autodocs', '!dev'],
+
+  tags: ['!autodocs', '!dev'],
   parameters: {
     docs: {
       canvas: {
@@ -133,4 +98,52 @@ export const EsempioInterattivo: Story = {
     html` ${renderComponent({
       ...params,
     })}`,
+};
+
+export const MoreInfo: Story = {
+  tags: ['!dev'],
+  render: () => html`<div class="hide-preview"></div>`,
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      description: {
+        story: `
+## Come usarlo
+Per aggiungere un video, è sufficiente utilizzare il componente \`<it-video />\` ed i relativi attributi per gestirne la sorgente, e le opzioni del video player. - Usa l'attributo \`options\` per passare
+al player le opzioni definite qui [https://videojs.com/guides/options/](https://videojs.com/guides/options/).
+
+- Usa l'attributo \`translations\` per definire le traduzioni diverse dalla lingua italiana, o per
+sovrascrivere le traduzioni italiane pre-impostate.
+
+## Plugin
+Esistono numerosi plugin disponibili per video.js, che consentono di aggiungere nuove funzionalità, come la riproduzione di video in VR, l’analisi delle statistiche di visualizzazione del video, le utility per la UI mobile e molto altro ancora.
+
+##Sottotitoli, didascalie, capitoli e descrizioni
+
+## Immagine di anteprima
+Per aggiungere un’immagine di anteprima come copertina al video occorre utilizzare l’attributo poster inizializzato con la url
+dell’anteprima.
+
+## Streaming
+Servire i video tramite dei file in formato mp4 o webm (che sono i formati più supportati) non è la migliore soluzione in termini di performance e di ottimizzazione della banda.
+Per garantire una buona esperienza utente è fondamentale scegliere il formato di riproduzione più adatto.
+In questo contesto, i formati di streaming HLS e DASH offrono importanti vantaggi rispetto al tradizionale file MP4. L’uso dei formati di streaming permette una riproduzione fluida dei video online grazie alla loro
+capacità di adattarsi alla larghezza di banda disponibile. In questo modo si evitano interruzioni o rallentamenti durante la visualizzazione, migliorando l’esperienza utente. Inoltre, questi formati consentono di distribuire il contenuto su diverse piattaforme e dispositivi, aumentando la portabilità del video.
+
+<div class="callout callout-info"><div class="callout-inner"><div class="callout-title"><span class="text"><h5 id="tip">Tip</h5></span></div><p>FFmpeg è uno strumento di conversione multimediale open-source che consente di convertire facilmente i
+file MP4 in formati adattivi come HLS o DASH, ti permette la conversione del video MP4 in un formato a
+bitrate variabile per adattare la qualità del video alle diverse velocità di connessione degli utenti.
+Approfondisci su <a href="https://ffmpeg.org/">FFmpeg</a></p></div></div>
+
+## Gestire più tracce audio
+
+## Embed da piattaforme terze
+
+## Attivazione dell’overlay di consenso
+L’utilizzo di un overlay per il consenso è una soluzione comune per garantire la conformità alla normativa sulla privacy in materia di cookie e tracciamento degli utenti.
+L’overlay per il consenso consente di informare l’utente sui cookie utilizzati e di ottenere il suo consenso in modo esplicito e consapevole alla riproduzione del video prima dell’installazione di qualunque cookie.
+`,
+      },
+    },
+  },
 };

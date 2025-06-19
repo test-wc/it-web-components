@@ -24,3 +24,7 @@
 #anchor--componenti-icona--informazioni-utili .sbdocs-preview {
   display: none;
 }
+
+.sbdocs.sbdocs-preview:has(.hide-preview) {
+  display: none;
+}

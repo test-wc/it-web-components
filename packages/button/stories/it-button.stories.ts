@@ -178,7 +178,7 @@ Per la personalizzazione degli stili si può usare il selettore \`::part\` passa
       },
     },
   },
-  render: () => html`<div></div>`,
+  render: () => html`<div class="hide-preview"></div>`,
 };
 
 export const Tipologie: Story = {

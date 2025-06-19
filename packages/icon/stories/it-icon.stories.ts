@@ -139,7 +139,7 @@ In quanto icone puramente di presentazione, vengono aggiunti di default \`role="
       },
     },
   },
-  render: () => html`<div></div>`,
+  render: () => html`<div class="hide-preview"></div>`,
 };
 
 export const PersonalizzazioneDegliStili: Story = {
@@ -155,7 +155,7 @@ Per la personalizzazione degli stili si può usare il selettore \`::part\` passa
       },
     },
   },
-  render: () => html`<div></div>`,
+  render: () => html`<div class="hide-preview"></div>`,
 };
 
 export const TutteLeIconeDisponibili: Story = {
