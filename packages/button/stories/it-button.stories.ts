@@ -366,8 +366,8 @@ export const PulsantiConIcona: Story = {
 L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \`lg\` e \`sm\` non è necessario passare l'attributo \`size\` all'icona.
-- Nei pulsaanti di dimensione \`xs\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
+- Nei pulsanti di dimensione \`lg\` e \`sm\` è necessario passare l'attributo \`size="sm"\` all'icona.
+- Nei pulsaanti di dimensione \`xs\`, è necessario passare l'attributo \`size="xs"\` all'icona .
 `,
       },
     },
@@ -384,7 +384,8 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> <span>${slot ?? 'Pulsante Large con icona'}</span>
+        <it-icon name="it-star-full" color="white" size="sm"></it-icon>
+        <span>${slot ?? 'Pulsante Large con icona'}</span>
       </it-button>
 
       <it-button
@@ -395,7 +396,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         ?disabled="${params.disabled}"
         type="${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> <span>${slot ?? 'Pulsante con icona'}</span>
+        <it-icon name="it-star-full" color="white" size="sm"></it-icon> <span>${slot ?? 'Pulsante con icona'}</span>
       </it-button>
 
       <it-button
@@ -427,6 +428,10 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
   },
 };
 
+/*
+https://github.com/italia/bootstrap-italia/pull/1475/files
+questa per per bootstrap-italia#feat/design-tokens, sistema la dimensione di .roundedicon nei pulsanti di dimensione xs
+*/
 export const PulsantiConIconaCerchiata: Story = {
   ...meta,
   args: {},
@@ -450,8 +455,8 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
 Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` per poter avere il contorno circolare.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \`lg\` e \`sm\`, l'attributo \`size\` dell'icona deve essere \`sm\`.
-- Nei pulsaanti di dimensione \`xs\`, l'attributo \`size\` dell'icona deve essere \`xs\`.
+- Nei pulsanti di dimensione \`lg\` e \`sm\` è necessario passare l'attributo \`size="sm"\` all'icona.
+- Nei pulsaanti di dimensione \`xs\`, è necessario passare l'attributo \`size="xs"\` all'icona .
 `,
       },
     },
