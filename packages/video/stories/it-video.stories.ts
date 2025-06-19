@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '@italia/video';
 import itLang from '../src/locales/it.js';
 
@@ -14,16 +15,19 @@ interface VideoProps {
 type Story = StoryObj<VideoProps>;
 
 // Renderizza il wc it-video di default
-const renderComponent = (params: any) => html`
-  <it-video
-    src="${params.src}"
-    ?poster="${params.poster}"
-    ?type="${params.type}"
-    ?options="${params.options}"
-    ?translations="${params.translations}"
-    ?language="${params.language}"
-  ></it-video>
-`;
+const renderComponent = (params: any) => {
+  console.log(params);
+  return html`
+    <it-video
+      src="${ifDefined(params.src)}"
+      poster="${ifDefined(params.poster)}"
+      type="${ifDefined(params.type)}"
+      options="${ifDefined(params.options)}"
+      translations="${ifDefined(params.translations)}"
+      language="${ifDefined(params.language)}"
+    ></it-video>
+  `;
+};
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -34,14 +38,14 @@ const meta = {
     src: 'https://vjs.zencdn.net/v/oceans.webm',
     poster: '',
     type: 'video/mp4',
-    options: {},
+    options: undefined,
     language: 'it',
     translations: { it: itLang },
   },
   argTypes: {
     src: { control: 'text', description: 'Sorgente del video' },
     poster: { control: 'text', description: "Sorgente dell'immagine di anteprima" },
-    type: { control: 'text', description: "Tipo del video. Il default è 'video/mp4'" },
+    type: { control: 'text', description: 'Tipo del video.', table: { defaultValue: { summary: 'video/mp4' } } },
     options: {
       control: 'object',
       description: 'Opzioni per il video player. https://videojs.com/guides/options/ qui tutte le opzioni disponibili.',
@@ -54,6 +58,7 @@ const meta = {
     language: {
       control: 'text',
       description: "Lingua del player di cui verrano usate le corrispondenti 'transaltions'",
+      table: { defaultValue: { summary: 'it' } },
     },
   },
   parameters: {

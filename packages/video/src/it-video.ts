@@ -6,7 +6,9 @@ import videojs from 'video.js';
 import itLang from './locales/it.js';
 
 import styles from './it-video.scss';
-//import 'video.js/dist/video-js.css';
+
+// import 'video.js/dist/video-js.css';
+
 import videojsStyles from './video-js.min.scss';
 
 type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario

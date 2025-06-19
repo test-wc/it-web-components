@@ -11,6 +11,7 @@ interface ButtonProps {
   size: string;
   type: string;
   block: boolean;
+  icon?: boolean;
   value: string;
 }
 
@@ -27,6 +28,7 @@ const renderComponent = (params: any, defaultSlot = '') => {
       size="${params.size}"
       ?block="${params.block}"
       ?disabled="${params.disabled}"
+      ?icon="${params.icon}"
       type="${params.type}"
       >${slot}</it-button
     >
@@ -89,6 +91,7 @@ const meta = {
     block: false,
     outline: false,
     disabled: false,
+    icon: false,
     type: 'button',
     value: '',
   },
@@ -102,20 +105,29 @@ const meta = {
       control: 'select',
       description: 'Dimensione del pulsante',
       options: sizes,
+      table: { defaultValue: { summary: 'sm' } },
     },
     block: {
       control: 'boolean',
       type: 'boolean',
       description: 'Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile',
+      table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: 'boolean',
       type: 'boolean',
+      table: { defaultValue: { summary: 'false' } },
     },
     outline: {
       control: 'boolean',
       type: 'boolean',
       description: 'Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante.',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    icon: {
+      control: 'boolean',
+      type: 'boolean',
+      table: { defaultValue: { summary: 'false' } },
     },
     slot: {
       control: 'text',
@@ -125,7 +137,9 @@ const meta = {
       control: 'select',
       description: 'Tipologia di pulsante',
       options: ['button', 'submit', 'reset'],
+      table: { defaultValue: { summary: 'button' } },
     },
+
     value: {
       control: 'text',
     },

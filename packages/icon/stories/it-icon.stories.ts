@@ -56,13 +56,13 @@ const meta: Meta<IconProps> = {
       control: 'select',
       options: sizes,
       description: "Dimensione dell'icona: 'xs' | 'sm' | (stringa vuota) | 'lg' | 'xl'",
-      defaultValue: undefined,
+      table: { defaultValue: { summary: undefined } },
     },
     align: {
       control: 'select',
       options: alignments,
       description: "Allineamento verticale dell'icona: 'top' | 'middle' | 'bottom' ",
-      defaultValue: 'middle',
+      table: { defaultValue: { summary: 'middle' } },
     },
     color: {
       control: 'select',
@@ -80,7 +80,8 @@ const meta: Meta<IconProps> = {
     },
     role: {
       control: 'text',
-      description: 'Ruolo accessibile. Default: "img"',
+      description: 'Ruolo accessibile.',
+      table: { defaultValue: { summary: 'img' } },
     },
     src: {
       control: 'text',
@@ -89,10 +90,12 @@ const meta: Meta<IconProps> = {
     padded: {
       control: 'boolean',
       description: "Crea un padding attorno all'icona, proporzionale alla dimensione dell’icona",
+      table: { defaultValue: { summary: 'false' } },
     },
   },
   parameters: {
     layout: 'padded',
+
     docs: {
       description: {
         component: `
