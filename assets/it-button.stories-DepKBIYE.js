@@ -1,11 +1,11 @@
-import{i as Y,x as i,a as Z}from"./lit-element-Dfkv_UsO.js";import{n as r,o as P,t as nn}from"./it-icon-C2aLQD2j.js";import"./iframe-CzwxjRwd.js";function s(n,e,t,a){var p=arguments.length,d=p<3?e:a,v;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")d=Reflect.decorate(n,e,t,a);else for(var w=n.length-1;w>=0;w--)(v=n[w])&&(d=(p<3?v(d):p>3?v(e,t,d):v(e,t))||d);return p>3&&d&&Object.defineProperty(e,t,d),d}function l(n,e){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(n,e)}/**
+import{i as Y,x as a,a as Z}from"./lit-element-Dfkv_UsO.js";import{n as r,o as P,t as nn}from"./it-icon-BD9BJp4h.js";import"./iframe-pJPTdTLt.js";function s(n,e,t,i){var p=arguments.length,b=p<3?e:i,v;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")b=Reflect.decorate(n,e,t,i);else for(var w=n.length-1;w>=0;w--)(v=n[w])&&(b=(p<3?v(b):p>3?v(e,t,b):v(e,t))||b);return p>3&&b&&Object.defineProperty(e,t,b),b}function l(n,e){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(n,e)}/**
  * @license
  *
  * Copyright IBM Corp. 2020, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
- */var C;(function(n){n.NO_ERROR="",n.ERROR_REQUIRED="required"})(C||(C={}));class en extends Z{addFocus(e){}composeClass(...e){let t="";return e.filter(a=>a.length>0).forEach(a=>{t+=` ${a}`}),t.trim()}}var tn=Y`/***************************** 1 ****************************************/
+ */var C;(function(n){n.NO_ERROR="",n.ERROR_REQUIRED="required"})(C||(C={}));class en extends Z{addFocus(e){}composeClass(...e){let t="";return e.filter(i=>i.length>0).forEach(i=>{t+=` ${i}`}),t.trim()}}var tn=Y`/***************************** 1 ****************************************/
 /***************************** 2 ****************************************/
 /***************************** 1 ****************************************/
 /***************************** 2 ****************************************/
@@ -370,7 +370,7 @@ a.btn-outline-danger:active {
 
 .btn-close-white {
   filter: invert(1) grayscale(100%) brightness(200%);
-}`;let o=class extends en{constructor(){super(...arguments),this._buttonClasses="",this.type="button",this.variant="",this.size="sm",this.outline=!1,this.block=!1,this.disabled=!1,this.icon=!1,this.value="",this.internals=this.attachInternals()}static get formAssociated(){return!0}firstUpdated(e){const t=this.renderRoot.querySelector("button");t&&this.addFocus(t)}updated(){this._buttonClasses=this.composeClass("btn",!this.outline&&this.variant!==""?`btn-${this.variant}`:"",this.outline?`${this.variant?"btn-outline-":""}${this.variant}`:"",this.disabled?"disabled":"",this.size?`btn-${this.size}`:"",this.block?"d-block w-100":"",this.icon?"btn-icon":"")}surfaceSubmitEvent(e){this.form&&(e.preventDefault(),e.stopPropagation(),this.form.requestSubmit())}get form(){return this.internals?this.internals.form:null}connectedCallback(){var e;(e=super.connectedCallback)==null||e.call(this),this.block&&this.classList.add("d-block","w-100")}render(){return i`
+}`;let o=class extends en{constructor(){super(...arguments),this._buttonClasses="",this.type="button",this.variant="",this.size="sm",this.outline=!1,this.block=!1,this.disabled=!1,this.icon=!1,this.value="",this.internals=this.attachInternals()}static get formAssociated(){return!0}firstUpdated(e){const t=this.renderRoot.querySelector("button");t&&this.addFocus(t)}updated(){this._buttonClasses=this.composeClass("btn",!this.outline&&this.variant!==""?`btn-${this.variant}`:"",this.outline?`${this.variant?"btn-outline-":""}${this.variant}`:"",this.disabled?"disabled":"",this.size?`btn-${this.size}`:"",this.block?"d-block w-100":"",this.icon?"btn-icon":"")}surfaceSubmitEvent(e){this.form&&(e.preventDefault(),e.stopPropagation(),this.form.requestSubmit())}get form(){return this.internals?this.internals.form:null}connectedCallback(){var e;(e=super.connectedCallback)==null||e.call(this),this.block&&this.classList.add("d-block","w-100")}render(){return a`
       <button
         part="${this.variant} ${this.outline?"outline":""}"
         type="${this.type}"
@@ -381,7 +381,7 @@ a.btn-outline-danger:active {
       >
         <slot></slot>
       </button>
-    `}};o.styles=tn;s([r({type:String}),l("design:type",Object)],o.prototype,"_buttonClasses",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"type",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"variant",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"size",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"outline",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"block",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"disabled",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"icon",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"value",void 0);s([r(),l("design:type",Object)],o.prototype,"internals",void 0);o=s([nn("it-button")],o);const on=["primary","secondary","success","danger","warning","link"],an=["lg","sm","xs"],b=(n,e="")=>{var a;const t=((a=n.slot)==null?void 0:a.length)>0?n.slot:e;return i`
+    `}};o.styles=tn;s([r({type:String}),l("design:type",Object)],o.prototype,"_buttonClasses",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"type",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"variant",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"size",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"outline",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"block",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"disabled",void 0);s([r({type:Boolean}),l("design:type",Object)],o.prototype,"icon",void 0);s([r({type:String}),l("design:type",Object)],o.prototype,"value",void 0);s([r(),l("design:type",Object)],o.prototype,"internals",void 0);o=s([nn("it-button")],o);const on=["primary","secondary","success","danger","warning","link"],an=["lg","sm","xs"],d=(n,e="")=>{var i;const t=((i=n.slot)==null?void 0:i.length)>0?n.slot:e;return a`
     <it-button
       variant="${n.variant}"
       ?outline="${n.outline}"
@@ -391,22 +391,22 @@ a.btn-outline-danger:active {
       type="${n.type}"
       >${t}</it-button
     >
-  `},u=n=>i`
+  `},u=n=>a`
   <div class="flex">
-    ${b(n)}
-    ${b({...n,disabled:!0,slot:`${n.slot} disabled`})}
+    ${d(n)}
+    ${d({...n,disabled:!0,slot:`${n.slot} disabled`})}
   </div>
-`,c=(n,e)=>{var a;const t=((a=n.slot)==null?void 0:a.length)>0?n.slot:null;return i`<div class="flex p-0">
+`,c=(n,e)=>{var i;const t=((i=n.slot)==null?void 0:i.length)>0?n.slot:null;return a`<div class="flex p-0">
     ${u({...n,slot:t??e})}
     ${u({...n,slot:t??`${e} outline`,outline:!0})}
-  </div>`},S=(n,e)=>i`<div class="flex">
-    ${b({...n,variant:"primary"},`Primary ${e}`)}
-    ${b({...n,variant:"secondary"},`Secondary ${e}`)}
+  </div>`},S=(n,e)=>a`<div class="flex">
+    ${d({...n,variant:"primary"},`Primary ${e}`)}
+    ${d({...n,variant:"secondary"},`Secondary ${e}`)}
   </div>`,f={title:"Componenti/Button",tags:["autodocs"],component:"it-button",args:{slot:"Testo del pulsante",variant:"primary",size:"sm",block:!1,outline:!1,disabled:!1,type:"button",value:""},argTypes:{variant:{control:"select",description:"Varianti di colore",options:on},size:{control:"select",description:"Dimensione del pulsante",options:an},block:{control:"boolean",type:"boolean",description:"Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile"},disabled:{control:"boolean",type:"boolean"},outline:{control:"boolean",type:"boolean",description:"Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante."},slot:{control:"text",description:"Testo del pulsante"},type:{control:"select",description:"Tipologia di pulsante",options:["button","submit","reset"]},value:{control:"text"}},parameters:{docs:{description:{component:`
 <Description>Pulsante con etichetta di testo o icona che al click inizia un'azione o un evento.</Description>
 
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/buttons/).
-`}}}},g={...f,args:{variant:"primary"},tags:["!autodocs","!dev"],parameters:{docs:{canvas:{sourceState:"shown"}}},render:n=>i` ${b({...n})}`},m={tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nPer la personalizzazione degli stili si può usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).\n"}}},render:()=>i`<div></div>`},y={...f,args:{variant:"primary"},render:n=>i`
+`}}}},m={...f,args:{variant:"primary"},tags:["!autodocs","!dev"],parameters:{docs:{canvas:{sourceState:"shown"}}},render:n=>a` ${d({...n})}`},g={tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nPer la personalizzazione degli stili si può usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).\n"}}},render:()=>a`<div></div>`},y={...f,args:{variant:"primary"},render:n=>a`
     <div class="flex tipologie-buttons">
       ${u({...n,slot:`Button - ${n.slot}`,type:"button"})}
       ${u({...n,slot:`Submit - ${n.slot}`,type:"submit"})}
@@ -417,7 +417,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
 
 #### Note sullo stato disabilitato
 - I pulsanti disabilitati includeranno l’attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive.
-`}}},render:n=>i`
+`}}},render:n=>a`
     ${c({...n,variant:"primary"},"Primary")}
     ${c({...n,variant:"secondary"},"Secondary")}
     ${c({...n,variant:"success"},"Success")}
@@ -429,22 +429,22 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
 L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
 come gli screen reader.
 Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
-visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>`}}},render:n=>i`
+visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>`}}},render:n=>a`
     <div class="bg-dark p-4">
       ${c({...n,variant:"primary"},"Primary")}
       ${c({...n,variant:"secondary"},"Secondary")}
       ${c({...n,variant:"link"},"Link")}
     </div>
-  `},z={args:{slot:""},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}},block:{table:{disable:!0}}},parameters:{docs:{description:{story:'\nPer ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l\'attributo `size` con i valori `"lg"`, `"sm"`, `"xs"`.\n\nUtilizzando invece l\'attributo `block` si ottengono pulsanti che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.\n'}}},render:n=>i`
+  `},z={args:{slot:""},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}},block:{table:{disable:!0}}},parameters:{docs:{description:{story:'\nPer ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l\'attributo `size` con i valori `"lg"`, `"sm"`, `"xs"`.\n\nUtilizzando invece l\'attributo `block` si ottengono pulsanti che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.\n'}}},render:n=>a`
     ${S({...n,size:"lg"},"Large")} ${S({...n,size:"sm"},"Small")}
     ${S({...n,size:"xs"},"Extra Small")}
     <div class="flex">
-      ${b({...n,block:!0,variant:"primary"},"Primary Block")}
+      ${d({...n,block:!0,variant:"primary"},"Primary Block")}
     </div>
     <div class="flex">
-      ${b({...n,block:!0,variant:"secondary"},"Secondary Block")}
+      ${d({...n,block:!0,variant:"secondary"},"Secondary Block")}
     </div>
-  `},k={...f,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` non è necessario passare l'attributo `size` all'icona.\n- Nei pulsaanti di dimensione `xs`, l'attributo `size` dell'icona deve essere `xs`.\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return i` <div class="flex">
+  `},k={...f,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
       <it-button
         variant="success"
         size="lg"
@@ -454,7 +454,8 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         ?disabled="${n.disabled}"
         type="${n.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> <span>${e??"Pulsante Large con icona"}</span>
+        <it-icon name="it-star-full" color="white" size="sm"></it-icon>
+        <span>${e??"Pulsante Large con icona"}</span>
       </it-button>
 
       <it-button
@@ -465,7 +466,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         ?disabled="${n.disabled}"
         type="${n.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> <span>${e??"Pulsante con icona"}</span>
+        <it-icon name="it-star-full" color="white" size="sm"></it-icon> <span>${e??"Pulsante con icona"}</span>
       </it-button>
 
       <it-button
@@ -493,7 +494,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
         <span>${e??"Pulsante Extra Small con icona"}</span>
       </it-button>
-    </div>`}},x={...f,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\nDeve essere contenuta all'interno di uno elemento con classe`.rounded-icon` per poter avere il contorno circolare.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm`, l'attributo `size` dell'icona deve essere `sm`.\n- Nei pulsaanti di dimensione `xs`, l'attributo `size` dell'icona deve essere `xs`.\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return i` <div class="flex">
+    </div>`}},x={...f,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\nDeve essere contenuta all'interno di uno elemento con classe`.rounded-icon` per poter avere il contorno circolare.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
       <it-button
         variant="success"
         size="lg"
@@ -553,7 +554,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         </span>
         <span>${e??"Pulsante Extra Small con icona"}</span>
       </it-button>
-    </div>`}};var D,E,V;g.parameters={...g.parameters,docs:{...(D=g.parameters)==null?void 0:D.docs,source:{originalSource:`{
+    </div>`}};var D,E,V;m.parameters={...m.parameters,docs:{...(D=m.parameters)==null?void 0:D.docs,source:{originalSource:`{
   ...meta,
   args: {
     variant: 'primary'
@@ -569,7 +570,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
   render: params => html\` \${renderComponent({
     ...params
   })}\`
-}`,...(V=(E=g.parameters)==null?void 0:E.docs)==null?void 0:V.source}}};var L,R,B;m.parameters={...m.parameters,docs:{...(L=m.parameters)==null?void 0:L.docs,source:{originalSource:`{
+}`,...(V=(E=m.parameters)==null?void 0:E.docs)==null?void 0:V.source}}};var L,R,B;g.parameters={...g.parameters,docs:{...(L=g.parameters)==null?void 0:L.docs,source:{originalSource:`{
   tags: ['!dev'],
   parameters: {
     viewMode: 'docs',
@@ -588,7 +589,7 @@ Per la personalizzazione degli stili si può usare il selettore \\\`::part\\\` p
     }
   },
   render: () => html\`<div></div>\`
-}`,...(B=(R=m.parameters)==null?void 0:R.docs)==null?void 0:B.source}}};var T,j,O;y.parameters={...y.parameters,docs:{...(T=y.parameters)==null?void 0:T.docs,source:{originalSource:`{
+}`,...(B=(R=g.parameters)==null?void 0:R.docs)==null?void 0:B.source}}};var T,j,O;y.parameters={...y.parameters,docs:{...(T=y.parameters)==null?void 0:T.docs,source:{originalSource:`{
   ...meta,
   args: {
     variant: 'primary'
@@ -801,8 +802,8 @@ Utilizzando invece l'attributo \\\`block\\\` si ottengono pulsanti che prendono 
 L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \\\`lg\\\` e \\\`sm\\\` non è necessario passare l'attributo \\\`size\\\` all'icona.
-- Nei pulsaanti di dimensione \\\`xs\\\`, l'attributo \\\`size\\\` dell'icona deve essere \\\`xs\\\`.
+- Nei pulsanti di dimensione \\\`lg\\\` e \\\`sm\\\` è necessario passare l'attributo \\\`size="sm"\\\` all'icona.
+- Nei pulsaanti di dimensione \\\`xs\\\`, è necessario passare l'attributo \\\`size="xs"\\\` all'icona .
 \`
       }
     }
@@ -819,7 +820,8 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         ?disabled="\${params.disabled}"
         type="\${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> <span>\${slot ?? 'Pulsante Large con icona'}</span>
+        <it-icon name="it-star-full" color="white" size="sm"></it-icon>
+        <span>\${slot ?? 'Pulsante Large con icona'}</span>
       </it-button>
 
       <it-button
@@ -830,7 +832,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         ?disabled="\${params.disabled}"
         type="\${params.type}"
       >
-        <it-icon name="it-star-full" color="white"></it-icon> <span>\${slot ?? 'Pulsante con icona'}</span>
+        <it-icon name="it-star-full" color="white" size="sm"></it-icon> <span>\${slot ?? 'Pulsante con icona'}</span>
       </it-button>
 
       <it-button
@@ -883,8 +885,8 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
 Deve essere contenuta all'interno di uno elemento con classe\\\`.rounded-icon\\\` per poter avere il contorno circolare.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \\\`lg\\\` e \\\`sm\\\`, l'attributo \\\`size\\\` dell'icona deve essere \\\`sm\\\`.
-- Nei pulsaanti di dimensione \\\`xs\\\`, l'attributo \\\`size\\\` dell'icona deve essere \\\`xs\\\`.
+- Nei pulsanti di dimensione \\\`lg\\\` e \\\`sm\\\` è necessario passare l'attributo \\\`size="sm"\\\` all'icona.
+- Nei pulsaanti di dimensione \\\`xs\\\`, è necessario passare l'attributo \\\`size="xs"\\\` all'icona .
 \`
       }
     }
@@ -953,4 +955,4 @@ Deve essere contenuta all'interno di uno elemento con classe\\\`.rounded-icon\\\
       </it-button>
     </div>\`;
   }
-}`,...(X=(K=x.parameters)==null?void 0:K.docs)==null?void 0:X.source}}};const dn=["EsempioInterattivo","PersonalizzazioneDegliStili","Tipologie","VariantiColore","SfondoScuro","VariantiDiDimensione","PulsantiConIcona","PulsantiConIconaCerchiata"];export{g as EsempioInterattivo,m as PersonalizzazioneDegliStili,k as PulsantiConIcona,x as PulsantiConIconaCerchiata,$ as SfondoScuro,y as Tipologie,h as VariantiColore,z as VariantiDiDimensione,dn as __namedExportsOrder,f as default};
+}`,...(X=(K=x.parameters)==null?void 0:K.docs)==null?void 0:X.source}}};const bn=["EsempioInterattivo","PersonalizzazioneDegliStili","Tipologie","VariantiColore","SfondoScuro","VariantiDiDimensione","PulsantiConIcona","PulsantiConIconaCerchiata"];export{m as EsempioInterattivo,g as PersonalizzazioneDegliStili,k as PulsantiConIcona,x as PulsantiConIconaCerchiata,$ as SfondoScuro,y as Tipologie,h as VariantiColore,z as VariantiDiDimensione,bn as __namedExportsOrder,f as default};
