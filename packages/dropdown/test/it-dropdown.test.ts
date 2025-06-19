@@ -1,5 +1,5 @@
 import { fixture, expect, html } from '@open-wc/testing';
-import '../src/it-dropdown.js';
+import '@italia/it-dropdown';
 
 describe('<it-dropdown>', () => {
   it('renders slot content', async () => {
@@ -22,5 +22,18 @@ describe('<it-dropdown>', () => {
     }
     document.body.click();
     expect(popover?.getAttribute('data-closed')).to.equal('true');
+  });
+
+  it('reflects aria-label and aria-labelledby', async () => {
+    const el = await fixture(html`<it-dropdown aria-label="Menu test" aria-labelledby="lbl"></it-dropdown>`);
+    expect(el.getAttribute('aria-label')).to.equal('Menu test');
+    expect(el.getAttribute('aria-labelledby')).to.equal('lbl');
+  });
+
+  it('applies disabled attribute', async () => {
+    const el = await fixture(html`<it-dropdown disabled></it-dropdown>`);
+    expect(el.hasAttribute('disabled')).to.be.true;
+    expect(el.getAttribute('aria-disabled')).to.equal('true');
+    expect(el.getAttribute('tabindex')).to.equal('-1');
   });
 });
