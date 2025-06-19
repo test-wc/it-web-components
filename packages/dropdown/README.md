@@ -1,18 +1,18 @@
 # Dropdown Web Component
 
-Questo package contiene il web component `<dropdown-menu>`, conforme agli standard del progetto e con stili Bootstrap Italia.
+Questo package contiene il web component `<it-dropdown>`, conforme agli standard del progetto e con stili Bootstrap Italia.
 
 ## Utilizzo
 
 ```
-<dropdown-menu>
+<it-dropdown>
   <button>Apri menu</button>
   <ul popover>
     <li><a href="/home">Home</a></li>
     <li><a href="/about">Chi siamo</a></li>
     <li><a href="/contatti">Contatti</a></li>
   </ul>
-</dropdown-menu>
+</it-dropdown>
 ```
 
 ## Sviluppo
