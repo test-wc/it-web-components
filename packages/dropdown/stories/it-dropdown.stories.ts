@@ -34,7 +34,19 @@ export const Base = (args) => html`
     ?open=${args.open}
   >
     <button type="button" popovertarget="menu1">Apri menu</button>
-    <ul id="menu1" popover">
+    <ul id="menu1" popover>
+      ${args.items.map((item) => html`<li><a href="${item.href}">${item.label}</a></li>`)}
+    </ul>
+  </it-dropdown>
+  <it-dropdown
+    role=${args.role}
+    aria-label=${args.label}
+    aria-labelledby=${args.ariaLabelledby}
+    ?disabled=${args.disabled}
+    ?open=${args.open}
+  >
+    <button type="button" popovertarget="menu2">Apri menu</button>
+    <ul id="menu2" popover>
       ${args.items.map((item) => html`<li><a href="${item.href}">${item.label}</a></li>`)}
     </ul>
   </it-dropdown>
