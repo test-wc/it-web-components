@@ -39,6 +39,16 @@ it-button {
 
 it-icon {
   //  @extend .icon;
-  width: var(--bs-icon-size-m);
-  height: var(--bs-icon-size-m);
+  --bs-it-icon-size: var(--bs-icon-size-m);
+
+  width: var(--bs-it-icon-size);
+  height: var(--bs-it-icon-size);
+
+  &[size='sm'] {
+    --bs-it-icon-size: var(--bs-icon-size-sm);
+  }
+
+  &[size='xs'] {
+    --bs-it-icon-size: var(--bs-icon-size-xs);
+  }
 }
