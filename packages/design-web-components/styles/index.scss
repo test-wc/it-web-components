@@ -37,6 +37,7 @@ it-button {
   width: auto;
 }
 
+/*Icon*/
 it-icon {
   //  @extend .icon;
   --bs-it-icon-size: var(--bs-icon-size-m);
@@ -51,4 +52,15 @@ it-icon {
   &[size='xs'] {
     --bs-it-icon-size: var(--bs-icon-size-xs);
   }
+}
+
+/*Video*/
+:root {
+  --it-videojs-default-width: 300px;
+  --it-videojs-default-height: 150px;
+}
+
+it-video {
+  display: block;
+  min-width: var(--it-videojs-default-width, 300px);
 }

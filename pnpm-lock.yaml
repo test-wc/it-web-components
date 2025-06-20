@@ -424,7 +424,7 @@ importers:
         specifier: 'catalog:'
         version: 3.3.0
       video.js:
-        specifier: ^8.23.3
+        specifier: ^8.21.0
         version: 8.23.3
       videojs-font:
         specifier: ^4.2.0

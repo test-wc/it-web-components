@@ -8,11 +8,24 @@
 @import 'bootstrap-italia/src/scss/components/videoplayer';
 
 :host {
+  /*
+    * Regole spostate in design-web-components/styles/index.scss
   display: block;
-  //aspect-ratio: 16 / 9; /* Default aspect ratio */
+  min-width: var(--it-videojs-default-width);
+  */
 }
 
-video {
+video:not([width]) {
   width: 100%;
   height: auto;
+}
+
+//video.js dynamic styles are disabled, so we need to ensure the styles are applied correctly
+.video-js {
+  width: var(--it-videojs-default-width);
+  height: var(--it-videojs-default-height);
+}
+
+.vjs-fluid:not(.vjs-audio-only-mode) {
+  padding-top: 56.25%;
 }

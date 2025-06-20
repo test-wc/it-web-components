@@ -43,7 +43,7 @@
   "dependencies": {
     "bootstrap-italia": "catalog:",
     "lit": "catalog:",
-    "video.js": "^8.23.3",
+    "video.js": "^8.21.0",
     "videojs-font": "^4.2.0"
   },
   "devDependencies": {

@@ -15,19 +15,16 @@ interface VideoProps {
 type Story = StoryObj<VideoProps>;
 
 // Renderizza il wc it-video di default
-const renderComponent = (params: any) => {
-  console.log(params);
-  return html`
-    <it-video
-      src="${ifDefined(params.src)}"
-      poster="${ifDefined(params.poster)}"
-      type="${ifDefined(params.type)}"
-      options="${ifDefined(params.options)}"
-      translations="${ifDefined(params.translations)}"
-      language="${ifDefined(params.language)}"
-    ></it-video>
-  `;
-};
+const renderComponent = (params: any) => html`
+  <it-video
+    src="${ifDefined(params.src)}"
+    poster="${ifDefined(params.poster)}"
+    type="${ifDefined(params.type)}"
+    options="${params.options ? JSON.stringify(params.options) : undefined}"
+    translations="${params.translations ? JSON.stringify(params.translations) : undefined}"
+    language="${ifDefined(params.language)}"
+  ></it-video>
+`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
