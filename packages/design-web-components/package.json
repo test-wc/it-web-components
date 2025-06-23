@@ -53,16 +53,17 @@
   "dependencies": {
     "@italia/button": "workspace:^",
     "@italia/icon": "workspace:^",
-    "@italia/video": "workspace:^"
+    "@italia/video": "workspace:^",
+    "rollup-plugin-copy": "^3.5.0"
   },
   "devDependencies": {
     "@italia/typescript-config": "workspace:^",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
-    "rollup-plugin-scss": "^4.0.1",
     "bootstrap-italia": "catalog:",
     "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
+    "rollup-plugin-scss": "^4.0.1",
     "sass": "catalog:",
     "typescript": "catalog:"
   },

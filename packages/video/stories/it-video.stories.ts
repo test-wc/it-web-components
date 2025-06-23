@@ -11,6 +11,13 @@ interface VideoProps {
   options?: object;
   translations?: object;
   language?: string;
+  track?: Array<{
+    kind: 'captions' | 'subtitles' | 'chapters' | 'descriptions' | 'metadata';
+    src: string;
+    srclang: string;
+    label: string;
+    default: boolean;
+  }>;
 }
 type Story = StoryObj<VideoProps>;
 
@@ -23,7 +30,9 @@ const renderComponent = (params: any) => html`
     options="${params.options ? JSON.stringify(params.options) : undefined}"
     translations="${params.translations ? JSON.stringify(params.translations) : undefined}"
     language="${ifDefined(params.language)}"
-  ></it-video>
+    track="${params.track ? JSON.stringify(params.track) : undefined}"
+    >${params.slot}</it-video
+  >
 `;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -117,9 +126,26 @@ al player le opzioni definite qui [https://videojs.com/guides/options/](https://
 sovrascrivere le traduzioni italiane pre-impostate.
 
 ### Plugin
-Esistono numerosi plugin disponibili per video.js, che consentono di aggiungere nuove funzionalità, come la riproduzione di video in VR, l’analisi delle statistiche di visualizzazione del video, le utility per la UI mobile e molto altro ancora.
+Esistono numerosi plugin disponibili per Video.js, che consentono di aggiungere nuove funzionalità, come la riproduzione di video in VR, l’analisi delle statistiche di visualizzazione del video, le utility per la UI mobile e molto altro ancora.
 
-###Sottotitoli, didascalie, capitoli e descrizioni
+### Font per le icone del player
+Per utilizzare le icone del player, è necessario includere il font \`VideoJS.woff\` nella tua applicazione. Puoi farlo aggiungendo il css compilato di design-web-components nel tuo sorgente HTML:
+
+\`\`\`html
+<link rel="stylesheet" href="design-web-components/dist/design-web-components.css" />
+\`\`\`
+oppure se stai usando SCSS puoi definire il font direttamente nel tuo file SCSS:
+
+\`\`\`scss
+@font-face {
+  font-family: VideoJS;
+  src: url('./assets/fonts/VideoJS.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+\`\`\`
+copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copiare dal package design-web-components).
+
 
 ### Immagine di anteprima
 Per aggiungere un’immagine di anteprima come copertina al video occorre utilizzare l’attributo poster inizializzato con la url
@@ -147,4 +173,111 @@ L’overlay per il consenso consente di informare l’utente sui cookie utilizza
       },
     },
   },
+};
+
+export const ConTrascrizione: Story = {
+  ...meta,
+  render: (params) =>
+    html` ${renderComponent({
+      ...params,
+      translations: undefined,
+      slot: html`<div class="vjs-transcription accordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header " id="transcription-head4">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#transcription4"
+              aria-expanded="true"
+              aria-controls="transcription"
+            >
+              Trascrizione
+            </button>
+          </h2>
+          <div
+            id="transcription4"
+            class="accordion-collapse collapse"
+            role="region"
+            aria-labelledby="transcription-head4"
+          >
+            <div class="accordion-body">
+              Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus
+              facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.
+            </div>
+          </div>
+        </div>
+      </div>`,
+    })}`,
+};
+
+export const SottotitoliDidascalieCapitoliEDescrizioni: Story = {
+  ...meta,
+  storyName: 'Sottotitoli, didascalie, capitoli e descrizioni',
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Tramite l'attributo \`track\` puoi aggiungere del testo accessibile presente in un file testuale; l’unico formato supportato è WebVTT.
+L'attributo \`track\` accetta un elenco di valori con il seguente formato:
+
+\`\`\`js
+[{kind:'captions', src:'https://example.com/captions.vtt', srclang:'it', label:'Italiano', default:true}, ...]
+\`\`\`
+
+dove ogni singolo elemento rappresenta un file di sottotitoli, didascalie, capitoli o descrizioni.
+
+Valorizzando opportunamente la proprietà \`kind\` puoi specificare se il file associato contiene:
+- \`captions\`: per i sottotitoli (trascrizione dei dialoghi)
+- \`subtitles\`: per le didascalie (trascrizione dei dialoghi, degli effetti sonori, trascrizione del tipo di emozioni rappresentate dalla musica, ecc)
+- \`chapters\`: per i capitoli
+- \`descriptions\`: per le descrizioni (testo che descrive il contenuto visivo del video, utile per le persone con disabilità visive)
+- \`metadata\`: per i metadati (informazioni aggiuntive sul video, come la durata, la risoluzione, ecc)
+
+L'attributo \`default\` indica se il file associato è quello predefinito da utilizzare di default quando il video viene caricato.
+
+Approfondisci l’argomento consultando la documentazione di [VideoJS](https://videojs.com/guides/text-tracks/) (Inglese).
+
+Di seguito un esempio d’uso delle didascalie (kind:"captions") in diverse lingue.
+`,
+      },
+    },
+  },
+  render: (params) =>
+    html` ${renderComponent({
+      ...params,
+      src: './assets/video/ElephantsDream.mp4',
+      translations: undefined,
+      track: [
+        { kind: 'captions', src: './assets/video/subtitles-it.vtt', srclang: 'it', label: 'Italiano', default: true },
+        { kind: 'captions', src: './assets/video/subtitles-en.vtt', srclang: 'en', label: 'English' },
+        { kind: 'captions', src: './assets/video/subtitles-es.vtt', srclang: 'it', label: 'Español' },
+      ],
+    })}`,
+};
+
+export const ImmagineDiAnteprima: Story = {
+  ...meta,
+  storyName: 'Immagine di anteprima',
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Per aggiungere un’immagine di anteprima come copertina al video occorre utilizzare l’attributo \`poster\` inizializzato con la url dell’anteprima.
+
+<div class="callout callout-warning"><div class="callout-inner"><div class="callout-title"><span class="text">Attenzione</span></div>
+<p>Le immagini caricate come copertina devono rispettare la stessa \`aspect ratio\` del video per una corretta visualizzazione.
+</p></div></div>
+
+`,
+      },
+    },
+  },
+  render: (params) =>
+    html` ${renderComponent({
+      ...params,
+      src: './assets/video/ElephantsDream.mp4',
+      translations: undefined,
+      poster: './assets/video/ElephantsDream.mp4-poster21.jpg',
+    })}`,
 };

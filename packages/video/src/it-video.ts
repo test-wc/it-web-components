@@ -1,16 +1,20 @@
 import { LitElement, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-
 import videojs from 'video.js';
-
 import itLang from './locales/it.js';
-
 import styles from './it-video.scss';
 
 type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
 type LocaleTranslations = typeof itLang;
-
+type SingleTrack = {
+  kind: 'captions' | 'subtitles' | 'descriptions' | 'chapters' | 'metadata';
+  src: string; // URL del file del track
+  srclang?: string; // Codice della lingua (es. 'it', 'en',)
+  label: string; // Etichetta del track
+  default?: boolean; // Indica se è il track predefinito
+};
 type Translations = Record<Locale, LocaleTranslations>;
+type Track = Array<SingleTrack>;
 
 @customElement('it-video')
 export class ItVideo extends LitElement {
@@ -26,6 +30,8 @@ export class ItVideo extends LitElement {
 
   @property({ type: Object }) translations: Translations = { it: itLang };
 
+  @property({ type: Array }) track: Track = [];
+
   @property({ type: String }) language = 'it';
 
   private videoId = `vjs-${Math.random().toString(36).slice(2, 11)}`;
@@ -39,6 +45,7 @@ export class ItVideo extends LitElement {
       <video id="${this.videoId}" class="video-js">
         <source src="${this.src}" type="${this.type}" />
       </video>
+      <slot></slot>
     `;
   }
 
@@ -55,19 +62,52 @@ export class ItVideo extends LitElement {
       autoplay: false,
       preload: 'auto',
       crossorigin: 'anonymous',
+      techOrder: ['html5'],
+      controlBar: {
+        subtitlesButton: true,
+      },
+      poster: this.poster,
       ...this.options,
     };
 
     const videojsFn = videojs.default || videojs;
+    const tracks = [...(this.track ?? [])];
+
     this.player = videojsFn(this.videoElement, mergedOptions, function onPlayerReady() {
       this.addClass('vjs-theme-bootstrap-italia');
       this.addClass('vjs-big-play-centered');
+
+      // Aggiungi i track manualmente
+      tracks.forEach((t) => {
+        this.addRemoteTextTrack(
+          {
+            kind: t.kind,
+            src: t.src,
+            srclang: t.srclang || this.language,
+            label: t.label,
+            default: !!t.default,
+          },
+          false,
+        );
+      });
       // this is the ready callback
       // const p = this.player!;
       // initYoutubePlugin(p); // plugin YouTube
       // eventuali eventi o logiche aggiuntive
       // Puoi inizializzare qui eventuali plugin, ad esempio per YouTube
       // (window as any).youtube?.(this.player);
+    });
+    this.track.forEach((t) => {
+      this.player.addRemoteTextTrack(
+        {
+          kind: t.kind,
+          src: t.src,
+          srclang: t.srclang || this.language,
+          label: t.label,
+          default: !!t.default,
+        },
+        false,
+      );
     });
   }
 
