@@ -161,6 +161,7 @@ type Story = StoryObj<ButtonProps>;
 
 export const EsempioInterattivo: Story = {
   ...meta,
+  name: 'Esempio interattivo',
   args: {
     variant: 'primary',
   },
@@ -179,6 +180,7 @@ export const EsempioInterattivo: Story = {
 };
 
 export const PersonalizzazioneDegliStili: Story = {
+  name: 'Personalizzazione degli stili',
   tags: ['!dev'],
   parameters: {
     viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
@@ -194,33 +196,8 @@ Per la personalizzazione degli stili si può usare il selettore \`::part\` passa
   render: () => html`<div class="hide-preview"></div>`,
 };
 
-export const Tipologie: Story = {
-  ...meta,
-  args: {
-    variant: 'primary',
-  },
-  render: (params) => html`
-    <div class="flex tipologie-buttons">
-      ${renderDefault({
-        ...params,
-        slot: `Button - ${params.slot}`,
-        type: 'button',
-      })}
-      ${renderDefault({
-        ...params,
-        slot: `Submit - ${params.slot}`,
-        type: 'submit',
-      })}
-      ${renderDefault({
-        ...params,
-        slot: `Reset - ${params.slot}`,
-        type: 'reset',
-      })}
-    </div>
-  `,
-};
-
 export const VariantiColore: Story = {
+  name: 'Varianti di colore',
   args: { slot: '' },
   argTypes: {
     variant: {
@@ -260,48 +237,8 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
   `,
 };
 
-export const SfondoScuro: Story = {
-  args: { slot: '' },
-  argTypes: {
-    variant: {
-      table: {
-        disable: true,
-      },
-    },
-    outline: {
-      table: {
-        disable: true,
-      },
-    },
-    disabled: {
-      table: {
-        disable: true,
-      },
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
-<p>
-L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
-come gli screen reader.
-Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
-visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>`,
-      },
-    },
-  },
-  render: (args) => html`
-    <div class="bg-dark p-4">
-      ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
-      ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
-      ${renderVariant({ ...args, variant: 'link' }, 'Link')}
-    </div>
-  `,
-};
-
-export const VariantiDiDimensione: Story = {
+export const VariantiDimensione: Story = {
+  name: 'Varianti di dimensione',
   args: { slot: '' },
   argTypes: {
     variant: {
@@ -357,8 +294,78 @@ Utilizzando invece l'attributo \`block\` si ottengono pulsanti che prendono tutt
   `,
 };
 
-export const PulsantiConIcona: Story = {
+export const Tipologie: Story = {
   ...meta,
+  // name: 'Tipologie',
+  args: {
+    variant: 'primary',
+  },
+  render: (params) => html`
+    <div class="flex tipologie-buttons">
+      ${renderDefault({
+        ...params,
+        slot: `Button - ${params.slot}`,
+        type: 'button',
+      })}
+      ${renderDefault({
+        ...params,
+        slot: `Submit - ${params.slot}`,
+        type: 'submit',
+      })}
+      ${renderDefault({
+        ...params,
+        slot: `Reset - ${params.slot}`,
+        type: 'reset',
+      })}
+    </div>
+  `,
+};
+
+export const SfondoScuro: Story = {
+  name: 'Sfondo scuro',
+  args: { slot: '' },
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    outline: {
+      table: {
+        disable: true,
+      },
+    },
+    disabled: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<p>
+L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
+come gli screen reader.
+Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
+visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>`,
+      },
+    },
+  },
+  render: (args) => html`
+    <div class="bg-dark p-4">
+      ${renderVariant({ ...args, variant: 'primary' }, 'Primary')}
+      ${renderVariant({ ...args, variant: 'secondary' }, 'Secondary')}
+      ${renderVariant({ ...args, variant: 'link' }, 'Link')}
+    </div>
+  `,
+};
+
+export const ConIcona: Story = {
+  ...meta,
+  name: 'Con icona',
   args: {},
   argTypes: {
     variant: {
@@ -445,8 +452,9 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
 https://github.com/italia/bootstrap-italia/pull/1475/files
 questa per per bootstrap-italia#feat/design-tokens, sistema la dimensione di .roundedicon nei pulsanti di dimensione xs
 */
-export const PulsantiConIconaCerchiata: Story = {
+export const ConIconaCerchiata: Story = {
   ...meta,
+  name: 'Con icona cerchiata',
   args: {},
   argTypes: {
     variant: {

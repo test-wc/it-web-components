@@ -32,6 +32,14 @@ const config = {
       // Modificare gli import ora significherebbe una riscrittura pesante di bootstrap-italia.
       silenceDeprecations: ['import', 'global-builtin', 'function-units', 'color-functions', 'mixed-decls'],
     };
+
+    console.log('OptimizeDeps include:', config.optimizeDeps?.include);
+    console.log('OptimizeDeps exclude:', config.optimizeDeps?.exclude);
+    config.optimizeDeps ??= {};
+    config.optimizeDeps.exclude ??= [];
+
+    // Aggiungi manualmente pacchetti sospetti
+    config.optimizeDeps.exclude.push('@storybook/addon-essentials/docs/mdx-react-shim');
     return config;
   },
 };

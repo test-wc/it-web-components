@@ -111,6 +111,7 @@ type Story = StoryObj<IconProps>;
 
 export const EsempioInterattivo: Story = {
   ...meta,
+  name: 'Esempio interattivo',
   tags: ['!autodocs', '!dev'],
   parameters: {
     docs: {
@@ -145,6 +146,7 @@ In quanto icone puramente di presentazione, vengono aggiunti di default \`role="
 };
 
 export const PersonalizzazioneDegliStili: Story = {
+  name: 'Personalizzazione degli stili',
   tags: ['!dev'],
   parameters: {
     viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
@@ -160,7 +162,174 @@ Per la personalizzazione degli stili si può usare il selettore \`::part\` passa
   render: () => html`<div class="hide-preview"></div>`,
 };
 
-export const TutteLeIconeDisponibili: Story = {
+export const VariantiColore: Story = {
+  name: 'Varianti di colore',
+  render: () => html`
+    <div style="display:flex; gap:20px; align-items:center; background-color:#ddd;padding:2rem">
+      ${colors.map((color) => renderComponent({ name: 'it-star-full', label: `col ${color}`, color }))}
+      <span class="bg-light"> ${renderComponent({ name: 'it-star-full', label: 'bg-light' })} </span>
+      <span class="bg-dark"> ${renderComponent({ name: 'it-star-full', label: 'bg-dark' })} </span>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Esempi di colore e sfondo.
+        `,
+      },
+    },
+  },
+};
+
+export const VariantiDimensione: Story = {
+  name: 'Varianti di dimensione',
+  render: (args) => html`
+    <div>
+      <div style="display: flex; gap: 20px; align-items: baseline;">
+        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size })}</div>`)}
+      </div>
+    </div>
+  `,
+  args: {
+    name: 'it-star-full',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Il componente \`<it-icon>\` supporta quattro dimensioni predefinite: \`xs\`, \`sm\`, \`lg\`, \`xl\`.
+`,
+      },
+    },
+  },
+};
+
+export const VariantiAllineamento: Story = {
+  name: 'Varianti di allineamento',
+  render: () => html`
+    <div>
+      ${['top', 'middle', 'bottom'].map((align) =>
+        // @ts-ignore
+        renderComponent({ name: 'it-star-full', label: `align ${align}`, align, size: 'lg' }),
+      )}
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: `
+È possibile usare le classi di allineamento per posizionare le icone all’interno di un elemento.
+        `,
+      },
+    },
+  },
+};
+
+export const Spaziatura: Story = {
+  // name: 'Spaziatura',
+  render: (args) => html`
+    <div>
+      <div style="display: flex; gap: 20px; align-items: baseline;">
+        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size, padded: true })}</div>`)}
+      </div>
+    </div>
+  `,
+  args: {
+    name: 'it-star-full',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+È anche possibile applicare l'attributo \`padded\` all'icona per creare attorno all'icona un padding proporzionale alla dimensione dell'icona stessa.
+`,
+      },
+    },
+  },
+};
+
+export const SVGPersonalizzato: Story = {
+  name: 'SVG personalizzato',
+  args: {
+    size: 'sm',
+    label: 'Icona utente',
+  },
+  render: (args) => html`
+    <div style="display: flex; gap: 20px; align-items: baseline;">
+      <it-icon ${args}>
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="red"></circle>
+        </svg>
+      </it-icon>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story: `
+
+È possibile usare \`<it-icon>\` come contenitore per un qualsiasi SVG personalizzato, semplicemente inserendolo nello slot:
+
+\`\`\`html
+<it-icon
+    size='sm'
+    label='Icona utente'
+  >
+  <svg viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="red"></circle>
+  </svg>
+</it-icon>
+\`\`\`
+
+In questo caso:
+
+- il componente si occupa comunque di gestire l'accessibilità.
+- vengono rimossi eventuali \`<title>\` duplicati.
+- viene forzato \`aria-hidden="true"\` se necessario.
+        `,
+      },
+    },
+  },
+};
+
+export const SVGEsterno: Story = {
+  name: 'SVG esterno',
+  render: () =>
+    html`<div style="display: flex; gap: 20px; align-items: baseline;">
+      ${renderComponent({
+        src: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Palermo-Stemma_%281999%29.svg',
+        label: 'Stemma 1',
+        size: 'xl',
+      })}
+      ${renderComponent({
+        src: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg',
+        label: 'Stemma 2',
+        size: 'xl',
+      })}
+      ${renderComponent({
+        src: 'https://upload.wikimedia.org/wikipedia/commons/9/93/CoA_Citt%C3%A0_di_Milano.svg',
+        label: 'Stemma 3',
+        size: 'xl',
+      })}
+    </div>`,
+  parameters: {
+    docs: {
+      description: {
+        story: `
+È possibile utilizzare un'immagine esterna come icona, utilizzando l'URL dell'immagine nell'attributo src del componente.
+
+\`\`\`html
+<it-icon src="https://…/logo.svg" label="Logo"></it-icon>
+\`\`\`
+        `,
+      },
+    },
+  },
+};
+
+export const IconeDisponibili: Story = {
+  name: 'Icone disponibili',
   render: () => {
     const inputId = `search-${Math.random().toString(36).slice(2)}`;
 
@@ -324,165 +493,6 @@ export const TutteLeIconeDisponibili: Story = {
         story: `
 Questa sezione mostra tutte le icone SVG disponibili nel Design System.
 Puoi cercare un'icona per nome, e cliccarla per copiarne il nome identificativo da usare nell'attributo \`name\`.
-        `,
-      },
-    },
-  },
-};
-
-export const VariantiDiDimensione: Story = {
-  render: (args) => html`
-    <div>
-      <div style="display: flex; gap: 20px; align-items: baseline;">
-        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size })}</div>`)}
-      </div>
-    </div>
-  `,
-  args: {
-    name: 'it-star-full',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Il componente \`<it-icon>\` supporta quattro dimensioni predefinite: \`xs\`, \`sm\`, \`lg\`, \`xl\`.
-`,
-      },
-    },
-  },
-};
-
-export const Padding: Story = {
-  render: (args) => html`
-    <div>
-      <div style="display: flex; gap: 20px; align-items: baseline;">
-        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size, padded: true })}</div>`)}
-      </div>
-    </div>
-  `,
-  args: {
-    name: 'it-star-full',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `
-È anche possibile applicare l'attributo \`padded\` all'icona per creare attorno all'icona un padding proporzionale alla dimensione dell'icona stessa.
-`,
-      },
-    },
-  },
-};
-
-export const VariantiColore: Story = {
-  render: () => html`
-    <div style="display:flex; gap:20px; align-items:center; background-color:#ddd;padding:2rem">
-      ${colors.map((color) => renderComponent({ name: 'it-star-full', label: `col ${color}`, color }))}
-      <span class="bg-light"> ${renderComponent({ name: 'it-star-full', label: 'bg-light' })} </span>
-      <span class="bg-dark"> ${renderComponent({ name: 'it-star-full', label: 'bg-dark' })} </span>
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story: `
-Esempi di colore e sfondo.
-        `,
-      },
-    },
-  },
-};
-export const VariantiAllineamento: Story = {
-  render: () => html`
-    <div>
-      ${['top', 'middle', 'bottom'].map((align) =>
-        // @ts-ignore
-        renderComponent({ name: 'it-star-full', label: `align ${align}`, align, size: 'lg' }),
-      )}
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story: `
-È possibile usare le classi di allineamento per posizionare le icone all’interno di un elemento.
-        `,
-      },
-    },
-  },
-};
-
-export const CustomSVG: Story = {
-  args: {
-    size: 'sm',
-    label: 'Icona utente',
-  },
-  render: (args) => html`
-    <div style="display: flex; gap: 20px; align-items: baseline;">
-      <it-icon ${args}>
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="red"></circle>
-        </svg>
-      </it-icon>
-    </div>
-  `,
-  parameters: {
-    docs: {
-      description: {
-        story: `
-
-È possibile usare \`<it-icon>\` come contenitore per un qualsiasi SVG personalizzato, semplicemente inserendolo nello slot:
-
-\`\`\`html
-<it-icon
-    size='sm'
-    label='Icona utente'
-  >
-  <svg viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10" fill="red"></circle>
-  </svg>
-</it-icon>
-\`\`\`
-
-In questo caso:
-
-- il componente si occupa comunque di gestire l'accessibilità.
-- vengono rimossi eventuali \`<title>\` duplicati.
-- viene forzato \`aria-hidden="true"\` se necessario.
-        `,
-      },
-    },
-  },
-};
-
-export const SVGEsterno: Story = {
-  render: () =>
-    html`<div style="display: flex; gap: 20px; align-items: baseline;">
-      ${renderComponent({
-        src: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Palermo-Stemma_%281999%29.svg',
-        label: 'Stemma 1',
-        size: 'xl',
-      })}
-      ${renderComponent({
-        src: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Roma-Stemma-2.svg',
-        label: 'Stemma 2',
-        size: 'xl',
-      })}
-      ${renderComponent({
-        src: 'https://upload.wikimedia.org/wikipedia/commons/9/93/CoA_Citt%C3%A0_di_Milano.svg',
-        label: 'Stemma 3',
-        size: 'xl',
-      })}
-    </div>`,
-  parameters: {
-    docs: {
-      description: {
-        story: `
-È possibile utilizzare un'immagine esterna come icona, utilizzando l'URL dell'immagine nell'attributo src del componente.
-
-\`\`\`html
-<it-icon src="https://…/logo.svg" label="Logo"></it-icon>
-\`\`\`
         `,
       },
     },
