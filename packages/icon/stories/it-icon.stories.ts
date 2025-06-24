@@ -95,7 +95,6 @@ const meta: Meta<IconProps> = {
   },
   parameters: {
     layout: 'padded',
-
     docs: {
       description: {
         component: `

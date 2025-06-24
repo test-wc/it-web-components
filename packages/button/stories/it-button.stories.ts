@@ -139,7 +139,6 @@ const meta = {
       options: ['button', 'submit', 'reset'],
       table: { defaultValue: { summary: 'button' } },
     },
-
     value: {
       control: 'text',
     },
