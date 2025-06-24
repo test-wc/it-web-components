@@ -1,11 +1,11 @@
-import{i as Y,x as a,a as Z}from"./lit-element-Dfkv_UsO.js";import{n as r,o as P,t as nn}from"./it-icon-BD9BJp4h.js";import"./iframe-pJPTdTLt.js";function s(n,e,t,i){var p=arguments.length,b=p<3?e:i,v;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")b=Reflect.decorate(n,e,t,i);else for(var w=n.length-1;w>=0;w--)(v=n[w])&&(b=(p<3?v(b):p>3?v(e,t,b):v(e,t))||b);return p>3&&b&&Object.defineProperty(e,t,b),b}function l(n,e){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(n,e)}/**
+import{i as Y,x as a,a as Z}from"./lit-element-Dfkv_UsO.js";import{n as r,o as P,t as nn}from"./it-icon-CXJs5k-h.js";import"./iframe-DY3sXhhL.js";function s(n,e,t,i){var p=arguments.length,b=p<3?e:i,v;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")b=Reflect.decorate(n,e,t,i);else for(var w=n.length-1;w>=0;w--)(v=n[w])&&(b=(p<3?v(b):p>3?v(e,t,b):v(e,t))||b);return p>3&&b&&Object.defineProperty(e,t,b),b}function l(n,e){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(n,e)}/**
  * @license
  *
  * Copyright IBM Corp. 2020, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
- */var C;(function(n){n.NO_ERROR="",n.ERROR_REQUIRED="required"})(C||(C={}));class en extends Z{addFocus(e){}composeClass(...e){let t="";return e.filter(i=>i.length>0).forEach(i=>{t+=` ${i}`}),t.trim()}}var tn=Y`/***************************** 1 ****************************************/
+ */var V;(function(n){n.NO_ERROR="",n.ERROR_REQUIRED="required"})(V||(V={}));class en extends Z{addFocus(e){}composeClass(...e){let t="";return e.filter(i=>i.length>0).forEach(i=>{t+=` ${i}`}),t.trim()}}var tn=Y`/***************************** 1 ****************************************/
 /***************************** 2 ****************************************/
 /***************************** 1 ****************************************/
 /***************************** 2 ****************************************/
@@ -388,6 +388,7 @@ a.btn-outline-danger:active {
       size="${n.size}"
       ?block="${n.block}"
       ?disabled="${n.disabled}"
+      ?icon="${n.icon}"
       type="${n.type}"
       >${t}</it-button
     >
@@ -402,11 +403,11 @@ a.btn-outline-danger:active {
   </div>`},S=(n,e)=>a`<div class="flex">
     ${d({...n,variant:"primary"},`Primary ${e}`)}
     ${d({...n,variant:"secondary"},`Secondary ${e}`)}
-  </div>`,f={title:"Componenti/Button",tags:["autodocs"],component:"it-button",args:{slot:"Testo del pulsante",variant:"primary",size:"sm",block:!1,outline:!1,disabled:!1,type:"button",value:""},argTypes:{variant:{control:"select",description:"Varianti di colore",options:on},size:{control:"select",description:"Dimensione del pulsante",options:an},block:{control:"boolean",type:"boolean",description:"Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile"},disabled:{control:"boolean",type:"boolean"},outline:{control:"boolean",type:"boolean",description:"Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante."},slot:{control:"text",description:"Testo del pulsante"},type:{control:"select",description:"Tipologia di pulsante",options:["button","submit","reset"]},value:{control:"text"}},parameters:{docs:{description:{component:`
+  </div>`,x={title:"Componenti/Button",tags:["autodocs"],component:"it-button",args:{slot:"Testo del pulsante",variant:"primary",size:"sm",block:!1,outline:!1,disabled:!1,icon:!1,type:"button",value:""},argTypes:{variant:{control:"select",description:"Varianti di colore",options:on},size:{control:"select",description:"Dimensione del pulsante",options:an,table:{defaultValue:{summary:"sm"}}},block:{control:"boolean",type:"boolean",description:"Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile",table:{defaultValue:{summary:"false"}}},disabled:{control:"boolean",type:"boolean",table:{defaultValue:{summary:"false"}}},outline:{control:"boolean",type:"boolean",description:"Applica il colore solamente al bordo, usando il colore di sfondo come colore interno del pulsante.",table:{defaultValue:{summary:"false"}}},icon:{control:"boolean",type:"boolean",table:{defaultValue:{summary:"false"}}},slot:{control:"text",description:"Testo del pulsante"},type:{control:"select",description:"Tipologia di pulsante",options:["button","submit","reset"],table:{defaultValue:{summary:"button"}}},value:{control:"text"}},parameters:{docs:{description:{component:`
 <Description>Pulsante con etichetta di testo o icona che al click inizia un'azione o un evento.</Description>
 
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/buttons/).
-`}}}},m={...f,args:{variant:"primary"},tags:["!autodocs","!dev"],parameters:{docs:{canvas:{sourceState:"shown"}}},render:n=>a` ${d({...n})}`},g={tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nPer la personalizzazione degli stili si può usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).\n"}}},render:()=>a`<div></div>`},y={...f,args:{variant:"primary"},render:n=>a`
+`}}}},m={...x,args:{variant:"primary"},tags:["!autodocs","!dev"],parameters:{docs:{canvas:{sourceState:"shown"}}},render:n=>a` ${d({...n})}`},g={tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nPer la personalizzazione degli stili si può usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).\n"}}},render:()=>a`<div class="hide-preview"></div>`},y={...x,args:{variant:"primary"},render:n=>a`
     <div class="flex tipologie-buttons">
       ${u({...n,slot:`Button - ${n.slot}`,type:"button"})}
       ${u({...n,slot:`Submit - ${n.slot}`,type:"submit"})}
@@ -424,7 +425,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
     ${c({...n,variant:"danger"},"Danger")}
     ${c({...n,variant:"warning"},"Warning")} ${c({...n,variant:"link"},"Link")}
   `},$={args:{slot:""},argTypes:{variant:{table:{disable:!0}},outline:{table:{disable:!0}},disabled:{table:{disable:!0}}},parameters:{docs:{description:{story:`
-<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
 come gli screen reader.
@@ -444,7 +445,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
     <div class="flex">
       ${d({...n,block:!0,variant:"secondary"},"Secondary Block")}
     </div>
-  `},k={...f,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
+  `},f={...x,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
       <it-button
         variant="success"
         size="lg"
@@ -494,7 +495,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
         <span>${e??"Pulsante Extra Small con icona"}</span>
       </it-button>
-    </div>`}},x={...f,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\nDeve essere contenuta all'interno di uno elemento con classe`.rounded-icon` per poter avere il contorno circolare.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
+    </div>`}},k={...x,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\nDeve essere contenuta all'interno di uno elemento con classe`.rounded-icon` per poter avere il contorno circolare.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
       <it-button
         variant="success"
         size="lg"
@@ -554,7 +555,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         </span>
         <span>${e??"Pulsante Extra Small con icona"}</span>
       </it-button>
-    </div>`}};var D,E,V;m.parameters={...m.parameters,docs:{...(D=m.parameters)==null?void 0:D.docs,source:{originalSource:`{
+    </div>`}};var C,D,E;m.parameters={...m.parameters,docs:{...(C=m.parameters)==null?void 0:C.docs,source:{originalSource:`{
   ...meta,
   args: {
     variant: 'primary'
@@ -570,7 +571,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
   render: params => html\` \${renderComponent({
     ...params
   })}\`
-}`,...(V=(E=m.parameters)==null?void 0:E.docs)==null?void 0:V.source}}};var L,R,B;g.parameters={...g.parameters,docs:{...(L=g.parameters)==null?void 0:L.docs,source:{originalSource:`{
+}`,...(E=(D=m.parameters)==null?void 0:D.docs)==null?void 0:E.source}}};var L,R,B;g.parameters={...g.parameters,docs:{...(L=g.parameters)==null?void 0:L.docs,source:{originalSource:`{
   tags: ['!dev'],
   parameters: {
     viewMode: 'docs',
@@ -588,7 +589,7 @@ Per la personalizzazione degli stili si può usare il selettore \\\`::part\\\` p
       }
     }
   },
-  render: () => html\`<div></div>\`
+  render: () => html\`<div class="hide-preview"></div>\`
 }`,...(B=(R=g.parameters)==null?void 0:R.docs)==null?void 0:B.source}}};var T,j,O;y.parameters={...y.parameters,docs:{...(T=y.parameters)==null?void 0:T.docs,source:{originalSource:`{
   ...meta,
   args: {
@@ -696,7 +697,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
     docs: {
       description: {
         story: \`
-<div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
 come gli screen reader.
@@ -780,7 +781,7 @@ Utilizzando invece l'attributo \\\`block\\\` si ottengono pulsanti che prendono 
   }, 'Secondary Block')}
     </div>
   \`
-}`,...(G=(F=z.parameters)==null?void 0:F.docs)==null?void 0:G.source}}};var M,W,H;k.parameters={...k.parameters,docs:{...(M=k.parameters)==null?void 0:M.docs,source:{originalSource:`{
+}`,...(G=(F=z.parameters)==null?void 0:F.docs)==null?void 0:G.source}}};var M,W,H;f.parameters={...f.parameters,docs:{...(M=f.parameters)==null?void 0:M.docs,source:{originalSource:`{
   ...meta,
   args: {},
   argTypes: {
@@ -862,7 +863,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
       </it-button>
     </div>\`;
   }
-}`,...(H=(W=k.parameters)==null?void 0:W.docs)==null?void 0:H.source}}};var J,K,X;x.parameters={...x.parameters,docs:{...(J=x.parameters)==null?void 0:J.docs,source:{originalSource:`{
+}`,...(H=(W=f.parameters)==null?void 0:W.docs)==null?void 0:H.source}}};var J,K,X;k.parameters={...k.parameters,docs:{...(J=k.parameters)==null?void 0:J.docs,source:{originalSource:`{
   ...meta,
   args: {},
   argTypes: {
@@ -955,4 +956,4 @@ Deve essere contenuta all'interno di uno elemento con classe\\\`.rounded-icon\\\
       </it-button>
     </div>\`;
   }
-}`,...(X=(K=x.parameters)==null?void 0:K.docs)==null?void 0:X.source}}};const bn=["EsempioInterattivo","PersonalizzazioneDegliStili","Tipologie","VariantiColore","SfondoScuro","VariantiDiDimensione","PulsantiConIcona","PulsantiConIconaCerchiata"];export{m as EsempioInterattivo,g as PersonalizzazioneDegliStili,k as PulsantiConIcona,x as PulsantiConIconaCerchiata,$ as SfondoScuro,y as Tipologie,h as VariantiColore,z as VariantiDiDimensione,bn as __namedExportsOrder,f as default};
+}`,...(X=(K=k.parameters)==null?void 0:K.docs)==null?void 0:X.source}}};const bn=["EsempioInterattivo","PersonalizzazioneDegliStili","Tipologie","VariantiColore","SfondoScuro","VariantiDiDimensione","PulsantiConIcona","PulsantiConIconaCerchiata"];export{m as EsempioInterattivo,g as PersonalizzazioneDegliStili,f as PulsantiConIcona,k as PulsantiConIconaCerchiata,$ as SfondoScuro,y as Tipologie,h as VariantiColore,z as VariantiDiDimensione,bn as __namedExportsOrder,x as default};
