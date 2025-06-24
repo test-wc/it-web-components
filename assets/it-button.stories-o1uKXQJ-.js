@@ -1,4 +1,4 @@
-import{i as Y,x as a,a as Z}from"./lit-element-Dfkv_UsO.js";import{n as r,o as P,t as nn}from"./it-icon-CXJs5k-h.js";import"./iframe-DY3sXhhL.js";function s(n,e,t,i){var p=arguments.length,b=p<3?e:i,v;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")b=Reflect.decorate(n,e,t,i);else for(var w=n.length-1;w>=0;w--)(v=n[w])&&(b=(p<3?v(b):p>3?v(e,t,b):v(e,t))||b);return p>3&&b&&Object.defineProperty(e,t,b),b}function l(n,e){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(n,e)}/**
+import{i as Y,x as a,a as Z}from"./lit-element-Dfkv_UsO.js";import{n as r,o as P,t as nn}from"./it-icon-D8rlal-3.js";import"./iframe-BQAp2mDt.js";function s(n,e,t,i){var p=arguments.length,b=p<3?e:i,v;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")b=Reflect.decorate(n,e,t,i);else for(var w=n.length-1;w>=0;w--)(v=n[w])&&(b=(p<3?v(b):p>3?v(e,t,b):v(e,t))||b);return p>3&&b&&Object.defineProperty(e,t,b),b}function l(n,e){if(typeof Reflect=="object"&&typeof Reflect.metadata=="function")return Reflect.metadata(n,e)}/**
  * @license
  *
  * Copyright IBM Corp. 2020, 2022
@@ -407,13 +407,7 @@ a.btn-outline-danger:active {
 <Description>Pulsante con etichetta di testo o icona che al click inizia un'azione o un evento.</Description>
 
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/buttons/).
-`}}}},m={...x,args:{variant:"primary"},tags:["!autodocs","!dev"],parameters:{docs:{canvas:{sourceState:"shown"}}},render:n=>a` ${d({...n})}`},g={tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nPer la personalizzazione degli stili si può usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).\n"}}},render:()=>a`<div class="hide-preview"></div>`},y={...x,args:{variant:"primary"},render:n=>a`
-    <div class="flex tipologie-buttons">
-      ${u({...n,slot:`Button - ${n.slot}`,type:"button"})}
-      ${u({...n,slot:`Submit - ${n.slot}`,type:"submit"})}
-      ${u({...n,slot:`Reset - ${n.slot}`,type:"reset"})}
-    </div>
-  `},h={args:{slot:""},argTypes:{variant:{table:{disable:!0}},outline:{table:{disable:!0}},disabled:{table:{disable:!0}}},parameters:{docs:{description:{story:`
+`}}}},m={...x,name:"Esempio interattivo",args:{variant:"primary"},tags:["!autodocs","!dev"],parameters:{docs:{canvas:{sourceState:"shown"}}},render:n=>a` ${d({...n})}`},g={name:"Personalizzazione degli stili",tags:["!dev"],parameters:{viewMode:"docs",docs:{canvas:{hidden:!0,sourceState:"none"},description:{story:"\nPer la personalizzazione degli stili si può usare il selettore `::part` passando il valore `button`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).\n"}}},render:()=>a`<div class="hide-preview"></div>`},y={name:"Varianti di colore",args:{slot:""},argTypes:{variant:{table:{disable:!0}},outline:{table:{disable:!0}},disabled:{table:{disable:!0}}},parameters:{docs:{description:{story:`
 Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
 
 #### Note sullo stato disabilitato
@@ -424,7 +418,22 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
     ${c({...n,variant:"success"},"Success")}
     ${c({...n,variant:"danger"},"Danger")}
     ${c({...n,variant:"warning"},"Warning")} ${c({...n,variant:"link"},"Link")}
-  `},$={args:{slot:""},argTypes:{variant:{table:{disable:!0}},outline:{table:{disable:!0}},disabled:{table:{disable:!0}}},parameters:{docs:{description:{story:`
+  `},h={name:"Varianti di dimensione",args:{slot:""},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}},block:{table:{disable:!0}}},parameters:{docs:{description:{story:'\nPer ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l\'attributo `size` con i valori `"lg"`, `"sm"`, `"xs"`.\n\nUtilizzando invece l\'attributo `block` si ottengono pulsanti che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.\n'}}},render:n=>a`
+    ${S({...n,size:"lg"},"Large")} ${S({...n,size:"sm"},"Small")}
+    ${S({...n,size:"xs"},"Extra Small")}
+    <div class="flex">
+      ${d({...n,block:!0,variant:"primary"},"Primary Block")}
+    </div>
+    <div class="flex">
+      ${d({...n,block:!0,variant:"secondary"},"Secondary Block")}
+    </div>
+  `},$={...x,args:{variant:"primary"},render:n=>a`
+    <div class="flex tipologie-buttons">
+      ${u({...n,slot:`Button - ${n.slot}`,type:"button"})}
+      ${u({...n,slot:`Submit - ${n.slot}`,type:"submit"})}
+      ${u({...n,slot:`Reset - ${n.slot}`,type:"reset"})}
+    </div>
+  `},z={name:"Sfondo scuro",args:{slot:""},argTypes:{variant:{table:{disable:!0}},outline:{table:{disable:!0}},disabled:{table:{disable:!0}}},parameters:{docs:{description:{story:`
 <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
@@ -436,16 +445,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
       ${c({...n,variant:"secondary"},"Secondary")}
       ${c({...n,variant:"link"},"Link")}
     </div>
-  `},z={args:{slot:""},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}},block:{table:{disable:!0}}},parameters:{docs:{description:{story:'\nPer ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l\'attributo `size` con i valori `"lg"`, `"sm"`, `"xs"`.\n\nUtilizzando invece l\'attributo `block` si ottengono pulsanti che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.\n'}}},render:n=>a`
-    ${S({...n,size:"lg"},"Large")} ${S({...n,size:"sm"},"Small")}
-    ${S({...n,size:"xs"},"Extra Small")}
-    <div class="flex">
-      ${d({...n,block:!0,variant:"primary"},"Primary Block")}
-    </div>
-    <div class="flex">
-      ${d({...n,block:!0,variant:"secondary"},"Secondary Block")}
-    </div>
-  `},f={...x,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
+  `},f={...x,name:"Con icona",args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
       <it-button
         variant="success"
         size="lg"
@@ -495,7 +495,7 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
         <span>${e??"Pulsante Extra Small con icona"}</span>
       </it-button>
-    </div>`}},k={...x,args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\nDeve essere contenuta all'interno di uno elemento con classe`.rounded-icon` per poter avere il contorno circolare.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
+    </div>`}},k={...x,name:"Con icona cerchiata",args:{},argTypes:{variant:{table:{disable:!0}},size:{table:{disable:!0}}},parameters:{docs:{description:{story:"\nL’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.\nDeve essere contenuta all'interno di uno elemento con classe`.rounded-icon` per poter avere il contorno circolare.\n<br/><br/>\n#### Dimensione dell'icona\n- Nei pulsanti di dimensione `lg` e `sm` è necessario passare l'attributo `size=\"sm\"` all'icona.\n- Nei pulsaanti di dimensione `xs`, è necessario passare l'attributo `size=\"xs\"` all'icona .\n"}}},render:n=>{var t;const e=((t=n.slot)==null?void 0:t.length)>0?n.slot:null;return a` <div class="flex">
       <it-button
         variant="success"
         size="lg"
@@ -555,8 +555,9 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
         </span>
         <span>${e??"Pulsante Extra Small con icona"}</span>
       </it-button>
-    </div>`}};var C,D,E;m.parameters={...m.parameters,docs:{...(C=m.parameters)==null?void 0:C.docs,source:{originalSource:`{
+    </div>`}};var C,E,D;m.parameters={...m.parameters,docs:{...(C=m.parameters)==null?void 0:C.docs,source:{originalSource:`{
   ...meta,
+  name: 'Esempio interattivo',
   args: {
     variant: 'primary'
   },
@@ -571,7 +572,8 @@ visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo n
   render: params => html\` \${renderComponent({
     ...params
   })}\`
-}`,...(E=(D=m.parameters)==null?void 0:D.docs)==null?void 0:E.source}}};var L,R,B;g.parameters={...g.parameters,docs:{...(L=g.parameters)==null?void 0:L.docs,source:{originalSource:`{
+}`,...(D=(E=m.parameters)==null?void 0:E.docs)==null?void 0:D.source}}};var L,R,T;g.parameters={...g.parameters,docs:{...(L=g.parameters)==null?void 0:L.docs,source:{originalSource:`{
+  name: 'Personalizzazione degli stili',
   tags: ['!dev'],
   parameters: {
     viewMode: 'docs',
@@ -590,31 +592,8 @@ Per la personalizzazione degli stili si può usare il selettore \\\`::part\\\` p
     }
   },
   render: () => html\`<div class="hide-preview"></div>\`
-}`,...(B=(R=g.parameters)==null?void 0:R.docs)==null?void 0:B.source}}};var T,j,O;y.parameters={...y.parameters,docs:{...(T=y.parameters)==null?void 0:T.docs,source:{originalSource:`{
-  ...meta,
-  args: {
-    variant: 'primary'
-  },
-  render: params => html\`
-    <div class="flex tipologie-buttons">
-      \${renderDefault({
-    ...params,
-    slot: \`Button - \${params.slot}\`,
-    type: 'button'
-  })}
-      \${renderDefault({
-    ...params,
-    slot: \`Submit - \${params.slot}\`,
-    type: 'submit'
-  })}
-      \${renderDefault({
-    ...params,
-    slot: \`Reset - \${params.slot}\`,
-    type: 'reset'
-  })}
-    </div>
-  \`
-}`,...(O=(j=y.parameters)==null?void 0:j.docs)==null?void 0:O.source}}};var I,N,_;h.parameters={...h.parameters,docs:{...(I=h.parameters)==null?void 0:I.docs,source:{originalSource:`{
+}`,...(T=(R=g.parameters)==null?void 0:R.docs)==null?void 0:T.source}}};var B,j,O;y.parameters={...y.parameters,docs:{...(B=y.parameters)==null?void 0:B.docs,source:{originalSource:`{
+  name: 'Varianti di colore',
   args: {
     slot: ''
   },
@@ -672,57 +651,8 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
     variant: 'link'
   }, 'Link')}
   \`
-}`,...(_=(N=h.parameters)==null?void 0:N.docs)==null?void 0:_.source}}};var A,U,q;$.parameters={...$.parameters,docs:{...(A=$.parameters)==null?void 0:A.docs,source:{originalSource:`{
-  args: {
-    slot: ''
-  },
-  argTypes: {
-    variant: {
-      table: {
-        disable: true
-      }
-    },
-    outline: {
-      table: {
-        disable: true
-      }
-    },
-    disabled: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: \`
-<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
-<p>
-L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
-come gli screen reader.
-Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
-visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>\`
-      }
-    }
-  },
-  render: args => html\`
-    <div class="bg-dark p-4">
-      \${renderVariant({
-    ...args,
-    variant: 'primary'
-  }, 'Primary')}
-      \${renderVariant({
-    ...args,
-    variant: 'secondary'
-  }, 'Secondary')}
-      \${renderVariant({
-    ...args,
-    variant: 'link'
-  }, 'Link')}
-    </div>
-  \`
-}`,...(q=(U=$.parameters)==null?void 0:U.docs)==null?void 0:q.source}}};var Q,F,G;z.parameters={...z.parameters,docs:{...(Q=z.parameters)==null?void 0:Q.docs,source:{originalSource:`{
+}`,...(O=(j=y.parameters)==null?void 0:j.docs)==null?void 0:O.source}}};var I,N,_;h.parameters={...h.parameters,docs:{...(I=h.parameters)==null?void 0:I.docs,source:{originalSource:`{
+  name: 'Varianti di dimensione',
   args: {
     slot: ''
   },
@@ -781,8 +711,85 @@ Utilizzando invece l'attributo \\\`block\\\` si ottengono pulsanti che prendono 
   }, 'Secondary Block')}
     </div>
   \`
+}`,...(_=(N=h.parameters)==null?void 0:N.docs)==null?void 0:_.source}}};var A,U,q;$.parameters={...$.parameters,docs:{...(A=$.parameters)==null?void 0:A.docs,source:{originalSource:`{
+  ...meta,
+  // name: 'Tipologie',
+  args: {
+    variant: 'primary'
+  },
+  render: params => html\`
+    <div class="flex tipologie-buttons">
+      \${renderDefault({
+    ...params,
+    slot: \`Button - \${params.slot}\`,
+    type: 'button'
+  })}
+      \${renderDefault({
+    ...params,
+    slot: \`Submit - \${params.slot}\`,
+    type: 'submit'
+  })}
+      \${renderDefault({
+    ...params,
+    slot: \`Reset - \${params.slot}\`,
+    type: 'reset'
+  })}
+    </div>
+  \`
+}`,...(q=(U=$.parameters)==null?void 0:U.docs)==null?void 0:q.source}}};var Q,F,G;z.parameters={...z.parameters,docs:{...(Q=z.parameters)==null?void 0:Q.docs,source:{originalSource:`{
+  name: 'Sfondo scuro',
+  args: {
+    slot: ''
+  },
+  argTypes: {
+    variant: {
+      table: {
+        disable: true
+      }
+    },
+    outline: {
+      table: {
+        disable: true
+      }
+    },
+    disabled: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: \`
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+<p>
+L’uso del colore per aggiungere un significato fornisce solo un’indicazione visiva, che non sarà trasmesso agli utenti di tecnologie assistive –
+come gli screen reader.
+Assicurati che le informazioni denotate dal colore siano rese disponibili anche dal contenuto stesso (es.: il testo
+visibile), o siano incluse attraverso mezzi alternativi, come testo aggiuntivo nascosto con la classe <code>.visually-hidden</code>.</p></div></div>\`
+      }
+    }
+  },
+  render: args => html\`
+    <div class="bg-dark p-4">
+      \${renderVariant({
+    ...args,
+    variant: 'primary'
+  }, 'Primary')}
+      \${renderVariant({
+    ...args,
+    variant: 'secondary'
+  }, 'Secondary')}
+      \${renderVariant({
+    ...args,
+    variant: 'link'
+  }, 'Link')}
+    </div>
+  \`
 }`,...(G=(F=z.parameters)==null?void 0:F.docs)==null?void 0:G.source}}};var M,W,H;f.parameters={...f.parameters,docs:{...(M=f.parameters)==null?void 0:M.docs,source:{originalSource:`{
   ...meta,
+  name: 'Con icona',
   args: {},
   argTypes: {
     variant: {
@@ -865,6 +872,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
   }
 }`,...(H=(W=f.parameters)==null?void 0:W.docs)==null?void 0:H.source}}};var J,K,X;k.parameters={...k.parameters,docs:{...(J=k.parameters)==null?void 0:J.docs,source:{originalSource:`{
   ...meta,
+  name: 'Con icona cerchiata',
   args: {},
   argTypes: {
     variant: {
@@ -956,4 +964,4 @@ Deve essere contenuta all'interno di uno elemento con classe\\\`.rounded-icon\\\
       </it-button>
     </div>\`;
   }
-}`,...(X=(K=k.parameters)==null?void 0:K.docs)==null?void 0:X.source}}};const bn=["EsempioInterattivo","PersonalizzazioneDegliStili","Tipologie","VariantiColore","SfondoScuro","VariantiDiDimensione","PulsantiConIcona","PulsantiConIconaCerchiata"];export{m as EsempioInterattivo,g as PersonalizzazioneDegliStili,f as PulsantiConIcona,k as PulsantiConIconaCerchiata,$ as SfondoScuro,y as Tipologie,h as VariantiColore,z as VariantiDiDimensione,bn as __namedExportsOrder,x as default};
+}`,...(X=(K=k.parameters)==null?void 0:K.docs)==null?void 0:X.source}}};const bn=["EsempioInterattivo","PersonalizzazioneDegliStili","VariantiColore","VariantiDimensione","Tipologie","SfondoScuro","ConIcona","ConIconaCerchiata"];export{f as ConIcona,k as ConIconaCerchiata,m as EsempioInterattivo,g as PersonalizzazioneDegliStili,z as SfondoScuro,$ as Tipologie,y as VariantiColore,h as VariantiDimensione,bn as __namedExportsOrder,x as default};

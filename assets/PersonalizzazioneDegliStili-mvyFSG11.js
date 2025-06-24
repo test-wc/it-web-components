@@ -1,4 +1,4 @@
-import{j as e,M as l}from"./index-gNeCQ56a.js";import{useMDXComponents as t}from"./index-DaMaO-nz.js";import"./iframe-DY3sXhhL.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function o(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...t(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Personalizzazione degli stili"}),`
+import{j as e,M as l}from"./index-9R-6xqUY.js";import{useMDXComponents as t}from"./index-DljpfVFF.js";import"./iframe-BQAp2mDt.js";import"./index-CfOrKyLd.js";import"./index-DrFu-skq.js";function o(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...t(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Personalizzazione degli stili"}),`
 `,e.jsx(n.h1,{id:"personalizzazione-degli-stili-dei-componenti",children:"Personalizzazione degli stili dei componenti"}),`
 `,e.jsx(n.p,{children:"Il componenti di design-web-components utilizzano Shadow DOM per incapsulare internamente il contenuto HTML e proteggerne gli stili."}),`
 `,e.jsx(n.h2,{id:"selettore-part",children:"Selettore ::part"}),`
