@@ -93,6 +93,7 @@ export default meta;
 
 export const EsempioInterattivo: Story = {
   ...meta,
+  name: 'Esempio interattivo',
   // args: {
   //   src: 'https://vjs.zencdn.net/v/oceans.webm',
   // },
@@ -112,6 +113,7 @@ export const EsempioInterattivo: Story = {
 };
 
 export const ComeUsarlo: Story = {
+  name: 'Come usarlo',
   tags: ['!dev'],
   render: () => html`<div class="hide-preview"></div>`,
   parameters: {
@@ -177,6 +179,7 @@ L’overlay per il consenso consente di informare l’utente sui cookie utilizza
 
 export const ConTrascrizione: Story = {
   ...meta,
+  name: 'Con trascrizione',
   render: (params) =>
     html` ${renderComponent({
       ...params,
@@ -213,7 +216,7 @@ export const ConTrascrizione: Story = {
 
 export const SottotitoliDidascalieCapitoliEDescrizioni: Story = {
   ...meta,
-  storyName: 'Sottotitoli, didascalie, capitoli e descrizioni',
+  name: 'Sottotitoli, didascalie, capitoli e descrizioni',
   parameters: {
     docs: {
       description: {
@@ -258,7 +261,7 @@ Di seguito un esempio d’uso delle didascalie (kind:"captions") in diverse ling
 
 export const ImmagineDiAnteprima: Story = {
   ...meta,
-  storyName: 'Immagine di anteprima',
+  name: 'Immagine di anteprima',
   parameters: {
     docs: {
       description: {
