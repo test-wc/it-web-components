@@ -23,16 +23,18 @@ type Story = StoryObj<VideoProps>;
 
 // Renderizza il wc it-video di default
 const renderComponent = (params: any) => html`
-  <it-video
-    src="${ifDefined(params.src)}"
-    poster="${ifDefined(params.poster)}"
-    type="${ifDefined(params.type)}"
-    options="${params.options ? JSON.stringify(params.options) : undefined}"
-    translations="${params.translations ? JSON.stringify(params.translations) : undefined}"
-    language="${ifDefined(params.language)}"
-    track="${params.track ? JSON.stringify(params.track) : undefined}"
-    >${params.slot}</it-video
-  >
+  <div class="video-container">
+    <it-video
+      src="${ifDefined(params.src)}"
+      poster="${ifDefined(params.poster)}"
+      type="${ifDefined(params.type)}"
+      options="${params.options ? JSON.stringify(params.options) : undefined}"
+      translations="${params.translations ? JSON.stringify(params.translations) : undefined}"
+      language="${ifDefined(params.language)}"
+      track="${params.track ? JSON.stringify(params.track) : undefined}"
+      >${params.slot}</it-video
+    >
+  </div>
 `;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -71,7 +73,7 @@ const meta = {
     docs: {
       description: {
         component: `
-<Description>Componente Video Payer.</Description>
+<Description>Componente Video Player.</Description>
 <br/><br/>
 Il tag video HTML5 consente di incorporare video all’interno di una pagina web senza dover utilizzare plugin esterni.
 Questo componente utilizza la libreria [video.js](https://videojs.com/) per implementare funzionalità avanzate come il supporto a diversi formati video, la personalizzazione dell’interfaccia utente e l’integrazione con API esterne.
@@ -148,21 +150,7 @@ oppure se stai usando SCSS puoi definire il font direttamente nel tuo file SCSS:
 \`\`\`
 copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copiare dal package design-web-components).
 
-
-### Immagine di anteprima
-Per aggiungere un’immagine di anteprima come copertina al video occorre utilizzare l’attributo poster inizializzato con la url
-dell’anteprima.
-
-### Streaming
-Servire i video tramite dei file in formato mp4 o webm (che sono i formati più supportati) non è la migliore soluzione in termini di performance e di ottimizzazione della banda.
-Per garantire una buona esperienza utente è fondamentale scegliere il formato di riproduzione più adatto.
-In questo contesto, i formati di streaming HLS e DASH offrono importanti vantaggi rispetto al tradizionale file MP4. L’uso dei formati di streaming permette una riproduzione fluida dei video online grazie alla loro
-capacità di adattarsi alla larghezza di banda disponibile. In questo modo si evitano interruzioni o rallentamenti durante la visualizzazione, migliorando l’esperienza utente. Inoltre, questi formati consentono di distribuire il contenuto su diverse piattaforme e dispositivi, aumentando la portabilità del video.
-
-<div class="callout callout-info"><div class="callout-inner"><div class="callout-title"><span class="text"><h5 id="tip">Tip</h5></span></div><p>FFmpeg è uno strumento di conversione multimediale open-source che consente di convertire facilmente i
-file MP4 in formati adattivi come HLS o DASH, ti permette la conversione del video MP4 in un formato a
-bitrate variabile per adattare la qualità del video alle diverse velocità di connessione degli utenti.
-Approfondisci su <a href="https://ffmpeg.org/">FFmpeg</a></p></div></div>
+------ fare da qui in poi -----
 
 ### Gestire più tracce audio
 
@@ -247,14 +235,14 @@ Di seguito un esempio d’uso delle didascalie (kind:"captions") in diverse ling
     },
   },
   render: (params) =>
-    html` ${renderComponent({
+    html`${renderComponent({
       ...params,
       src: './assets/video/ElephantsDream.mp4',
       translations: undefined,
       track: [
         { kind: 'captions', src: './assets/video/subtitles-it.vtt', srclang: 'it', label: 'Italiano', default: true },
         { kind: 'captions', src: './assets/video/subtitles-en.vtt', srclang: 'en', label: 'English' },
-        { kind: 'captions', src: './assets/video/subtitles-es.vtt', srclang: 'it', label: 'Español' },
+        { kind: 'captions', src: './assets/video/subtitles-es.vtt', srclang: 'es', label: 'Español' },
       ],
     })}`,
 };
@@ -277,10 +265,62 @@ Per aggiungere un’immagine di anteprima come copertina al video occorre utiliz
     },
   },
   render: (params) =>
-    html` ${renderComponent({
+    html`${renderComponent({
       ...params,
       src: './assets/video/ElephantsDream.mp4',
       translations: undefined,
       poster: './assets/video/ElephantsDream.mp4-poster21.jpg',
+    })}`,
+};
+
+export const Streaming: Story = {
+  ...meta,
+  // name: 'Streaming',
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Servire i video tramite dei file in formato mp4 o webm (che sono i formati più supportati) non è la migliore soluzione in termini di performance e di ottimizzazione della banda.
+
+Per garantire una buona esperienza utente è fondamentale scegliere il formato di riproduzione più adatto.
+
+In questo contesto, i formati di streaming HLS e DASH offrono importanti vantaggi rispetto al tradizionale file MP4.
+
+L’uso dei formati di streaming permette una riproduzione fluida dei video online grazie alla loro
+capacità di adattarsi alla larghezza di banda disponibile. In questo modo si evitano interruzioni o rallentamenti durante la visualizzazione, migliorando l’esperienza utente. Inoltre, questi formati consentono di distribuire il contenuto su diverse piattaforme e dispositivi, aumentando la portabilità del video.
+
+<div class="callout callout-info"><div class="callout-inner"><div class="callout-title"><span class="text"><h5 id="tip">Tip</h5></span></div><p>FFmpeg è uno strumento di conversione multimediale open-source che consente di convertire facilmente i
+file MP4 in formati adattivi come HLS o DASH, ti permette la conversione del video MP4 in un formato a
+bitrate variabile per adattare la qualità del video alle diverse velocità di connessione degli utenti.
+Approfondisci su <a href="https://ffmpeg.org/">FFmpeg</a>.</p></div></div>
+
+
+
+Le playlist HLS e DASH possono essere riprodotte su più domini condividendo solo l’URL.
+Tuttavia, a causa delle restrizioni imposte dalle politiche di sicurezza del browser, l’utilizzo di queste playlist in domini diversi da quello originale può causare errori CORS (Cross-Origin Resource Sharing).
+In altre parole, il browser può rifiutare l’accesso alle risorse audio e video, impedendo la corretta riproduzione del contenuto multimediale.
+
+Per superare questo problema, è necessario configurare correttamente il server che fornisce le risorse audio e video, consentendo l’accesso a domini esterni tramite le policy CORS.
+
+Di seguito un esempio in formato MPEG-DASH:
+`,
+      },
+    },
+  },
+  render: (params) =>
+    html`${renderComponent({
+      ...params,
+      src: './assets/video/ElephantsDreamDASH/ElephantsDream.mp4.mpd',
+      type: 'application/dash+xml',
+      track: [
+        { kind: 'captions', src: './assets/video/subtitles-it.vtt', srclang: 'it', label: 'Italiano', default: true },
+        { kind: 'captions', src: './assets/video/subtitles-en.vtt', srclang: 'en', label: 'English' },
+        { kind: 'captions', src: './assets/video/subtitles-es.vtt', srclang: 'es', label: 'Español' },
+        { kind: 'chapters', src: './assets/video/chapters-it.vtt', srclang: 'it', label: 'Italiano' },
+        { kind: 'chapters', src: './assets/video/chapters-en.vtt', srclang: 'en', label: 'English' },
+        { kind: 'chapters', src: './assets/video/chapters-es.vtt', srclang: 'es', label: 'Español' },
+      ],
+      translations: undefined,
+      poster: './assets/video/ElephantsDream.mp4-poster16.gif',
     })}`,
 };
