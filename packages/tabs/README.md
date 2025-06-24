@@ -12,7 +12,7 @@ npm i it-tabs
 
 ```html
 <script type="module">
-  import 'it-tabs/it-tabs.js';
+  import '@italia/it-tabs';
 </script>
 
 <it-tabs></it-tabs>
@@ -59,7 +59,6 @@ To build a production version of Storybook, run
 ```bash
 npm run storybook:build
 ```
-
 
 ## Tooling configs
 

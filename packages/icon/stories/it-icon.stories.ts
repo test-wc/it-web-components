@@ -56,13 +56,13 @@ const meta: Meta<IconProps> = {
       control: 'select',
       options: sizes,
       description: "Dimensione dell'icona: 'xs' | 'sm' | (stringa vuota) | 'lg' | 'xl'",
-      defaultValue: undefined,
+      table: { defaultValue: { summary: undefined } },
     },
     align: {
       control: 'select',
       options: alignments,
       description: "Allineamento verticale dell'icona: 'top' | 'middle' | 'bottom' ",
-      defaultValue: 'middle',
+      table: { defaultValue: { summary: 'middle' } },
     },
     color: {
       control: 'select',
@@ -80,7 +80,8 @@ const meta: Meta<IconProps> = {
     },
     role: {
       control: 'text',
-      description: 'Ruolo accessibile. Default: "img"',
+      description: 'Ruolo accessibile.',
+      table: { defaultValue: { summary: 'img' } },
     },
     src: {
       control: 'text',
@@ -89,6 +90,7 @@ const meta: Meta<IconProps> = {
     padded: {
       control: 'boolean',
       description: "Crea un padding attorno all'icona, proporzionale alla dimensione dell’icona",
+      table: { defaultValue: { summary: 'false' } },
     },
   },
   parameters: {
@@ -129,7 +131,7 @@ export const InformazioniUtili: Story = {
       canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
       description: {
         story: `
-  <div class="success callout"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
+  <div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Trasmettere significato alle tecnologie assistive</span></div>
 <p>
 Il componente garantisce accessibilità di default, e la estende tramite l'attributo \`label\` e gli attributi Aria \`role\` e \`aria-hidden\`. \n
 In presenza di attributo \`label\` valorizzato, viene inserito dal componente \`<it-icon>\` un tag \`<title>\` all'interno dell'SVG, corredato da relativo \`aria-labelledBy\` per supportare tecnologie assistive come gli screen reader. \n
@@ -139,7 +141,7 @@ In quanto icone puramente di presentazione, vengono aggiunti di default \`role="
       },
     },
   },
-  render: () => html`<div></div>`,
+  render: () => html`<div class="hide-preview"></div>`,
 };
 
 export const PersonalizzazioneDegliStili: Story = {
@@ -155,7 +157,7 @@ Per la personalizzazione degli stili si può usare il selettore \`::part\` passa
       },
     },
   },
-  render: () => html`<div></div>`,
+  render: () => html`<div class="hide-preview"></div>`,
 };
 
 export const TutteLeIconeDisponibili: Story = {
