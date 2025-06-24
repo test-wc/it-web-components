@@ -42,8 +42,8 @@ it-icon {
   //  @extend .icon;
   --bs-it-icon-size: var(--bs-icon-size-m);
 
-  width: var(--bs-it-icon-size);
-  height: var(--bs-it-icon-size);
+  min-width: var(--bs-it-icon-size);
+  min-height: var(--bs-it-icon-size);
 
   &[size='sm'] {
     --bs-it-icon-size: var(--bs-icon-size-sm);

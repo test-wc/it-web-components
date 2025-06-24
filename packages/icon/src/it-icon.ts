@@ -121,11 +121,15 @@ export class ItIcon extends BaseComponent {
     svgEl.removeAttribute('height');
 
     const classList = this.updateClasses();
+    const _ariaHidden = this.ariaHidden !== null ? this.ariaHidden : 'true';
+    const _role = _ariaHidden === 'true' ? null : (this.role ?? 'img');
     svgEl.setAttribute('class', classList);
     svgEl.setAttribute('part', 'icon');
     svgEl.setAttribute('focusable', 'false');
-    svgEl.setAttribute('role', this.role ?? 'img');
-    svgEl.setAttribute('aria-hidden', this.ariaHidden !== null ? this.ariaHidden : 'true');
+    if (_role != null) {
+      svgEl.setAttribute('role', _role);
+    }
+    svgEl.setAttribute('aria-hidden', _ariaHidden);
 
     svgEl.removeAttribute('aria-labelledby');
     svgEl.querySelectorAll('title').forEach((t) => t.remove());
