@@ -41,10 +41,13 @@
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
+    "@italia/button": "workspace:^",
+    "@italia/icon": "workspace:^",
     "bootstrap-italia": "catalog:",
     "lit": "catalog:",
     "video.js": "^8.21.0",
-    "videojs-font": "^4.2.0"
+    "videojs-font": "^4.2.0",
+    "videojs-youtube": "^3.0.1"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",

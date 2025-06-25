@@ -4,8 +4,60 @@
 @import 'bootstrap-italia/src/scss/base/maps';
 
 @import 'bootstrap-italia/src/scss/base/utilities';
-
+@import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/components/videoplayer';
+@import 'bootstrap-italia/src/scss/components/accept-overlay';
+
+.acceptoverlay {
+  --bs-acceptoverlay-color-text: #fff;
+
+  a {
+    color: var(--bs-acceptoverlay-color-text);
+  }
+
+  .bg-dark {
+    it-button::part(primary) {
+      --#{$prefix}btn-text-color: var(--#{$prefix}color-background-primary);
+      --#{$prefix}btn-background: var(--#{$prefix}color-background-inverse);
+
+      &:hover {
+        --#{$prefix}btn-text-color: var(--#{$prefix}color-text);
+      }
+    }
+  }
+
+  .acceptoverlay-buttons {
+    it-button {
+      width: 100%;
+      &:last-child {
+        --#{$prefix}acceptoverlay-buttons-spacing: var(--#{$prefix}spacing-xxs);
+      }
+    }
+  }
+
+  //Tablet vertical
+  @include media-breakpoint-up(md) {
+    .acceptoverlay-buttons {
+      flex-wrap: nowrap;
+
+      it-button {
+        width: 50%;
+
+        &:last-child {
+          margin-left: var(--#{$prefix}spacing-m);
+        }
+      }
+
+      &.single-button {
+        //text-align: center;
+        it-button {
+          width: auto;
+          min-width: 50%;
+        }
+      }
+    }
+  }
+}
 
 :host {
   /*

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '@italia/video';
+import '@italia/button';
 import itLang from '../src/locales/it.js';
 
 interface VideoProps {
@@ -28,10 +29,10 @@ const renderComponent = (params: any) => html`
       src="${ifDefined(params.src)}"
       poster="${ifDefined(params.poster)}"
       type="${ifDefined(params.type)}"
-      options="${params.options ? JSON.stringify(params.options) : undefined}"
-      translations="${params.translations ? JSON.stringify(params.translations) : undefined}"
+      options="${params.options ? JSON.stringify(params.options) : nothing}"
+      translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
       language="${ifDefined(params.language)}"
-      track="${params.track ? JSON.stringify(params.track) : undefined}"
+      track="${params.track ? JSON.stringify(params.track) : nothing}"
       >${params.slot}</it-video
     >
   </div>
@@ -152,10 +153,6 @@ copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copia
 
 ------ fare da qui in poi -----
 
-### Gestire più tracce audio
-
-### Embed da piattaforme terze
-
 ### Attivazione dell’overlay di consenso
 L’utilizzo di un overlay per il consenso è una soluzione comune per garantire la conformità alla normativa sulla privacy in materia di cookie e tracciamento degli utenti.
 L’overlay per il consenso consente di informare l’utente sui cookie utilizzati e di ottenere il suo consenso in modo esplicito e consapevole alla riproduzione del video prima dell’installazione di qualunque cookie.
@@ -238,12 +235,12 @@ Di seguito un esempio d’uso delle didascalie (kind:"captions") in diverse ling
     html`${renderComponent({
       ...params,
       src: './assets/video/ElephantsDream.mp4',
-      translations: undefined,
       track: [
         { kind: 'captions', src: './assets/video/subtitles-it.vtt', srclang: 'it', label: 'Italiano', default: true },
         { kind: 'captions', src: './assets/video/subtitles-en.vtt', srclang: 'en', label: 'English' },
         { kind: 'captions', src: './assets/video/subtitles-es.vtt', srclang: 'es', label: 'Español' },
       ],
+      translations: undefined,
     })}`,
 };
 
@@ -268,8 +265,8 @@ Per aggiungere un’immagine di anteprima come copertina al video occorre utiliz
     html`${renderComponent({
       ...params,
       src: './assets/video/ElephantsDream.mp4',
-      translations: undefined,
       poster: './assets/video/ElephantsDream.mp4-poster21.jpg',
+      translations: undefined,
     })}`,
 };
 
@@ -312,6 +309,7 @@ Di seguito un esempio in formato MPEG-DASH:
       ...params,
       src: './assets/video/ElephantsDreamDASH/ElephantsDream.mp4.mpd',
       type: 'application/dash+xml',
+      poster: './assets/video/ElephantsDream.mp4-poster16.gif',
       track: [
         { kind: 'captions', src: './assets/video/subtitles-it.vtt', srclang: 'it', label: 'Italiano', default: true },
         { kind: 'captions', src: './assets/video/subtitles-en.vtt', srclang: 'en', label: 'English' },
@@ -321,6 +319,87 @@ Di seguito un esempio in formato MPEG-DASH:
         { kind: 'chapters', src: './assets/video/chapters-es.vtt', srclang: 'es', label: 'Español' },
       ],
       translations: undefined,
-      poster: './assets/video/ElephantsDream.mp4-poster16.gif',
+    })}`,
+};
+
+export const GestirePiuTracceAudio: Story = {
+  ...meta,
+  name: 'Gestire più tracce audio',
+  parameters: {
+    docs: {
+      description: {
+        story: `
+L’uso di più tracce audio nei video è una buona tecnica per migliorare l’accessibilità dei contenuti multimediali.
+Ad esempio, è possibile creare una traccia audio aggiuntiva che descrive in dettaglio le immagini e le azioni che si svolgono nel video, per aiutare le persone non vedenti a comprendere il contenuto visivo.
+Inoltre, l’aggiunta di tracce audio in lingue diverse consente di offrire il video in più lingue.
+
+<div class="callout callout-info"><div class="callout-inner"><div class="callout-title"><span class="text">Tieni presente che</span></div>
+<p>Video.js offre un’implementazione cross-browser delle tracce audio, a condizione che la
+tecnologia di riproduzione supporti le tracce audio. Le tracce audio per i file mp4 sono
+supportate solo da Safari, altri browser non supportano la riproduzione mp4 con più tracce
+audio. L’unico modo per fornire l’audio multi-traccia cross-browser è l’uso dei formati
+HLS e/o DASH.
+Approfondisci su <a href="https://videojs.com/guides/audio-tracks/">Video.js</a></p>
+</div></div>
+
+
+Per vedere tutte le opzioni disponibili, consultare la documentazione di [VideoJS](https://videojs.com/guides/options/).
+
+Di seguito un esempio in formato HLS multilingua.
+`,
+      },
+    },
+  },
+  render: (params) =>
+    html`${renderComponent({
+      ...params,
+      src: './assets/video/ElephantsDreamHLS/ElephantsDream.mp4.m3u8',
+      type: 'application/x-mpegURL',
+      poster: './assets/video/ElephantsDream.mp4-poster21.jpg',
+      translations: undefined,
+    })}`,
+};
+
+export const EmbedDaPiattaformeTerze: Story = {
+  ...meta,
+  name: 'Embed da piattaforme terze',
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Oltre a consentire la riproduzione di video direttamente sulle proprie pagine web, il player video.js offre anche la possibilità di incorporare video provenienti da altre piattaforme come YouTube o Vimeo.
+
+Questa funzionalità consente di sfruttare i video già disponibili su queste piattaforme, senza doverli caricare sul proprio sito web.
+Tuttavia, è importante tenere in considerazione la questione della privacy: quando si incorporano video di terze parti, si può finire per condividere con queste piattaforme i dati degli utenti che visualizzano i video, come ad esempio le informazioni sulla navigazione o l’indirizzo IP.
+È quindi importante l’utilizzo di questa funzionalità assieme al componente di accettazione del consenso per garantire la protezione della privacy degli utenti.
+
+<div class="callout callout-warning"><div class="callout-inner"><div class="callout-title"><span class="text">Nota</span></div>
+<p>Gli esempi che seguono fanno tutti riferimento alla piattaforma di terze parti YouTube.</p>
+</div></div>
+
+<div class="callout callout-info"><div class="callout-inner"><div class="callout-title"><span class="text">Responsabilità della privacy</span></div>
+<p>Coinvolgi il Responsabile per la protezione dei dati (RDP/DPO) della tua amministrazione e ricordati di aggiornare la cookie policy del sito. Designers Italia mette a disposizione il [kit Privacy](https://designers.italia.it/risorse-per-progettare/organizzare/privacy/) per approfondire questi temi e in particolare uno strumento dedicato alla redazione della Cookie policy che trovi in [questa azione del kit](https://designers.italia.it/risorse-per-progettare/organizzare/privacy/rispetta-la-privacy-per-il-go-live-di-un-sito/).</p>
+</div></div>
+
+#### Attivazione dell’overlay di consenso
+L’utilizzo di un overlay per il consenso è una soluzione comune per garantire la conformità alla normativa sulla privacy in materia di cookie e tracciamento degli utenti.
+L’overlay per il consenso consente di informare l’utente sui cookie utilizzati e di ottenere il suo consenso in modo esplicito e consapevole alla riproduzione del video prima dell’installazione di qualunque cookie.
+
+<div class="callout callout-info"><div class="callout-inner"><div class="callout-title"><span class="text">Obblighi</span></div>
+<p>Per questo la Pubblica Amministrazione che fa uso di servizi di terze parti come YouTube deve necessariamente specificare l’utilizzo di cookie di tracciamento da parte di piattaforme di terze parti, inserendo inoltre il link alla propria cookie policy all’interno dell’overlay (dove adesso c’è il link a ‘#’).
+Nella sezione seguente vengono illustrate le funzioni per la gestione delle preferenze con JavaScript.</p>
+</div></div>
+
+
+`,
+      },
+    },
+  },
+  render: (params) =>
+    html`${renderComponent({
+      ...params,
+      src: 'https://youtu.be/_0j7ZQ67KtY',
+      type: undefined,
+      translations: undefined,
     })}`,
 };

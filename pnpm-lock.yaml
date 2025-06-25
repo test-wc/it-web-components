@@ -420,6 +420,12 @@ importers:
 
   packages/video:
     dependencies:
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
       bootstrap-italia:
         specifier: 'catalog:'
         version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
@@ -432,6 +438,9 @@ importers:
       videojs-font:
         specifier: ^4.2.0
         version: 4.2.0
+      videojs-youtube:
+        specifier: ^3.0.1
+        version: 3.0.1(video.js@8.23.3)
     devDependencies:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3
@@ -5436,6 +5445,11 @@ packages:
 
   videojs-vtt.js@0.15.5:
     resolution: {integrity: sha512-yZbBxvA7QMYn15Lr/ZfhhLPrNpI/RmCSCqgIff57GC2gIrV5YfyzLfLyZMj0NnZSAz8syB4N0nHXpZg9MyrMOQ==}
+
+  videojs-youtube@3.0.1:
+    resolution: {integrity: sha512-0gKgag7Zno/dDwIdk+h48ODKDulR4IW62RxGE81PrMwi0OX/wUcKO6m1j+DFYI+7qjtWMZTKnbtQoHGxvUrFQg==}
+    peerDependencies:
+      video.js: 5.x || 6.x || 7.x || 8.x
 
   vite@6.3.5:
     resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
@@ -11024,6 +11038,10 @@ snapshots:
   videojs-vtt.js@0.15.5:
     dependencies:
       global: 4.4.0
+
+  videojs-youtube@3.0.1(video.js@8.23.3):
+    dependencies:
+      video.js: 8.23.3
 
   vite@6.3.5(@types/node@22.15.19)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.89.0)(terser@5.39.2)(yaml@2.7.1):
     dependencies:

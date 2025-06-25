@@ -1,8 +1,12 @@
 import { LitElement, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import videojs from 'video.js';
+import 'videojs-youtube';
 import itLang from './locales/it.js';
 import styles from './it-video.scss';
+import '@italia/icon';
 
 type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
 type LocaleTranslations = typeof itLang;
@@ -15,6 +19,13 @@ type SingleTrack = {
 };
 type Translations = Record<Locale, LocaleTranslations>;
 type Track = Array<SingleTrack>;
+
+const defaultConsentOptions = {
+  icon: 'it-video', // Icona predefinita per il consenso dei cookie
+  text: 'Accetta i cookie di YouTube per vedere il video. Puoi gestire le preferenze nella <a href="#" class="text-white">cookie policy</a>.',
+  acceptButtonText: 'Accetta',
+  rememberCheckboxText: 'Ricorda per tutti i video',
+};
 
 @customElement('it-video')
 export class ItVideo extends LitElement {
@@ -34,25 +45,121 @@ export class ItVideo extends LitElement {
 
   @property({ type: String }) language = 'it';
 
+  @property({ type: Object }) consentOptions?: {
+    icon?: string;
+    text?: string;
+    acceptButtonText?: string;
+    rememberCheckboxText?: string;
+  } = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
+
   private videoId = `vjs-${Math.random().toString(36).slice(2, 11)}`;
 
   private player: any = null;
 
   private videoElement: any = null;
 
-  render() {
-    return html`
-      <video id="${this.videoId}" class="video-js">
-        <source src="${this.src}" type="${this.type}" />
-      </video>
-      <slot></slot>
-    `;
+  private consentAccepted: boolean = false;
+
+  isYouTubeUrl(url: string) {
+    const regex =
+      /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:[&?][^\s]*)?$/;
+    return regex.test(url);
+  }
+  /*
+  Rileva se l'url passato corrisponde a uno di questi servizi che richiedono l'accettazione dei cookie di terze parti:
+  YouTube, Vimeo, Dailymotion, Facebook, Instagram, Twitch, TikTok, Wistia, Brightcove, JW Player, Kaltura, Streamable
+  */
+
+  needsCookieConsent() {
+    const regex =
+      /^(?:https?:\/\/)?(?:www\.|m\.)?(?:(?:youtube\.com\/(?:watch\?(?:.*&)?v=[\w-]{11}(?:&list=[\w-]+)?|embed\/[\w-]{11}|v\/[\w-]{11}|shorts\/[\w-]{11}|playlist\?list=[\w-]+|embed\/videoseries\?list=[\w-]+)|youtu\.be\/[\w-]{11})|vimeo\.com\/(?:video\/)?\d+|player\.vimeo\.com\/video\/\d+|dailymotion\.com\/video\/[a-zA-Z0-9]+|dai\.ly\/[a-zA-Z0-9]+|facebook\.com\/(?:[^\/]+\/videos\/|watch\/?\?v=)[0-9]+|fb\.watch\/[a-zA-Z0-9]+|instagram\.com\/(?:reel|tv)\/[a-zA-Z0-9_-]+|twitch\.tv\/videos\/\d+|player\.twitch\.tv\/\?video=\d+|tiktok\.com\/@[\w.-]+\/video\/\d+|fast\.wistia\.com\/embed\/iframe\/[a-zA-Z0-9]+|wistia\.com\/medias\/[a-zA-Z0-9]+|players\.brightcove\.net\/[\d]+\/[a-zA-Z0-9_]+\/index\.html\?videoId=\d+|content\.jwplatform\.com\/players\/[a-zA-Z0-9]+-[a-zA-Z0-9]+\.html|cdnapi\.kaltura\.com\/p\/\d+\/sp\/\d+\/embedIframeJs\/uiconf_id\/\d+\/partner_id\/\d+|streamable\.com\/[a-z0-9]+)$/i;
+    return regex.test(this.src || '');
   }
 
-  firstUpdated() {
-    window.VIDEOJS_NO_DYNAMIC_STYLE = true; // Disabilita lo stile dinamico di Video.js
+  acceptConsent(remember: boolean = false) {
+    console.log('remember', remember);
+    this.consentAccepted = true;
+    const isYoutube = this.isYouTubeUrl(this.src ?? '');
+
+    // Rimuovi player esistente
+    if (this.player && !this.player.isDisposed()) {
+      this.player.dispose();
+      this.player = null;
+    }
+
+    // Cambia le opzioni
+    this.options = {
+      ...this.options,
+      techOrder: isYoutube ? ['youtube'] : ['html5'],
+    };
+
+    // Aspetta il render DOM aggiornato e re-inizializza il player
+    this.updateComplete.then(() => {
+      this.initVideoPlayer();
+    });
+  }
+
+  getVideoElement(needsCookieConsent: boolean = false) {
+    return html`<div>
+      <video id="${this.videoId}" class="video-js">
+        ${!needsCookieConsent || this.consentAccepted ? html`<source src="${this.src}" type="${this.type}" />` : ''}
+      </video>
+      <slot></slot>
+    </div>`;
+  }
+
+  // TODO: gestire il remember checkbox (funzionalità e markup)
+
+  render() {
+    const needsCookieConsent = this.needsCookieConsent();
+
+    return needsCookieConsent
+      ? html`<div class="acceptoverlayable ${this.consentAccepted ? '' : 'show'}">
+          <div
+            class="acceptoverlay acceptoverlay-primary fade ${this.consentAccepted ? '' : 'show'}"
+            aria-hidden=${ifDefined(this.consentAccepted ? 'true' : undefined)}
+          >
+            <div class="acceptoverlay-inner">
+              <div class="acceptoverlay-icon">
+                <it-icon
+                  name="${this.consentOptions?.icon ?? defaultConsentOptions.icon}"
+                  size="xl"
+                  color="inverse"
+                ></it-icon>
+              </div>
+
+              <p>${unsafeHTML(this.consentOptions?.text ?? defaultConsentOptions.text)}</p>
+              <div class="acceptoverlay-buttons bg-dark">
+                <it-button variant="primary" block @click=${() => this.acceptConsent()}>
+                  ${this.consentOptions?.acceptButtonText ?? defaultConsentOptions.acceptButtonText}
+                </it-button>
+
+                <div class="form-check">
+                  <input id="chk-remember" type="checkbox" @click=${() => this.acceptConsent(true)} />
+                  <label for="chk-remember">
+                    ${this.consentOptions?.rememberCheckboxText ?? defaultConsentOptions.rememberCheckboxText}</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          ${this.getVideoElement(needsCookieConsent)}
+        </div>`
+      : html`${this.getVideoElement(needsCookieConsent)}`;
+  }
+
+  protected updated(changedProps: Map<string, any>) {
+    if (changedProps.has('src')) {
+      const isYoutube = this.isYouTubeUrl(this.src ?? '');
+      const newValue = isYoutube ? 'video/youtube' : this.type;
+      if (this.type !== newValue) {
+        this.type = newValue;
+      }
+    }
+  }
+
+  initVideoPlayer() {
     this.videoElement = this.shadowRoot!.getElementById(this.videoId) as HTMLVideoElement;
-    // vjs-default-styles e vjs-styles-dimensions vengono settati nell'html, ma non si vedono nello shadowdom...
 
     const mergedOptions: any = {
       fluid: true,
@@ -63,9 +170,6 @@ export class ItVideo extends LitElement {
       preload: 'auto',
       crossorigin: 'anonymous',
       techOrder: ['html5'],
-      controlBar: {
-        subtitlesButton: true,
-      },
       poster: this.poster,
       ...this.options,
     };
@@ -97,6 +201,7 @@ export class ItVideo extends LitElement {
       // Puoi inizializzare qui eventuali plugin, ad esempio per YouTube
       // (window as any).youtube?.(this.player);
     });
+
     this.track.forEach((t) => {
       this.player.addRemoteTextTrack(
         {
@@ -111,16 +216,22 @@ export class ItVideo extends LitElement {
     });
   }
 
-  // connectedCallback() {
+  firstUpdated() {
+    window.VIDEOJS_NO_DYNAMIC_STYLE = true; // Disabilita lo stile dinamico di Video.js
+
+    this.initVideoPlayer();
+  }
+
+  //   connectedCallback(): void {
   // }
 
-  // disconnectedCallback() {
-  //   super.disconnectedCallback();
+  disconnectedCallback(): void {
+    super.disconnectedCallback?.();
 
-  //   if (this.player && !this.player.isDisposed()) {
-  //     this.player.dispose();
-  //   }
-  // }
+    if (this.player && !this.player.isDisposed()) {
+      this.player.dispose();
+    }
+  }
 }
 
 declare global {
