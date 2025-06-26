@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { property, state, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import videojs from 'video.js';
@@ -31,6 +31,8 @@ const defaultConsentOptions = {
 export class ItVideo extends LitElement {
   static styles = [styles];
 
+  private videoId = `vjs-${Math.random().toString(36).slice(2, 11)}`;
+
   @property({ type: String }) src?: string;
 
   @property({ type: String }) poster?: string;
@@ -52,46 +54,43 @@ export class ItVideo extends LitElement {
     rememberCheckboxText?: string;
   } = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
 
-  private videoId = `vjs-${Math.random().toString(36).slice(2, 11)}`;
-
+  @state()
   private player: any = null;
 
+  @state()
   private videoElement: any = null;
 
+  @state()
   private consentAccepted: boolean = false;
 
-  isYouTubeUrl(url: string) {
+  /*
+  Rileva se l'url passato corrisponde a un video di YouTube
+  */
+  isYouTubeUrl() {
     const regex =
-      /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:[&?][^\s]*)?$/;
-    return regex.test(url);
+      /^(?:https?:\/\/)?(?:www\.|m\.|music\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/|live\/|playlist\?list=|embed\/videoseries\?list=)|youtu\.be\/)([a-zA-Z0-9_-]{11}|[a-zA-Z0-9_-]{34})(?:[&?][^\s]*)?$/;
+    return regex.test(this.src ?? '');
   }
+
   /*
   Rileva se l'url passato corrisponde a uno di questi servizi che richiedono l'accettazione dei cookie di terze parti:
   YouTube, Vimeo, Dailymotion, Facebook, Instagram, Twitch, TikTok, Wistia, Brightcove, JW Player, Kaltura, Streamable
   */
-
   needsCookieConsent() {
-    const regex =
-      /^(?:https?:\/\/)?(?:www\.|m\.)?(?:(?:youtube\.com\/(?:watch\?(?:.*&)?v=[\w-]{11}(?:&list=[\w-]+)?|embed\/[\w-]{11}|v\/[\w-]{11}|shorts\/[\w-]{11}|playlist\?list=[\w-]+|embed\/videoseries\?list=[\w-]+)|youtu\.be\/[\w-]{11})|vimeo\.com\/(?:video\/)?\d+|player\.vimeo\.com\/video\/\d+|dailymotion\.com\/video\/[a-zA-Z0-9]+|dai\.ly\/[a-zA-Z0-9]+|facebook\.com\/(?:[^\/]+\/videos\/|watch\/?\?v=)[0-9]+|fb\.watch\/[a-zA-Z0-9]+|instagram\.com\/(?:reel|tv)\/[a-zA-Z0-9_-]+|twitch\.tv\/videos\/\d+|player\.twitch\.tv\/\?video=\d+|tiktok\.com\/@[\w.-]+\/video\/\d+|fast\.wistia\.com\/embed\/iframe\/[a-zA-Z0-9]+|wistia\.com\/medias\/[a-zA-Z0-9]+|players\.brightcove\.net\/[\d]+\/[a-zA-Z0-9_]+\/index\.html\?videoId=\d+|content\.jwplatform\.com\/players\/[a-zA-Z0-9]+-[a-zA-Z0-9]+\.html|cdnapi\.kaltura\.com\/p\/\d+\/sp\/\d+\/embedIframeJs\/uiconf_id\/\d+\/partner_id\/\d+|streamable\.com\/[a-z0-9]+)$/i;
-    return regex.test(this.src || '');
+    const isYoutube = this.isYouTubeUrl();
+    // regex per url diversi da youtube
+    const regexOthers =
+      /^(?:https?:\/\/)?(?:www\.|m\.)?(?:vimeo\.com\/(?:video\/)?\d+|player\.vimeo\.com\/video\/\d+|dailymotion\.com\/video\/[a-zA-Z0-9]+|dai\.ly\/[a-zA-Z0-9]+|facebook\.com\/(?:[^\/]+\/videos\/|watch\/?\?v=)[0-9]+|fb\.watch\/[a-zA-Z0-9]+|instagram\.com\/(?:reel|tv)\/[a-zA-Z0-9_-]+|twitch\.tv\/videos\/\d+|player\.twitch\.tv\/\?video=\d+|tiktok\.com\/@[\w.-]+\/video\/\d+|fast\.wistia\.com\/embed\/iframe\/[a-zA-Z0-9]+|wistia\.com\/medias\/[a-zA-Z0-9]+|players\.brightcove\.net\/[\d]+\/[a-zA-Z0-9_]+\/index\.html\?videoId=\d+|content\.jwplatform\.com\/players\/[a-zA-Z0-9]+-[a-zA-Z0-9]+\.html|cdnapi\.kaltura\.com\/p\/\d+\/sp\/\d+\/embedIframeJs\/uiconf_id\/\d+\/partner_id\/\d+|streamable\.com\/[a-z0-9]+)$/i;
+
+    return isYoutube || regexOthers.test(this.src || '');
   }
 
+  /*
+  Action sull'accettazone del consenso.
+  */
   acceptConsent(remember: boolean = false) {
     console.log('remember', remember);
     this.consentAccepted = true;
-    const isYoutube = this.isYouTubeUrl(this.src ?? '');
-
-    // Rimuovi player esistente
-    if (this.player && !this.player.isDisposed()) {
-      this.player.dispose();
-      this.player = null;
-    }
-
-    // Cambia le opzioni
-    this.options = {
-      ...this.options,
-      techOrder: isYoutube ? ['youtube'] : ['html5'],
-    };
 
     // Aspetta il render DOM aggiornato e re-inizializza il player
     this.updateComplete.then(() => {
@@ -99,13 +98,126 @@ export class ItVideo extends LitElement {
     });
   }
 
-  getVideoElement(needsCookieConsent: boolean = false) {
-    return html`<div>
-      <video id="${this.videoId}" class="video-js">
-        ${!needsCookieConsent || this.consentAccepted ? html`<source src="${this.src}" type="${this.type}" />` : ''}
-      </video>
-      <slot></slot>
-    </div>`;
+  /*
+  Il video è renderizzabile solo se
+   - non richiede accettazione dei cookie
+   - richiede accettazione dei cookie ed è stato dato il consenso
+  */
+  isVideoRenderable() {
+    const needsCookieConsent = this.needsCookieConsent();
+    return !needsCookieConsent || this.consentAccepted;
+  }
+
+  getVideoElement() {
+    const renderable = this.isVideoRenderable();
+    const isYoutube = this.isYouTubeUrl();
+
+    return renderable
+      ? html`<div part="videoplayer-wrapper">
+          ${isYoutube
+            ? html`<div id="${this.videoId}" class="video-js" part="videoplayer"></div>`
+            : html`<video id="${this.videoId}" class="video-js" part="videoplayer">
+                <source src="${this.src}" type="${this.type}" />
+              </video>`}
+          <slot></slot>
+        </div>`
+      : '';
+  }
+
+  /*
+  Inizializza il videoplayer solo se è renderizzabile (non richiede accettazione dei cookie / è già stato dato il consenso di accettazione dei cookie
+  */
+  initVideoPlayer() {
+    const renderable = this.isVideoRenderable();
+    if (renderable) {
+      if (this.player && !this.player.isDisposed()) {
+        this.player.dispose();
+      }
+      this.videoElement = this.shadowRoot!.getElementById(this.videoId) as HTMLVideoElement;
+
+      const isYoutube = this.isYouTubeUrl();
+
+      const _options: any = {};
+
+      if (isYoutube) {
+        _options.techOrder = ['youtube'];
+        _options.sources = [
+          {
+            type: 'video/youtube',
+            src: this.src,
+          },
+        ];
+        _options.youtube = {
+          modestbranding: 1,
+          rel: 0,
+          playsinline: 1,
+        };
+      }
+
+      const mergedOptions: any = {
+        fluid: true,
+        language: this.language,
+        languages: this.translations,
+        controls: true,
+        autoplay: false,
+        muted: false,
+        preload: 'auto',
+        crossorigin: 'anonymous',
+        techOrder: ['html5'],
+        poster: this.poster,
+        ...this.options,
+        ..._options,
+      };
+
+      const videojsFn = videojs.default || videojs;
+      const tracks = [...(this.track ?? [])];
+
+      console.log('aaaa', this.videoElement, mergedOptions);
+
+      this.player = videojsFn(this.videoElement, mergedOptions, function onPlayerReady() {
+        console.log('tech:', this.techName_);
+        this.addClass('vjs-theme-bootstrap-italia');
+        this.addClass('vjs-big-play-centered');
+
+        // Aggiungi i track manualmente
+        tracks.forEach((t) => {
+          this.addRemoteTextTrack(
+            {
+              kind: t.kind,
+              src: t.src,
+              srclang: t.srclang || this.language,
+              label: t.label,
+              default: !!t.default,
+            },
+            false,
+          );
+        });
+      });
+      console.log('Player tech:', this.player.techName_);
+      console.log('Player readyState:', this.player.readyState());
+      console.log('Player isPaused:', this.player.paused());
+
+      this.track.forEach((t) => {
+        this.player.addRemoteTextTrack(
+          {
+            kind: t.kind,
+            src: t.src,
+            srclang: t.srclang || this.language,
+            label: t.label,
+            default: !!t.default,
+          },
+          false,
+        );
+      });
+    }
+  }
+
+  /*
+  Al primo update, inizializzo il player
+  */
+  firstUpdated() {
+    window.VIDEOJS_NO_DYNAMIC_STYLE = true; // Disabilita lo stile dinamico di Video.js
+    this.initVideoPlayer();
   }
 
   // TODO: gestire il remember checkbox (funzionalità e markup)
@@ -143,88 +255,17 @@ export class ItVideo extends LitElement {
               </div>
             </div>
           </div>
-          ${this.getVideoElement(needsCookieConsent)}
+          ${this.getVideoElement()}
         </div>`
-      : html`${this.getVideoElement(needsCookieConsent)}`;
-  }
-
-  protected updated(changedProps: Map<string, any>) {
-    if (changedProps.has('src')) {
-      const isYoutube = this.isYouTubeUrl(this.src ?? '');
-      const newValue = isYoutube ? 'video/youtube' : this.type;
-      if (this.type !== newValue) {
-        this.type = newValue;
-      }
-    }
-  }
-
-  initVideoPlayer() {
-    this.videoElement = this.shadowRoot!.getElementById(this.videoId) as HTMLVideoElement;
-
-    const mergedOptions: any = {
-      fluid: true,
-      language: this.language,
-      languages: this.translations,
-      controls: true,
-      autoplay: false,
-      preload: 'auto',
-      crossorigin: 'anonymous',
-      techOrder: ['html5'],
-      poster: this.poster,
-      ...this.options,
-    };
-
-    const videojsFn = videojs.default || videojs;
-    const tracks = [...(this.track ?? [])];
-
-    this.player = videojsFn(this.videoElement, mergedOptions, function onPlayerReady() {
-      this.addClass('vjs-theme-bootstrap-italia');
-      this.addClass('vjs-big-play-centered');
-
-      // Aggiungi i track manualmente
-      tracks.forEach((t) => {
-        this.addRemoteTextTrack(
-          {
-            kind: t.kind,
-            src: t.src,
-            srclang: t.srclang || this.language,
-            label: t.label,
-            default: !!t.default,
-          },
-          false,
-        );
-      });
-      // this is the ready callback
-      // const p = this.player!;
-      // initYoutubePlugin(p); // plugin YouTube
-      // eventuali eventi o logiche aggiuntive
-      // Puoi inizializzare qui eventuali plugin, ad esempio per YouTube
-      // (window as any).youtube?.(this.player);
-    });
-
-    this.track.forEach((t) => {
-      this.player.addRemoteTextTrack(
-        {
-          kind: t.kind,
-          src: t.src,
-          srclang: t.srclang || this.language,
-          label: t.label,
-          default: !!t.default,
-        },
-        false,
-      );
-    });
-  }
-
-  firstUpdated() {
-    window.VIDEOJS_NO_DYNAMIC_STYLE = true; // Disabilita lo stile dinamico di Video.js
-
-    this.initVideoPlayer();
+      : html`${this.getVideoElement()}`;
   }
 
   //   connectedCallback(): void {
   // }
 
+  /*
+  Unmount del player
+  */
   disconnectedCallback(): void {
     super.disconnectedCallback?.();
 
