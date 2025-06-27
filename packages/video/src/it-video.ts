@@ -55,10 +55,13 @@ export class ItVideo extends LitElement {
     text?: string;
     acceptButtonText?: string;
     rememberCheckboxText?: string;
-    cookieKey?: string;
+    consentKey?: string;
     onAccept?: Function;
     isAccepted?: Function;
   } = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
+
+  @property({ type: String, attribute: 'init-plugins' })
+  initPluginsName = '';
 
   @state()
   private player: any = null;
@@ -68,6 +71,14 @@ export class ItVideo extends LitElement {
 
   @state()
   private consentAccepted: boolean = false;
+
+  /**
+   * Funzione risolta da window[initPluginsName]
+   */
+  private get initPluginsFn(): ((vjs: any) => void) | undefined {
+    const fn = (window as any)[this.initPluginsName];
+    return typeof fn === 'function' ? fn : undefined;
+  }
 
   /*
   Rileva se l'url passato corrisponde a un video di YouTube
@@ -92,9 +103,9 @@ export class ItVideo extends LitElement {
     return isYoutube || regexOthers.test(this.src || '');
   }
 
-  getCookieKey() {
+  getconsentKey() {
     const isYoutube = this.isYouTubeUrl();
-    return this.consentOptions?.cookieKey ?? (isYoutube ? 'youtube' : 'it-video');
+    return this.consentOptions?.consentKey ?? (isYoutube ? 'youtube' : this.type);
   }
 
   /*
@@ -103,12 +114,10 @@ export class ItVideo extends LitElement {
   acceptConsent(remember: boolean = false) {
     this.consentAccepted = true;
 
-    if (remember) {
-      if (this.consentOptions?.onAccept) {
-        this.consentOptions.onAccept(remember);
-      } else {
-        cookies.rememberChoice(this.getCookieKey(), remember);
-      }
+    if (this.consentOptions?.onAccept) {
+      this.consentOptions.onAccept(remember, this.getconsentKey());
+    } else if (remember) {
+      cookies.rememberChoice(this.getconsentKey(), remember);
     }
 
     // Aspetta il render DOM aggiornato e re-inizializza il player
@@ -194,6 +203,8 @@ export class ItVideo extends LitElement {
         initYoutubePlugin(videojsFn);
       }
 
+      this.initPluginsFn?.(videojsFn); // se passata una funzione di init di ulteriori plugin, la chiama.
+
       this.player = videojsFn(this.videoElement, mergedOptions, function onPlayerReady() {
         this.addClass('vjs-theme-bootstrap-italia');
         this.addClass('vjs-big-play-centered');
@@ -265,8 +276,8 @@ export class ItVideo extends LitElement {
     // Gestione del cookie - Lettura preferenza
     super.connectedCallback?.();
     this.consentAccepted = this.consentOptions?.isAccepted
-      ? this.consentOptions.isAccepted()
-      : cookies.isChoiceRemembered(this.getCookieKey());
+      ? this.consentOptions.isAccepted(this.getconsentKey())
+      : cookies.isChoiceRemembered(this.getconsentKey());
   }
 
   /*

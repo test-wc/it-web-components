@@ -150,12 +150,6 @@ oppure se stai usando SCSS puoi definire il font direttamente nel tuo file SCSS:
 }
 \`\`\`
 copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copiare dal package design-web-components).
-
------- fare da qui in poi -----
-
-### Attivazione dell’overlay di consenso
-L’utilizzo di un overlay per il consenso è una soluzione comune per garantire la conformità alla normativa sulla privacy in materia di cookie e tracciamento degli utenti.
-L’overlay per il consenso consente di informare l’utente sui cookie utilizzati e di ottenere il suo consenso in modo esplicito e consapevole alla riproduzione del video prima dell’installazione di qualunque cookie.
 `,
       },
     },
@@ -367,7 +361,7 @@ export const EmbedDaPiattaformeTerze: Story = {
     docs: {
       description: {
         story: `
-Oltre a consentire la riproduzione di video direttamente sulle proprie pagine web, il player video.js offre anche la possibilità di incorporare video provenienti da altre piattaforme come YouTube o Vimeo.
+Oltre a consentire la riproduzione di video direttamente sulle proprie pagine web, il player video.js offre anche la possibilità di incorporare video provenienti da altre piattaforme come YouTube.
 
 Questa funzionalità consente di sfruttare i video già disponibili su queste piattaforme, senza doverli caricare sul proprio sito web.
 Tuttavia, è importante tenere in considerazione la questione della privacy: quando si incorporano video di terze parti, si può finire per condividere con queste piattaforme i dati degli utenti che visualizzano i video, come ad esempio le informazioni sulla navigazione o l’indirizzo IP.
@@ -390,7 +384,33 @@ L’overlay per il consenso consente di informare l’utente sui cookie utilizza
 Nella sezione seguente vengono illustrate le funzioni per la gestione delle preferenze con JavaScript.</p>
 </div></div>
 
+L'overlay di consenso viene automaticamente istanziato dal componente se si tratta di un video Youtube.
 
+Per personalizzare l'overlay di consenso è possibile passare al componente \`<it-video>\` l'attributo \`consentOptions\` con il seguente formato:
+
+\`\`\`js
+consentOptions = {
+    icon?: string; //nome dell'icona da usare nell'overlay del consenso
+    text?: string; //testo da mostrare nell'overlay di consenso, comprendente il link alla privacy policy
+    acceptButtonText?: string; //testo da mostrare sul bottone di accettazione
+    rememberCheckboxText?: string; //testo da mostrare a fianco della checkbox per il salvataggio del consenso
+    consentKey?: string; //nome della variabile da usare nel localStorage per il salvataggio della preferenza sul consenso. Di default è 'youtube' per i video di Youtube.
+    onAccept?: Function; //(accepted, consentKey)=>{} - funzione che viene invocata quando si accetta il consenso permanente per un video di questa tipologia. Se presente, non viene gestita la preferenza nel localstorage, ma è compito dello sviluppatore implementare la logica di salvataggio delle preferenze
+    isAccepted?: Function; // (consentKey)=>{} - funzione che ritorna un valore booleano (true/false), che indica se l'utente ha gia accettato il consenso permanente per tutti i video di quel tipo.
+  };
+\`\`\`
+
+
+### Utilizzo di ulteriori plugin
+<Description> (Ad esempio il plugin per l'embed di Vimeo)</Description>
+Con l'attributo  \`init-plugins\` è possibile passare al componente \`<it-video>\` il nome della propria funzionen di inizializzazione dei plugin.
+
+Esempio:
+
+\`\`\`html
+<it-video ...... init-plugins="myInitPlugin"></it-video>
+<script> const myInitPlugin = (videojs)=>{ /*my code*/ }</script>
+\`\`\`
 `,
       },
     },
