@@ -29,6 +29,7 @@
   .acceptoverlay-buttons {
     it-button {
       width: 100%;
+
       &:last-child {
         --#{$prefix}acceptoverlay-buttons-spacing: var(--#{$prefix}spacing-xxs);
       }

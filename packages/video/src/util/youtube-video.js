@@ -1,3 +1,6 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable dot-notation */
 /**
  * --------------------------------------------------------------------------
  * Bootstrap Italia (https://italia.github.io/bootstrap-italia/)
@@ -10,7 +13,7 @@
  * --------------------------------------------------------------------------
  */
 
-/*global define, YT*/
+/* global YT */
 const initYoutubePlugin = (videojs) => {
   const _isOnMobile = videojs.browser.IS_IOS || videojs.browser.IS_NATIVE_ANDROID;
   const Tech = videojs.getTech('Tech');
@@ -24,31 +27,26 @@ const initYoutubePlugin = (videojs) => {
 
       // Set the vjs-youtube class to the player
       // Parent is not set yet so we have to wait a tick
-      this.setTimeout(
-        function () {
-          console.log('---constructor--- isApiReady', Youtube.isApiReady);
-          if (this.el_) {
-            this.el_.parentNode.className += ' vjs-youtube';
+      this.setTimeout(() => {
+        if (this.el_) {
+          this.el_.parentNode.className += ' vjs-youtube';
 
-            if (_isOnMobile) {
-              this.el_.parentNode.className += ' vjs-youtube-mobile';
-            }
-
-            if (Youtube.isApiReady) {
-              console.log('ready');
-              this.initYTPlayer();
-            } else {
-              console.log('not ready, add to queue');
-              Youtube.apiReadyQueue.push(this);
-            }
+          if (_isOnMobile) {
+            this.el_.parentNode.className += ' vjs-youtube-mobile';
           }
-        }.bind(this),
-      );
+
+          if (Youtube.isApiReady) {
+            this.initYTPlayer();
+          } else {
+            Youtube.apiReadyQueue.push(this);
+          }
+        }
+      });
     }
 
     dispose() {
       if (this.ytPlayer) {
-        //Dispose of the YouTube Player
+        // Dispose of the YouTube Player
         if (this.ytPlayer.stopVideo) {
           this.ytPlayer.stopVideo();
         }
@@ -56,8 +54,8 @@ const initYoutubePlugin = (videojs) => {
           this.ytPlayer.destroy();
         }
       } else {
-        //YouTube API hasn't finished loading or the player is already disposed
-        var index = Youtube.apiReadyQueue.indexOf(this);
+        // YouTube API hasn't finished loading or the player is already disposed
+        const index = Youtube.apiReadyQueue.indexOf(this);
         if (index !== -1) {
           Youtube.apiReadyQueue.splice(index, 1);
         }
@@ -69,7 +67,7 @@ const initYoutubePlugin = (videojs) => {
         .replace(' vjs-youtube-mobile', '');
       this.el_.parentNode.removeChild(this.el_);
 
-      //Needs to be called after the YouTube player is destroyed, otherwise there will be a null reference exception
+      // Needs to be called after the YouTube player is destroyed, otherwise there will be a null reference exception
       Tech.prototype.dispose.call(this);
     }
 
@@ -77,32 +75,33 @@ const initYoutubePlugin = (videojs) => {
       if (typeof document === 'undefined') {
         return;
       }
-      var div = document.createElement('div');
+      const div = document.createElement('div');
       div.setAttribute('id', this.options_.techId);
       div.setAttribute('style', 'width:100%;height:100%;top:0;left:0;position:absolute');
       div.setAttribute('class', 'vjs-tech');
+      this.iframewrapper_ = div;
 
-      var divWrapper = document.createElement('div');
+      const divWrapper = document.createElement('div');
       divWrapper.appendChild(div);
 
       if (!_isOnMobile && !this.options_.ytControls) {
-        var divBlocker = document.createElement('div');
+        const divBlocker = document.createElement('div');
         divBlocker.setAttribute('class', 'vjs-iframe-blocker');
         divBlocker.setAttribute('style', 'position:absolute;top:0;left:0;width:100%;height:100%');
 
         // In case the blocker is still there and we want to pause
-        divBlocker.onclick = function () {
+        divBlocker.onclick = () => {
           this.pause();
-        }.bind(this);
+        };
 
         divWrapper.appendChild(divBlocker);
       }
 
+      // eslint-disable-next-line consistent-return
       return divWrapper;
     }
 
     initYTPlayer() {
-      console.log('---initYTPlayer()---');
       const playerVars = {
         controls: 0,
         modestbranding: 1,
@@ -145,7 +144,7 @@ const initYoutubePlugin = (videojs) => {
 
       if (this.options_.source.src.indexOf('end=') !== -1) {
         const srcEndTime = this.options_.source.src.match(/end=([0-9]*)/);
-        this.options_.end = parseInt(srcEndTime[1]);
+        this.options_.end = parseInt(srcEndTime[1], 10);
       }
 
       if (typeof this.options_.end !== 'undefined') {
@@ -195,7 +194,7 @@ const initYoutubePlugin = (videojs) => {
 
       if (this.options_.source.src.indexOf('start=') !== -1) {
         const srcStartTime = this.options_.source.src.match(/start=([0-9]*)/);
-        this.options_.start = parseInt(srcStartTime[1]);
+        this.options_.start = parseInt(srcStartTime[1], 10);
       }
 
       if (typeof this.options_.start !== 'undefined') {
@@ -209,7 +208,7 @@ const initYoutubePlugin = (videojs) => {
       // Allow undocumented options to be passed along via customVars
       if (typeof this.options_.customVars !== 'undefined') {
         const customVars = this.options_.customVars;
-        Object.keys(customVars).forEach(function (key) {
+        Object.keys(customVars).forEach((key) => {
           playerVars[key] = customVars[key];
         });
       }
@@ -221,18 +220,12 @@ const initYoutubePlugin = (videojs) => {
         videoId: this.activeVideoId,
         playerVars,
         events: {
-          //onReady: this.onPlayerReady.bind(this),
-          onReady: (event) => {
-            console.log('[YouTube] onReady', event);
-          },
+          onReady: this.onPlayerReady.bind(this),
           onPlaybackQualityChange: this.onPlayerPlaybackQualityChange.bind(this),
           onPlaybackRateChange: this.onPlayerPlaybackRateChange.bind(this),
           onStateChange: this.onPlayerStateChange.bind(this),
           onVolumeChange: this.onPlayerVolumeChange.bind(this),
-          // onError: this.onPlayerError.bind(this),
-          onError: (event) => {
-            console.error('[YouTube] onError', event);
-          },
+          onError: this.onPlayerError.bind(this),
         },
       };
 
@@ -240,19 +233,15 @@ const initYoutubePlugin = (videojs) => {
         playerConfig.host = 'https://www.youtube-nocookie.com';
       }
 
-      console.log(this.options_.techId, playerConfig);
-
-      this.ytPlayer = new YT.Player(this.options_.techId, playerConfig);
-      console.log(this.ytPlayer);
+      this.ytPlayer = new YT.Player(this.iframewrapper_, playerConfig);
     }
 
     onPlayerReady() {
-      console.log('---onPlayerReady()---');
       if (this.options_.muted) {
         this.ytPlayer.mute();
       }
 
-      var playbackRates = this.ytPlayer.getAvailablePlaybackRates();
+      const playbackRates = this.ytPlayer.getAvailablePlaybackRates();
       if (playbackRates.length > 1) {
         this.featuresPlaybackRate = true;
       }
@@ -275,8 +264,7 @@ const initYoutubePlugin = (videojs) => {
     }
 
     onPlayerStateChange(e) {
-      console.log('---onPlayerStateChange()---');
-      var state = e.data;
+      const state = e.data;
 
       if (state === this.lastState || this.errorNumber) {
         return;
@@ -320,6 +308,9 @@ const initYoutubePlugin = (videojs) => {
           this.player_.trigger('timeupdate');
           this.player_.trigger('waiting');
           break;
+
+        default:
+          break;
       }
     }
 
@@ -335,30 +326,31 @@ const initYoutubePlugin = (videojs) => {
     }
 
     error() {
-      console.log('---error()---');
-      var code = 1000 + this.errorNumber; // as smaller codes are reserved
+      const code = 1000 + this.errorNumber; // as smaller codes are reserved
+
       switch (this.errorNumber) {
         case 5:
-          return { code: code, message: 'Error while trying to play the video' };
+          return { code, message: 'Error while trying to play the video' };
 
         case 2:
         case 100:
-          return { code: code, message: 'Unable to find the video' };
+          return { code, message: 'Unable to find the video' };
 
         case 101:
         case 150:
           return {
-            code: code,
+            code,
             message: 'Playback on other Websites has been disabled by the video owner.',
           };
+        default:
+          break;
       }
 
-      return { code: code, message: 'YouTube unknown error (' + this.errorNumber + ')' };
+      return { code, message: `YouTube unknown error (${this.errorNumber})` };
     }
 
     loadVideoById_(id) {
-      console.log('---loadVideoById_(' + id + ')---');
-      var options = {
+      const options = {
         videoId: id,
       };
       if (this.options_.start) {
@@ -371,8 +363,7 @@ const initYoutubePlugin = (videojs) => {
     }
 
     cueVideoById_(id) {
-      console.log('---cueVideoById_(' + id + ')---');
-      var options = {
+      const options = {
         videoId: id,
       };
       if (this.options_.start) {
@@ -386,7 +377,7 @@ const initYoutubePlugin = (videojs) => {
 
     src(src) {
       if (src) {
-        this.setSrc({ src: src });
+        this.setSrc({ src });
       }
 
       return this.source;
@@ -418,7 +409,7 @@ const initYoutubePlugin = (videojs) => {
       if (!this.options_.poster) {
         if (this.url.videoId) {
           // Set the low resolution first
-          this.poster_ = 'https://img.youtube.com/vi/' + this.url.videoId + '/0.jpg';
+          this.poster_ = `https://img.youtube.com/vi/${this.url.videoId}/0.jpg`;
           this.trigger('posterchange');
 
           // Check if their is a high res
@@ -459,7 +450,6 @@ const initYoutubePlugin = (videojs) => {
     }
 
     play() {
-      console.log('---play()---');
       if (!this.url || !this.url.videoId) {
         return;
       }
@@ -489,7 +479,6 @@ const initYoutubePlugin = (videojs) => {
     }
 
     pause() {
-      console.log('---pause()---');
       if (this.ytPlayer) {
         this.ytPlayer.pauseVideo();
       }
@@ -523,19 +512,16 @@ const initYoutubePlugin = (videojs) => {
       // so run an interval timer to look for the currentTime to change
       if (this.lastState === YT.PlayerState.PAUSED && this.timeBeforeSeek !== seconds) {
         clearInterval(this.checkSeekedInPauseInterval);
-        this.checkSeekedInPauseInterval = setInterval(
-          function () {
-            if (this.lastState !== YT.PlayerState.PAUSED || !this.isSeeking) {
-              // If something changed while we were waiting for the currentTime to change,
-              //  clear the interval timer
-              clearInterval(this.checkSeekedInPauseInterval);
-            } else if (this.currentTime() !== this.timeBeforeSeek) {
-              this.trigger('timeupdate');
-              this.onSeeked();
-            }
-          }.bind(this),
-          250,
-        );
+        this.checkSeekedInPauseInterval = setInterval(() => {
+          if (this.lastState !== YT.PlayerState.PAUSED || !this.isSeeking) {
+            // If something changed while we were waiting for the currentTime to change,
+            //  clear the interval timer
+            clearInterval(this.checkSeekedInPauseInterval);
+          } else if (this.currentTime() !== this.timeBeforeSeek) {
+            this.trigger('timeupdate');
+            this.onSeeked();
+          }
+        }, 250);
       }
     }
 
@@ -605,16 +591,15 @@ const initYoutubePlugin = (videojs) => {
     setMuted(mute) {
       if (!this.ytPlayer) {
         return;
-      } else {
-        this.muted(true);
       }
+      this.muted(true);
 
       if (mute) {
         this.ytPlayer.mute();
       } else {
         this.ytPlayer.unMute();
       }
-      this.setTimeout(function () {
+      this.setTimeout(() => {
         this.trigger('volumechange');
       }, 50);
     }
@@ -624,42 +609,46 @@ const initYoutubePlugin = (videojs) => {
         return videojs.createTimeRange();
       }
 
-      var bufferedEnd = this.ytPlayer.getVideoLoadedFraction() * this.ytPlayer.getDuration();
+      const bufferedEnd = this.ytPlayer.getVideoLoadedFraction() * this.ytPlayer.getDuration();
 
       return videojs.createTimeRange(0, bufferedEnd);
     }
 
     // TODO: Can we really do something with this on YouTUbe?
     preload() {}
+
     load() {}
+
     reset() {}
+
     networkState() {
       if (!this.ytPlayer) {
-        return 0; //NETWORK_EMPTY
+        return 0; // NETWORK_EMPTY
       }
       switch (this.ytPlayer.getPlayerState()) {
-        case -1: //unstarted
-          return 0; //NETWORK_EMPTY
-        case 3: //buffering
-          return 2; //NETWORK_LOADING
+        case -1: // unstarted
+          return 0; // NETWORK_EMPTY
+        case 3: // buffering
+          return 2; // NETWORK_LOADING
         default:
-          return 1; //NETWORK_IDLE
+          return 1; // NETWORK_IDLE
       }
     }
+
     readyState() {
-      console.log('readyState');
       if (!this.ytPlayer) {
-        return 0; //HAVE_NOTHING
+        return 0; // HAVE_NOTHING
       }
+
       switch (this.ytPlayer.getPlayerState()) {
-        case -1: //unstarted
-          return 0; //HAVE_NOTHING
-        case 5: //video cued
-          return 1; //HAVE_METADATA
-        case 3: //buffering
-          return 2; //HAVE_CURRENT_DATA
+        case -1: // unstarted
+          return 0; // HAVE_NOTHING
+        case 5: // video cued
+          return 1; // HAVE_METADATA
+        case 3: // buffering
+          return 2; // HAVE_CURRENT_DATA
         default:
-          return 4; //HAVE_ENOUGH_DATA
+          return 4; // HAVE_ENOUGH_DATA
       }
     }
 
@@ -667,6 +656,8 @@ const initYoutubePlugin = (videojs) => {
       if (typeof document === 'undefined') {
         return;
       }
+
+      // eslint-disable-next-line consistent-return
       return (
         document.fullscreenEnabled ||
         document.webkitFullscreenEnabled ||
@@ -677,12 +668,11 @@ const initYoutubePlugin = (videojs) => {
 
     // Tries to get the highest resolution thumbnail available for the video
     checkHighResPoster() {
-      console.log('---checkHighResPoster()---');
-      const uri = 'https://img.youtube.com/vi/' + this.url.videoId + '/maxresdefault.jpg';
+      const uri = `https://img.youtube.com/vi/${this.url.videoId}/maxresdefault.jpg`;
 
       try {
         const image = new Image();
-        image.onload = function () {
+        image.onload = () => {
           // Onload may still be called if YouTube returns the 120x90 error thumbnail
           if ('naturalHeight' in image) {
             if (image.naturalHeight <= 90 || image.naturalWidth <= 120) {
@@ -694,30 +684,27 @@ const initYoutubePlugin = (videojs) => {
 
           this.poster_ = uri;
           this.trigger('posterchange');
-        }.bind(this);
-        image.onerror = function () {};
+        };
+        image.onerror = () => {};
         image.src = uri;
-      } catch (e) {}
+      } catch (e) {
+        // error
+      }
     }
   }
 
-  Youtube.isSupported = function () {
-    return true;
-  };
+  Youtube.isSupported = () => true;
 
-  Youtube.canPlaySource = function (e) {
-    return Youtube.canPlayType(e.type);
-  };
+  Youtube.canPlaySource = (e) => Youtube.canPlayType(e.type);
 
-  Youtube.canPlayType = function (e) {
-    return e === 'video/youtube';
-  };
+  Youtube.canPlayType = (e) => e === 'video/youtube';
 
-  Youtube.parseUrl = function (url) {
+  Youtube.parseUrl = (url) => {
     const result = {
       videoId: null,
     };
 
+    // eslint-disable-next-line no-useless-escape
     const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     let match = url.match(regex);
 
@@ -725,6 +712,7 @@ const initYoutubePlugin = (videojs) => {
       result.videoId = match[2];
     }
 
+    // eslint-disable-next-line no-useless-escape
     const regPlaylist = /[?&]list=([^#\&\?]+)/;
     match = url.match(regPlaylist);
 
@@ -736,11 +724,9 @@ const initYoutubePlugin = (videojs) => {
   };
 
   function apiLoaded() {
-    console.log('---apiLoaded()---', YT);
-    YT.ready(function () {
-      console.log('---apiLoaded() YT.ready manage readyQueue---');
+    YT.ready(() => {
       Youtube.isApiReady = true;
-      for (var i = 0; i < Youtube.apiReadyQueue.length; ++i) {
+      for (let i = 0; i < Youtube.apiReadyQueue.length; i += 1) {
         Youtube.apiReadyQueue[i].initYTPlayer();
       }
     });
@@ -759,13 +745,13 @@ const initYoutubePlugin = (videojs) => {
       return;
     }
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    tag.onload = function () {
+    tag.onload = () => {
       if (!loaded) {
         loaded = true;
         callback();
       }
     };
-    tag.onreadystatechange = function () {
+    tag.onreadystatechange = () => {
       if (!loaded && (this.readyState === 'complete' || this.readyState === 'loaded')) {
         loaded = true;
         callback();

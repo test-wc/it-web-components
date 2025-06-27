@@ -3,8 +3,6 @@ import { property, state, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import videojs from 'video.js';
-// import 'videojs-youtube';
-
 import { cookies } from '@italia/globals';
 
 // @ts-ignore
@@ -88,6 +86,7 @@ export class ItVideo extends LitElement {
     const isYoutube = this.isYouTubeUrl();
     // regex per url diversi da youtube
     const regexOthers =
+      // eslint-disable-next-line no-useless-escape
       /^(?:https?:\/\/)?(?:www\.|m\.)?(?:vimeo\.com\/(?:video\/)?\d+|player\.vimeo\.com\/video\/\d+|dailymotion\.com\/video\/[a-zA-Z0-9]+|dai\.ly\/[a-zA-Z0-9]+|facebook\.com\/(?:[^\/]+\/videos\/|watch\/?\?v=)[0-9]+|fb\.watch\/[a-zA-Z0-9]+|instagram\.com\/(?:reel|tv)\/[a-zA-Z0-9_-]+|twitch\.tv\/videos\/\d+|player\.twitch\.tv\/\?video=\d+|tiktok\.com\/@[\w.-]+\/video\/\d+|fast\.wistia\.com\/embed\/iframe\/[a-zA-Z0-9]+|wistia\.com\/medias\/[a-zA-Z0-9]+|players\.brightcove\.net\/[\d]+\/[a-zA-Z0-9_]+\/index\.html\?videoId=\d+|content\.jwplatform\.com\/players\/[a-zA-Z0-9]+-[a-zA-Z0-9]+\.html|cdnapi\.kaltura\.com\/p\/\d+\/sp\/\d+\/embedIframeJs\/uiconf_id\/\d+\/partner_id\/\d+|streamable\.com\/[a-z0-9]+)$/i;
 
     return isYoutube || regexOthers.test(this.src || '');
@@ -119,7 +118,7 @@ export class ItVideo extends LitElement {
   }
 
   /*
-  Il video è renderizzabile solo se
+  Il video è renderizzabile solo se:
    - non richiede accettazione dei cookie
    - richiede accettazione dei cookie ed è stato dato il consenso
   */
@@ -150,6 +149,7 @@ export class ItVideo extends LitElement {
   initVideoPlayer() {
     const renderable = this.isVideoRenderable();
     if (renderable) {
+      const videojsFn = videojs.default || videojs;
       if (this.player && !this.player.isDisposed()) {
         this.player.dispose();
       }
@@ -189,14 +189,12 @@ export class ItVideo extends LitElement {
         ..._options,
       };
 
-      const videojsFn = videojs.default || videojs;
       const tracks = [...(this.track ?? [])];
       if (isYoutube) {
         initYoutubePlugin(videojsFn);
       }
 
       this.player = videojsFn(this.videoElement, mergedOptions, function onPlayerReady() {
-        console.log('tech:', this.techName_);
         this.addClass('vjs-theme-bootstrap-italia');
         this.addClass('vjs-big-play-centered');
 
@@ -214,25 +212,6 @@ export class ItVideo extends LitElement {
           );
         });
       });
-      console.log('VideoJS techs:', videojsFn?.getTech ? videojsFn.getTech('YouTube') : 'No getTech');
-
-      console.log('Player tech:', this.player.techName_);
-      console.log('Player readyState:', this.player.readyState());
-      console.log('Player isPaused:', this.player.paused());
-
-      // setTimeout(() => {
-      //   const tech = this.player?.tech({ IWillNotUseThisInPlugins: true });
-      //   console.log('Video.js tech object:', tech);
-
-      //   if (tech && tech.ytPlayer && typeof tech.ytPlayer.addEventListener === 'function') {
-      //     console.log('✅ YT Player initialized');
-      //     tech.ytPlayer.addEventListener('onReady', () => {
-      //       console.log('✅ YT Player ready!');
-      //     });
-      //   } else {
-      //     console.warn('❌ YT Player non inizializzato correttamente:', tech?.ytPlayer);
-      //   }
-      // }, 2000);
     }
   }
 

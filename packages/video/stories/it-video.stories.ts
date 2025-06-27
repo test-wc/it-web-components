@@ -398,8 +398,7 @@ Nella sezione seguente vengono illustrate le funzioni per la gestione delle pref
   render: (params) =>
     html`${renderComponent({
       ...params,
-      // src: 'https://youtu.be/_0j7ZQ67KtY',
-      src: 'https://youtu.be/M7lc1UVf-VE',
+      src: 'https://youtu.be/_0j7ZQ67KtY',
       type: undefined,
       translations: undefined,
     })}`,
