@@ -299,3 +299,12 @@ $font-path: './assets/fonts';
     /* Safari, Android, iOS */ url('#{$font-path}/Roboto_Mono/roboto-mono-v13-latin-ext_latin-700italic.svg#RobotoMono')
       format('svg'); /* Legacy iOS */
 }
+
+/*Video js font*/
+
+@font-face {
+  font-family: VideoJS;
+  src: url('./assets/fonts/VideoJS.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
