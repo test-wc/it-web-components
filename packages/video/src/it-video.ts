@@ -3,7 +3,12 @@ import { property, state, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import videojs from 'video.js';
-import 'videojs-youtube';
+// import 'videojs-youtube';
+
+import { cookies } from '@italia/globals';
+
+// @ts-ignore
+import { initYoutubePlugin } from './util/youtube-video.js';
 import itLang from './locales/it.js';
 import styles from './it-video.scss';
 import '@italia/icon';
@@ -52,6 +57,9 @@ export class ItVideo extends LitElement {
     text?: string;
     acceptButtonText?: string;
     rememberCheckboxText?: string;
+    cookieKey?: string;
+    onAccept?: Function;
+    isAccepted?: Function;
   } = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
 
   @state()
@@ -85,12 +93,24 @@ export class ItVideo extends LitElement {
     return isYoutube || regexOthers.test(this.src || '');
   }
 
+  getCookieKey() {
+    const isYoutube = this.isYouTubeUrl();
+    return this.consentOptions?.cookieKey ?? (isYoutube ? 'youtube' : 'it-video');
+  }
+
   /*
   Action sull'accettazone del consenso.
   */
   acceptConsent(remember: boolean = false) {
-    console.log('remember', remember);
     this.consentAccepted = true;
+
+    if (remember) {
+      if (this.consentOptions?.onAccept) {
+        this.consentOptions.onAccept(remember);
+      } else {
+        cookies.rememberChoice(this.getCookieKey(), remember);
+      }
+    }
 
     // Aspetta il render DOM aggiornato e re-inizializza il player
     this.updateComplete.then(() => {
@@ -171,8 +191,9 @@ export class ItVideo extends LitElement {
 
       const videojsFn = videojs.default || videojs;
       const tracks = [...(this.track ?? [])];
-
-      console.log('aaaa', this.videoElement, mergedOptions);
+      if (isYoutube) {
+        initYoutubePlugin(videojsFn);
+      }
 
       this.player = videojsFn(this.videoElement, mergedOptions, function onPlayerReady() {
         console.log('tech:', this.techName_);
@@ -193,22 +214,25 @@ export class ItVideo extends LitElement {
           );
         });
       });
+      console.log('VideoJS techs:', videojsFn?.getTech ? videojsFn.getTech('YouTube') : 'No getTech');
+
       console.log('Player tech:', this.player.techName_);
       console.log('Player readyState:', this.player.readyState());
       console.log('Player isPaused:', this.player.paused());
 
-      this.track.forEach((t) => {
-        this.player.addRemoteTextTrack(
-          {
-            kind: t.kind,
-            src: t.src,
-            srclang: t.srclang || this.language,
-            label: t.label,
-            default: !!t.default,
-          },
-          false,
-        );
-      });
+      // setTimeout(() => {
+      //   const tech = this.player?.tech({ IWillNotUseThisInPlugins: true });
+      //   console.log('Video.js tech object:', tech);
+
+      //   if (tech && tech.ytPlayer && typeof tech.ytPlayer.addEventListener === 'function') {
+      //     console.log('✅ YT Player initialized');
+      //     tech.ytPlayer.addEventListener('onReady', () => {
+      //       console.log('✅ YT Player ready!');
+      //     });
+      //   } else {
+      //     console.warn('❌ YT Player non inizializzato correttamente:', tech?.ytPlayer);
+      //   }
+      // }, 2000);
     }
   }
 
@@ -219,8 +243,6 @@ export class ItVideo extends LitElement {
     window.VIDEOJS_NO_DYNAMIC_STYLE = true; // Disabilita lo stile dinamico di Video.js
     this.initVideoPlayer();
   }
-
-  // TODO: gestire il remember checkbox (funzionalità e markup)
 
   render() {
     const needsCookieConsent = this.needsCookieConsent();
@@ -260,8 +282,13 @@ export class ItVideo extends LitElement {
       : html`${this.getVideoElement()}`;
   }
 
-  //   connectedCallback(): void {
-  // }
+  connectedCallback(): void {
+    // Gestione del cookie - Lettura preferenza
+    super.connectedCallback?.();
+    this.consentAccepted = this.consentOptions?.isAccepted
+      ? this.consentOptions.isAccepted()
+      : cookies.isChoiceRemembered(this.getCookieKey());
+  }
 
   /*
   Unmount del player

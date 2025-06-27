@@ -7,5 +7,10 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "build", "node_modules"],
-  "references": [{ "path": "../typescript-config" }, { "path": "../icon" }, { "path": "../button" }]
+  "references": [
+    { "path": "../typescript-config" },
+    { "path": "../globals" },
+    { "path": "../icon" },
+    { "path": "../button" }
+  ]
 }

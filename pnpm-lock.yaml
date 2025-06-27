@@ -423,6 +423,9 @@ importers:
       '@italia/button':
         specifier: workspace:^
         version: link:../button
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon
