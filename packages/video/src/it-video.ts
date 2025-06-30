@@ -123,7 +123,7 @@ export class ItVideo extends LitElement {
 
     // Aspetta il render DOM aggiornato e re-inizializza il player
     this.updateComplete.then(() => {
-      this.initVideoPlayer();
+      this.initVideoPlayer(true); // passa il parametro focusPlayButton=true, per garantire accessibilità sul bottone di play che altrimenti sarebbe irraggiungibile
     });
   }
 
@@ -156,7 +156,7 @@ export class ItVideo extends LitElement {
   /*
   Inizializza il videoplayer solo se è renderizzabile (non richiede accettazione dei cookie / è già stato dato il consenso di accettazione dei cookie
   */
-  initVideoPlayer() {
+  initVideoPlayer(focusPlayButton: boolean = false) {
     const renderable = this.isVideoRenderable();
     if (renderable) {
       const videojsFn = videojs.default || videojs;
@@ -223,6 +223,14 @@ export class ItVideo extends LitElement {
             false,
           );
         });
+
+        if (focusPlayButton) {
+          const playButton = this.el()?.querySelector('.vjs-big-play-button') as HTMLButtonElement | null;
+
+          if (playButton) {
+            playButton.focus();
+          }
+        }
       });
     }
   }
