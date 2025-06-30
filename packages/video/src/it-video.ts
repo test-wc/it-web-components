@@ -11,7 +11,7 @@ import itLang from './locales/it.js';
 import styles from './it-video.scss';
 import '@italia/icon';
 
-type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
+export type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
 type LocaleTranslations = typeof itLang;
 type SingleTrack = {
   kind: 'captions' | 'subtitles' | 'descriptions' | 'chapters' | 'metadata';
@@ -20,10 +20,19 @@ type SingleTrack = {
   label: string; // Etichetta del track
   default?: boolean; // Indica se è il track predefinito
 };
-type Translations = Record<Locale, LocaleTranslations>;
-type Track = Array<SingleTrack>;
+export type Translations = Record<Locale, LocaleTranslations>;
+export type Track = Array<SingleTrack>;
+export type ConsentOptions = {
+  icon?: string;
+  text?: string;
+  acceptButtonText?: string;
+  rememberCheckboxText?: string;
+  consentKey?: string;
+  onAccept?: Function;
+  isAccepted?: Function;
+};
 
-const defaultConsentOptions = {
+export const defaultConsentOptions: ConsentOptions = {
   icon: 'it-video', // Icona predefinita per il consenso dei cookie
   text: 'Accetta i cookie di YouTube per vedere il video. Puoi gestire le preferenze nella <a href="#" class="text-white">cookie policy</a>.',
   acceptButtonText: 'Accetta',
@@ -44,21 +53,13 @@ export class ItVideo extends LitElement {
 
   @property({ type: Object }) options?: Record<string, unknown> = {}; // https://videojs.com/guides/options/
 
+  @property({ type: String }) language = 'it';
+
   @property({ type: Object }) translations: Translations = { it: itLang };
 
   @property({ type: Array }) track: Track = [];
 
-  @property({ type: String }) language = 'it';
-
-  @property({ type: Object }) consentOptions?: {
-    icon?: string;
-    text?: string;
-    acceptButtonText?: string;
-    rememberCheckboxText?: string;
-    consentKey?: string;
-    onAccept?: Function;
-    isAccepted?: Function;
-  } = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
+  @property({ type: Object }) consentOptions?: ConsentOptions = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
 
   @property({ type: String, attribute: 'init-plugins' })
   initPluginsName = '';

@@ -4,21 +4,18 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '@italia/video';
 import '@italia/button';
 import itLang from '../src/locales/it.js';
+import { ConsentOptions, Track, Translations, Locale } from '../src/it-video.ts';
 
 interface VideoProps {
   src: string;
   poster: string;
   type?: string;
   options?: object;
-  translations?: object;
-  language?: string;
-  track?: Array<{
-    kind: 'captions' | 'subtitles' | 'chapters' | 'descriptions' | 'metadata';
-    src: string;
-    srclang: string;
-    label: string;
-    default: boolean;
-  }>;
+  translations?: Translations;
+  language?: Locale;
+  track?: Track;
+  consentOptions?: ConsentOptions;
+  initPluginsName: string;
 }
 type Story = StoryObj<VideoProps>;
 
@@ -48,8 +45,11 @@ const meta = {
     poster: '',
     type: 'video/mp4',
     options: undefined,
+    track: [],
+    consentOptions: {},
     language: 'it',
     translations: { it: itLang },
+    initPluginsName: '',
   },
   argTypes: {
     src: { control: 'text', description: 'Sorgente del video' },
@@ -59,15 +59,41 @@ const meta = {
       control: 'object',
       description: 'Opzioni per il video player. https://videojs.com/guides/options/ qui tutte le opzioni disponibili.',
     },
-    translations: {
+    track: {
+      control: 'text',
+      table: {
+        defaultValue: {
+          summary: '[{kind:"chapter", src: "/path/file.ext", srclang:"it", label: "Capitoli", default: true }]',
+        },
+      },
+      description:
+        'Tracce per didascalie, sottotitoli, capitoli e descrizioni. Nel campo `kind` è necessario indicare la tipologia di traccia fra <ul><li>captions</li><li>subtitles</li><li>description</li><li>chapters</li><li>metadata</li></ul>',
+    },
+    consentOptions: {
       control: 'object',
       description:
-        'Traduzioni per le diverse lingue. Di base è disponibile solo la lingua it. Usare questa prop per aggiungere le traduzioni in altre lingue. ',
+        'Oggetto per la configurazione del riquadro per il consenso dei cookie. <br/>Di default sono gia previsti testi e icona, ma è possibile (ed è suggerito) modificare il testo con il link alla pagina della privacy policy. Di default viene salvata una variabile nel localstorage quando viene dato il consenso permanente per i cookie, ma è possibile personalizzare il comportamento passando in questo oggetto due funzioni specifiche per la gestione della memorizzazione del consenso: `onAccept` e `isAccepted`. ',
+      table: {
+        defaultValue: {
+          summary:
+            "{icon: 'it-video', text: 'Accetta i cookie di YouTube per vedere il video. Puoi gestire le preferenze nella <a href='#' class='text-white'>cookie policy</a>.', acceptButtonText: 'Accetta', rememberCheckboxText: 'Ricorda per tutti i video',}",
+        },
+      },
     },
     language: {
       control: 'text',
       description: "Lingua del player di cui verrano usate le corrispondenti 'transaltions'",
       table: { defaultValue: { summary: 'it' } },
+    },
+    translations: {
+      control: 'object',
+      description:
+        'Traduzioni per le diverse lingue. Di base è disponibile solo la lingua it. Usare questa prop per aggiungere le traduzioni in altre lingue. ',
+    },
+    initPluginsName: {
+      control: 'string',
+      description:
+        'Nome della propria funzione presente nella window che verrà invocata da video.js per inizializzare eventuali plugin aggiuntivi definiti dallo sviluppatore.',
     },
   },
   parameters: {
@@ -130,9 +156,6 @@ al player le opzioni definite qui [https://videojs.com/guides/options/](https://
 - Usa l'attributo \`translations\` per definire le traduzioni diverse dalla lingua italiana, o per
 sovrascrivere le traduzioni italiane pre-impostate.
 
-### Plugin
-Esistono numerosi plugin disponibili per Video.js, che consentono di aggiungere nuove funzionalità, come la riproduzione di video in VR, l’analisi delle statistiche di visualizzazione del video, le utility per la UI mobile e molto altro ancora.
-
 ### Font per le icone del player
 Per utilizzare le icone del player, è necessario includere il font \`VideoJS.woff\` nella tua applicazione. Puoi farlo aggiungendo il css compilato di design-web-components nel tuo sorgente HTML:
 
@@ -150,6 +173,21 @@ oppure se stai usando SCSS puoi definire il font direttamente nel tuo file SCSS:
 }
 \`\`\`
 copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copiare dal package design-web-components).
+
+
+### Plugin
+Esistono numerosi plugin disponibili per Video.js, che consentono di aggiungere nuove funzionalità, come la riproduzione di video in VR, l’analisi delle statistiche di visualizzazione del video, le utility per la UI mobile e molto altro ancora.
+
+#### Utilizzo di ulteriori plugin
+<Description> (Ad esempio il plugin per l'embed di Vimeo)</Description>
+Con l'attributo  \`init-plugins\` è possibile passare al componente \`<it-video>\` il nome della propria funzione di inizializzazione dei plugin, che deve essere definita nella window.
+
+Esempio:
+
+\`\`\`html
+<it-video ...... init-plugins="myInitPlugin"></it-video>
+<script> const myInitPlugin = (videojs)=>{ /*my code*/ }</script>
+\`\`\`
 `,
       },
     },
@@ -398,18 +436,6 @@ consentOptions = {
     onAccept?: Function; //(accepted, consentKey)=>{} - funzione che viene invocata quando si accetta il consenso permanente per un video di questa tipologia. Se presente, non viene gestita la preferenza nel localstorage, ma è compito dello sviluppatore implementare la logica di salvataggio delle preferenze
     isAccepted?: Function; // (consentKey)=>{} - funzione che ritorna un valore booleano (true/false), che indica se l'utente ha gia accettato il consenso permanente per tutti i video di quel tipo.
   };
-\`\`\`
-
-
-### Utilizzo di ulteriori plugin
-<Description> (Ad esempio il plugin per l'embed di Vimeo)</Description>
-Con l'attributo  \`init-plugins\` è possibile passare al componente \`<it-video>\` il nome della propria funzionen di inizializzazione dei plugin.
-
-Esempio:
-
-\`\`\`html
-<it-video ...... init-plugins="myInitPlugin"></it-video>
-<script> const myInitPlugin = (videojs)=>{ /*my code*/ }</script>
 \`\`\`
 `,
       },
