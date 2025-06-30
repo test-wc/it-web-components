@@ -5,6 +5,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import styles from './button.scss';
 
+export type ButtonSize = 'lg' | 'sm' | 'xs';
+export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'link' | string;
+
 @customElement('it-button')
 export class ItButton extends BaseComponent {
   static styles = styles;
@@ -20,10 +23,10 @@ export class ItButton extends BaseComponent {
   type = 'button';
 
   @property({ type: String })
-  variant = '';
+  variant: ButtonVariant = '';
 
   @property({ type: String })
-  size = 'sm';
+  size: ButtonSize = 'sm';
 
   @property({ type: Boolean })
   outline = false;

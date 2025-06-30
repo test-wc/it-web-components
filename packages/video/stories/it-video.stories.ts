@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '@italia/video';
 import '@italia/button';
 import itLang from '../src/locales/it.js';
-import { ConsentOptions, Track, Translations, Locale } from '../src/it-video.ts';
+import type { ConsentOptions, Track, Translations, Locale } from '../src/it-video.ts';
 
 interface VideoProps {
   src: string;
@@ -94,13 +94,7 @@ const meta = {
         'Nome della propria funzione presente nella window che verrà invocata da video.js per inizializzare eventuali plugin aggiuntivi definiti dallo sviluppatore.',
     },
   },
-  decorators: [
-    (Story) =>
-      html`<div class="sbdocs-video-container">
-        <!-- 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  -->
-        ${Story()}
-      </div>`,
-  ],
+  decorators: [(Story) => html`<div class="sbdocs-video-container">${Story()}</div>`],
   parameters: {
     docs: {
       source: { excludeDecorators: true },
