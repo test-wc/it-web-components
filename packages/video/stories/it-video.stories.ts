@@ -21,18 +21,16 @@ type Story = StoryObj<VideoProps>;
 
 // Renderizza il wc it-video di default
 const renderComponent = (params: any) => html`
-  <div class="video-container">
-    <it-video
-      src="${ifDefined(params.src)}"
-      poster="${ifDefined(params.poster)}"
-      type="${ifDefined(params.type)}"
-      options="${params.options ? JSON.stringify(params.options) : nothing}"
-      translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
-      language="${ifDefined(params.language)}"
-      track="${params.track ? JSON.stringify(params.track) : nothing}"
-      >${params.slot}</it-video
-    >
-  </div>
+  <it-video
+    src="${ifDefined(params.src)}"
+    poster="${ifDefined(params.poster)}"
+    type="${ifDefined(params.type)}"
+    options="${params.options ? JSON.stringify(params.options) : nothing}"
+    translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
+    language="${ifDefined(params.language)}"
+    track="${params.track ? JSON.stringify(params.track) : nothing}"
+    >${params.slot}</it-video
+  >
 `;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -96,8 +94,16 @@ const meta = {
         'Nome della propria funzione presente nella window che verrà invocata da video.js per inizializzare eventuali plugin aggiuntivi definiti dallo sviluppatore.',
     },
   },
+  decorators: [
+    (Story) =>
+      html`<div class="sbdocs-video-container">
+        <!-- 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  -->
+        ${Story()}
+      </div>`,
+  ],
   parameters: {
     docs: {
+      source: { excludeDecorators: true },
       description: {
         component: `
 <Description>Componente Video Player.</Description>
@@ -130,6 +136,7 @@ export const EsempioInterattivo: Story = {
   tags: ['!autodocs', '!dev'],
   parameters: {
     docs: {
+      source: { excludeDecorators: true },
       canvas: {
         sourceState: 'shown',
       },
