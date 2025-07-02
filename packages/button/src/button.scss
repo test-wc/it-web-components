@@ -2,7 +2,6 @@
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
 @import 'bootstrap-italia/src/scss/base/maps';
-@import 'bootstrap-italia/src/scss/base/reboot';
 
 @import 'bootstrap-italia/src/scss/base/utilities'; //all utilities from bsi
 
@@ -23,6 +22,20 @@ $utilities: (
       )
     ),
 );
+
+// cursor pointer. Same code from 'bootstrap-italia/src/scss/base/reboot':
+button,
+[type="button"], // 1
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; // 2
+
+  @if $enable-button-pointers {
+    &:not(:disabled) {
+      cursor: pointer; // 3
+    }
+  }
+}
 
 @import 'bootstrap-italia/src/scss/base/utilities/api'; //use $utilities
 
