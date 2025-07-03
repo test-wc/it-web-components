@@ -1,0 +1,16 @@
+{
+  "extends": "@italia/typescript-config/tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "rootDir": ".",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "build", "node_modules"],
+  "references": [
+    { "path": "../typescript-config" },
+    { "path": "../globals" },
+    { "path": "../icon" },
+    { "path": "../button" }
+  ]
+}
