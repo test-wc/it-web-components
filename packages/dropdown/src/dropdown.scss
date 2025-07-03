@@ -7,4 +7,8 @@
 
 @import 'bootstrap-italia/src/scss/components/dropdown';
 
-@import 'bootstrap-italia/src/scss/base/utilities/api';
+:popover-open {
+  @extend .show;
+}
+
+// @import 'bootstrap-italia/src/scss/base/utilities/api';

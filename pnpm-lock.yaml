@@ -266,6 +266,9 @@ importers:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3
         version: 0.10.4
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
       '@italia/test-config':
         specifier: workspace:^
         version: link:../test-config
