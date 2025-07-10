@@ -1,0 +1,56 @@
+@import 'bootstrap-italia/src/scss/components/dropdown';
+
+it-dropdown {
+  @if $dropdown-padding-y == 0 {
+    &::part(menu) {
+      > .dropdown-item:first-child,
+      > li:first-child .dropdown-item {
+        @include border-top-radius(var(--#{$prefix}dropdown-inner-border-radius));
+      }
+
+      > .dropdown-item:last-child,
+      > li:last-child .dropdown-item {
+        @include border-bottom-radius(var(--#{$prefix}dropdown-inner-border-radius));
+      }
+    }
+  }
+
+  &::part(full-width) {
+    li {
+      display: inline-block;
+      width: auto;
+
+      &:hover,
+      &:focus {
+        background: none;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .link-list {
+    margin-bottom: 0; // Remove margin bottom from default list
+  }
+
+  &::part(dark) {
+    .link-list-heading {
+      color: var(--#{$prefix}color-text-inverse);
+    }
+
+    .link-list {
+      span.divider {
+        background: #2e465e;
+      }
+
+      // Link list colors and hovers
+      a span,
+      a:hover span {
+        color: var(--#{$prefix}color-text-inverse);
+      }
+
+      a.active span {
+        text-decoration: underline;
+      }
+    }
+  }
+}

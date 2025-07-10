@@ -1,3 +1,4 @@
+@import 'bootstrap-italia/src/scss/base/version';
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
@@ -10,9 +11,9 @@
 @import 'bootstrap-italia/src/scss/base/helpers';
 
 @import 'bootstrap-italia/src/scss/base/utilities/api';
-@import 'bootstrap-italia/src/scss/utilities/colors';
 @import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/utilities/icons';
+@import 'bootstrap-italia/src/scss/utilities/colors';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 
 .bg-dark {
@@ -53,3 +54,7 @@ it-icon {
     --bs-it-icon-size: var(--bs-icon-size-xs);
   }
 }
+
+@import 'bootstrap-italia/src/scss/components/linklist';
+@import './dropdown';
+@import 'bootstrap-italia/src/scss/components/type';

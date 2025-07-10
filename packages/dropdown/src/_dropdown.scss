@@ -1,0 +1,244 @@
+//
+// Custom properties
+
+:host {
+  --#{$prefix}dropdown-zindex: 8; // TODO review zindex usage
+  --#{$prefix}dropdown-min-width: 10rem;
+  --#{$prefix}dropdown-padding-x: 0;
+  --#{$prefix}dropdown-padding-y: var(--#{$prefix}spacing-xxs);
+  --#{$prefix}dropdown-spacer: 0.125rem;
+  --#{$prefix}dropdown-font-size: var(--#{$prefix}label-font-size);
+  --#{$prefix}dropdown-color: var(--#{$prefix}color-text-base);
+  --#{$prefix}dropdown-background: var(--#{$prefix}color-background-inverse);
+  --#{$prefix}dropdown-border-color: transparent;
+  --#{$prefix}dropdown-border-radius: var(--#{$prefix}radius-smooth);
+  --#{$prefix}dropdown-border-width: 0;
+  --#{$prefix}dropdown-inner-border-radius: var(--#{$prefix}radius-smooth);
+  --#{$prefix}dropdown-divider-bg: var(--#{$prefix}color-border-subtle);
+  --#{$prefix}dropdown-divider-margin-y: var(--#{$prefix}spacing-xxs);
+  --#{$prefix}dropdown-box-shadow: var(--#{$prefix}elevation-medium);
+  --#{$prefix}dropdown-link-color: var(--#{$prefix}color-text-primary);
+  --#{$prefix}dropdown-link-hover-color: var(--#{$prefix}color-text-primary-hover);
+  --#{$prefix}dropdown-link-active-color: var(--#{$prefix}color-text-primary-active);
+  --#{$prefix}dropdown-item-padding-x: var(--#{$prefix}spacing-s);
+  --#{$prefix}dropdown-item-padding-y: var(--#{$prefix}spacing-xs);
+  --#{$prefix}dropdown-header-color: var(--#{$prefix}color-text-secondary);
+  --#{$prefix}dropdown-header-font-size: var(--#{$prefix}label-font-size);
+  --#{$prefix}dropdown-header-padding-x: var(--#{$prefix}spacing-s);
+  --#{$prefix}dropdown-header-padding-y: var(--#{$prefix}spacing-xxs);
+  --#{$prefix}dropdown-notch-base-size: 1.125rem;
+  --#{$prefix}dropdown-notch-position-x: 20px;
+  --#{$prefix}dropdown-notch-position-y: -8px;
+  --#{$prefix}dropdown-animation-speed: var(--#{$prefix}transition-instant);
+  --#{$prefix}dropdown-vertical-shift: 10px;
+}
+
+//
+// Component styles
+
+.dropup,
+.dropend,
+.dropdown,
+.dropstart,
+.dropup-center,
+.dropdown-center {
+  position: relative;
+}
+
+// Dropdown menu
+.dropdown-menu {
+  position: absolute;
+  z-index: var(--#{$prefix}dropdown-zindex);
+  top: 100%;
+  left: 0;
+  display: none; // none by default, but block on "open" of the menu
+  min-width: var(--#{$prefix}dropdown-min-width);
+  padding: var(--#{$prefix}dropdown-padding-y) var(--#{$prefix}dropdown-padding-x);
+  border: var(--#{$prefix}dropdown-border-width) solid var(--#{$prefix}dropdown-border-color);
+  border-radius: 0 0 var(--#{$prefix}dropdown-border-radius) var(--#{$prefix}dropdown-border-radius);
+  margin: 0; // Override default margin of ul
+  margin-top: var(--#{$prefix}dropdown-spacer);
+  background-clip: padding-box;
+  background-color: var(--#{$prefix}dropdown-background);
+  box-shadow: var(--#{$prefix}dropdown-box-shadow);
+  color: var(--#{$prefix}dropdown-color);
+  list-style: none;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  @include font-size(var(--#{$prefix}dropdown-font-size));
+  @include box-shadow(var(--#{$prefix}dropdown-box-shadow));
+
+  // Fullwidth menu
+  // TODO implement
+  &.full-width {
+    width: 100%;
+
+    li {
+      display: inline-block;
+      width: auto;
+
+      &:hover,
+      &:focus {
+        background: none;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // notch
+  &:before {
+    position: absolute;
+    top: var(--#{$prefix}dropdown-notch-position-y);
+    left: var(--#{$prefix}dropdown-notch-position-x);
+    width: var(--#{$prefix}dropdown-notch-base-size);
+    height: var(--#{$prefix}dropdown-notch-base-size);
+    border-radius: var(--#{$prefix}dropdown-border-radius);
+    background-color: var(--#{$prefix}dropdown-background);
+    content: '';
+    transform: rotate(45deg);
+  }
+
+  // Top position
+  &[data-popper-placement='top-start'] {
+    border-radius: var(--#{$prefix}dropdown-border-radius) var(--#{$prefix}dropdown-border-radius) 0 0;
+    //notch
+    &:before {
+      top: auto;
+      bottom: var(--#{$prefix}dropdown-notch-position-y);
+    }
+  }
+
+  // Bottom end position
+  &[data-popper-placement='bottom-end'] {
+    &:before {
+      right: calc(var(--#{$prefix}dropdown-notch-position-x) / 2);
+      left: auto;
+    }
+  }
+
+  // Dropdown on dark background
+  &.dark {
+    --#{$prefix}dropdown-text-color: #{$dropdown-dark-color};
+    --#{$prefix}dropdown-background: var(--#{$prefix}color-background-primary-muted);
+    --#{$prefix}dropdown-link-color: #{$dropdown-dark-link-color};
+    --#{$prefix}dropdown-divider-bg: #{$dropdown-dark-divider-bg};
+    --#{$prefix}dropdown-link-active-color: var(--#{$prefix}color-text-inverses);
+    --#{$prefix}dropdown-header-color: #{$dropdown-dark-header-color};
+
+    // Notch element
+    &:before {
+      background-color: var(--#{$prefix}dropdown-background);
+    }
+  }
+
+  &.show {
+    display: block;
+    //menu on bottom
+    &[data-popper-placement='bottom-start'] {
+      animation: dropdownFadeIn forwards var(--#{$prefix}dropdown-animation-speed);
+    }
+    //menu on top
+    &[data-popper-placement='top-start'] {
+      animation: dropdownFadeInTop forwards var(--#{$prefix}dropdown-animation-speed);
+    }
+    //-menu on left
+    &[data-popper-placement='left-start'] {
+      animation: dropdownFadeInTop forwards var(--#{$prefix}dropdown-animation-speed);
+
+      &:before {
+        top: 20px;
+        right: -6px;
+        left: auto;
+      }
+    }
+    //-menu on right
+    &[data-popper-placement='right-start'] {
+      animation: dropdownFadeInTop forwards var(--#{$prefix}dropdown-animation-speed);
+
+      &:before {
+        top: 20px;
+        left: -6px;
+      }
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .dropdown-menu#{$infix}-start {
+      --bs-position: start;
+
+      &[data-bs-popper] {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    .dropdown-menu#{$infix}-end {
+      --bs-position: end;
+
+      &[data-bs-popper] {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+}
+
+// Allow for dropdowns to go bottom up (aka, dropup-menu)
+// Just add .dropup after the standard .dropdown class and you're set.
+.dropup {
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: var(--#{$prefix}dropdown-spacer);
+  }
+}
+
+.dropend {
+  .dropdown-menu {
+    top: 0;
+    right: auto;
+    left: 100%;
+    margin-top: 0;
+    margin-left: var(--#{$prefix}dropdown-spacer);
+  }
+}
+
+.dropstart {
+  .dropdown-menu {
+    top: 0;
+    right: 100%;
+    left: auto;
+    margin-top: 0;
+    margin-right: var(--#{$prefix}dropdown-spacer);
+  }
+}
+
+// Menu on bottom animation
+@keyframes dropdownFadeIn {
+  0% {
+    margin-top: 0;
+    opacity: 0;
+  }
+
+  100% {
+    margin-top: var(--#{$prefix}dropdown-vertical-shift);
+    opacity: 1;
+  }
+}
+
+// Menu on top animation
+@keyframes dropdownFadeInTop {
+  0% {
+    margin-top: 0;
+    opacity: 0;
+  }
+
+  100% {
+    margin-top: -(var(--#{$prefix}dropdown-vertical-shift));
+    opacity: 1;
+  }
+}

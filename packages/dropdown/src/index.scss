@@ -5,10 +5,6 @@
 
 @import 'bootstrap-italia/src/scss/base/utilities';
 
-@import 'bootstrap-italia/src/scss/components/dropdown';
-
-:popover-open {
-  @extend .show;
-}
+@import '../src/dropdown';
 
 // @import 'bootstrap-italia/src/scss/base/utilities/api';
