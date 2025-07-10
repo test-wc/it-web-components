@@ -55,6 +55,27 @@ it-icon {
   }
 }
 
+/*Video*/
+
+/*Video JS font*/
+
+@font-face {
+  font-family: VideoJS;
+  font-style: normal;
+  font-weight: normal;
+  src: url('./assets/fonts/VideoJS.woff') format('woff');
+}
+
+:root {
+  --it-videojs-default-width: 300px;
+  --it-videojs-default-height: 150px;
+}
+
+it-video {
+  display: block;
+  min-width: var(--it-videojs-default-width, 300px);
+}
+
 @import 'bootstrap-italia/src/scss/components/linklist';
 @import './dropdown';
 @import 'bootstrap-italia/src/scss/components/type';

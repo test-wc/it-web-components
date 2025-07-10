@@ -28,3 +28,9 @@
 .sbdocs.sbdocs-preview:has(.hide-preview) {
   display: none;
 }
+
+@media (min-width: 1200px) {
+  .sbdocs-video-container {
+    min-width: 800px;
+  }
+}

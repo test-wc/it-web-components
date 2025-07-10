@@ -23,8 +23,27 @@ $utilities: (
     ),
 );
 
+// cursor pointer. Same code from 'bootstrap-italia/src/scss/base/reboot':
+button,
+[type="button"], // 1
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; // 2
+
+  @if $enable-button-pointers {
+    &:not(:disabled) {
+      cursor: pointer; // 3
+    }
+  }
+}
+
 @import 'bootstrap-italia/src/scss/base/utilities/api'; //use $utilities
 
 //@import 'bootstrap-italia/src/scss/utilities/focus';
 
 @import 'bootstrap-italia/src/scss/components/buttons';
+
+//se viene rimossa la definizione rounded-icon-size in bs-italia per btn-xs, allora serve questa regola:
+// .btn-xs {
+//   --#{$prefix}rounded-icon-size: var(--it-icon-size-xs);
+// }
