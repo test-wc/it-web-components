@@ -1,0 +1,116 @@
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+
+@import 'bootstrap-italia/src/scss/components/linklist';
+@import 'bootstrap-italia/src/scss/components/dropdown';
+
+// Vanno fatti a manazza se non vuoi impazzire, enjoy!
+:host li,
+:host li a {
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+li {
+  a:not(:hover) {
+    text-decoration: none;
+  }
+
+  span {
+    font-size: var(--bs-linklist-item-font-size);
+    line-height: var(--bs-linklist-item-line-height);
+
+    &.divider {
+      display: block;
+      height: var(--bs-linklist-divider-size);
+      margin: var(--bs-spacing-xxs) 0;
+      background: var(--bs-color-border-subtle);
+    }
+  }
+  // List item disabled state
+  &.disabled {
+    cursor: not-allowed;
+
+    a {
+      color: var(--#{$prefix}color-text-disabled);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    svg {
+      fill: var(--#{$prefix}icon-disabled);
+
+      &.secondary {
+        fill: var(--#{$prefix}icon-disabled);
+      }
+    }
+  }
+
+  &.active,
+  :hover:not(.disabled) a {
+    text-decoration: underline;
+  }
+
+  // Change the list item link font weight
+  &.medium,
+  .list-item-title {
+    font-weight: var(--#{$prefix}font-weight-solid);
+  }
+
+  // Increase font-size and spacing for list item link with large class
+  &.large {
+    --#{$prefix}linklist-item-font-size: var(--#{$prefix}label-font-size-m);
+  }
+
+  span,
+  &.list-item {
+    font-size: var(--#{$prefix}linklist-item-font-size);
+    line-height: var(--#{$prefix}linklist-item-line-height);
+  }
+
+  &.list-item {
+    position: relative;
+    display: inline-block;
+    padding-top: var(--#{$prefix}linklist-item-spacing);
+    padding-bottom: var(--#{$prefix}linklist-item-spacing);
+    text-decoration: none;
+
+    &.active span,
+    &:hover:not(.disable) span {
+      text-decoration: underline;
+    }
+
+    // List item active state
+    &.active {
+      .icon {
+        color: var(--#{$prefix}color-icon-primary-active);
+      }
+    }
+
+    // Hover on list item
+    &:hover:not(.disabled) {
+      a {
+        color: var(--#{$prefix}color-link-hover);
+      }
+
+      p {
+        color: var(--#{$prefix}color-text-secondary);
+      }
+
+      .icon {
+        fill: var(--#{$prefix}icon-primary-hover);
+      }
+
+      .icon.icon-inverse {
+        fill: var(--#{$prefix}icon-inverse);
+      }
+    }
+  }
+}

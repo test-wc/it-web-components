@@ -31,10 +31,20 @@
 }
 
 /*Button*/
-it-button {
+it-button,
+it-popover > it-button {
   @extend .btn;
   display: inline-block;
   width: auto;
+}
+
+it-dropdown,
+it-popover {
+  display: inline-block;
+}
+
+it-dropdown-item {
+  display: block;
 }
 
 /*Icon*/

@@ -63,6 +63,7 @@ export class ItButton extends BaseComponent {
       this.size ? `btn-${this.size}` : '',
       this.block ? 'd-block w-100' : '',
       this.icon ? 'btn-icon' : '',
+      this.className ? this.className : '',
     );
   }
 
@@ -90,9 +91,10 @@ export class ItButton extends BaseComponent {
   override render() {
     return html`
       <button
+        id=${this.id ? this.id : undefined}
         part="${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
-        disabled=${ifDefined(this.disabled || undefined)}
+        ?disabled=${ifDefined(this.disabled || undefined)}
         class="${this._buttonClasses}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
         .value="${ifDefined(this.value ? this.value : undefined)}"

@@ -47,6 +47,15 @@ importers:
       '@open-wc/eslint-config':
         specifier: ^12.0.3
         version: 12.0.3(@babel/core@7.27.1)(eslint-plugin-html@7.1.0)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1))(eslint-plugin-lit-a11y@4.1.4(eslint@8.57.1))(eslint-plugin-lit@1.15.0(eslint@8.57.1))(eslint-plugin-no-only-tests@3.3.0)(eslint-plugin-wc@1.5.0(eslint@8.57.1))(eslint@8.57.1)
+      '@rollup/plugin-commonjs':
+        specifier: ^28.0.6
+        version: 28.0.6(rollup@4.42.0)
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
       '@storybook/addon-a11y':
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
@@ -122,6 +131,9 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      rollup-plugin-scss:
+        specifier: ^4.0.1
+        version: 4.0.1
       storybook:
         specifier: ^8.6.14
         version: 8.6.14(prettier@3.5.3)
@@ -201,6 +213,9 @@ importers:
       '@italia/button':
         specifier: workspace:^
         version: link:../button
+      '@italia/dropdown':
+        specifier: workspace:^
+        version: link:../dropdown
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon
@@ -238,6 +253,67 @@ importers:
       sass:
         specifier: 'catalog:'
         version: 1.89.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
+  packages/dropdown:
+    dependencies:
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
+      '@italia/popover':
+        specifier: workspace:^
+        version: link:../popover
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -318,6 +394,67 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
+  packages/popover:
+    dependencies:
+      '@floating-ui/dom':
+        specifier: ^1.7.1
+        version: 1.7.1
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
       rollup:
         specifier: ^4.42.0
         version: 4.42.0
@@ -1153,6 +1290,15 @@ packages:
 
   '@esm-bundle/chai@4.3.4-fix.0':
     resolution: {integrity: sha512-26SKdM4uvDWlY8/OOOxSB1AqQWeBosCX3wRYUZO7enTAj03CtVxIiCimYVG2WpULcyV51qapK4qTovwkUr5Mlw==}
+
+  '@floating-ui/core@1.7.1':
+    resolution: {integrity: sha512-azI0DrjMMfIug/ExbBaeDVJXcY0a7EPvPjb2xAJPa4HeimBX+Z18HK8QQR3jb6356SnDDdxx+hinMLcJEDdOjw==}
+
+  '@floating-ui/dom@1.7.1':
+    resolution: {integrity: sha512-cwsmW/zyw5ltYTUeeYJ60CnQuPqmGwuGVhG9w0PRaRKkAyi38BT5CKrpIbb+jtahSwUl04cWzSx9ZOIxeS6RsQ==}
+
+  '@floating-ui/utils@0.2.9':
+    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
   '@github/catalyst@1.7.0':
     resolution: {integrity: sha512-qOAxrDdRZz9+v4y2WoAfh11rpRY/x4FRofPNmJyZFzAjubtzE3sCa/tAycWWufmQGoYiwwzL/qJBBgyg7avxPw==}
@@ -6163,6 +6309,17 @@ snapshots:
   '@esm-bundle/chai@4.3.4-fix.0':
     dependencies:
       '@types/chai': 4.3.20
+
+  '@floating-ui/core@1.7.1':
+    dependencies:
+      '@floating-ui/utils': 0.2.9
+
+  '@floating-ui/dom@1.7.1':
+    dependencies:
+      '@floating-ui/core': 1.7.1
+      '@floating-ui/utils': 0.2.9
+
+  '@floating-ui/utils@0.2.9': {}
 
   '@github/catalyst@1.7.0': {}
 
