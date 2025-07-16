@@ -14,6 +14,7 @@
 @import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/utilities/icons';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
+@import 'bootstrap-italia/src/scss/forms/forms'; //perchè ci sono delle variabile definite nella :root
 
 .bg-dark {
   it-icon::part(icon) {

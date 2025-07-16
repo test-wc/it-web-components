@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
+import { inputTypes } from '../src/types.js';
 import '@italia/input';
-import '@italia/icon';
-import { inputTypes } from '../src/it-input.ts';
 
 interface InputProps {
   invalid: boolean;
@@ -18,20 +19,20 @@ interface InputProps {
 }
 
 // Renderizza il wc it-input di default
-const renderComponent = (params: any) => html`
-  <it-input
-    id="${params.id}"
-    label="${params.label}"
-    type="${params.type}"
-    name="${params.name}"
+const renderComponent = (params: any) =>
+  html`<it-input
+    id="${ifDefined(params.id)}"
+    label="${ifDefined(params.label)}"
+    type="${ifDefined(params.type)}"
+    name="${ifDefined(params.name)}"
     ?disabled="${params.disabled}"
     ?required="${params.required}"
     ?invalid="${params.invalid}"
-    required-validity-message="${params.requiredValidityMessage}"
-    validity-message="${params.validityMessage}"
-    value="${params.value}"
-  ></it-input>
-`;
+    required-validity-message="${ifDefined(params.requiredValidityMessage)}"
+    validity-message="${ifDefined(params.validityMessage)}"
+    value="${ifDefined(params.value)}"
+    placeholder="${ifDefined(params.placeholder)}"
+  ></it-input>`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -95,7 +96,7 @@ const meta = {
         component: `
 <Description>Input accessibile e responsivo.</Description>
 
-Per il corretto funzionamento degli elementi di tipo <it-input> è di fondamentale importanza l’utilizzo uno degli appositi attributi type (ad esempio, email per l’inserimento di indirizzi email o number per informazioni numeriche), in modo da sfruttare i controlli nativi dei browser più recenti come la verifica dell’email, l’utilizzo di metodo di input numerico ed altro.
+Per il corretto funzionamento degli elementi di tipo \`<it-input>\` è di fondamentale importanza l’utilizzo uno degli appositi attributi \`type\` (ad esempio, "email" per l’inserimento di indirizzi email o "number" per informazioni numeriche), in modo da sfruttare i controlli nativi dei browser più recenti come la verifica dell’email, l’utilizzo di metodo di input numerico ed altro.
 `,
       },
     },
@@ -117,7 +118,7 @@ export const EsempioInterattivo: Story = {
     },
   },
   render: (params) =>
-    html` ${renderComponent({
+    html`${renderComponent({
       ...params,
       type: 'text',
       label: 'Campo di testo',
@@ -158,7 +159,7 @@ export const Placeholder: Story = {
     docs: {
       description: {
         story: `
-È possibile abbinare al componente <it-input> un testo segnaposto (placeholder) per fornire indicazioni sul tipo di contenuto atteso. Questo testo non sostituisce l’etichetta, ma fornisce informazioni aggiuntive.
+È possibile abbinare al componente \`<it-input>\` un testo segnaposto (placeholder) per fornire indicazioni sul tipo di contenuto atteso. Questo testo non sostituisce l’etichetta, ma fornisce informazioni aggiuntive.
 `,
       },
     },
@@ -168,7 +169,7 @@ export const Placeholder: Story = {
       ...params,
       type: 'text',
       label: 'Etichetta',
-      placholder: 'Testo segnaposto',
+      placeholder: 'Testo segnaposto',
       name: 'placeholder-example',
     })}
   `,

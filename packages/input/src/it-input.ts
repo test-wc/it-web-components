@@ -2,15 +2,17 @@ import { BaseComponent, FormMixin, ValidityMixin } from '@italia/globals';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { inputTypes } from './types.js';
 
-// import styles from './input.scss';
+import styles from './input.scss';
 
-export const inputTypes = ['text', 'email', 'number', 'tel', 'time'] as const;
+// export const inputTypes = ['text', 'email', 'number', 'tel', 'time'] as const;
+
 export type InputType = (typeof inputTypes)[number];
 
 @customElement('it-input')
 export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
-  // static styles = styles;
+  static styles = styles;
 
   static get formAssociated() {
     return true;
@@ -106,6 +108,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     return html`
       <div class="form-group" part="input-wrapper">
         <label class="active" for="${ifDefined(this.id || undefined)}" part="label">${this.label}</label>
+
         <input
           @input="${this.handleInput}"
           .type="${this.type}"
@@ -116,6 +119,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           required="${this.required}"
           part="input"
           placeholder=${ifDefined(this.placeholder || undefined)}
+          class="form-control"
         />
       </div>
     `;

@@ -1,30 +1,22 @@
-// @import 'bootstrap-italia/src/scss/base/functions';
-// @import 'bootstrap-italia/src/scss/base/variables';
-// @import 'bootstrap-italia/src/scss/base/mixins';
-// @import 'bootstrap-italia/src/scss/base/maps';
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+//@import 'bootstrap-italia/src/scss/base/maps';
+//@import 'bootstrap-italia/src/scss/utilities/focus';
+%focus,
+%focusmouse {
+}
 
-// @import 'bootstrap-italia/src/scss/base/utilities'; //all utilities from bsi
+@import 'bootstrap-italia/src/scss/forms/forms';
+@import 'bootstrap-italia/src/scss/forms/form-control';
 
-// //ovveride utilities: get only needed utilities
-// $utilities: (
-//   'display': map-merge(
-//       map-get($utilities, 'display'),
-//       (
-//         'values': block,
-//       )
-//     ),
-//   'width': map-merge(
-//       map-get($utilities, 'width'),
-//       (
-//         'values': (
-//           100: 100%,
-//         ),
-//       )
-//     ),
-// );
+:host {
+  display: block;
 
-// @import 'bootstrap-italia/src/scss/base/utilities/api'; //use $utilities
-
-// //@import 'bootstrap-italia/src/scss/utilities/focus';
-
-// @import 'bootstrap-italia/src/scss/components/buttons';
+  &:focus:not([data-focus-mouse='true']),
+  &[data-focus-mouse='true'] {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+}
