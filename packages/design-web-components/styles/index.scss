@@ -10,10 +10,13 @@
 @import 'bootstrap-italia/src/scss/base/helpers';
 
 @import 'bootstrap-italia/src/scss/base/utilities/api';
-@import 'bootstrap-italia/src/scss/utilities/colors';
-@import 'bootstrap-italia/src/scss/utilities/focus';
+
+@import './utilities/focus.scss'; //@import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/utilities/icons';
+@import 'bootstrap-italia/src/scss/utilities/colors';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
+@import 'bootstrap-italia/src/scss/components/type';
+
 @import 'bootstrap-italia/src/scss/forms/forms'; //perchè ci sono delle variabile definite nella :root
 
 .bg-dark {
