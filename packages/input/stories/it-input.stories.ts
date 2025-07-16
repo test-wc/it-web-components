@@ -242,6 +242,21 @@ export const IconeOPulsanti: Story = {
   ...meta,
   name: 'Icone o pulsanti',
   args: { placeholder: 'Icone o pulsanti' },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità delle icone</span></div>
+<p>
+Nel caso in cui l’icona è semanticamente rilevante e non spiegata dal testo che la segue, occorre:
+<ul><li>rimuovere \`aria-hidden="true"\`</li>
+<li>aggiungere \`role="img"\` sul tag \`<svg>\`</li>
+inserire all’interno il tag \`<title>\` con un titolo per l’icona che ne spieghi il significato (nel formato \`<title>significato icona</title>\`)
+</p></div></div>
+`,
+      },
+    },
+  },
 
   render: (params) => html`
     ${renderComponent({
