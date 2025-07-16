@@ -1,7 +1,9 @@
 import { BaseComponent, FormMixin, ValidityMixin } from '@italia/globals';
 import { html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, queryAssignedNodes } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { when } from 'lit/directives/when.js';
+
 import { inputTypes } from './types.js';
 
 import styles from './input.scss';
@@ -20,6 +22,9 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   @property()
   internals = this.attachInternals();
+
+  @property({ type: Boolean })
+  slotted = false;
 
   @property({ type: Boolean, reflect: true })
   invalid = false;
@@ -47,6 +52,9 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   @property({ type: String })
   placeholder = '';
+
+  @property({ type: String, attribute: 'support-text' })
+  supportText = '';
 
   @property({ type: Boolean })
   disabled = false;
@@ -91,6 +99,15 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   override firstUpdated() {
     this.addFocus(this._inputElement);
+    const iconSlot = this.shadowRoot?.querySelector('slot[name="icon"]');
+    const appendSlot = this.shadowRoot?.querySelector('slot[name="append"]');
+
+    iconSlot?.addEventListener('slotchange', () => {
+      this.requestUpdate();
+    });
+    appendSlot?.addEventListener('slotchange', () => {
+      this.requestUpdate();
+    });
   }
 
   override connectedCallback() {
@@ -105,22 +122,45 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   // Render the UI as a function of component state
   override render() {
+    const supportTextId = `${this.id}-support-text`;
+    const inputRender = html`
+      <input
+        @input="${this.handleInput}"
+        .type="${this.type}"
+        id="${ifDefined(this.id || undefined)}"
+        name="${this.name}"
+        disabled=${ifDefined(this.disabled || undefined)}
+        .value="${this._value}"
+        required="${this.required}"
+        part="input"
+        placeholder=${ifDefined(this.placeholder || undefined)}
+        aria-describedby=${ifDefined(supportTextId || undefined)}
+        class="form-control"
+      />
+    `;
+    const supportTextRender = html` ${when(
+      this.supportText,
+      () => html` <small class="form-text" id="${supportTextId}">${this.supportText}</small> `,
+    )}`;
     return html`
       <div class="form-group" part="input-wrapper">
         <label class="active" for="${ifDefined(this.id || undefined)}" part="label">${this.label}</label>
 
-        <input
-          @input="${this.handleInput}"
-          .type="${this.type}"
-          id="${ifDefined(this.id || undefined)}"
-          name="${this.name}"
-          disabled=${ifDefined(this.disabled || undefined)}
-          .value="${this._value}"
-          required="${this.required}"
-          part="input"
-          placeholder=${ifDefined(this.placeholder || undefined)}
-          class="form-control"
-        />
+        ${when(
+          this.slotted,
+          () =>
+            html` <div class="input-group">
+                <span class="input-group-text">
+                  <slot name="icon" @slotchange=${() => this.requestUpdate()}></slot
+                ></span>
+                ${inputRender}
+                <div class="input-group-append">
+                  <slot name="append" @slotchange=${() => this.requestUpdate()}></slot>
+                </div>
+              </div>
+              ${supportTextRender}`,
+          () => html` ${inputRender} ${supportTextRender}`,
+        )}
       </div>
     `;
   }

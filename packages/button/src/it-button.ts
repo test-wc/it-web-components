@@ -107,7 +107,7 @@ export class ItButton extends BaseComponent {
   override render() {
     return html`
       <button
-        part="${this.variant} ${this.outline ? 'outline' : ''} focusable"
+        part="${this.variant} ${this.outline ? 'outline' : ''} focusable button"
         type="${this.type}"
         disabled=${ifDefined(this.disabled || undefined)}
         class="${this._buttonClasses}"
