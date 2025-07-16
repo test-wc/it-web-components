@@ -1,0 +1,126 @@
+/*
+MEMO:
+- :focus --> sia da tastiera, sia da mouse
+- :focus-visible --> solo da tastiera
+- :focus:not(:focus-visible) --> solo da mouse
+*/
+
+:focus-visible,
+%focus,
+button:focus-visible,
+::part(focusable):focus-visible,
+.it-carousel-wrapper .splide__pagination button:focus-visible,
+.upload:focus-visible + label,
+.upload-dragdrop-input:focus-visible[type='file'] + label,
+.avatar-upload:focus-within:focus-visible,
+.rating input:focus-visible + label svg {
+  border-color: $focus-outline-color-out !important;
+  box-shadow:
+    0 0 0 2px var(--#{$prefix}color-border-inverse),
+    0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
+  outline: 3px solid transparent !important;
+  outline-offset: 3px !important;
+}
+
+[tabindex='-1']:focus:not(:focus-visible) {
+  //focus solo da mouse, non da tastiera
+  box-shadow: none !important;
+}
+
+:focus:not(:focus-visible):not(.btn),
+::part(focusable):focus-visible:not(.btn),
+%focusmouse {
+  border-color: inherit !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+p a {
+  &:focus:not(:focus-visible):not(.btn) {
+    /* focus da mouse o script, esclusi anche i .btn */
+    outline-offset: 0px !important;
+    outline: 3px $focus-outline-color-out solid !important;
+    background: $focus-outline-color-in;
+    box-shadow: none !important;
+    color: $link-color !important;
+  }
+}
+
+.shadow,
+.shadow-none,
+.shadow-sm,
+.shadow-lg {
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px $focus-outline-color-in,
+      0 0 0 5px $focus-outline-color-out !important;
+  }
+}
+
+.avatar-group-stacked .avatar {
+  &:focus-visible {
+    border: 0;
+    margin-left: -4px;
+    margin-top: 2px;
+    margin-right: 2px;
+  }
+
+  &.avatar-dropdown .btn-dropdown:focus-visible {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+}
+
+.chip {
+  button {
+    &:focus-visible {
+      border-radius: 50%;
+    }
+  }
+}
+
+.form-check {
+  .toggles label:has(input[type='checkbox']:focus-visible) {
+    @extend %focus;
+
+    input,
+    .lever {
+      border-color: inherit !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+
+  .toggles label:has(input[type='checkbox']:focus:not(:focus-visible)) {
+    @extend %focusmouse;
+  }
+
+  &.form-check-group {
+    :focus-visible,
+    [type='checkbox']:focus + label,
+    [type='radio']:focus + label {
+      width: 100%;
+    }
+  }
+}
+
+.bg-dark .btn,
+.back-to-top.dark {
+  &:focus-visible,
+  &%focus {
+    box-shadow:
+      0 0 0 2px $focus-outline-color-out,
+      0 0 0 5px $focus-outline-color-in !important;
+  }
+}
+
+.autocomplete__wrapper .autocomplete__menu {
+  .autocomplete__hint,
+  .autocomplete__option {
+    &:focus {
+      border: 3px solid $focus-outline-color-out !important;
+      box-shadow: none !important;
+    }
+  }
+}

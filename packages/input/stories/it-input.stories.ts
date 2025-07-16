@@ -22,16 +22,16 @@ interface InputProps {
 const renderComponent = (params: any) =>
   html`<it-input
     id="${ifDefined(params.id)}"
-    label="${ifDefined(params.label)}"
-    type="${ifDefined(params.type)}"
-    name="${ifDefined(params.name)}"
+    label="${ifDefined(params.label || undefined)}"
+    type="${ifDefined(params.type || undefined)}"
+    name="${ifDefined(params.name || undefined)}"
     ?disabled="${params.disabled}"
     ?required="${params.required}"
     ?invalid="${params.invalid}"
-    required-validity-message="${ifDefined(params.requiredValidityMessage)}"
-    validity-message="${ifDefined(params.validityMessage)}"
-    value="${ifDefined(params.value)}"
-    placeholder="${ifDefined(params.placeholder)}"
+    required-validity-message="${ifDefined(params.requiredValidityMessage || undefined)}"
+    validity-message="${ifDefined(params.validityMessage || undefined)}"
+    value="${ifDefined(params.value || undefined)}"
+    placeholder="${ifDefined(params.placeholder || undefined)}"
   ></it-input>`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
