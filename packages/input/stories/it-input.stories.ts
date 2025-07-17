@@ -155,6 +155,7 @@ const meta = {
       table: { defaultValue: { summary: 'false' } },
     },
     passwordStrengthMeter: {
+      name: 'strength-meter',
       control: 'boolean',
       type: 'boolean',
       description: "Se si vuole mostrare o meno il misuratore di robustezza della password nel caso di type='password'",
@@ -321,6 +322,73 @@ inserire all’interno il tag \`<title>\` con un titolo per l’icona che ne spi
   `,
 };
 
+export const Dimensioni: Story = {
+  ...meta,
+  parameters: {
+    docs: {
+      description: {
+        story: `
+        L'input di base ha una dimensione media che non necessita alcuna classe aggiuntiva.
+
+Per modificare questa dimensione, è possiible utilizzare l'attributo \`size\` il cui valore può essere \`sm\` oppure \`lg\`
+Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attributo \`size\` sull'icona in questo modo:
+<table>
+<thead>
+  <tr><th>Dimensione input</th><th>Dimensione icona</th></tr>
+</thead>
+<tbody>
+  <tr><td>\`lg\`</td><td>\`md\`</td></tr>
+  <tr><td>normale</td><td>\`sm\`</td></tr>
+  <tr><td>\`sm\`</td><td>\`xs\`</td></tr>
+</tbody>
+</table>
+`,
+      },
+    },
+  },
+
+  render: (params) => html`
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo di dimensione grande',
+      name: 'field-big-example',
+      id: 'field-big-example',
+      placeholder: 'Testo segnaposto',
+      size: 'lg',
+      requiredValidityMessage: undefined,
+      slotted: true,
+      children: html`<it-icon name="it-pencil" slot="icon" size="md"></it-icon>
+        <it-button variant="primary" slot="append">Invio</it-button>`,
+    })}
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo di dimensione base',
+      name: 'field-sizebase-example',
+      id: 'field-sizebase-example',
+      placeholder: 'Testo segnaposto',
+      requiredValidityMessage: undefined,
+      slotted: true,
+      children: html`<it-icon name="it-pencil" slot="icon" size="sm"></it-icon>
+        <it-button variant="primary" slot="append">Invio</it-button>`,
+    })}
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo di dimensione piccola',
+      name: 'field-small-example',
+      id: 'field-small-example',
+      placeholder: 'Testo segnaposto',
+      size: 'sm',
+      requiredValidityMessage: undefined,
+      slotted: true,
+      children: html`<it-icon name="it-pencil" slot="icon" size="xs"></it-icon>
+        <it-button variant="primary" slot="append">Invio</it-button>`,
+    })}
+  `,
+};
+
 export const Disabilitato: Story = {
   ...meta,
   parameters: {
@@ -417,73 +485,6 @@ Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con in
       requiredValidityMessage: undefined,
       passwordStrengthMeter: true,
       translations: { shortPassword: 'Password debole' },
-    })}
-  `,
-};
-
-export const Dimensioni: Story = {
-  ...meta,
-  parameters: {
-    docs: {
-      description: {
-        story: `
-        L'input di base ha una dimensione media che non necessita alcuna classe aggiuntiva.
-
-Per modificare questa dimensione, è possiible utilizzare l'attributo \`size\` il cui valore può essere \`sm\` oppure \`lg\`
-Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attributo \`size\` sull'icona in questo modo:
-<table>
-<thead>
-  <tr><th>Dimensione input</th><th>Dimensione icona</th></tr>
-</thead>
-<tbody>
-  <tr><td>\`lg\`</td><td>\`md\`</td></tr>
-  <tr><td>normale</td><td>\`sm\`</td></tr>
-  <tr><td>\`sm\`</td><td>\`xs\`</td></tr>
-</tbody>
-</table>
-`,
-      },
-    },
-  },
-
-  render: (params) => html`
-    ${renderComponent({
-      ...params,
-      type: 'text',
-      label: 'Campo di dimensione grande',
-      name: 'field-big-example',
-      id: 'field-big-example',
-      placeholder: 'Testo segnaposto',
-      size: 'lg',
-      requiredValidityMessage: undefined,
-      slotted: true,
-      children: html`<it-icon name="it-pencil" slot="icon" size="md"></it-icon>
-        <it-button variant="primary" slot="append">Invio</it-button>`,
-    })}
-    ${renderComponent({
-      ...params,
-      type: 'text',
-      label: 'Campo di dimensione base',
-      name: 'field-sizebase-example',
-      id: 'field-sizebase-example',
-      placeholder: 'Testo segnaposto',
-      requiredValidityMessage: undefined,
-      slotted: true,
-      children: html`<it-icon name="it-pencil" slot="icon" size="sm"></it-icon>
-        <it-button variant="primary" slot="append">Invio</it-button>`,
-    })}
-    ${renderComponent({
-      ...params,
-      type: 'text',
-      label: 'Campo di dimensione piccola',
-      name: 'field-small-example',
-      id: 'field-small-example',
-      placeholder: 'Testo segnaposto',
-      size: 'sm',
-      requiredValidityMessage: undefined,
-      slotted: true,
-      children: html`<it-icon name="it-pencil" slot="icon" size="xs"></it-icon>
-        <it-button variant="primary" slot="append">Invio</it-button>`,
     })}
   `,
 };
