@@ -1,5 +1,5 @@
 import { BaseComponent, FormMixin, ValidityMixin } from '@italia/globals';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
@@ -7,8 +7,6 @@ import { when } from 'lit/directives/when.js';
 import { inputTypes } from './types.js';
 
 import styles from './input.scss';
-
-// export const inputTypes = ['text', 'email', 'number', 'tel', 'time'] as const;
 
 export type InputType = (typeof inputTypes)[number];
 
@@ -58,6 +56,15 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   @property({ type: Boolean })
   disabled = false;
+
+  @property({ type: Boolean })
+  plaintext = false;
+
+  @property({ type: Boolean })
+  readonly = false;
+
+  @property({ type: Boolean })
+  private _passwordVisible = false;
 
   _value = '';
 
@@ -120,6 +127,35 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     }
   }
 
+  private _togglePasswordVisibility() {
+    this._passwordVisible = !this._passwordVisible;
+    if (this._inputElement) {
+      this._inputElement.type = this._passwordVisible ? 'text' : 'password';
+    }
+  }
+
+  private _renderTogglePasswordButton() {
+    // Solo se type=password
+    if (this.type === 'password') {
+      return html`
+        <button
+          type="button"
+          class="password-icon btn"
+          role="switch"
+          aria-checked="${this._passwordVisible}"
+          @click="${this._togglePasswordVisibility}"
+        >
+          <span class="visually-hidden">Mostra/Nascondi Password</span>
+          <it-icon
+            name="${this._passwordVisible ? 'it-password-visible' : 'it-password-invisible'}"
+            size="sm"
+          ></it-icon>
+        </button>
+      `;
+    }
+    return nothing;
+  }
+
   // Render the UI as a function of component state
   override render() {
     const supportTextId = `${this.id}-support-text`;
@@ -130,18 +166,20 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
         id="${ifDefined(this.id || undefined)}"
         name="${this.name}"
         disabled=${ifDefined(this.disabled || undefined)}
+        readonly=${ifDefined(this.readonly || undefined)}
         .value="${this._value}"
         required="${this.required}"
         part="input focusable"
         placeholder=${ifDefined(this.placeholder || undefined)}
         aria-describedby=${ifDefined(supportTextId || undefined)}
-        class="form-control"
-      />
+        class=${this.plaintext ? 'form-control-plaintext' : 'form-control'}
+      />${this._renderTogglePasswordButton()}
     `;
     const supportTextRender = html` ${when(
       this.supportText,
       () => html` <small class="form-text" id="${supportTextId}">${this.supportText}</small> `,
     )}`;
+
     return html`
       <div class="form-group" part="input-wrapper">
         <label class="active" for="${ifDefined(this.id || undefined)}" part="label">${this.label}</label>

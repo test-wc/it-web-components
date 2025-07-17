@@ -18,6 +18,8 @@ interface InputProps {
   required: boolean;
   requiredValidityMessage: string;
   validityMessage: string;
+  readonly: boolean;
+  plaintext: boolean;
   placeholder: string;
   supportText: string;
   value: string;
@@ -27,6 +29,7 @@ interface InputProps {
 // Renderizza il wc it-input di default
 const renderComponent = (params: any) =>
   html`<it-input
+    aria-describedby="ciao"
     id="${ifDefined(params.id || undefined)}"
     label="${ifDefined(params.label || undefined)}"
     type="${ifDefined(params.type || undefined)}"
@@ -34,6 +37,8 @@ const renderComponent = (params: any) =>
     ?disabled="${params.disabled}"
     ?invalid="${params.invalid}"
     ?required="${params.required}"
+    ?readonly="${params.readonly}"
+    ?plaintext="${params.plaintext}"
     required-validity-message="${ifDefined(params.requiredValidityMessage || undefined)}"
     validity-message="${ifDefined(params.validityMessage || undefined)}"
     placeholder="${ifDefined(params.placeholder || undefined)}"
@@ -61,6 +66,8 @@ const meta = {
     placeholder: '',
     supportText: '',
     value: '',
+    readonly: false,
+    plaintext: false,
     slotted: false,
   },
   argTypes: {
@@ -113,6 +120,18 @@ const meta = {
     value: {
       control: 'text',
       description: 'Valore del campo',
+    },
+    readonly: {
+      control: 'boolean',
+      type: 'boolean',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    plaintext: {
+      control: 'boolean',
+      type: 'boolean',
+      table: { defaultValue: { summary: 'false' } },
+      description:
+        "Se il campo è readonly, con l'attributo 'plaintext' il campo assume l'aspetto di testo normalizzato.",
     },
     slotted: {
       control: 'boolean',
@@ -269,6 +288,95 @@ inserire all’interno il tag \`<title>\` con un titolo per l’icona che ne spi
       supportText: 'Testo di supporto',
       children: html`<it-icon name="it-pencil" slot="icon" size="sm"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
+    })}
+  `,
+};
+
+export const Disabilitato: Story = {
+  ...meta,
+  parameters: {
+    docs: {
+      description: {
+        story: `Aggiungi l’attributo \`disabled\` ad un it-input per impedire la modifica del valore contenuto e non inviare i dati in esso contenuti.`,
+      },
+    },
+  },
+
+  render: (params) => html`
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo disabilitato',
+      name: 'field-disabled-example',
+      id: 'field-disabled-example',
+      disabled: true,
+      requiredValidityMessage: undefined,
+    })}
+  `,
+};
+
+export const Readonly: Story = {
+  ...meta,
+  parameters: {
+    docs: {
+      description: {
+        story: `Aggiungi l’attributo \`readonly\` ad un it-input per impedire la modifica del valore contenuto.
+<br/><br/><h4>Readonly normalizzato</h4>Se per qualche motivo vuoi avere gli elementi input readonly nella forma stilizzata come testo, aggiungi l'attributo \`plaintext\` a \`<it-input>\`.`,
+      },
+    },
+  },
+
+  render: (params) => html`
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo readonly',
+      name: 'field-readonly-example',
+      id: 'field-readonly-example',
+      readonly: true,
+      requiredValidityMessage: undefined,
+      value: 'Contenuto in sola lettura',
+    })}
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo readonly normalizzato come plaintext',
+      name: 'field-readonlyplaintext-example',
+      id: 'field-readonlyplaintext-example',
+      readonly: true,
+      plaintext: true,
+      requiredValidityMessage: undefined,
+      value: 'Contenuto in sola lettura',
+    })}
+  `,
+};
+
+export const Password: Story = {
+  ...meta,
+  parameters: {
+    docs: {
+      description: {
+        story: `Per semplificare l’inserimento della password, il componente \`<it-input>\` di tipo password include un pulsante che mostra i caratteri digitati.
+        È inoltre possibile aggiungere un testo di supporto che aiuti nella compilazione.
+        <br/><br/>
+        <h4>Misuratore sicurezza e suggerimenti</h4>
+Nel caso di un campo per la scelta di una nuova password, è possibile abbinare controlli per segnalare quanto la password che si sta inserendo segua alcuni suggerimenti di sicurezza, come la lunghezza minima o l’uso di caratteri speciali.
+
+Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con indicati quelli che sono soddistatti.
+`,
+      },
+    },
+  },
+
+  render: (params) => html`
+    ${renderComponent({
+      ...params,
+      type: 'password',
+      label: 'Campo password',
+      name: 'field-password-example',
+      id: 'field-password-example',
+      supportText: 'Inserisci almeno 8 caratteri e alcuni caratteri speciali.',
+      requiredValidityMessage: undefined,
     })}
   `,
 };

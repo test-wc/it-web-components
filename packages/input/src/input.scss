@@ -3,11 +3,20 @@
 @import 'bootstrap-italia/src/scss/base/mixins';
 @import 'bootstrap-italia/src/scss/base/mixins/focus';
 @import 'bootstrap-italia/src/scss/base/reboot'; //per il font dentro agli input
+@import 'bootstrap-italia/src/scss/base/helpers/visually-hidden';
+
+@import 'bootstrap-italia/src/scss/components/buttons';
 
 @import 'bootstrap-italia/src/scss/forms/forms';
 @import 'bootstrap-italia/src/scss/forms/form-control';
+@import 'bootstrap-italia/src/scss/forms/form-password';
 @import 'bootstrap-italia/src/scss/forms/input-group';
 
 :host {
   display: block;
+}
+
+.password-icon {
+  top: calc(var(--#{$prefix}form-control-spacing) * 5);
+  --#{$prefix}icon-default: var(--#{$prefix}icon-primary);
 }
