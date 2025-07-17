@@ -1,6 +1,6 @@
 import { BaseComponent, FormMixin, ValidityMixin } from '@italia/globals';
 import { html } from 'lit';
-import { customElement, property, query, queryAssignedNodes } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
 
@@ -98,7 +98,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   }
 
   override firstUpdated() {
-    this.addFocus(this._inputElement);
+    // this.addFocus(this._inputElement); //NON serve per il momento perche sfruttiamo :focus-visible. Per gli input focus-visible si attiva anche al click perchè è il browser che lo gestisce
     const iconSlot = this.shadowRoot?.querySelector('slot[name="icon"]');
     const appendSlot = this.shadowRoot?.querySelector('slot[name="append"]');
 

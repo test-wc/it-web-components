@@ -1,0 +1,16 @@
+@font-face {
+  font-family: VideoJS;
+  font-style: normal;
+  font-weight: normal;
+  src: url('./assets/fonts/VideoJS.woff') format('woff');
+}
+
+:root {
+  --it-videojs-default-width: 300px;
+  --it-videojs-default-height: 150px;
+}
+
+it-video {
+  display: block;
+  min-width: var(--it-videojs-default-width, 300px);
+}

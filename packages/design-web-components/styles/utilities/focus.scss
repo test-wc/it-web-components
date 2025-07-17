@@ -5,48 +5,36 @@ MEMO:
 - :focus:not(:focus-visible) --> solo da mouse
 */
 
-:focus-visible:not([data-focus-mouse='true']),
-%focus,
+:focus-visible,
 button:focus-visible,
 ::part(focusable):focus-visible,
 .it-carousel-wrapper .splide__pagination button:focus-visible,
-.upload:focus-visible:not([data-focus-mouse='true']) + label,
-.upload-dragdrop-input:focus-visible[type='file']:not([data-focus-mouse='true']) + label,
-.avatar-upload:focus-within:focus-visible:not([data-focus-mouse='true']),
-.rating input:focus-visible:not([data-focus-mouse='true']) + label svg {
-  border-color: $focus-outline-color-out !important;
-  box-shadow:
-    0 0 0 2px var(--#{$prefix}color-border-inverse),
-    0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
-  outline: 3px solid transparent !important;
-  outline-offset: 3px !important;
+.upload:focus-visible + label,
+.upload-dragdrop-input:focus-visible[type='file'] + label,
+.avatar-upload:focus-within:focus-visible,
+.rating input:focus-visible + label svg {
+  @extend %focus;
 }
 
-[tabindex='-1']:focus:not(:focus-visible),
-[tabindex='-1'][data-focus-mouse='true'] {
+[tabindex='-1']:focus:not(:focus-visible) {
   //focus solo da mouse, non da tastiera
   box-shadow: none !important;
 }
 
 :focus:not(:focus-visible):not(.btn),
-::part(focusable):focus-visible:not(.btn),
-:focus[data-focus-mouse='true'],
-::part(focusable)[data-focus-mouse='true'],
-%focusmouse {
-  border-color: inherit !important;
-  box-shadow: none !important;
-  outline: none !important;
+::part(focusable):focus-visible:not(.btn) {
+  @extend %focusmouse;
 }
 
 p a {
-  &:focus:not(:focus-visible):not(.btn),
-  &[data-focus-mouse='true'] {
+  &:focus:not(:focus-visible):not(.btn) {
     /* focus da mouse o script, esclusi anche i .btn */
-    outline-offset: 0px !important;
-    outline: 3px $focus-outline-color-out solid !important;
     background: $focus-outline-color-in;
     box-shadow: none !important;
     color: $link-color !important;
+
+    outline: 3px $focus-outline-color-out solid !important;
+    outline-offset: 0px !important;
   }
 }
 
@@ -64,14 +52,14 @@ p a {
 .avatar-group-stacked .avatar {
   &:focus-visible {
     border: 0;
-    margin-left: -4px;
     margin-top: 2px;
     margin-right: 2px;
+    margin-left: -4px;
   }
 
   &.avatar-dropdown .btn-dropdown:focus-visible {
-    height: 100%;
     width: 100%;
+    height: 100%;
     border-radius: 50%;
   }
 }

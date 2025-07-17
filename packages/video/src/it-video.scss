@@ -1,10 +1,12 @@
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
+
+@import 'bootstrap-italia/src/scss/base/mixins/focus';
 @import 'bootstrap-italia/src/scss/base/maps';
 
 @import 'bootstrap-italia/src/scss/base/utilities';
-@import 'bootstrap-italia/src/scss/utilities/focus';
+
 @import 'bootstrap-italia/src/scss/components/videoplayer';
 @import 'bootstrap-italia/src/scss/components/accept-overlay';
 

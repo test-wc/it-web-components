@@ -1,13 +1,8 @@
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/mixins/focus';
 @import 'bootstrap-italia/src/scss/base/reboot'; //per il font dentro agli input
-
-//@import 'bootstrap-italia/src/scss/utilities/focus';
-%focus,
-%focusmouse {
-  //queste due definizioni servono perche sono usate da  /forms/forms e /forms/form-control
-}
 
 @import 'bootstrap-italia/src/scss/forms/forms';
 @import 'bootstrap-italia/src/scss/forms/form-control';
@@ -16,26 +11,3 @@
 :host {
   display: block;
 }
-
-// input,
-// textarea {
-//   box-shadow: none !important;
-//   outline: none;
-//   /* Focus da tastiera */
-//   &:focus-visible {
-//     // box-shadow:
-//     //   0 0 0 2px var(--#{$prefix}color-border-inverse),
-//     //   0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
-//     box-shadow:
-//       0 0 0 2px red,
-//       0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
-//     outline: 3px solid transparent;
-//     outline-offset: 3px;
-//   }
-
-//   /* Focus da mouse: niente */
-//   &:focus:not(:focus-visible) {
-//     outline: none;
-//     box-shadow: none !important;
-//   }
-// }
