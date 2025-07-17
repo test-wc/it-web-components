@@ -1,16 +1,63 @@
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
-@import 'bootstrap-italia/src/scss/base/mixins/focus';
+@import 'bootstrap-italia/src/scss/base/maps';
 @import 'bootstrap-italia/src/scss/base/reboot'; //per il font dentro agli input
 @import 'bootstrap-italia/src/scss/base/helpers/visually-hidden';
 
 @import 'bootstrap-italia/src/scss/components/buttons';
+@import 'bootstrap-italia/src/scss/components/grid';
+@import 'bootstrap-italia/src/scss/components/progress-bars';
 
 @import 'bootstrap-italia/src/scss/forms/forms';
 @import 'bootstrap-italia/src/scss/forms/form-control';
 @import 'bootstrap-italia/src/scss/forms/form-password';
 @import 'bootstrap-italia/src/scss/forms/input-group';
+
+@import 'bootstrap-italia/src/scss/base/utilities'; //all utilities from bsi
+//ovveride utilities: get only needed utilities
+$utilities: (
+  'position': map-merge(
+      map-get($utilities, 'position'),
+      (
+        'values': absolute,
+      )
+    ),
+  'width': map-merge(
+      map-get($utilities, 'width'),
+      (
+        'values': (
+          100: 100%,
+        ),
+      )
+    ),
+  'margin': map-merge(
+      map-get($utilities, 'margin'),
+      (
+        'values': (
+          0: 0,
+        ),
+      )
+    ),
+  'background-color': map-merge(
+      map-get($utilities, 'background-color'),
+      (
+        'values': (
+          muted: $color-background-muted,
+        ),
+      )
+    ),
+  'border-start': map-get($utilities, 'border-start'),
+  'border-end': map-get($utilities, 'border-end'),
+  'border-color': map-merge(
+      map-get($utilities, 'border-color'),
+      (
+        'values': white,
+      )
+    ),
+  'color': map-get($utilities, 'color'),
+);
+@import 'bootstrap-italia/src/scss/base/utilities/api'; //use $utilities
 
 :host {
   display: block;

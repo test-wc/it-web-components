@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
+
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
@@ -17,6 +18,8 @@ export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInt
 
 export class BaseComponent extends LitElement {
   protected logger: Logger;
+
+  protected _ariaAttributes: Record<string, string> = {};
 
   constructor() {
     super();
@@ -37,5 +40,19 @@ export class BaseComponent extends LitElement {
         composedClass += ` ${newClass}`;
       });
     return composedClass.trim();
+  }
+
+  getAriaAttributes() {
+    for (const attr of this.getAttributeNames()) {
+      if (attr.startsWith('aria-')) {
+        this._ariaAttributes[attr] = this.getAttribute(attr)!;
+      }
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback?.();
+
+    this.getAriaAttributes();
   }
 }

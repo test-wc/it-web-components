@@ -1,14 +1,12 @@
-import { BaseComponent, FormMixin, ValidityMixin } from '@italia/globals';
+import { BaseComponent, FormMixin, ValidityMixin, setAttributes } from '@italia/globals';
 import { html, nothing } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
 
-import { inputTypes } from './types.js';
+import { defaultTranslations, InputType, Sizes } from './types.js';
 
 import styles from './input.scss';
-
-export type InputType = (typeof inputTypes)[number];
 
 @customElement('it-input')
 export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
@@ -39,6 +37,8 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @query('input')
   protected _inputElement!: HTMLInputElement;
 
+  @property({ type: String }) size?: Sizes;
+
   @property({ type: String })
   label = '';
 
@@ -62,6 +62,12 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   @property({ type: Boolean })
   readonly = false;
+
+  @property({ type: Boolean, attribute: 'strength-meter' })
+  passwordStrengthMeter = false;
+
+  @property({ type: Object })
+  translations = defaultTranslations;
 
   @property({ type: Boolean })
   private _passwordVisible = false;
@@ -127,6 +133,11 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     }
   }
 
+  private getTranslation(id: string): string {
+    const _t: Record<string, string> = { ...defaultTranslations, ...this.translations };
+    return _t[id];
+  }
+
   private _togglePasswordVisibility() {
     this._passwordVisible = !this._passwordVisible;
     if (this._inputElement) {
@@ -145,7 +156,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           aria-checked="${this._passwordVisible}"
           @click="${this._togglePasswordVisibility}"
         >
-          <span class="visually-hidden">Mostra/Nascondi Password</span>
+          <span class="visually-hidden">${this.getTranslation('showHidePassword')}</span>
           <it-icon
             name="${this._passwordVisible ? 'it-password-visible' : 'it-password-invisible'}"
             size="sm"
@@ -156,25 +167,102 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     return nothing;
   }
 
+  private _renderpasswordStrengthMeter() {
+    if (this.type === 'password' && this.passwordStrengthMeter) {
+      return html`<div class="password-strength-meter">
+        <p
+          id=${`strengthMeterInfo_${this.id}`}
+          class="strength-meter-info small form-text text-muted pt-0"
+          aria-live="polite"
+        >
+          Password sicura. qui va calcolato
+        </p>
+        <div class="password-meter progress rounded-0 position-absolute">
+          <div
+            class="progress-bar bg-muted"
+            role="progressbar"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-label="${this.getTranslation('ariaLabelPasswordMeter')}"
+          >
+            <div class="row position-absolute w-100 m-0">
+              <div class="col-3 border-start border-end border-white"></div>
+              <div class="col-3 border-start border-end border-white"></div>
+              <div class="col-3 border-start border-end border-white"></div>
+              <div class="col-3 border-start border-end border-white"></div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+    return nothing;
+  }
+
+  private _renderInput(supportTextId: string) {
+    const _ariaDescribedBy = [];
+    if (this.supportText?.length > 0) {
+      _ariaDescribedBy.push(supportTextId);
+    }
+    if (this.passwordStrengthMeter) {
+      _ariaDescribedBy.push(`strengthMeterInfo_${this.id}`);
+    }
+    if (this._ariaAttributes['aria-describedby']?.length > 0) {
+      _ariaDescribedBy.push(this._ariaAttributes['aria-describedby']);
+    }
+    const ariaDescribedBy = _ariaDescribedBy.join(' ');
+
+    let inputRender;
+
+    if (this.type === 'textarea') {
+      inputRender = html`
+        <textarea
+          ${setAttributes(this._ariaAttributes)}
+          @input="${this.handleInput}"
+          id="${ifDefined(this.id || undefined)}"
+          name="${this.name}"
+          ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
+          .value="${this._value}"
+          ?required=${this.required}
+          part="textarea focusable"
+          placeholder=${ifDefined(this.placeholder || undefined)}
+          aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
+          class="${this.plaintext ? 'form-control-plaintext' : 'form-control'} ${this.size
+            ? `form-control-${this.size}`
+            : ''}"
+        ></textarea>
+      `;
+    } else {
+      inputRender = html`
+        <input
+          ${setAttributes(this._ariaAttributes)}
+          @input="${this.handleInput}"
+          type="${this.type}"
+          id="${ifDefined(this.id || undefined)}"
+          name="${this.name}"
+          ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
+          .value="${this._value}"
+          ?required=${this.required}
+          part="input focusable"
+          placeholder=${ifDefined(this.placeholder || undefined)}
+          aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
+          class="${this.plaintext ? 'form-control-plaintext' : 'form-control'} ${this.size
+            ? `form-control-${this.size}`
+            : ''}"
+        />
+        ${this._renderTogglePasswordButton()}
+      `;
+    }
+
+    return inputRender;
+  }
+
   // Render the UI as a function of component state
   override render() {
     const supportTextId = `${this.id}-support-text`;
-    const inputRender = html`
-      <input
-        @input="${this.handleInput}"
-        .type="${this.type}"
-        id="${ifDefined(this.id || undefined)}"
-        name="${this.name}"
-        disabled=${ifDefined(this.disabled || undefined)}
-        readonly=${ifDefined(this.readonly || undefined)}
-        .value="${this._value}"
-        required="${this.required}"
-        part="input focusable"
-        placeholder=${ifDefined(this.placeholder || undefined)}
-        aria-describedby=${ifDefined(supportTextId || undefined)}
-        class=${this.plaintext ? 'form-control-plaintext' : 'form-control'}
-      />${this._renderTogglePasswordButton()}
-    `;
+
     const supportTextRender = html` ${when(
       this.supportText,
       () => html` <small class="form-text" id="${supportTextId}">${this.supportText}</small> `,
@@ -191,13 +279,13 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
                 <span class="input-group-text">
                   <slot name="icon" @slotchange=${() => this.requestUpdate()}></slot
                 ></span>
-                ${inputRender}
+                ${this._renderInput(supportTextId)}
                 <div class="input-group-append">
                   <slot name="append" @slotchange=${() => this.requestUpdate()}></slot>
                 </div>
               </div>
-              ${supportTextRender}`,
-          () => html` ${inputRender} ${supportTextRender}`,
+              ${supportTextRender} ${this._renderpasswordStrengthMeter()}`,
+          () => html` ${this._renderInput(supportTextId)} ${supportTextRender} ${this._renderpasswordStrengthMeter()}`,
         )}
       </div>
     `;

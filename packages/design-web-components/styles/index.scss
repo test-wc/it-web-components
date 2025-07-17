@@ -2,7 +2,6 @@
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
-@import 'bootstrap-italia/src/scss/base/mixins/focus';
 @import 'bootstrap-italia/src/scss/base/maps';
 @import 'bootstrap-italia/src/scss/base/utilities';
 @import 'bootstrap-italia/src/scss/base/root';
@@ -18,6 +17,7 @@
 @import 'bootstrap-italia/src/scss/utilities/colors';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 @import 'bootstrap-italia/src/scss/components/type';
+@import 'bootstrap-italia/src/scss/components/grid';
 
 @import 'bootstrap-italia/src/scss/forms/forms'; //perchè ci sono delle variabile definite nella :root
 
