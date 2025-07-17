@@ -23,14 +23,16 @@
   "exports": {
     ".": "./dist/src/index.js",
     "./it-icon.js": "./dist/src/it-icon.js",
-    "./icons/*": "./dist/src/icons/*"
+    "./icons/*": "./dist/src/icons/*",
+    "./styles/*": "./styles/*"
   },
   "files": [
     "dist/src",
     "README.md",
     "AUTHORS",
     "LICENSE",
-    "custom-elements.json"
+    "custom-elements.json",
+    "styles"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
