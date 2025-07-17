@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
+import { Logger } from '../utils/logger.js';
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
@@ -15,6 +16,13 @@ export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInt
  */
 
 export class BaseComponent extends LitElement {
+  protected logger: Logger;
+
+  constructor() {
+    super();
+    this.logger = new Logger(this.tagName.toLowerCase());
+  }
+
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
   addFocus(element: HTMLElement) {
     // new TrackFocus(element); // per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
