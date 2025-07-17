@@ -103,7 +103,7 @@ const dismissTemplate = (label = 'Elimina etichetta') => html`
   <it-button
     slot="dismiss-button"
     label="${label}"
-    icon="true"
+    ?icon=${true}
     @click=${(e: Event) => {
       console.log('cul');
       const chip = (e.currentTarget as HTMLElement).closest('it-chip');
@@ -133,8 +133,8 @@ const renderComponent = (params) => {
       label="${label ?? ''}"
       size="${size ?? 'sm'}"
       variant="${variant ?? ''}"
-      dismissable=${dismissable}
-      disabled=${disabled}
+      ?dismissable=${dismissable}
+      ?disabled=${disabled}
       href="${href ?? ''}"
       avatar="${avatar}"
     >

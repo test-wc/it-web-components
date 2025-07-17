@@ -50,12 +50,10 @@ export class ItChip extends BaseComponent {
         });
       }
     }
-    // console.log(this.label, this.disabled, changedProps);
     if (changedProps.has('disabled')) {
       this.closeButton.forEach((btn) => {
-        // // btn.setAttribute('disabled', String(this.disabled));
-        // btn.disabled = this.disabled;
-        btn.setAttribute('aria-disabled', String(this.disabled));
+        // eslint-disable-next-line no-param-reassign
+        btn.disabled = this.disabled;
       });
     }
 
@@ -68,11 +66,10 @@ export class ItChip extends BaseComponent {
   }
 
   private _handleDismissSlotChange() {
-    // Applica `disabled` se serve
     if (this.closeButton?.length && this.disabled !== undefined) {
       this.closeButton.forEach((btn) => {
-        btn.setAttribute('disabled', String(this.disabled));
-        btn.setAttribute('aria-disabled', String(this.disabled));
+        // eslint-disable-next-line no-param-reassign
+        btn.disabled = this.disabled;
       });
     }
   }

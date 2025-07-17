@@ -11,14 +11,14 @@ export class Logger {
   }
 
   warn(msg: string) {
-    if (Logger) console.warn(...this.format('warn', msg));
+    console.warn(...this.format('warn', msg));
   }
 
   error(msg: string) {
-    if (Logger) console.error(...this.format('error', msg));
+    console.error(...this.format('error', msg));
   }
 
   info(msg: string) {
-    if (Logger) console.info(...this.format('info', msg));
+    console.info(...this.format('info', msg));
   }
 }
