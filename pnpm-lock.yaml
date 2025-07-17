@@ -238,15 +238,15 @@ importers:
       '@web/test-runner':
         specifier: 'catalog:'
         version: 0.18.3
-      rimraf:
-        specifier: ^6.0.1
-        version: 6.0.1
       rollup:
         specifier: ^4.42.0
         version: 4.42.0
       rollup-plugin-scss-lit:
         specifier: ^2.1.0
         version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
       tslib:
         specifier: ^2.6.3
         version: 2.8.1

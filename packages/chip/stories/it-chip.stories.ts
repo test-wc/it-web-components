@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '@italia/icon';
 import '@italia/button';
 import '@italia/chip';
@@ -19,9 +20,10 @@ const meta = {
     variant: 'primary',
     disabled: false,
     avatar: '',
+    avatarAlt: 'Avatar',
     dismissable: false,
     conIcona: false,
-    _dismissable: false,
+    conPulsanteDismiss: false,
   },
   argTypes: {
     size: {
@@ -45,10 +47,8 @@ const meta = {
     },
     dismissable: {
       control: 'boolean',
-      description: `Indica che la chip può essere chiusa.
-Non inserisce alcun bottone automaticamente: l'utilizzatore deve utilizzare un componente \`<it-button slot="dismiss-button">\` con gli handler per mouse e tastiera, contenenti il Javascript necessario per il proprio caso d'uso.
-Per un esempio completo con Javascript di esempio, vedi la story [Chip con chiusura](?path=/story/componenti-chip--chip-con-chiusura).
-    `,
+      description:
+        "Indica che la chip può essere chiusa, ma non inserisce alcun pulsante automaticamente. Il pulsante deve essere inserito nello slot `dismiss-button` dall'utilizzatore, comprensivo di eventuale JavaScript per handling di eventi. Per un esempio completo con Javascript, vedi la story [Chip con chiusura](?path=/story/componenti-chip--chip-con-chiusura).",
       table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
@@ -61,15 +61,20 @@ Per un esempio completo con Javascript di esempio, vedi la story [Chip con chius
       description: `Percorso a un'immagine da mostrare come avatar, es. [randomuser.me](https://randomuser.me/api/portraits/men/46.jpg).`,
       table: { defaultValue: { summary: 'https://randomuser.me/api/portraits/men/46.jpg' } },
     },
+    avatarAlt: {
+      control: 'text',
+      description: `Testo alternativo per l'immagine dell'avatar, utile per l'accessibilità.`,
+      table: { defaultValue: { summary: 'Alt avatar' } },
+    },
     conIcona: {
       control: 'boolean',
-      description: `
-Simula la presenza di un'icona nella chip.
-Non è una proprietà ufficiale di \`<it-chip>\`, ma serve per mostrare composizioni nel playground interattivo.
-    `,
+      description:
+        "Simula la presenza di un'icona nella chip. Non è una proprietà del componente, ma serve per mostrare composizioni nel playground interattivo.",
     },
-    _dismissable: {
+    conPulsanteDismiss: {
       control: 'boolean',
+      description:
+        'Simula la presenza di un pulsante di rimozione nella chip. Non è una proprietà del componente, ma serve per mostrare composizioni nel playground interattivo.',
     },
   },
 
@@ -77,18 +82,12 @@ Non è una proprietà ufficiale di \`<it-chip>\`, ma serve per mostrare composiz
     docs: {
       description: {
         component: `
-<DescriptionElementi compatti che rappresentano un input, attributo o azione.</Description>
+<Description>Elementi compatti che rappresentano un input, attributo o azione.</Description>
 Il componente \`<it-chip>\` si compone principalmente di una label testuale e, opzionalmente, di:
 
 - un avatar (immagine) a sinistra, tramite la proprietà \`avatar\`;
 - un'icona inserita nello slot \`icon\`;
-- un pulsante di chiusura nello slot \`dismiss-button\`, per le chip dismissable (la logica di rimozione va gestita dallo sviluppatore).
-
-La label è centrata se usata da sola.
-
-Le dimensioni supportate sono \`sm\` e \`lg\`, quest’ultima con spaziature e dimensioni maggiori.
-
-Se viene specificato \`href\`, la chip assume il comportamento di un link cliccabile.
+- un pulsante di chiusura nello slot \`dismiss-button\`, per le chip cancellabili/rimuovibili (la logica di rimozione è a carico dell'utilizzatore, vedi sezione dedicata).
 
 Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del design-system](https://designers.italia.it/design-system/componenti/chips/).
 `,
@@ -105,7 +104,6 @@ const dismissTemplate = (label = 'Elimina etichetta') => html`
     label="${label}"
     ?icon=${true}
     @click=${(e: Event) => {
-      console.log('cul');
       const chip = (e.currentTarget as HTMLElement).closest('it-chip');
       if (chip) chip.remove();
     }}
@@ -126,8 +124,7 @@ const iconTemplate = (color: string) => html`
 
 // Renderizza il wc it-chip di default
 const renderComponent = (params) => {
-  const { avatar, conIcona, label, size, variant, _dismissable, dismissable, disabled, href } = params;
-  console.log(avatar, params);
+  const { avatar, conIcona, label, size, variant, conPulsanteDismiss, dismissable, disabled, href } = params;
   return html`
     <it-chip
       label="${label ?? ''}"
@@ -135,11 +132,11 @@ const renderComponent = (params) => {
       variant="${variant ?? ''}"
       ?dismissable=${dismissable}
       ?disabled=${disabled}
-      href="${href ?? ''}"
-      avatar="${avatar}"
+      href="${ifDefined(href || undefined)}"
+      avatar="${ifDefined(avatar || undefined)}"
     >
       ${conIcona ? iconTemplate(variant) : null}
-      ${dismissable && _dismissable ? dismissTemplate('I am dismissable') : null}
+      ${dismissable && conPulsanteDismiss ? dismissTemplate('I am dismissable') : null}
     </it-chip>
   `;
 };
@@ -212,7 +209,9 @@ export const VariantiDimensione: Story = {
 
 export const ChipConChiusura: Story = {
   name: 'Chip con chiusura',
-  render: (params) => html` ${renderComponent({ ...params, dismissable: true, _dismissable: true, disabled: false })} `,
+  render: (params) => html`
+    ${renderComponent({ ...params, dismissable: true, conPulsanteDismiss: true, disabled: false })}
+  `,
   parameters: {
     docs: {
       canvas: {
@@ -222,9 +221,9 @@ export const ChipConChiusura: Story = {
         story: `
 Questa composizione mostra una chip con funzionalità di chiusura.
 
-La proprietà \`dismissable\` **non aggiunge automaticamente il pulsante**: è responsabilità dello sviluppatore fornire un \`<it-button>\` con \`slot="dismiss-button"\` e logica di rimozione/logiche di esecuzione.
+La proprietà \`dismissable\` **non aggiunge automaticamente il pulsante**: è responsabilità dell'utilizzatore fornire un \`<it-button>\` con \`slot="dismiss-button"\` e logica di rimozione/logiche di esecuzione.
 
-Il codice JS dell'esempio gestisce la rimozione della chip sia via click che via tastiera (\`Enter\` o \`Spazio\`), ed è sufficiente anche in presenza di più chip nella stessa pagina.
+Il codice JS dell'esempio gestisce la rimozione della chip sia via click che via tastiera (\`Enter\` o \`Spazio\`).
 
 `,
       },
@@ -232,8 +231,8 @@ Il codice JS dell'esempio gestisce la rimozione della chip sia via click che via
         code: `<it-chip label="Etichetta" size="sm" variant="primary" dismissable>
   <it-button
     slot="dismiss-button"
-    icon="true"
-    aria-label="Elimina etichetta"
+    icon
+    label="Elimina etichetta"
   >
     <it-icon name="it-close" size="sm"></it-icon>
   </it-button>

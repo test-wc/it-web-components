@@ -51,8 +51,8 @@
     "lit-html"
   ],
   "dependencies": {
-    "@italia/chip": "workspace:^",
     "@italia/button": "workspace:^",
+    "@italia/chip": "workspace:^",
     "@italia/icon": "workspace:^",
     "@italia/video": "workspace:^",
     "rollup-plugin-copy": "^3.5.0"

@@ -22,22 +22,24 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-chip.js": "./dist/src/it-chip.js"
+    "./it-chip.js": "./dist/src/it-chip.js",
+    "./styles/*": "./styles/*"
   },
   "files": [
     "dist/src",
     "README.md",
     "AUTHORS",
     "LICENSE",
-    "custom-elements.json"
+    "custom-elements.json",
+    "styles"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
     "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
-    "prepublish": "pnpm build",
-    "lint": "eslint --ext .ts \"src/**/*.ts\" \"test/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"test/**/*.ts\" --check",
-    "format": "eslint --ext .ts \"src/**/*.ts\" \"test/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" \"test/**/*.ts\" --write",
+    "prepublish": "build",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
@@ -47,18 +49,18 @@
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
-    "@italia/icon": "workspace:^",
-    "@italia/button": "workspace:^",
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
+    "@italia/button": "workspace:^",
+    "@italia/icon": "workspace:^",
     "@open-wc/testing": "catalog:",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@web/test-runner": "catalog:",
-    "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
     "rollup-plugin-scss-lit": "^2.1.0",
+    "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
   },

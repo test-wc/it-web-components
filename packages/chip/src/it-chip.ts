@@ -32,7 +32,7 @@ export class ItChip extends BaseComponent {
     return this.composeClass('avatar', this.size === 'lg' ? 'size-sm' : 'size-xs');
   }
 
-  updated(changedProps: any) {
+  override updated(changedProps: any) {
     if (this.dismissable) {
       if (!this.closeButton.length) {
         this.logger.warn(
@@ -41,10 +41,17 @@ export class ItChip extends BaseComponent {
         );
       } else {
         this.closeButton.forEach((btn) => {
-          if (!btn.hasAttribute('aria-label') && btn.textContent?.trim().length === 0) {
+          if (
+            (btn.tagName.toLowerCase() === 'it-button' &&
+              !btn.hasAttribute('label') &&
+              btn.textContent?.trim().length === 0) ||
+            (btn.tagName.toLowerCase() === 'button' &&
+              !btn.hasAttribute('aria-label') &&
+              btn.textContent?.trim().length === 0)
+          ) {
             this.logger.warn(
-              'Dismiss button lacks both an `aria-label` and visible text. ' +
-                'Providing an accessible label or visible content is strongly recommended.',
+              'Dismiss button lacks both a `label`, an `aria-label` and text content. ' +
+                'Providing an accessible label or visually hidden text content is strongly recommended.',
             );
           }
         });
@@ -91,8 +98,8 @@ export class ItChip extends BaseComponent {
     `;
 
     return this.href
-      ? html`<a class="${classMap(classes)}" role="group" href="${this.href}">${content}</a>`
-      : html`<div class="${classMap(classes)}" role="group">${content}</div>`;
+      ? html`<a class="${classMap(classes)}" part="chip" href="${this.href}">${content}</a>`
+      : html`<div class="${classMap(classes)}" part="chip">${content}</div>`;
   }
 }
 
