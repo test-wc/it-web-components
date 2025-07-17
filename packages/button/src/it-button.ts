@@ -90,7 +90,7 @@ export class ItButton extends BaseComponent {
   override render() {
     return html`
       <button
-        part="${this.variant} ${this.outline ? 'outline' : ''}"
+        part="button ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
         disabled=${ifDefined(this.disabled || undefined)}
         class="${this._buttonClasses}"
