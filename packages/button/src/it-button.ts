@@ -23,6 +23,9 @@ export class ItButton extends BaseComponent {
   type = 'button';
 
   @property({ type: String })
+  label = 'button';
+
+  @property({ type: String })
   variant: ButtonVariant = '';
 
   @property({ type: String })
@@ -90,7 +93,7 @@ export class ItButton extends BaseComponent {
   override render() {
     return html`
       <button
-        part="${this.variant} ${this.outline ? 'outline' : ''}"
+        part="btn${this.variant ? ` ${this.variant}` : ''}${this.outline ? ' outline' : ''}"
         type="${this.type}"
         disabled=${ifDefined(this.disabled || undefined)}
         class="${this._buttonClasses}"

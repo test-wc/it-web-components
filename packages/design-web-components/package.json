@@ -51,6 +51,7 @@
     "lit-html"
   ],
   "dependencies": {
+    "@italia/chip": "workspace:^",
     "@italia/button": "workspace:^",
     "@italia/icon": "workspace:^",
     "@italia/video": "workspace:^",

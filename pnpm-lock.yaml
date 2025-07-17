@@ -196,11 +196,72 @@ importers:
         specifier: 'catalog:'
         version: 5.8.3
 
+  packages/chip:
+    dependencies:
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
   packages/design-web-components:
     dependencies:
       '@italia/button':
         specifier: workspace:^
         version: link:../button
+      '@italia/chip':
+        specifier: workspace:^
+        version: link:../chip
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon

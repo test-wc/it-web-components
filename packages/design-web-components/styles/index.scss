@@ -14,6 +14,7 @@
 @import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/utilities/icons';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
+@import 'bootstrap-italia/src/scss/components/type';
 
 .bg-dark {
   it-icon::part(icon) {
@@ -41,7 +42,6 @@ it-button {
 it-icon {
   //  @extend .icon;
   --bs-it-icon-size: var(--bs-icon-size-m);
-
   min-width: var(--bs-it-icon-size);
   min-height: var(--bs-it-icon-size);
 
