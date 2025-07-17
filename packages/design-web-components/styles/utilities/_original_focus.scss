@@ -1,19 +1,10 @@
-/*
-MEMO:
-- :focus --> sia da tastiera, sia da mouse
-- :focus-visible --> solo da tastiera
-- :focus:not(:focus-visible) --> solo da mouse
-*/
-
-:focus-visible:not([data-focus-mouse='true']),
+:focus:not([data-focus-mouse='true']),
 %focus,
-button:focus-visible,
-::part(focusable):focus-visible,
-.it-carousel-wrapper .splide__pagination button:focus-visible,
-.upload:focus-visible:not([data-focus-mouse='true']) + label,
-.upload-dragdrop-input:focus-visible[type='file']:not([data-focus-mouse='true']) + label,
-.avatar-upload:focus-within:focus-visible:not([data-focus-mouse='true']),
-.rating input:focus-visible:not([data-focus-mouse='true']) + label svg {
+.it-carousel-wrapper .splide__pagination button:focus:not([data-focus-mouse='true']),
+.upload:focus:not([data-focus-mouse='true']) + label,
+.upload-dragdrop-input:focus[type='file']:not([data-focus-mouse='true']) + label,
+.avatar-upload:focus-within:not([data-focus-mouse='true']),
+.rating input:focus:not([data-focus-mouse='true']) + label svg {
   border-color: $focus-outline-color-out !important;
   box-shadow:
     0 0 0 2px var(--#{$prefix}color-border-inverse),
@@ -22,16 +13,11 @@ button:focus-visible,
   outline-offset: 3px !important;
 }
 
-[tabindex='-1']:focus:not(:focus-visible),
-[tabindex='-1'][data-focus-mouse='true'] {
-  //focus solo da mouse, non da tastiera
+[tabindex='-1']:focus:not(:focus-visible) {
   box-shadow: none !important;
 }
 
-:focus:not(:focus-visible):not(.btn),
-::part(focusable):focus-visible:not(.btn),
-:focus[data-focus-mouse='true'],
-::part(focusable)[data-focus-mouse='true'],
+[data-focus-mouse='true']:not(.btn),
 %focusmouse {
   border-color: inherit !important;
   box-shadow: none !important;
@@ -39,9 +25,7 @@ button:focus-visible,
 }
 
 p a {
-  &:focus:not(:focus-visible):not(.btn),
-  &[data-focus-mouse='true'] {
-    /* focus da mouse o script, esclusi anche i .btn */
+  &:focus:not([data-focus-mouse='true'], .btn) {
     outline-offset: 0px !important;
     outline: 3px $focus-outline-color-out solid !important;
     background: $focus-outline-color-in;
@@ -54,7 +38,7 @@ p a {
 .shadow-none,
 .shadow-sm,
 .shadow-lg {
-  &:focus-visible {
+  &:focus:not([data-focus-mouse='true']) {
     box-shadow:
       0 0 0 2px $focus-outline-color-in,
       0 0 0 5px $focus-outline-color-out !important;
@@ -62,14 +46,14 @@ p a {
 }
 
 .avatar-group-stacked .avatar {
-  &:focus-visible {
+  &:focus:not([data-focus-mouse='true']) {
     border: 0;
     margin-left: -4px;
     margin-top: 2px;
     margin-right: 2px;
   }
 
-  &.avatar-dropdown .btn-dropdown:focus-visible {
+  &.avatar-dropdown .btn-dropdown:focus:not([data-focus-mouse='true']) {
     height: 100%;
     width: 100%;
     border-radius: 50%;
@@ -78,14 +62,14 @@ p a {
 
 .chip {
   button {
-    &:focus-visible {
+    &:focus:not([data-focus-mouse='true']) {
       border-radius: 50%;
     }
   }
 }
 
 .form-check {
-  .toggles label:has(input[type='checkbox']:focus-visible) {
+  .toggles label:has(input[type='checkbox']:focus:not([data-focus-mouse='true'])) {
     @extend %focus;
 
     input,
@@ -96,12 +80,12 @@ p a {
     }
   }
 
-  .toggles label:has(input[type='checkbox']:focus:not(:focus-visible)) {
+  .toggles label:has(input[type='checkbox']:focus[data-focus-mouse='true']) {
     @extend %focusmouse;
   }
 
   &.form-check-group {
-    :focus-visible,
+    :focus:not([data-focus-mouse='true']),
     [type='checkbox']:focus + label,
     [type='radio']:focus + label {
       width: 100%;
@@ -111,7 +95,7 @@ p a {
 
 .bg-dark .btn,
 .back-to-top.dark {
-  &:focus-visible,
+  &:focus:not([data-focus-mouse='true']),
   &%focus {
     box-shadow:
       0 0 0 2px $focus-outline-color-out,

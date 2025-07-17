@@ -132,7 +132,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
         disabled=${ifDefined(this.disabled || undefined)}
         .value="${this._value}"
         required="${this.required}"
-        part="input"
+        part="input focusable"
         placeholder=${ifDefined(this.placeholder || undefined)}
         aria-describedby=${ifDefined(supportTextId || undefined)}
         class="form-control"

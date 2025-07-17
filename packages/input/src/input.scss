@@ -17,8 +17,25 @@
   display: block;
 }
 
-input:focus:not(:focus-visible) {
-  border: none;
-  box-shadow: none;
-  outline: none;
-}
+// input,
+// textarea {
+//   box-shadow: none !important;
+//   outline: none;
+//   /* Focus da tastiera */
+//   &:focus-visible {
+//     // box-shadow:
+//     //   0 0 0 2px var(--#{$prefix}color-border-inverse),
+//     //   0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
+//     box-shadow:
+//       0 0 0 2px red,
+//       0 0 0 5px var(--#{$prefix}color-outline-focus) !important;
+//     outline: 3px solid transparent;
+//     outline-offset: 3px;
+//   }
+
+//   /* Focus da mouse: niente */
+//   &:focus:not(:focus-visible) {
+//     outline: none;
+//     box-shadow: none !important;
+//   }
+// }
