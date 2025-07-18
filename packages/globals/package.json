@@ -41,6 +41,7 @@
     "test-disabled": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "lit": "catalog:"
   },
   "devDependencies": {

@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '@italia/button';
 import '@italia/dropdown';
+import '@italia/icon';
+import '@italia/popover';
 
 type DropdownProps = {
   label?: string;

@@ -1,10 +1,11 @@
+import clsx from 'clsx';
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
   addFocus(element: HTMLElement): void;
-  composeClass(...classes: any): string;
+  composeClass: typeof clsx;
 }
 
 export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInterface>;
@@ -34,14 +35,5 @@ export class BaseComponent extends LitElement {
     // new TrackFocus(element); //per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  composeClass(...classes: any) {
-    let composedClass = '';
-    classes
-      .filter((c: string) => c.length > 0)
-      .forEach((newClass: string) => {
-        composedClass += ` ${newClass}`;
-      });
-    return composedClass.trim();
-  }
+  composeClass = clsx;
 }

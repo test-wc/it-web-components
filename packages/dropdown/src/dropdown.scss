@@ -6,42 +6,37 @@
 @import 'bootstrap-italia/src/scss/components/dropdown';
 @import 'bootstrap-italia/src/scss/components/linklist';
 
-ul {
-  display: block;
-  // margin-top: 10px;
-  margin-bottom: 0;
-  list-style: auto;
-  list-style-type: disc;
-  padding-inline: 0;
-
-  ::marker {
-    font-size: 0;
-    line-height: 0;
+.dropdown-menu {
+  &::before {
+    content: none;
   }
-  // Custom properties
-}
 
-.dropdown-menu::before {
-  content: none;
-}
+  .arrow {
+    width: var(--bs-dropdown-notch-base-size);
+    height: var(--bs-dropdown-notch-base-size);
+    border-radius: var(--bs-dropdown-border-radius);
+    background-color: var(--bs-dropdown-background);
+  }
 
-.dropdown-menu .arrow {
-  width: var(--bs-dropdown-notch-base-size);
-  height: var(--bs-dropdown-notch-base-size);
-  border-radius: var(--bs-dropdown-border-radius);
-  background-color: var(--bs-dropdown-background);
+  @if $dropdown-padding-y == 0 {
+    > it-dropdown-item:first-child {
+      @include border-top-radius(var(--#{$prefix}dropdown-inner-border-radius));
+    }
+
+    > it-dropdown-item:last-child {
+      @include border-bottom-radius(var(--#{$prefix}dropdown-inner-border-radius));
+    }
+  }
 }
 
 :host {
   position: relative;
-  font-family: var(--bs-font-sans-serif);
+}
 
-  it-button,
-  it-popover {
-    display: inline-block;
-  }
+it-button {
+  display: inline-block;
+}
 
-  it-dropdown-item {
-    display: block;
-  }
+it-popover {
+  display: inline-block;
 }

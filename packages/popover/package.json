@@ -22,10 +22,12 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-popover.js": "./dist/src/it-popover.js"
+    "./it-popover.js": "./dist/src/it-popover.js",
+    "./styles/*": "./styles/*"
   },
   "files": [
     "dist/src",
+    "styles",
     "README.md",
     "AUTHORS",
     "LICENSE",

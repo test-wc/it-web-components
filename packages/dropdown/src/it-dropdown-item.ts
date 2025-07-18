@@ -1,7 +1,6 @@
 import { BaseComponent } from '@italia/globals';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './dropdown-item.scss';
 
@@ -43,14 +42,12 @@ export class ItDropdownItem extends BaseComponent {
       return html`<li><span class="divider" role="separator"></span></li>`;
     }
 
-    const classes = {
-      'list-item': true,
-      'dropdown-item': true,
+    const classes = this.composeClass('list-item', 'dropdown-item', {
       disabled: this.disabled,
       active: this.active,
       large: this.large,
       'full-width': this.fullWidth,
-    };
+    });
 
     const roleParent = this.closest('it-dropdown')?.getAttribute('role') ?? 'list';
     let roleAttr: string | undefined;
@@ -65,7 +62,7 @@ export class ItDropdownItem extends BaseComponent {
     `;
 
     return html`
-      <li role=${ifDefined(roleAttr)} class=${classMap(classes)}>
+      <li role=${ifDefined(roleAttr)} class=${classes}>
         ${this.href
           ? html`<a
               href=${this.href}

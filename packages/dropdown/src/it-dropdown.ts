@@ -5,9 +5,6 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type { ItPopover } from '@italia/popover';
 import styles from './dropdown.scss';
-import '@italia/button';
-import '@italia/icon';
-import '@italia/popover';
 
 type Size = 'sm' | 'lg';
 type Variant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'light';
@@ -120,12 +117,13 @@ export class ItDropdown extends BaseComponent {
 
     if (this.role) this._menuEl.setAttribute('role', this.role);
 
-    const cl = ['btn'];
-    if (this.variant) cl.push(`btn-${this.variant}`);
-    if (this.size) cl.push(`btn-${this.size}`);
-    if (this.split) cl.push('dropdown-toggle-split');
-    else cl.push('dropdown-toggle');
-    this._triggerEl.className = cl.join(' ');
+    const cl = this.composeClass('btn', {
+      [`btn-${this.variant}`]: !!this.variant,
+      [`btn-${this.size}`]: !!this.size,
+      'dropdown-toggle-split': this.split,
+      'dropdown-toggle': !this.split,
+    });
+    this._triggerEl.className = cl;
   }
 
   render() {
@@ -159,7 +157,7 @@ export class ItDropdown extends BaseComponent {
         </it-button>
         <ul
           slot="content"
-          class="link-list-wrapper link-list dropdown-menu${this._popoverOpen ? ' show' : ''}"
+          class="${this.composeClass('link-list-wrapper link-list dropdown-menu', { show: this._popoverOpen })}"
           ?role=${ifDefined(this.role)}
           @keydown=${this._onKeyDown}
         >

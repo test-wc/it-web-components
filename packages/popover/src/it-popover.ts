@@ -115,12 +115,7 @@ export class ItPopover extends BaseComponent {
             bottom: '',
             [staticSide as string]: '-6px',
             position: 'absolute',
-            // width: '12px',
-            // height: '12px',
-            // background: 'var(--bsi-color-background-inverse)',
             transform: 'rotate(45deg)',
-            // 'box-shadow': 'rgba(0, 0, 0, 0.1) 0px 0px 2px',
-            // 'border-radius': '4px',
           });
         }
       });

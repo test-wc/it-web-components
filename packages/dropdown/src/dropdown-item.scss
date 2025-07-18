@@ -3,10 +3,8 @@
 @import 'bootstrap-italia/src/scss/base/mixins';
 @import 'bootstrap-italia/src/scss/base/maps';
 
-@import 'bootstrap-italia/src/scss/components/linklist';
 @import 'bootstrap-italia/src/scss/components/dropdown';
 
-// Vanno fatti a manazza se non vuoi impazzire, enjoy!
 :host li,
 :host li a {
   &:focus-visible {

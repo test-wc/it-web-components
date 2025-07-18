@@ -151,14 +151,17 @@ export class ItIcon extends BaseComponent {
   }
 
   private updateClasses() {
-    return this.composeClass(
+    return [
       'icon',
       this.size ? `icon-${this.size}` : '',
       this.color ? `icon-${this.color}` : '',
       // this.background ? `bg-${this.background}` : '',
       this.align ? `align-${this.align}` : '',
       this.padded ? `icon-padded` : '',
-    );
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
   }
 
   private handleSlotChange() {
