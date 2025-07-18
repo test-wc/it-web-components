@@ -43,7 +43,10 @@ $utilities: (
       map-get($utilities, 'background-color'),
       (
         'values': (
-          muted: $color-background-muted,
+          'muted': $color-background-muted,
+          'danger': $danger,
+          'warning': $warning,
+          'success': $success,
         ),
       )
     ),

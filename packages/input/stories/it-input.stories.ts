@@ -25,6 +25,8 @@ interface InputProps {
   value: string;
   slotted: boolean;
   passwordStrengthMeter: boolean;
+  minPasswordLength: number;
+  suggestions: boolean;
   translations: Record<string, string>;
   size: Sizes;
 }
@@ -49,6 +51,8 @@ const renderComponent = (params: any) =>
     size="${ifDefined(params.size || undefined)}"
     ?slotted="${params.slotted}"
     ?strength-meter="${params.passwordStrengthMeter}"
+    min-password-length="${params.minPasswordLength}"
+    ?suggestions="${params.suggestions}"
     translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
     >${ifDefined(params.children || undefined)}</it-input
   >`;
@@ -76,6 +80,8 @@ const meta = {
     plaintext: false,
     slotted: false,
     passwordStrengthMeter: false,
+    minPasswordLength: undefined,
+    suggestions: false,
     translations: DEFAULT_TRANSLATIONS,
   },
   argTypes: {
@@ -159,6 +165,19 @@ const meta = {
       control: 'boolean',
       type: 'boolean',
       description: "Se si vuole mostrare o meno il misuratore di robustezza della password nel caso di type='password'",
+      table: { defaultValue: { summary: 'false' } },
+    },
+    minPasswordLength: {
+      name: 'min-password-length',
+      type: 'number',
+      description: 'Lunghezza minima della password. Usato per validare la robustezza della password',
+      table: { defaultValue: { summary: '8' } },
+    },
+    suggestions: {
+      name: 'suggestions',
+      control: 'boolean',
+      type: 'boolean',
+      description: "Se si vogliono mostrare i suggerimenti per l'insderimento di una password sicura.",
       table: { defaultValue: { summary: 'false' } },
     },
     translations: {
@@ -481,9 +500,11 @@ Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con in
       label: 'Campo password',
       name: 'field-password-strength-example',
       id: 'field-password-strength-example',
-      supportText: 'Inserisci almeno 8 caratteri e alcuni caratteri speciali.',
+      supportText: 'Inserisci almeno 10 caratteri e alcuni caratteri speciali.',
       requiredValidityMessage: undefined,
       passwordStrengthMeter: true,
+      minPasswordLength: 10,
+      suggestions: true,
       translations: { shortPassword: 'Password debole' },
     })}
   `,
