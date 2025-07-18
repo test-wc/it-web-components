@@ -16,7 +16,10 @@
 @import 'bootstrap-italia/src/scss/utilities/icons';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 
+@import 'bootstrap-italia/src/scss/components/type';
+
 /*design-web-components global styles*/
 @import '@italia/button/styles/globals';
 @import '@italia/icon/styles/globals';
+@import '@italia/section/styles/globals';
 @import '@italia/video/styles/globals';
