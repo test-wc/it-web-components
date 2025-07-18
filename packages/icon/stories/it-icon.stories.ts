@@ -2,24 +2,22 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type AvailableIcons, registry } from '../src/icon-registry.ts';
+import { type Sizes, type Alignments, type Colors, ICON_SIZES, ICON_COLORS, ICON_ALIGNMENTS } from '../src/types.ts';
 import '@italia/icon';
 
 interface IconProps {
   name?: string;
-  size?: 'xs' | 'sm' | 'lg' | 'xl';
+  size?: Sizes;
   label?: string;
-  color?: string;
+  color?: Colors;
   background?: string;
-  align?: 'top' | 'middle' | 'bottom';
+  align?: Alignments;
   padded?: boolean;
   src?: string;
   role?: string;
 }
 
 const iconNames = Object.keys(registry) as AvailableIcons[];
-const sizes: IconProps['size'][] = ['xs', 'sm', undefined, 'lg', 'xl'];
-const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'inverse', 'light', 'disabled'];
-const alignments = ['top', 'middle', 'bottom'];
 
 const renderComponent = (params: IconProps) => html`
   <it-icon
@@ -54,24 +52,24 @@ const meta: Meta<IconProps> = {
     },
     size: {
       control: 'select',
-      options: sizes,
+      options: ICON_SIZES,
       description: "Dimensione dell'icona: 'xs' | 'sm' | (stringa vuota) | 'lg' | 'xl'",
       table: { defaultValue: { summary: undefined } },
     },
     align: {
       control: 'select',
-      options: alignments,
+      options: ICON_ALIGNMENTS,
       description: "Allineamento verticale dell'icona: 'top' | 'middle' | 'bottom' ",
       table: { defaultValue: { summary: 'middle' } },
     },
     color: {
       control: 'select',
-      options: colors,
+      options: ICON_COLORS,
       description: 'Varianti di colore',
     },
     background: {
       control: 'select',
-      options: colors,
+      options: ICON_COLORS,
       description: 'Colore di Background',
     },
     label: {
@@ -166,7 +164,7 @@ export const VariantiColore: Story = {
   name: 'Varianti di colore',
   render: () => html`
     <div style="display:flex; gap:20px; align-items:center; background-color:#ddd;padding:2rem">
-      ${colors.map((color) => renderComponent({ name: 'it-star-full', label: `col ${color}`, color }))}
+      ${ICON_COLORS.map((color) => renderComponent({ name: 'it-star-full', label: `col ${color}`, color }))}
       <span class="bg-light"> ${renderComponent({ name: 'it-star-full', label: 'bg-light' })} </span>
       <span class="bg-dark"> ${renderComponent({ name: 'it-star-full', label: 'bg-dark' })} </span>
     </div>
@@ -187,7 +185,7 @@ export const VariantiDimensione: Story = {
   render: (args) => html`
     <div>
       <div style="display: flex; gap: 20px; align-items: baseline;">
-        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size })}</div>`)}
+        ${ICON_SIZES.map((size) => html`<div>${renderComponent({ ...args, size })}</div>`)}
       </div>
     </div>
   `,
@@ -231,7 +229,7 @@ export const Spaziatura: Story = {
   render: (args) => html`
     <div>
       <div style="display: flex; gap: 20px; align-items: baseline;">
-        ${sizes.map((size) => html`<div>${renderComponent({ ...args, size, padded: true })}</div>`)}
+        ${ICON_SIZES.map((size) => html`<div>${renderComponent({ ...args, size, padded: true })}</div>`)}
       </div>
     </div>
   `,

@@ -19,7 +19,7 @@ export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInt
 export class BaseComponent extends LitElement {
   protected logger: Logger;
 
-  protected _ariaAttributes: Record<string, string> = {};
+  protected _ariaAttributes: Record<string, string> = {}; // tutti gli attributi aria-* passati al Web component
 
   constructor() {
     super();

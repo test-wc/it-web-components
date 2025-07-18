@@ -16,6 +16,10 @@ class SetAttributesDirective extends Directive {
   }
 }
 
+/* How to use:
+
+<textarea ${setAttributes(this._ariaAttributes)} ... />
+*/
 const setAttributes = directive(SetAttributesDirective);
 
 export default setAttributes;
