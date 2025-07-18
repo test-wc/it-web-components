@@ -1,0 +1,15 @@
+it-chip it-button::part(button) {
+  padding: 0;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  line-height: 1;
+}
+
+it-chip it-button it-icon::part(icon) {
+  fill: var(--bs-chip-icon-color);
+}
+
+it-chip it-button it-icon,
+it-chip it-button {
+  display: inline-flex;
+}

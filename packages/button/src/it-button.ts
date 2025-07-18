@@ -20,6 +20,9 @@ export class ItButton extends BaseComponent {
   type = 'button';
 
   @property({ type: String })
+  label = 'button';
+
+  @property({ type: String })
   variant: Variants = '';
 
   @property({ type: String })
@@ -89,10 +92,11 @@ export class ItButton extends BaseComponent {
       <button
         part="button ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
-        disabled=${ifDefined(this.disabled || undefined)}
+        ?disabled=${ifDefined(this.disabled) || undefined}
         class="${this._buttonClasses}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
         .value="${ifDefined(this.value ? this.value : undefined)}"
+        aria-label="${ifDefined(this.label ? this.label : undefined)}"
       >
         <slot></slot>
       </button>

@@ -14,6 +14,7 @@ interface ButtonProps {
   block: boolean;
   icon?: boolean;
   value: string;
+  label: string;
 }
 
 // Renderizza il wc it-button di default
@@ -28,6 +29,7 @@ const renderComponent = (params: any, defaultSlot = '') => {
       ?disabled="${params.disabled}"
       ?icon="${params.icon}"
       type="${params.type}"
+      label="${params.label}"
       >${slot}</it-button
     >
   `;
@@ -92,6 +94,7 @@ const meta = {
     icon: false,
     type: 'button',
     value: '',
+    label: 'Aria label',
   },
   argTypes: {
     variant: {
@@ -130,6 +133,10 @@ const meta = {
     slot: {
       control: 'text',
       description: 'Testo del pulsante',
+    },
+    label: {
+      control: 'text',
+      description: 'Testo aria-label del pulsante',
     },
     type: {
       control: 'select',
