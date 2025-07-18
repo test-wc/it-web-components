@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 
 import '@italia/section';
 
-const variants = ['light', 'dark', 'primary', 'white', 'none'];
-const defaultContent = html` <div class="section-content">
+const variants = ['muted', 'emphasis', 'primary'];
+const defaultContent = html`
   <!-- contenuto di esempio START -->
   <div class="container">
     <div class="row mb-3">
       <div class="col-12">
-        <h2 id="titleEx2">Morbi fermentum amet</h2>
+        <h2>Morbi fermentum amet</h2>
       </div>
     </div>
     <div class="row">
@@ -34,20 +34,27 @@ const defaultContent = html` <div class="section-content">
     </div>
   </div>
   <!-- contenuto di esempio END -->
-</div>`;
+`;
 function renderSection({
   variant,
   image,
   alt,
   content,
+  inverse = false,
 }: {
   variant?: (typeof variants)[number];
   image?: string;
   alt?: string;
   content?: any;
+  inverse?: boolean;
 }) {
   return html`
-    <it-section variant="${variant || nothing}" image="${image || nothing}" alt="${alt || nothing}">
+    <it-section
+      variant="${variant || nothing}"
+      image="${image || nothing}"
+      alt="${alt || nothing}"
+      ?inverse="${inverse}"
+    >
       ${content || defaultContent}
     </it-section>
   `;
@@ -62,7 +69,6 @@ const meta = {
       description: {
         component: `
 Il componente \`it-section\` rappresenta un contenitore visivo per introdurre sezioni di contenuto con o senza immagine di sfondo.
-È pensato per essere utilizzato in contesti di **hero area** o **testate di pagina**.
 
 Le immagini vengono gestite in maniera semantica tramite tag \`<img>\` e le varianti disponibili seguono quelle di \`.it-hero-wrapper\` nel design system Bootstrap Italia.
         `,
@@ -73,20 +79,27 @@ Le immagini vengono gestite in maniera semantica tramite tag \`<img>\` e le vari
     variant: '',
     image: '',
     alt: '',
+    inverse: false,
   },
   argTypes: {
     variant: {
       control: { type: 'select' },
       options: variants,
-      description: 'Variante grafica (corrisponde a `it-hero-wrapper-*`)',
+      description:
+        'Variante grafica del componente, corrisponde alle classi di Bootstrap Italia e nessuna classe per il valore `none`',
     },
     image: {
       control: { type: 'text' },
-      description: 'URL immagine di sfondo',
+      description: 'URL immagine di sfondo, ad esempio https://picsum.photos/1600/500e',
     },
     alt: {
       control: { type: 'text' },
       description: 'Testo alternativo per l’immagine',
+    },
+    inverse: {
+      control: { type: 'boolean' },
+      description:
+        'Inverti il colore del testo (bianco su sfondo scuro), utile per sezioni scure o con immagini di sfondo',
     },
   },
 };

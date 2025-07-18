@@ -1,94 +1,57 @@
-import '@italia/button';
 import { expect, fixture, html } from '@open-wc/testing';
+import '@italia/section';
 
-import { type ItButton } from '@italia/button';
-
-describe('Button component', () => {
-  describe('accessibility', () => {
-    it('default is accessible', async () => {
-      const el = await fixture<ItButton>(html`<it-button>My Button</it-button>`);
-      await expect(el).to.be.accessible();
-    });
-
-    it('variations are accessible', async () => {
-      const el = await fixture<ItButton>(html`
-        <it-button variation="primary">bsi Button</it-button>
-        <it-button variation="link">bsi Button</it-button>
-      `);
-      await expect(el).to.be.accessible();
-    });
-
-    it('disabled is accessible', async () => {
-      const el = await fixture<ItButton>(html`<it-button disabled>bsi Button</it-button>`);
-      const button = el.shadowRoot?.querySelector('button');
-
-      await expect(el).to.be.accessible();
-      await expect(button?.hasAttribute('disabled')).to.be.true;
-    });
-
-    it('on bg-dark is accessible', async () => {
-      const el = await fixture<ItButton>(
-        html`<div class="bg-dark">
-          <it-button variation="primary">bsi Button</it-button>
-          <it-button variation="link">bsi Button</it-button>
-        </div>`,
-      );
-
-      await expect(el).to.be.accessible();
-    });
+describe('<it-section>', () => {
+  it('renders with default props', async () => {
+    const el = await fixture(html`<it-section><h2>Test</h2></it-section>`);
+    const section = el.shadowRoot?.querySelector('section');
+    expect(section).to.exist;
+    expect(section?.classList.contains('section')).to.be.true;
   });
 
-  describe('form', () => {
-    it('submits a form', async () => {
-      let called = false;
-      function submitHandler() {
-        /* per verificare che l’evento sia stato attivato. */
-        called = true;
-      }
+  it('sets aria-labelledby from first heading in slot', async () => {
+    const el = await fixture(html` <it-section><h2>Test heading</h2></it-section> `);
 
-      const el = await fixture<HTMLFormElement>(html`
-        <form
-          @submit=${(e: SubmitEvent) => {
-            e.preventDefault(); // preveniamo la ricarica per il test
-            submitHandler();
-          }}
-        >
-          <it-button type="submit">Submit</it-button>
-        </form>
-      `);
+    const slot = el.shadowRoot?.querySelector('slot');
+    const assigned = slot?.assignedElements() ?? [];
+    const heading = assigned.find((e) => /^H[1-6]$/.test(e.tagName));
+    const section = el.shadowRoot?.querySelector('section');
 
-      const button = el.querySelector('it-button')!;
-      const innerButton = button.shadowRoot?.querySelector('button');
+    expect(heading).to.exist;
+    expect(heading!.id).to.match(/^it-section-/);
+    expect(section?.getAttribute('aria-labelledby')).to.equal(heading!.id);
+  });
 
-      innerButton?.click();
+  it('applies correct variant class', async () => {
+    const el = await fixture(html`<it-section variant="primary"><h2>Title</h2></it-section>`);
+    const section = el.shadowRoot?.querySelector('section');
+    expect(section?.classList.contains('section-primary')).to.be.true;
+  });
 
-      expect(called).to.be.true;
-    });
+  it('renders image with alt text when provided', async () => {
+    const el = await fixture(html`
+      <it-section image="https://via.placeholder.com/150"><h2>Image section</h2></it-section>
+    `);
+    const img = el.shadowRoot?.querySelector('img');
+    expect(img?.getAttribute('src')).to.equal('https://via.placeholder.com/150');
+    expect(img?.getAttribute('alt')).to.equal('');
+    expect(img?.getAttribute('aria-hidden')).to.equal('true');
+  });
 
-    it('does not submit the form when the button is disabled', async () => {
-      let called = false;
-      function submitHandler() {
-        /* per verificare che l’evento sia stato attivato. */
-        called = true;
-      }
+  it('applies inverse class to section-content', async () => {
+    const el = await fixture(html`<it-section inverse><h2>Inverse</h2></it-section>`);
+    const content = el.shadowRoot?.querySelector('.section-content');
+    expect(content?.classList.contains('white-color')).to.be.true;
+  });
 
-      const el = await fixture<HTMLFormElement>(html`
-        <form
-          @submit=${(e: SubmitEvent) => {
-            e.preventDefault();
-            submitHandler();
-          }}
-        >
-          <it-button type="submit" disabled>Submit</it-button>
-        </form>
-      `);
-
-      const button = el.querySelector('it-button')!;
-      const innerButton = button.shadowRoot?.querySelector('button');
-
-      innerButton?.click();
-
-      expect(called).to.be.false;
-    });
+  it('renders slot content correctly', async () => {
+    const el = await fixture(html`
+      <it-section
+        ><h2>Slot heading</h2>
+        <p>Content paragraph</p></it-section
+      >
+    `);
+    const slotContent = el.querySelector('p');
+    expect(slotContent?.textContent).to.include('Content paragraph');
   });
 });

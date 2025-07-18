@@ -1,5 +1,5 @@
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html, PropertyValues } from 'lit';
+import { customElement, property, queryAssignedElements } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { BaseComponent } from '@italia/globals';
 import styles from './section.scss';
@@ -8,49 +8,70 @@ import styles from './section.scss';
 export class ItSection extends BaseComponent {
   static styles = styles;
 
-  @property({ type: String }) variant: 'light' | 'dark' | 'primary' | 'white' | 'none' = 'light';
+  @property({ type: String }) variant?: 'muted' | 'emphasis' | 'primary';
 
   @property({ type: String }) image = '';
 
-  @property({ type: String }) alt = '';
+  @property({ type: Boolean }) inverse = false;
 
-  private _id = this.generateId();
+  @queryAssignedElements({ flatten: true })
+  private assignedElements!: HTMLElement[];
+
+  private _id = this.generateId('it-section');
+
+  updated(changedProps: PropertyValues) {
+    super.updated(changedProps);
+
+    // Fallback: se nessuno ha ancora assegnato un ID a un heading
+    const heading =
+      this.assignedElements.find((el) => /^H[1-6]$/.test(el.tagName)) ??
+      this.assignedElements.flatMap((el) => Array.from(el.querySelectorAll('h1, h2, h3, h4, h5, h6')))[0];
+
+    if (heading && !heading.id) {
+      heading.id = this._id;
+    }
+  }
 
   private handleSlotChange() {
-    // Cerca un h dentro lo slot, assegnaci _id come id
-    const slot = this.shadowRoot?.querySelector('slot');
-    const h = slot
-      ?.assignedElements()
-      .find((el) => el.tagName.toLowerCase() === 'h1' || el.tagName.toLowerCase() === 'h2');
-    if (h) {
-      h.id = this._id;
+    const headings = this.assignedElements.flatMap((el) =>
+      Array.from(el.querySelectorAll?.('h1, h2, h3, h4, h5, h6') ?? []),
+    );
+
+    if (!headings.length) {
+      this.logger.warn('No heading found in the slot elements, cannot set aria-labelledby correctly for the section.');
+      return;
     }
+
+    const firstHeading = headings[0];
+    firstHeading.id = this._id;
   }
 
   render() {
     const wrapperClasses = {
-      'it-hero-wrapper': true,
-      [`it-hero-wrapper-${this.variant}`]: this.variant && this.variant !== 'none',
+      section: true,
+      [`section-${this.variant}`]: Boolean(this.variant),
     };
-
+    const contentClasses = {
+      'section-content': true,
+      'white-color': this.inverse,
+    };
     return html`
-      <section class="section" aria-labelledby="${_id}">
-        <div class="${classMap(wrapperClasses)}">
-          ${this.image
-            ? html`
-                <div class="img-responsive-wrapper">
-                  <div class="img-responsive">
-                    <div class="img-wrapper">
-                      <img src="${this.image}" alt="${this.alt}" />
+      <section aria-labelledby="${this._id}" class="${classMap(wrapperClasses)}" part="section">
+          ${
+            this.image
+              ? html`
+                  <div class="img-responsive-wrapper">
+                    <div class="img-responsive">
+                      <div class="img-wrapper">
+                        <img src="${this.image}" alt="" aria-hidden="true" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              `
-            : null}
+                `
+              : null
+          }
 
-          <div class="it-hero-text-wrapper">
-            <slot @slotchanged=${this.handleSlotChange}></slot>
-          </div>
+            <div class="${classMap(contentClasses)}"><slot @slotchange=${this.handleSlotChange}></slot></div>
         </div>
       </section>
     `;
