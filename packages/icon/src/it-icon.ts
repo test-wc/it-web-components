@@ -2,21 +2,8 @@ import { BaseComponent } from '@italia/globals';
 import { html, PropertyValues, nothing, svg } from 'lit';
 import { customElement, property, state, query } from 'lit/decorators.js';
 import { getIcon, type AvailableIcons } from './icon-registry.js';
-
+import { type Colors, type Sizes, type Alignments } from './types.js';
 import styles from './icon.scss';
-
-export type Colors =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'inverse'
-  | 'light'
-  | 'disabled'
-  | 'white';
-export type Sizes = 'xs' | 'sm' | 'lg' | 'xl';
-export type Alignments = 'top' | 'middle' | 'bottom';
 
 @customElement('it-icon')
 export class ItIcon extends BaseComponent {

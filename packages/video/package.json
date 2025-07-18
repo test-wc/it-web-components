@@ -22,14 +22,16 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-video.js": "./dist/src/it-video.js"
+    "./it-video.js": "./dist/src/it-video.js",
+    "./styles/*": "./styles/*"
   },
   "files": [
     "dist/src",
     "README.md",
     "AUTHORS",
     "LICENSE",
-    "custom-elements.json"
+    "custom-elements.json",
+    "styles"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",

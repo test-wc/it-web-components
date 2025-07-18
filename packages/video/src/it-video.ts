@@ -7,30 +7,10 @@ import { cookies } from '@italia/globals';
 
 // @ts-ignore
 import { initYoutubePlugin } from './util/youtube-video.js';
-import itLang from './locales/it.js';
+import { type Translations, type Track, type ConsentOptions } from './types.js';
+import itLang from './locales/it.js'; //
 import styles from './it-video.scss';
 import '@italia/icon';
-
-export type Locale = 'it' | 'en' | string; // Aggiungi 'fr', 'de', ecc. se necessario
-type LocaleTranslations = typeof itLang;
-type SingleTrack = {
-  kind: 'captions' | 'subtitles' | 'descriptions' | 'chapters' | 'metadata';
-  src: string; // URL del file del track
-  srclang?: string; // Codice della lingua (es. 'it', 'en',)
-  label: string; // Etichetta del track
-  default?: boolean; // Indica se è il track predefinito
-};
-export type Translations = Record<Locale, LocaleTranslations>;
-export type Track = Array<SingleTrack>;
-export type ConsentOptions = {
-  icon?: string;
-  text?: string;
-  acceptButtonText?: string;
-  rememberCheckboxText?: string;
-  consentKey?: string;
-  onAccept?: Function;
-  isAccepted?: Function;
-};
 
 export const defaultConsentOptions: ConsentOptions = {
   icon: 'it-video', // Icona predefinita per il consenso dei cookie

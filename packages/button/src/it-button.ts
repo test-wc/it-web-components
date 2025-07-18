@@ -2,11 +2,8 @@ import { BaseComponent } from '@italia/globals';
 import { html, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-
+import { type Sizes, type Variants } from './types.js';
 import styles from './button.scss';
-
-export type ButtonSize = 'lg' | 'sm' | 'xs';
-export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'link' | string;
 
 @customElement('it-button')
 export class ItButton extends BaseComponent {
@@ -20,10 +17,10 @@ export class ItButton extends BaseComponent {
   type = 'button';
 
   @property({ type: String })
-  variant: ButtonVariant = '';
+  variant: Variants = '';
 
   @property({ type: String })
-  size: ButtonSize = 'sm';
+  size: Sizes = 'sm';
 
   @property({ type: Boolean })
   outline = false;
@@ -83,8 +80,8 @@ export class ItButton extends BaseComponent {
     });
     return html`
       <button
-        id=${this.id ? this.id : undefined}
-        part="${this.variant} ${this.outline ? 'outline' : ''}"
+        id=${ifDefined(this.id || undefined)}
+        part="button ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
         ?disabled=${ifDefined(this.disabled || undefined)}
         class="${classes}"

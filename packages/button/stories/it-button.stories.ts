@@ -1,22 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { type Sizes, type Variants, BUTTON_SIZES, BUTTON_VARIANTS } from '../src/types.ts';
 import '@italia/button';
 import '@italia/icon';
 
 interface ButtonProps {
-  variant: string;
+  variant: Variants;
   outline: boolean;
   disabled: boolean;
   slot: string;
-  size: string;
+  size: Sizes;
   type: string;
   block: boolean;
   icon?: boolean;
   value: string;
 }
-
-const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'link'];
-const sizes = ['lg', 'sm', 'xs'];
 
 // Renderizza il wc it-button di default
 const renderComponent = (params: any, defaultSlot = '') => {
@@ -99,12 +97,12 @@ const meta = {
     variant: {
       control: 'select',
       description: 'Varianti di colore',
-      options: colors,
+      options: BUTTON_VARIANTS,
     },
     size: {
       control: 'select',
       description: 'Dimensione del pulsante',
-      options: sizes,
+      options: BUTTON_SIZES,
       table: { defaultValue: { summary: 'sm' } },
     },
     block: {
