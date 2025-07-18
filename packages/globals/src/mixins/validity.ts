@@ -52,8 +52,8 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
      * @protected
      */
     _testValidity(): string {
-      const { required, value } = this;
-      return required && !value ? VALIDATION_STATUS.ERROR_REQUIRED : VALIDATION_STATUS.NO_ERROR;
+      const { required, _value } = this;
+      return required && !_value ? VALIDATION_STATUS.ERROR_REQUIRED : VALIDATION_STATUS.NO_ERROR;
     }
 
     /**
@@ -79,7 +79,7 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
     /**
      * The value.
      */
-    abstract value: string;
+    abstract _value: string;
 
     /**
      * Checks if the value meets the constraints.

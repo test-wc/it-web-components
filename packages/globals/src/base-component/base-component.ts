@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
+
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
