@@ -4,7 +4,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
 
-import { defaultTranslations, InputType, Sizes } from './types.js';
+import { DEFAULT_TRANSLATIONS, type InputType, type Sizes } from './types.js';
 
 import styles from './input.scss';
 
@@ -67,7 +67,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   passwordStrengthMeter = false;
 
   @property({ type: Object })
-  translations = defaultTranslations;
+  translations = DEFAULT_TRANSLATIONS;
 
   @property({ type: Boolean })
   private _passwordVisible = false;
@@ -134,7 +134,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   }
 
   private getTranslation(id: string): string {
-    const _t: Record<string, string> = { ...defaultTranslations, ...this.translations };
+    const _t: Record<string, string> = { ...DEFAULT_TRANSLATIONS, ...this.translations };
     return _t[id];
   }
 

@@ -339,9 +339,15 @@ importers:
 
   packages/input:
     dependencies:
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
       '@italia/globals':
         specifier: workspace:^
         version: link:../globals
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
       bootstrap-italia:
         specifier: 'catalog:'
         version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
@@ -352,12 +358,6 @@ importers:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.10.3
         version: 0.10.4
-      '@italia/button':
-        specifier: workspace:^
-        version: link:../button
-      '@italia/icon':
-        specifier: workspace:^
-        version: link:../icon
       '@italia/test-config':
         specifier: workspace:^
         version: link:../test-config

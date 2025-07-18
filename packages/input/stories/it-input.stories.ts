@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import { defaultTranslations, inputTypes, InputType, sizes, Sizes } from '../src/types.js';
+import { DEFAULT_TRANSLATIONS, INPUT_TYPES, type InputType, INPUT_SIZES, type Sizes } from '../src/types.js';
 
 import '@italia/icon';
 import '@italia/button';
@@ -76,7 +76,7 @@ const meta = {
     plaintext: false,
     slotted: false,
     passwordStrengthMeter: false,
-    translations: defaultTranslations,
+    translations: DEFAULT_TRANSLATIONS,
   },
   argTypes: {
     label: {
@@ -85,7 +85,7 @@ const meta = {
     },
     type: {
       control: 'select',
-      options: inputTypes,
+      options: INPUT_TYPES,
       table: { defaultValue: { summary: 'text' } },
     },
     name: {
@@ -131,7 +131,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: sizes,
+      options: INPUT_SIZES,
       description: "Dimensione del campo: 'sm' | (stringa vuota) | 'lg' ",
       table: { defaultValue: { summary: undefined } },
     },
