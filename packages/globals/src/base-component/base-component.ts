@@ -18,6 +18,8 @@ export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInt
 export class BaseComponent extends LitElement {
   protected logger: Logger;
 
+  protected _ariaAttributes: Record<string, string> = {}; // tutti gli attributi aria-* passati al Web component
+
   constructor() {
     super();
     this.logger = new Logger(this.tagName.toLowerCase());
@@ -25,7 +27,7 @@ export class BaseComponent extends LitElement {
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
   addFocus(element: HTMLElement) {
-    // new TrackFocus(element); //per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
+    // new TrackFocus(element); // per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -37,5 +39,19 @@ export class BaseComponent extends LitElement {
         composedClass += ` ${newClass}`;
       });
     return composedClass.trim();
+  }
+
+  getAriaAttributes() {
+    for (const attr of this.getAttributeNames()) {
+      if (attr.startsWith('aria-')) {
+        this._ariaAttributes[attr] = this.getAttribute(attr)!;
+      }
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback?.();
+
+    this.getAriaAttributes();
   }
 }
