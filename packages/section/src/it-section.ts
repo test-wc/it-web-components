@@ -50,6 +50,7 @@ export class ItSection extends BaseComponent {
     const wrapperClasses = {
       section: true,
       [`section-${this.variant}`]: Boolean(this.variant),
+      'section-image': Boolean(this.image),
     };
     const contentClasses = {
       'section-content': true,
