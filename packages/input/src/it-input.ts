@@ -279,17 +279,16 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   }
 
   private _renderInput(supportTextId: string) {
-    const _ariaDescribedBy = [];
-    if (this.supportText?.length > 0) {
-      _ariaDescribedBy.push(supportTextId);
-    }
-    if (this.passwordStrengthMeter) {
-      _ariaDescribedBy.push(`strengthMeterInfo_${this.id}`);
-    }
-    if (this._ariaAttributes['aria-describedby']?.length > 0) {
-      _ariaDescribedBy.push(this._ariaAttributes['aria-describedby']);
-    }
-    const ariaDescribedBy = _ariaDescribedBy.join(' ');
+    const ariaDescribedBy = this.composeClass(
+      this.supportText?.length > 0 ? supportTextId : '',
+      this.passwordStrengthMeter ? `strengthMeterInfo_${this.id}` : '',
+      this._ariaAttributes['aria-describedby']?.length > 0 ? this._ariaAttributes['aria-describedby'] : '',
+    );
+
+    const inputClasses = this.composeClass(
+      this.plaintext ? 'form-control-plaintext' : 'form-control',
+      this.size ? `form-control-${this.size}` : '',
+    );
 
     let inputRender;
 
@@ -307,9 +306,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           part="textarea focusable"
           placeholder=${ifDefined(this.placeholder || undefined)}
           aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
-          class="${this.plaintext ? 'form-control-plaintext' : 'form-control'} ${this.size
-            ? `form-control-${this.size}`
-            : ''}"
+          class="${inputClasses}"
         ></textarea>
       `;
     } else {
@@ -327,9 +324,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           part="input focusable"
           placeholder=${ifDefined(this.placeholder || undefined)}
           aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
-          class="${this.plaintext ? 'form-control-plaintext' : 'form-control'} ${this.size
-            ? `form-control-${this.size}`
-            : ''}"
+          class="${inputClasses}"
         />
         ${this._renderTogglePasswordButton()}
       `;
