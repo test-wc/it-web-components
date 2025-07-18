@@ -1,13 +1,10 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { CHIP_VARIANTS, CHIP_SIZES, type ChipProps } from '../src/types.ts';
 import '@italia/icon';
 import '@italia/button';
 import '@italia/chip';
-
-const variants = ['', 'primary', 'secondary', 'success', 'danger', 'warning'];
-const sizes = ['sm', 'lg'];
-type ChipProps = any;
 
 const meta = {
   title: 'Componenti/Chip',
@@ -16,7 +13,7 @@ const meta = {
   args: {
     size: 'sm',
     label: 'Etichetta',
-    href: null,
+    href: undefined,
     variant: 'primary',
     disabled: false,
     avatar: '',
@@ -29,7 +26,7 @@ const meta = {
     size: {
       control: 'select',
       description: 'Dimensione del chip (`sm` o `lg`).',
-      options: sizes,
+      options: CHIP_SIZES,
       table: { defaultValue: { summary: 'sm' } },
     },
     label: {
@@ -43,7 +40,7 @@ const meta = {
     variant: {
       control: 'select',
       description: 'Colore della chip, secondo le varianti di Bootstrap Italia.',
-      options: variants,
+      options: CHIP_VARIANTS,
     },
     dismissable: {
       control: 'boolean',
@@ -94,9 +91,19 @@ Per indicazioni su "Come e Quando usarlo" si fa riferimento alla [guida del desi
       },
     },
   },
-} satisfies Meta<ChipProps>;
+} satisfies Meta<
+  ChipProps & {
+    conIcona?: boolean;
+    conPulsanteDismiss?: boolean;
+  }
+>;
 export default meta;
-type Story = StoryObj<ChipProps>;
+type Story = StoryObj<
+  ChipProps & {
+    conIcona?: boolean;
+    conPulsanteDismiss?: boolean;
+  }
+>;
 
 const dismissTemplate = (label = 'Elimina etichetta') => html`
   <it-button
@@ -158,6 +165,23 @@ export const EsempioInterattivo: Story = {
   render: (params) => html`${renderComponent(params)}`,
 };
 
+export const PersonalizzazioneDegliStili: Story = {
+  name: 'Personalizzazione degli stili',
+  tags: ['!dev'],
+  parameters: {
+    viewMode: 'docs', // assicura che si apra la tab Docs anziché Canvas
+    docs: {
+      canvas: { hidden: true, sourceState: 'none' }, // nasconde solo il canvas nella docs page
+      description: {
+        story: `
+Per la personalizzazione degli stili si può usare il selettore \`::part\` passando il valore \`chip\`. [Vedi qui la guida dettagliata](/docs/personalizzazione-degli-stili--documentazione#selettore-part).
+`,
+      },
+    },
+  },
+  render: () => html`<div class="hide-preview"></div>`,
+};
+
 export const VarianteConLink: Story = {
   name: 'Variante con link',
   args: {
@@ -180,7 +204,7 @@ Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Boot
       },
     },
   },
-  render: (args) => html` ${variants.map((v) => renderComponent({ ...args, variant: v }))} `,
+  render: (args) => html` ${CHIP_VARIANTS.map((v) => renderComponent({ ...args, variant: v }))} `,
 };
 export const VariantiColoreLink: Story = {
   name: 'Varianti di colore link',
@@ -194,7 +218,7 @@ export const VariantiColoreLink: Story = {
       },
     },
   },
-  render: (args) => html` ${variants.map((v) => renderComponent({ ...args, variant: v, href: '#' }))} `,
+  render: (args) => html` ${CHIP_VARIANTS.map((v) => renderComponent({ ...args, variant: v, href: '#' }))} `,
 };
 
 export const VariantiDimensione: Story = {
@@ -204,7 +228,7 @@ export const VariantiDimensione: Story = {
     variant: '',
     dismissable: true,
   },
-  render: (args) => html`${sizes.map((s) => renderComponent({ ...args, size: s }))}`,
+  render: (args) => html`${CHIP_SIZES.map((s) => renderComponent({ ...args, size: s }))}`,
 };
 
 export const ChipConChiusura: Story = {

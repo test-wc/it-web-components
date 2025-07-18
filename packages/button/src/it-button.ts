@@ -20,6 +20,9 @@ export class ItButton extends BaseComponent {
   type = 'button';
 
   @property({ type: String })
+  label = 'button';
+
+  @property({ type: String })
   variant: Variants = '';
 
   @property({ type: String })

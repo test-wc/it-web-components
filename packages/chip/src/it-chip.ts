@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { BaseComponent } from '@italia/globals';
 import { customElement, property, queryAssignedElements } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ChipSize, ChipVariant } from './types.js';
 
 import styles from './it-chip.scss';
 
@@ -11,7 +12,7 @@ export class ItChip extends BaseComponent {
 
   @property({ type: Boolean }) dismissable = false;
 
-  @property({ type: String }) size: 'sm' | 'lg' = 'sm';
+  @property({ type: String }) size: ChipSize = 'sm';
 
   @property({ type: String }) avatar = '';
 
@@ -21,7 +22,7 @@ export class ItChip extends BaseComponent {
 
   @property({ type: String }) href = '';
 
-  @property({ type: String }) variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | '' = '';
+  @property({ type: String }) variant: ChipVariant = '';
 
   @property({ type: Boolean }) disabled = false;
 
