@@ -18,16 +18,11 @@
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 
 @import 'bootstrap-italia/src/scss/components/type';
-
-it-dropdown {
-  display: inline-block;
-}
-
-it-dropdown-item {
-  display: block;
-}
+@import 'bootstrap-italia/src/scss/components/linklist';
+@import 'bootstrap-italia/src/scss/components/dropdown';
 
 /*design-web-components global styles*/
 @import '@italia/button/styles/globals';
+@import '@italia/dropdown/styles/globals';
 @import '@italia/icon/styles/globals';
 @import '@italia/video/styles/globals';

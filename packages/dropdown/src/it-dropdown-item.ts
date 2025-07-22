@@ -27,8 +27,6 @@ export class ItDropdownItem extends BaseComponent {
 
   @property({ type: Boolean, reflect: true }) separator = false;
 
-  @property({ type: Boolean, reflect: true, attribute: 'full-width' }) fullWidth = false;
-
   public getFocusableElement(): HTMLElement | null {
     return this.shadowRoot?.querySelector('a, button') ?? null;
   }
@@ -42,11 +40,15 @@ export class ItDropdownItem extends BaseComponent {
       return html`<li><span class="divider" role="separator"></span></li>`;
     }
 
-    const classes = this.composeClass('list-item', 'dropdown-item', {
+    const itemClasses = this.composeClass({
+      dark: this.closest('it-dropdown')?.hasAttribute('dark'),
+      fw: this.closest('it-dropdown')?.hasAttribute('full-width'),
+    });
+
+    const linkClasses = this.composeClass('list-item', 'dropdown-item', {
       disabled: this.disabled,
       active: this.active,
       large: this.large,
-      'full-width': this.fullWidth,
     });
 
     const roleParent = this.closest('it-dropdown')?.getAttribute('role') ?? 'list';
@@ -62,16 +64,18 @@ export class ItDropdownItem extends BaseComponent {
     `;
 
     return html`
-      <li role=${ifDefined(roleAttr)} class=${classes}>
+      <li role="none" class=${ifDefined(itemClasses || undefined)}>
         ${this.href
           ? html`<a
+              class=${linkClasses}
               href=${this.href}
-              aria-disabled=${ifDefined(this.disabled)}
+              role=${ifDefined(roleAttr)}
+              aria-disabled=${ifDefined(this.disabled || undefined)}
               @keydown=${this.handlePress}
               @click=${this.handlePress}
-              >${content}</a
+              ><span>${content}</span></a
             >`
-          : html`<span>${content}</span>`}
+          : html`<span class="dropdown-item-text">${content}</span>`}
       </li>
     `;
   }

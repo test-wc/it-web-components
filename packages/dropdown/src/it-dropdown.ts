@@ -30,15 +30,19 @@ export class ItDropdown extends BaseComponent {
 
   @property({ type: String }) alignment: string = 'bottom-start';
 
+  @property({ type: Boolean }) dark = false;
+
+  @property({ type: Boolean, attribute: 'full-width' }) fullWidth = false;
+
   @state() private _popoverOpen = false;
 
   private _buttonId = this.generateId('it-dropdown');
 
   @query('it-popover') private _popover!: ItPopover;
 
-  @query('ul.dropdown-menu') private _menuEl!: HTMLUListElement;
+  @query('ul.link-list') private _menuEl!: HTMLUListElement;
 
-  @query('slot') private _slotEl!: HTMLSlotElement;
+  @query('slot:not([name])') private _slotEl!: HTMLSlotElement;
 
   private _ariaNav = new AriaKeyboardListController(this);
 
@@ -155,14 +159,22 @@ export class ItDropdown extends BaseComponent {
             size="sm"
           ></it-icon>
         </it-button>
-        <ul
+        <div
           slot="content"
-          class="${this.composeClass('link-list-wrapper link-list dropdown-menu', { show: this._popoverOpen })}"
-          ?role=${ifDefined(this.role)}
-          @keydown=${this._onKeyDown}
+          class="${this.composeClass('dropdown-menu', {
+            show: this._popoverOpen,
+            dark: this.dark,
+            'full-width': this.fullWidth,
+          })}"
+          aria-labelledby=${this._buttonId}
         >
-          <slot></slot>
-        </ul>
+          <div class="link-list-wrapper">
+            <slot name="header"></slot>
+            <ul class="link-list" ?role=${ifDefined(this.role)} @keydown=${this._onKeyDown}>
+              <slot></slot>
+            </ul>
+          </div>
+        </div>
       </it-popover>
     `;
   }

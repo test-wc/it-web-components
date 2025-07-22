@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '@italia/button';
 import '@italia/dropdown';
 import '@italia/icon';
@@ -24,6 +25,9 @@ type DropdownProps = {
     | 'left-end';
   variant?: string;
   size?: string;
+  role?: string;
+  dark?: boolean;
+  fullWidth?: boolean;
 };
 
 const containerStyle = 'width:500px;height:500px;margin:auto;display:flex;align-items:center;justify-content:center;';
@@ -39,6 +43,9 @@ const meta: Meta<DropdownProps> = {
     alignment: 'bottom-start',
     variant: 'primary',
     size: undefined,
+    role: 'menu',
+    dark: false,
+    fullWidth: false,
   },
   argTypes: {
     label: { control: 'text' },
@@ -69,6 +76,9 @@ const meta: Meta<DropdownProps> = {
       control: 'select',
       options: ['sm', 'lg'],
     },
+    role: { control: 'text' },
+    dark: { control: 'boolean' },
+    fullWidth: { control: 'boolean' },
   },
   parameters: {
     docs: {
@@ -95,6 +105,8 @@ export const Base: Story = {
         alignment=${args.alignment}
         size=${args.size}
         variant=${args.variant}
+        role=${args.role}
+        ?dark=${args.dark}
       >
         <it-dropdown-item href="#">Azione 1</it-dropdown-item>
         <it-dropdown-item href="#">Azione 2</it-dropdown-item>
@@ -220,6 +232,13 @@ export const ItemVarianti: Story = {
         <it-dropdown-item separator></it-dropdown-item>
         <it-dropdown-item href="#">Dopo separatore</it-dropdown-item>
       </it-dropdown>
+
+      <it-dropdown label="Menu con intestazione" variant="primary">
+        <h4 slot="header" class="link-list-heading dropdown-header">Intestazione</h4>
+        <it-dropdown-item href="#">Voce 1</it-dropdown-item>
+        <it-dropdown-item href="#">Voce 2</it-dropdown-item>
+        <it-dropdown-item href="#">Voce 3</it-dropdown-item>
+      </it-dropdown>
     </div>
   `,
   parameters: {
@@ -231,6 +250,70 @@ export const ItemVarianti: Story = {
 - \`large\` per item grande
 - \`full-width\` per item su tutta la larghezza
 - \`separator\` per divider`,
+      },
+    },
+  },
+};
+
+export const MenuATuttaLarghezza: Story = {
+  args: { fullWidth: true },
+  render: (args) => html`
+    <div style=${containerStyle}>
+      <it-dropdown
+        label=${args.label}
+        ?disabled=${args.disabled}
+        ?split=${args.split}
+        alignment=${ifDefined(args.alignment)}
+        size=${ifDefined(args.size)}
+        variant=${ifDefined(args.variant)}
+        role=${ifDefined(args.role)}
+        ?dark=${args.dark}
+        ?full-width=${args.fullWidth}
+        style="width: 100%;"
+      >
+        <it-dropdown-item href="#">Azione 1</it-dropdown-item>
+        <it-dropdown-item href="#">Azione 2</it-dropdown-item>
+        <it-dropdown-item href="#">Azione 3</it-dropdown-item>
+      </it-dropdown>
+    </div>
+  `,
+  parameters: {
+    ...meta.parameters,
+    docs: {
+      description: {
+        story: 'Dropdown con lista generata tramite item slottati (`<it-dropdown-item>`).',
+      },
+    },
+  },
+};
+
+export const MenuScuro: Story = {
+  args: { dark: true },
+  render: (args) => html`
+    <div style=${containerStyle}>
+      <it-dropdown
+        label=${args.label}
+        ?disabled=${args.disabled}
+        ?split=${args.split}
+        alignment=${args.alignment}
+        size=${args.size}
+        variant=${args.variant}
+        role=${args.role}
+        ?dark=${args.dark}
+      >
+        <h4 slot="header" class="link-list-heading dropdown-header">Intestazione</h4>
+        <it-dropdown-item href="#">Azione 1</it-dropdown-item>
+        <it-dropdown-item href="#">Azione 2</it-dropdown-item>
+        <it-dropdown-item separator></it-dropdown-item>
+        <it-dropdown-item href="#">Azione 3</it-dropdown-item>
+      </it-dropdown>
+    </div>
+  `,
+  parameters: {
+    ...meta.parameters,
+    docs: {
+      description: {
+        story: 'Dropdown con lista generata tramite item slottati (`<it-dropdown-item>`).',
       },
     },
   },
