@@ -132,6 +132,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     if (this.passwordStrengthMeter) {
       this._checkPasswordStrength(input.value);
     }
+    // this.checkValidity(); //rimosso da qui e spostato nel @blur perchè perde il focus il campo in caso di errore
   }
 
   override firstUpdated() {
@@ -160,9 +161,6 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   override updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated?.(changedProperties);
 
-    if (!changedProperties.get('validityMessage')) {
-      this.checkValidity();
-    }
     if (this.validationText?.length > 0) {
       this.setCustomValidity(this.validationText);
     }
@@ -329,6 +327,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
         <textarea
           ${setAttributes(this._ariaAttributes)}
           @input="${this.handleInput}"
+          @blur=${this.checkValidity}
           id="${ifDefined(this.id || undefined)}"
           name="${this.name}"
           ?disabled=${this.disabled}
@@ -347,6 +346,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
         <input
           ${setAttributes(this._ariaAttributes)}
           @input="${this.handleInput}"
+          @blur=${this.checkValidity}
           type="${this.type}"
           id="${ifDefined(this.id || undefined)}"
           name="${this.name}"

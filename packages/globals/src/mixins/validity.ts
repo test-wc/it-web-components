@@ -89,6 +89,7 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
      */
     checkValidity() {
       const status = this._testValidity();
+
       if (status !== VALIDATION_STATUS.NO_ERROR) {
         if (
           /* dispatchEvent():
@@ -106,8 +107,10 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
           this.invalid = true;
           this.validityMessage = this._getValidityMessage(status) as string;
         }
+
         return false;
       }
+
       this.invalid = false;
       this.validityMessage = '';
       return true;
