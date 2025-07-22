@@ -25,7 +25,7 @@
     "./styles.css": "./dist/styles.css"
   },
   "scripts": {
-    "build": "rollup --config rollup.config.js",
+    "build": "rollup --config rollup.config.js && cp -r dist examples/",
     "build:styles": "sass --style=compressed --silence-deprecation=import --load-path=node_modules styles/index.scss dist/styles.css",
     "clean": "rimraf node_modules .turbo .rollup.cache dist",
     "prepublish": "pnpm build",

@@ -1,4 +1,4 @@
-import { BaseComponent } from '@italia/globals';
+import { BaseComponent, setAttributes } from '@italia/globals';
 import { html, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -18,9 +18,6 @@ export class ItButton extends BaseComponent {
 
   @property({ type: String })
   type = 'button';
-
-  @property({ type: String })
-  label = 'button';
 
   @property({ type: String })
   variant: Variants = '';
@@ -96,7 +93,7 @@ export class ItButton extends BaseComponent {
         class="${this._buttonClasses}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
         .value="${ifDefined(this.value ? this.value : undefined)}"
-        aria-label="${ifDefined(this.label ? this.label : undefined)}"
+        ${setAttributes(this._ariaAttributes)}
       >
         <slot></slot>
       </button>

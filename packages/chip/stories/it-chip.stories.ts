@@ -108,7 +108,7 @@ type Story = StoryObj<
 const dismissTemplate = (label = 'Elimina etichetta') => html`
   <it-button
     slot="dismiss-button"
-    label="${label}"
+    aria-label="${label}"
     ?icon=${true}
     @click=${(e: Event) => {
       const chip = (e.currentTarget as HTMLElement).closest('it-chip');
@@ -256,7 +256,7 @@ Il codice JS dell'esempio gestisce la rimozione della chip sia via click che via
   <it-button
     slot="dismiss-button"
     icon
-    label="Elimina etichetta"
+    aria-label="Elimina etichetta"
   >
     <it-icon name="it-close" size="sm"></it-icon>
   </it-button>
