@@ -91,6 +91,10 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
       const status = this._testValidity();
       if (status !== VALIDATION_STATUS.NO_ERROR) {
         if (
+          /* dispatchEvent():
+            - restituisce true se nessuno ha chiamato event.preventDefault().
+            - restituisce false se qualcuno ha annullato l’evento (cioè preventDefault() è stato invocato su quell’evento).
+            */
           this.dispatchEvent(
             new CustomEvent('invalid', {
               bubbles: false,

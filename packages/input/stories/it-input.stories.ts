@@ -32,8 +32,8 @@ interface InputProps {
 }
 
 // Renderizza il wc it-input di default
-const renderComponent = (params: any) =>
-  html`<it-input
+const renderComponent = (params: any) => html`
+  <it-input
     id="${ifDefined(params.id || undefined)}"
     label="${ifDefined(params.label || undefined)}"
     type="${ifDefined(params.type || undefined)}"
@@ -55,7 +55,8 @@ const renderComponent = (params: any) =>
     ?suggestions="${params.suggestions}"
     translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
     >${ifDefined(params.children || undefined)}</it-input
-  >`;
+  >
+`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -116,6 +117,7 @@ const meta = {
       name: 'required-validity-message',
       control: 'text',
       description: 'Messaggio che viene mostrato quando il campo è obbligatorio e non viene compilato',
+      table: { defaultValue: { summary: 'Campo obbligatorio' } },
     },
     validityMessage: {
       name: 'validity-message',
@@ -525,6 +527,43 @@ export const Textarea: Story = {
       id: 'textarea-example',
       placeholder: 'Testo segnaposto',
       requiredValidityMessage: undefined,
+    })}
+  `,
+};
+
+export const GestioneErrori: Story = {
+  ...meta,
+  name: 'Gestione degli errori',
+  parameters: {
+    docs: {
+      description: {
+        story: `Se il campo è required,  viene effettuata una validazione interna al componente.
+        E' possibile personalizzare il messaggio di errore che viene mostrato quando il campo non è compilato, attraverso l'attributo \`required-validity-message\`.<br/><br/>
+        E' inoltre possibile validare il campo esternamente, impostando l'attributo \`validity-message\` nel caso in cui il campo non sia valido.`,
+      },
+    },
+  },
+
+  render: (params) => html`
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Campo obbligatorio',
+      name: 'required-example',
+      id: 'required-example',
+      placeholder: 'Testo segnaposto',
+      requiredValidityMessage: 'Questo campo è obbligatorio. Inserisci un valore.',
+      required: true,
+    })}
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Validazione esterna',
+      name: 'external-validation-example',
+      id: 'external-validation-example',
+      placeholder: 'Testo segnaposto',
+      validityMessage: 'Questo campo è obbligatorio!',
+      required: undefined,
     })}
   `,
 };

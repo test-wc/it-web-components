@@ -29,17 +29,17 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @property({ type: Boolean })
   slotted = false;
 
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true }) // from validity mixin
   invalid = false;
 
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true }) // from validity mixin
   required = false;
 
-  @property({ attribute: 'required-validity-message' })
+  @property({ attribute: 'required-validity-message' }) // from validity mixin
   requiredValidityMessage: string = 'Compila questo campo';
 
   @property({ attribute: 'validity-message' })
-  validityMessage: string = '';
+  validationText: string = '';
 
   @query('input')
   protected _inputElement!: HTMLInputElement;
@@ -91,7 +91,10 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @property({ type: Number })
   private _score = 0;
 
-  _value = '';
+  _value = ''; // from validity mixin
+
+  @property({ type: String })
+  public validityMessage: string = '';
 
   @property({ reflect: true })
   get value() {
@@ -151,6 +154,29 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     const attrValue = this.getAttribute('value');
     if (attrValue !== null) {
       this.value = attrValue;
+    }
+  }
+
+  override updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated?.(changedProperties);
+
+    if (!changedProperties.get('validityMessage')) {
+      this.checkValidity();
+    }
+    if (this.validationText?.length > 0) {
+      this.setCustomValidity(this.validationText);
+    }
+
+    if (this.passwordStrengthMeter && this.type !== 'password') {
+      this.logger.warn(
+        "The strength-meter property is enabled, but type isn't password. Please, remove strength-meter property.",
+      );
+    }
+
+    if (this.suggestions && this.type !== 'password') {
+      this.logger.warn(
+        "The suggestions property is enabled, but type isn't password. Please, remove suggestions this property.",
+      );
     }
   }
 
@@ -293,6 +319,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     const inputClasses = this.composeClass(
       this.plaintext ? 'form-control-plaintext' : 'form-control',
       this.size ? `form-control-${this.size}` : '',
+      this.invalid ? 'is-invalid' : '',
     );
 
     let inputRender;
@@ -308,6 +335,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           ?readonly=${this.readonly}
           .value="${this._value}"
           ?required=${this.required}
+          ?invalid=${this.invalid}
           part="textarea focusable"
           placeholder=${ifDefined(this.placeholder || undefined)}
           aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
@@ -326,12 +354,21 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           ?readonly=${this.readonly}
           .value="${this._value}"
           ?required=${this.required}
+          ?invalid=${this.invalid}
           part="input focusable"
           placeholder=${ifDefined(this.placeholder || undefined)}
           aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
           class="${inputClasses}"
-        />
-        ${this._renderTogglePasswordButton()}
+        />${this._renderTogglePasswordButton()}
+      `;
+    }
+
+    if (this.validityMessage?.length > 0) {
+      inputRender = html`
+        ${inputRender}
+        <div class="invalid-feedback form-feedback form-text form-feedback just-validate-error-label">
+          ${this.validityMessage}
+        </div>
       `;
     }
 
