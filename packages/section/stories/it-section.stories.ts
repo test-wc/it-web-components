@@ -45,7 +45,7 @@ function renderSection({
   content?: any;
 }) {
   return html`
-    <it-section variant="${variant || nothing}" image="${image || nothing}" ?inverse="${ifDefined(inverse) || nothing}">
+    <it-section variant="${variant || nothing}" image="${image || nothing}" ?inverse="${ifDefined(inverse)}">
       ${content || defaultContent}
     </it-section>
   `;
