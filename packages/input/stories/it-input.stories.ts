@@ -313,15 +313,7 @@ export const IconeOPulsanti: Story = {
   parameters: {
     docs: {
       description: {
-        story: `
-<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità delle icone</span></div>
-<p>
-Nel caso in cui l’icona è semanticamente rilevante e non spiegata dal testo che la segue, occorre:
-<ul><li>rimuovere \`aria-hidden="true"\`</li>
-<li>aggiungere \`role="img"\` sul tag \`<svg>\`</li>
-inserire all’interno il tag \`<title>\` con un titolo per l’icona che ne spieghi il significato (nel formato \`<title>significato icona</title>\`)
-</p></div></div>
-`,
+        story: `<div class="callout callout-success"><div class="callout-inner"><div class="callout-title"><span class="text">Accessibilità delle icone</span></div><p>Nel caso in cui l’icona è semanticamente rilevante e non spiegata dal testo che la segue, occorre passare al componente \`<it-icon>\` l'attributo \`label\` che ne spieghi il significato (nel formato \`<it-icon .... label="Significato dell'icona"/>\`)</p></div></div>`,
       },
     },
   },
@@ -346,10 +338,10 @@ export const Dimensioni: Story = {
   parameters: {
     docs: {
       description: {
-        story: `
-        L'input di base ha una dimensione media che non necessita alcuna classe aggiuntiva.
+        story: `L'input di base ha una dimensione media che non necessita di alcuna classe aggiuntiva.
 
-Per modificare questa dimensione, è possiible utilizzare l'attributo \`size\` il cui valore può essere \`sm\` oppure \`lg\`
+Per modificare questa dimensione, è possiible utilizzare l'attributo \`size\` il cui valore può essere \`sm\` oppure \`lg\`.
+
 Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attributo \`size\` sull'icona in questo modo:
 <table>
 <thead>
@@ -413,7 +405,7 @@ export const Disabilitato: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Aggiungi l’attributo \`disabled\` ad un it-input per impedire la modifica del valore contenuto e non inviare i dati in esso contenuti.`,
+        story: `Aggiungi l’attributo \`disabled\` ad un \`<it-input>\` per impedire la modifica del valore contenuto e non inviare i dati in esso contenuti.`,
       },
     },
   },
@@ -436,7 +428,7 @@ export const Readonly: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Aggiungi l’attributo \`readonly\` ad un it-input per impedire la modifica del valore contenuto.
+        story: `Aggiungi l’attributo \`readonly\` ad un \`<it-input>\` per impedire la modifica del valore contenuto.
 <br/><br/><h4>Readonly normalizzato</h4>Se per qualche motivo vuoi avere gli elementi input readonly nella forma stilizzata come testo, aggiungi l'attributo \`plaintext\` a \`<it-input>\`.`,
       },
     },
@@ -473,12 +465,15 @@ export const Password: Story = {
     docs: {
       description: {
         story: `Per semplificare l’inserimento della password, il componente \`<it-input>\` di tipo password include un pulsante che mostra i caratteri digitati.
-        È inoltre possibile aggiungere un testo di supporto che aiuti nella compilazione.
+        È inoltre possibile aggiungere un testo di supporto che aiuti nella compilazione, attraverso l’attributo \`support-text\`.
         <br/><br/>
         <h4>Misuratore sicurezza e suggerimenti</h4>
-Nel caso di un campo per la scelta di una nuova password, è possibile abbinare controlli per segnalare quanto la password che si sta inserendo segua alcuni suggerimenti di sicurezza, come la lunghezza minima o l’uso di caratteri speciali.
+Nel caso di un campo per la scelta di una nuova password, è possibile abbinare controlli per segnalare quanto la password che si sta inserendo segua alcuni suggerimenti di sicurezza, come la lunghezza minima o l’uso di caratteri speciali, attraverso gli attributi \`strength-meter="true"\` e \`min-password-length\` per modificare la lunghezza minima richiesta per la password.
 
-Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con indicati quelli che sono soddistatti.
+Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con indicati quelli che sono stati soddisfatti, attraverso l’attributo \`suggestions="true"\`.
+<br/><br/>
+<h4>Traduzioni</h4>
+Per modificare le traduzioni dei messaggi generati dal componente, è possibile utilizzare l'attributo \`translations\`, che accetta un oggetto JSON con le chiavi corrispondenti ai messaggi da modificare. Le chiavi disponibili sono consultabili nella documentazione degli attributi del componente \`<it-input>\`.
 `,
       },
     },
@@ -505,7 +500,7 @@ Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con in
       passwordStrengthMeter: true,
       minPasswordLength: 10,
       suggestions: true,
-      translations: { shortPassword: 'Password debole' },
+      translations: { shortPassword: 'Password troppo corta.' },
     })}
   `,
 };
@@ -516,7 +511,7 @@ export const Textarea: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Per permettere agli utenti di inserire un testo esteso (ad esempio per lasciare commenti o informazioni), è bene utilizzare un elemento <it-input> con \`type="textarea"\`.`,
+        story: `Per permettere agli utenti di inserire un testo esteso (ad esempio per lasciare commenti o informazioni), è bene utilizzare un elemento \`<it-input>\` con \`type="textarea"\`.`,
       },
     },
   },

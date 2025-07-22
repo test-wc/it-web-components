@@ -1,3 +1,4 @@
+import { type Suggestion } from '../types.js';
 /**
  * Checks for repetition of characters in
  * a string
@@ -128,4 +129,43 @@ const scoreText = (score: number, messages: any) => {
   }
   return messages.strongPass;
 };
-export { calculateScore, scoreColor, scoreText };
+
+const suggestionsConfig: Array<Suggestion> = [
+  {
+    key: 'length',
+    text: (config) => config.suggestionLength.replace('{minLength}', config.minimumLength.toString()),
+    test: (password, config) => password.length >= config.minimumLength,
+  },
+  {
+    key: 'uppercase',
+    text: (config) => config.suggestionUppercase,
+    test: (password) => /[A-Z]/.test(password),
+  },
+  {
+    key: 'lowercase',
+    text: (config) => config.suggestionLowercase,
+    test: (password) => /[a-z]/.test(password),
+  },
+  {
+    key: 'number',
+    text: (config) => config.suggestionNumber,
+    test: (password) => /[0-9]/.test(password),
+  },
+  {
+    key: 'special',
+    text: (config) => config.suggestionSpecial,
+    test: (password) => /[^A-Za-z0-9]/.test(password),
+  },
+];
+
+const calcCompletedSuggestions = (_suggestions: Array<Suggestion>, password: string, config: Record<string, any>) => {
+  let completedCount = 0;
+  const totalCount = _suggestions.length;
+  _suggestions.forEach((sugg) => {
+    if (sugg.test(password, config)) {
+      completedCount += 1;
+    }
+  });
+  return { completedCount, totalCount };
+};
+export { calculateScore, scoreColor, scoreText, suggestionsConfig, calcCompletedSuggestions };

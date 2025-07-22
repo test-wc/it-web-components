@@ -8,6 +8,14 @@ export const DEFAULT_TRANSLATIONS = {
   strongPass: 'Password sicura.',
   ariaLabelPasswordMeter: 'Robustezza della password',
   suggestionsLabel: 'Suggerimenti per una buona password:',
+  suggestionLength: 'Almeno {minLength} caratteri.',
+  suggestionUppercase: 'Una o più maiuscole.',
+  suggestionLowercase: 'Una o più minuscole.',
+  suggestionNumber: 'Uno o più numeri.',
+  suggestionSpecial: 'Uno o più caratteri speciali.',
+  suggestionFollowed: 'suggerimenti seguito',
+  suggestionFollowedPlural: 'suggerimenti seguiti',
+  suggestionOf: 'di',
 };
 
 export const INPUT_SIZES = ['sm', undefined, 'lg'];
@@ -17,6 +25,6 @@ export type Sizes = (typeof INPUT_SIZES)[number];
 
 export type Suggestion = {
   key: string | number;
-  text: string;
-  met: boolean;
+  text: (config: Record<string, any>) => string;
+  test: (password: string, config: Record<string, any>) => boolean;
 };

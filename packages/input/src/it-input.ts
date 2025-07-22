@@ -3,7 +3,13 @@ import { html, nothing } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
-import { calculateScore, scoreColor, scoreText } from './helpers/password.js';
+import {
+  calculateScore,
+  scoreColor,
+  scoreText,
+  suggestionsConfig,
+  calcCompletedSuggestions,
+} from './helpers/password.js';
 
 import { DEFAULT_TRANSLATIONS, type InputType, type Sizes, type Suggestion } from './types.js';
 
@@ -82,19 +88,16 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @property({ type: String })
   private _strengthInfos = '';
 
-  @property({ type: Array<Suggestion> })
-  private _passwordSuggestions = '';
+  @property({ type: Number })
+  private _score = 0;
 
   _value = '';
 
   @property({ reflect: true })
   get value() {
-    // FIXME: Figure out how to deal with TS2611
-    // once we have the input we can directly query for the value
     if (this._inputElement) {
       return this._inputElement.value;
     }
-    // but before then _value will work fine
     return this._value;
   }
 
@@ -151,9 +154,9 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     }
   }
 
-  private getTranslation(id: string): string {
+  private getTranslations(): Record<string, string> {
     const _t: Record<string, string> = { ...DEFAULT_TRANSLATIONS, ...this.translations };
-    return _t[id];
+    return _t;
   }
 
   private _togglePasswordVisibility() {
@@ -164,46 +167,33 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   }
 
   private _checkPasswordStrength(value: string) {
-    const score = calculateScore(value, this.minPasswordLength);
-    this._updatePasswordMeter(score);
-    this._updatePasswordText(score, value);
-    // this._updateSuggestions(password)
+    this._score = calculateScore(value, this.minPasswordLength);
+    this._updateStrengthInfos();
   }
 
-  private _updatePasswordMeter(score: number) {
-    const perc: number = score < 0 ? 0 : score;
-    const meter = this.renderRoot.querySelector('.progress-bar') as HTMLElement;
-    if (meter) {
-      meter.classList.forEach((className) => {
-        if (className.match(/(^|\s)bg-\S+/g)) {
-          meter.classList.remove(className);
-        }
-      });
-      meter.classList.add(`bg-${scoreColor(score)}`);
-      meter.style.width = `${perc}%`;
-      meter.setAttribute('aria-valuenow', perc.toString());
-    }
+  private _getPasswordConfig() {
+    return {
+      ...this.getTranslations(),
+      minimumLength: this.minPasswordLength,
+    };
   }
 
-  private _updatePasswordText(score, password) {
-    //this._strengthInfos
-    let text = scoreText(score, this.translations);
-    if (this.suggestions) {
-      const { completedCount, totalCount } = this._getCompletedSuggestions(password);
-      const suggestionText =
-        completedCount === 1 ? this._config.suggestionFollowed : this._config.suggestionFollowedPlural;
-      text += ` ${completedCount} ${this._config.suggestionOf} ${totalCount} ${suggestionText}.`;
+  private _updateStrengthInfos() {
+    let text = scoreText(this._score, this.getTranslations());
+    if (suggestionsConfig) {
+      const { completedCount, totalCount } = calcCompletedSuggestions(
+        suggestionsConfig,
+        this.value,
+        this._getPasswordConfig(),
+      );
+      const suggestionOfText =
+        completedCount === 1
+          ? this.getTranslations().suggestionFollowed
+          : this.getTranslations().suggestionFollowedPlural;
+
+      text += ` ${completedCount} ${this.getTranslations().suggestionOf} ${totalCount} ${suggestionOfText}.`;
     }
-    if (this._textElement.textContent !== text) {
-      this._textElement.textContent = text;
-      this._textElement.classList.forEach((className) => {
-        if (className.match(/(^|\s)text-\S+/g)) {
-          this._textElement.classList.remove(className);
-        }
-      });
-      this._textElement.classList.add(`text-${this._scoreColor(score)}`);
-      EventHandler.trigger(this._element, EVENT_TEXT);
-    }
+    this._strengthInfos = text;
   }
 
   private _renderTogglePasswordButton() {
@@ -217,7 +207,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           aria-checked="${this._passwordVisible}"
           @click="${this._togglePasswordVisibility}"
         >
-          <span class="visually-hidden">${this.getTranslation('showHidePassword')}</span>
+          <span class="visually-hidden">${this.getTranslations().showHidePassword}</span>
           <it-icon
             name="${this._passwordVisible ? 'it-password-visible' : 'it-password-invisible'}"
             size="sm"
@@ -228,42 +218,57 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     return nothing;
   }
 
+  private _renderSuggestions() {
+    return this.suggestions
+      ? html`<div class="strength-meter-suggestions small form-text text-muted">
+          <label class="visually-hidden" for="suggestions">${this.getTranslations().suggestionsLabel}</label>
+          <div class="password-suggestions">
+            ${suggestionsConfig.map((sugg: Suggestion) => {
+              const isMet = sugg.test(this.value, this._getPasswordConfig());
+              return html`
+                <div class="suggestion">
+                  ${isMet
+                    ? html` <svg
+                        class="icon icon-xs me-1"
+                        aria-label="${this.getTranslations().suggestionMetLabel}"
+                        viewBox="0 0 24 24"
+                        style="width: 1em; height: 1em;"
+                      >
+                        <path d="M9.6 16.9 4 11.4l.8-.7 4.8 4.8 8.5-8.4.7.7-9.2 9.1z"></path>
+                      </svg>`
+                    : nothing}
+                  <span>${sugg.text(this._getPasswordConfig())}</span>
+                </div>
+              `;
+            })}
+          </div>
+        </div>`
+      : nothing;
+  }
+
   private _renderpasswordStrengthMeter() {
     if (this.type === 'password' && this.passwordStrengthMeter) {
+      const perc = this._score < 0 ? 0 : this._score;
+      const color = this._value?.length === 0 ? 'muted' : scoreColor(this._score);
       return html`<div class="password-strength-meter">
-        ${this.suggestions
-          ? html`<div class="strenght-meter-suggestions small form-text text-muted">
-              <label class="visually-hidden" for="suggestions">${this.translations.suggestionsLabel}</label>
-              <div class="password-suggestions">
-                <div class="suggestion">
-                  <svg
-                    class="icon icon-xs me-1"
-                    aria-label="Soddisfatto: "
-                    viewBox="0 0 24 24"
-                    style="width: 1em; height: 1em;"
-                  >
-                    <path d="M9.6 16.9 4 11.4l.8-.7 4.8 4.8 8.5-8.4.7.7-9.2 9.1z"></path></svg
-                  ><span>Almeno 8 caratteri.</span>
-                </div>
-              </div>
-            </div>`
-          : nothing}
+        ${this._renderSuggestions()}
 
         <p
           id=${`strengthMeterInfo_${this.id}`}
-          class="strength-meter-info small form-text text-muted pt-0"
+          class="${`strength-meter-info small form-text pt-0 text-${color}`}"
           aria-live="polite"
         >
           ${this._strengthInfos}
         </p>
         <div class="password-meter progress rounded-0 position-absolute">
           <div
-            class="progress-bar bg-muted"
+            class="${this.composeClass('progress-bar', `bg-${color}`)}"
+            style="width: ${perc}%"
             role="progressbar"
-            aria-valuenow="0"
+            aria-valuenow="${perc}"
             aria-valuemin="0"
             aria-valuemax="100"
-            aria-label="${this.getTranslation('ariaLabelPasswordMeter')}"
+            aria-label="${this.getTranslations().ariaLabelPasswordMeter}"
           >
             <div class="row position-absolute w-100 m-0">
               <div class="col-3 border-start border-end border-white"></div>
