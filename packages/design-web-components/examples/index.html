@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test Web Components</title>
+    <!-- Importa lo script del tuo Web Component -->
+  <script type="module" src="dist/elements.js"></script>
+  <!-- <link rel="stylesheet" href="../node_modules/bootstrap-italia/dist/css/bootstrap-italia.min.css" /> -->
+  <link rel="stylesheet" href="dist/design-web-components.css" />
+
+
+
+</head>
+<body>
+  <!-- Usa il tuo Web Component -->
+    <!-- ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?disabled="${params.disabled}"
+        type="${params.type}" -->
+        <main>
+
+
+          <div class="container my-5">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <section>
+              <h2>it-video</h2>
+              <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
+            </section>
+            <section>
+              <h2>it-button</h2>
+              <it-button
+                  variant="success"
+                  size="lg"
+                  icon
+                >
+                  <it-icon name="it-star-full" color="white"></it-icon> <span>Pulsante con icona</span>
+              </it-button>
+            </section>
+
+
+            <section>
+              <h2>it-icon</h2>
+              <it-icon name="it-star-full" color="primary" size="xl" label="stella"></it-icon>
+            </section>
+            <section class="mb-5">
+              <h2>it-chip</h2>
+              <div class="d-flex align-items-center gap-4">
+
+                <it-chip
+                  label="Chip con icona"
+                  dismissable
+                  variant="primary"
+                  size="lg"
+                >
+                <it-icon name="it-star-full" color="primary" slot="icon" size="sm"></it-icon>
+                  <it-button
+                    slot="dismiss-button" aria-label="Dismissable">
+                      <it-icon name="it-close" color="primary" size="sm"></it-icon></it-icon>
+                  </it-button>
+                </it-chip>
+                <it-chip
+                  label="Chip con avatar"
+                  avatar="https://randomuser.me/api/portraits/women/44.jpg"
+                  variant="primary"
+                  size="lg"
+                ></it-chip>
+                <it-chip
+                  label="Disabilitato"
+                  variant="primary"
+                  size="lg"
+                  disabled
+                ></it-chip>
+              </div>
+            </section>
+
+          </div>
+        </main>
+</body>
+</html>
