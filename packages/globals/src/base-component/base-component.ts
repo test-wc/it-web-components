@@ -23,6 +23,11 @@ export class BaseComponent extends LitElement {
   constructor() {
     super();
     this.logger = new Logger(this.tagName.toLowerCase());
+
+    // di default, tutti i componenti hanno un id (se non viene passato, viene generato)
+    if (!this.id) {
+      this.id = this.generateId(this.tagName.toLowerCase());
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
