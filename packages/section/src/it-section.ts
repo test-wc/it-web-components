@@ -17,8 +17,6 @@ export class ItSection extends BaseComponent {
   @queryAssignedElements({ flatten: true })
   private assignedElements!: HTMLElement[];
 
-  private _id = this.generateId('it-section');
-
   updated(changedProps: PropertyValues) {
     super.updated(changedProps);
 
@@ -28,7 +26,7 @@ export class ItSection extends BaseComponent {
       this.assignedElements.flatMap((el) => Array.from(el.querySelectorAll('h1, h2, h3, h4, h5, h6')))[0];
 
     if (heading && !heading.id) {
-      heading.id = this._id;
+      heading.id = this.id;
     }
   }
 
@@ -43,7 +41,7 @@ export class ItSection extends BaseComponent {
     }
 
     const firstHeading = headings[0];
-    firstHeading.id = this._id;
+    firstHeading.id = this.id;
   }
 
   render() {
@@ -57,7 +55,7 @@ export class ItSection extends BaseComponent {
       'white-color': this.inverse,
     };
     return html`
-      <section aria-labelledby="${this._id}" class="${classMap(wrapperClasses)}" part="section">
+      <section aria-labelledby="${this.id}" class="${classMap(wrapperClasses)}" part="section">
           ${
             this.image
               ? html`
