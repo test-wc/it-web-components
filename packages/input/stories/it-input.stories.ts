@@ -16,7 +16,6 @@ interface InputProps {
   disabled?: boolean;
   invalid: boolean;
   required: boolean;
-  requiredValidityMessage: string;
   validityMessage: string;
   readonly: boolean;
   plaintext: boolean;
@@ -25,7 +24,8 @@ interface InputProps {
   value: string;
   slotted: boolean;
   passwordStrengthMeter: boolean;
-  minPasswordLength: number;
+  minlength: number;
+  maxlength: number;
   suggestions: boolean;
   translations: Record<string, string>;
   size: Sizes;
@@ -43,7 +43,6 @@ const renderComponent = (params: any) => html`
     ?required="${params.required}"
     ?readonly="${params.readonly}"
     ?plaintext="${params.plaintext}"
-    required-validity-message="${ifDefined(params.requiredValidityMessage || undefined)}"
     validity-message="${ifDefined(params.validityMessage || undefined)}"
     placeholder="${ifDefined(params.placeholder || undefined)}"
     support-text="${ifDefined(params.supportText || undefined)}"
@@ -51,7 +50,8 @@ const renderComponent = (params: any) => html`
     size="${ifDefined(params.size || undefined)}"
     ?slotted="${params.slotted}"
     ?strength-meter="${params.passwordStrengthMeter}"
-    min-password-length="${params.minPasswordLength}"
+    minlength="${params.minlength}"
+    maxlength="${params.maxlength}"
     ?suggestions="${params.suggestions}"
     translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
     >${ifDefined(params.children || undefined)}</it-input
@@ -71,7 +71,6 @@ const meta = {
     disabled: false,
     invalid: false,
     required: false,
-    requiredValidityMessage: 'Campo obbligatorio',
     validityMessage: '',
     placeholder: '',
     supportText: '',
@@ -81,7 +80,8 @@ const meta = {
     plaintext: false,
     slotted: false,
     passwordStrengthMeter: false,
-    minPasswordLength: undefined,
+    minlength: undefined,
+    maxlength: undefined,
     suggestions: false,
     translations: DEFAULT_TRANSLATIONS,
   },
@@ -112,12 +112,6 @@ const meta = {
       control: 'boolean',
       type: 'boolean',
       table: { defaultValue: { summary: 'false' } },
-    },
-    requiredValidityMessage: {
-      name: 'required-validity-message',
-      control: 'text',
-      description: 'Messaggio che viene mostrato quando il campo è obbligatorio e non viene compilato',
-      table: { defaultValue: { summary: 'Campo obbligatorio' } },
     },
     validityMessage: {
       name: 'validity-message',
@@ -169,11 +163,14 @@ const meta = {
       description: "Se si vuole mostrare o meno il misuratore di robustezza della password nel caso di type='password'",
       table: { defaultValue: { summary: 'false' } },
     },
-    minPasswordLength: {
-      name: 'min-password-length',
+    minlength: {
       type: 'number',
-      description: 'Lunghezza minima della password. Usato per validare la robustezza della password',
-      table: { defaultValue: { summary: '8' } },
+      description: 'Lunghezza minima del valore da inserire. Usato anche per validare la robustezza della password',
+      table: { defaultValue: { summary: 'undefined. Se type="password": 8' } },
+    },
+    maxlength: {
+      type: 'number',
+      description: 'Lunghezza massima del valore da inserire.',
     },
     suggestions: {
       name: 'suggestions',
@@ -369,7 +366,6 @@ Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attr
       id: 'field-big-example',
       placeholder: 'Testo segnaposto',
       size: 'lg',
-      requiredValidityMessage: undefined,
       slotted: true,
       children: html`<it-icon name="it-pencil" slot="icon" size="md"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
@@ -381,7 +377,6 @@ Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attr
       name: 'field-sizebase-example',
       id: 'field-sizebase-example',
       placeholder: 'Testo segnaposto',
-      requiredValidityMessage: undefined,
       slotted: true,
       children: html`<it-icon name="it-pencil" slot="icon" size="sm"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
@@ -394,7 +389,6 @@ Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attr
       id: 'field-small-example',
       placeholder: 'Testo segnaposto',
       size: 'sm',
-      requiredValidityMessage: undefined,
       slotted: true,
       children: html`<it-icon name="it-pencil" slot="icon" size="xs"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
@@ -420,7 +414,6 @@ export const Disabilitato: Story = {
       name: 'field-disabled-example',
       id: 'field-disabled-example',
       disabled: true,
-      requiredValidityMessage: undefined,
     })}
   `,
 };
@@ -444,7 +437,6 @@ export const Readonly: Story = {
       name: 'field-readonly-example',
       id: 'field-readonly-example',
       readonly: true,
-      requiredValidityMessage: undefined,
       value: 'Contenuto in sola lettura',
     })}
     ${renderComponent({
@@ -455,7 +447,6 @@ export const Readonly: Story = {
       id: 'field-readonlyplaintext-example',
       readonly: true,
       plaintext: true,
-      requiredValidityMessage: undefined,
       value: 'Contenuto in sola lettura',
     })}
   `,
@@ -470,7 +461,7 @@ export const Password: Story = {
         È inoltre possibile aggiungere un testo di supporto che aiuti nella compilazione, attraverso l’attributo \`support-text\`.
         <br/><br/>
         <h4>Misuratore sicurezza e suggerimenti</h4>
-Nel caso di un campo per la scelta di una nuova password, è possibile abbinare controlli per segnalare quanto la password che si sta inserendo segua alcuni suggerimenti di sicurezza, come la lunghezza minima o l’uso di caratteri speciali, attraverso gli attributi \`strength-meter="true"\` e \`min-password-length\` per modificare la lunghezza minima richiesta per la password.
+Nel caso di un campo per la scelta di una nuova password, è possibile abbinare controlli per segnalare quanto la password che si sta inserendo segua alcuni suggerimenti di sicurezza, come la lunghezza minima o l’uso di caratteri speciali, attraverso gli attributi \`strength-meter="true"\` e \`minlength\` per modificare la lunghezza minima richiesta per la password.
 
 Inoltre, è possibile restituire all’utente una lista dei suggerimenti, con indicati quelli che sono stati soddisfatti, attraverso l’attributo \`suggestions="true"\`.
 <br/><br/>
@@ -489,7 +480,6 @@ Per modificare le traduzioni dei messaggi generati dal componente, è possibile 
       name: 'field-password-example',
       id: 'field-password-example',
       supportText: 'Inserisci almeno 8 caratteri e alcuni caratteri speciali.',
-      requiredValidityMessage: undefined,
     })}
     ${renderComponent({
       ...params,
@@ -498,9 +488,8 @@ Per modificare le traduzioni dei messaggi generati dal componente, è possibile 
       name: 'field-password-strength-example',
       id: 'field-password-strength-example',
       supportText: 'Inserisci almeno 10 caratteri e alcuni caratteri speciali.',
-      requiredValidityMessage: undefined,
       passwordStrengthMeter: true,
-      minPasswordLength: 10,
+      minlength: 10,
       suggestions: true,
       translations: { shortPassword: 'Password troppo corta.' },
     })}
@@ -526,7 +515,6 @@ export const Textarea: Story = {
       name: 'textarea-example',
       id: 'textarea-example',
       placeholder: 'Testo segnaposto',
-      requiredValidityMessage: undefined,
     })}
   `,
 };
@@ -537,9 +525,13 @@ export const GestioneErrori: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Se il campo è required,  viene effettuata una validazione interna al componente.
-        E' possibile personalizzare il messaggio di errore che viene mostrato quando il campo non è compilato, attraverso l'attributo \`required-validity-message\`.<br/><br/>
-        E' inoltre possibile validare il campo esternamente, impostando l'attributo \`validity-message\` nel caso in cui il campo non sia valido.`,
+        story: `Se sono stati impostati uno di questi attributi <ul><li>\`required\`</li><li>\`pattern\`</li><li>\`minlength\`</li></ul> viene effettuata una validazione interna al componente.
+<br/><br/>E' inoltre possibile validare il campo esternamente, impostando l'attributo \`validity-message\` nel caso in cui il campo non sia valido.
+ <br/><br/><h4>Personalizzazione dei messaggi di errore</h4>E' possibile personalizzare i messaggi di errore tramite l'attributo \`translations\` a seconda che:
+       <ul><li>il campo è required e non è compilato: impostando il valore di \`validityRequired\` in \`translations\`</li>
+        <li>il campo non rispetta il pattern: impostando il valore di \`validityPattern\` in \`translations\`</li>
+        <li>il campo è troppo corto: impostando il valore di \`validityMinlength\` in \`translations\`</li>
+        <li>il campo ha un valore non valido: impostando il valore di \`validityInvalid\` in \`translations\`</li></ul>`,
       },
     },
   },
@@ -552,7 +544,9 @@ export const GestioneErrori: Story = {
       name: 'required-example',
       id: 'required-example',
       placeholder: 'Testo segnaposto',
-      requiredValidityMessage: 'Questo campo è obbligatorio. Inserisci un valore.',
+      translations: {
+        validityRequired: 'Questo campo è obbligatorio. Inserisci un valore.',
+      },
       required: true,
     })}
     ${renderComponent({

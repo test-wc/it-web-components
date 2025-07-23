@@ -16,6 +16,10 @@ export const DEFAULT_TRANSLATIONS = {
   suggestionFollowed: 'suggerimenti seguito',
   suggestionFollowedPlural: 'suggerimenti seguiti',
   suggestionOf: 'di',
+  validityRequired: 'Questo campo è obbligatorio.',
+  validityInvalid: 'Il valore non è corretto.',
+  validityPattern: 'Il valore non corrisponde al formato richiesto.',
+  validityMinlength: 'Il valore deve essere lungo almeno {minlength} caratteri.',
 };
 
 export const INPUT_SIZES = ['sm', undefined, 'lg'];

@@ -1,6 +1,6 @@
 import { BaseComponent, FormMixin, ValidityMixin, setAttributes } from '@italia/globals';
 import { html, nothing } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
 import {
@@ -34,9 +34,6 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   @property({ type: Boolean, reflect: true }) // from validity mixin
   required = false;
-
-  @property({ attribute: 'required-validity-message' }) // from validity mixin
-  requiredValidityMessage: string = 'Compila questo campo';
 
   @property({ attribute: 'validity-message' })
   validationText: string = '';
@@ -76,27 +73,35 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @property({ type: Boolean })
   suggestions = false;
 
-  @property({ type: Number, attribute: 'min-password-length' })
-  minPasswordLength = 8;
+  @property({ type: Number })
+  minlength = -1;
+
+  @property({ type: Number })
+  maxlength = -1;
 
   @property({ type: Object })
   translations = DEFAULT_TRANSLATIONS;
 
-  @property({ type: Boolean })
+  /**
+   * Pattern the `value` must match to be valid
+   */
+  @property({ type: String })
+  public pattern?: string;
+
+  @state()
   private _passwordVisible = false;
 
-  @property({ type: String })
+  @state()
   private _strengthInfos = '';
 
-  @property({ type: Number })
+  @state()
   private _score = 0;
 
+  @state()
   _value = ''; // from validity mixin
 
   @property({ type: String })
   public validityMessage: string = '';
-
-  @property({ type: Function }) onBlur?: (e: FocusEvent) => void;
 
   @property({ reflect: true })
   get value() {
@@ -114,7 +119,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     this.requestUpdate('value', oldValue);
     // we set the value directly on the input (when available)
     // so that programatic manipulation updates the UI correctly
-    if (this._inputElement) {
+    if (this._inputElement.value !== value) {
       this._inputElement.value = value;
     }
   }
@@ -144,8 +149,13 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     );
   }
 
+  private _checkValidity() {
+    const inputValid = this._inputElement ? this._inputElement.checkValidity() : true;
+    return this.checkValidity(this.getTranslations(), inputValid);
+  }
+
   private _handleBlur() {
-    this.checkValidity();
+    this._checkValidity();
     this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
   }
 
@@ -189,12 +199,26 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     if (attrValue !== null) {
       this.value = attrValue;
     }
+    if (this.type === 'password' && this.minlength < 0) {
+      this.minlength = 8; // set default minlength for password
+    }
   }
+
+  // protected override update(changedProperties: Map<string | number | symbol, unknown>): void {
+  //   if (changedProperties.has('value') || (changedProperties.has('required') && this.required)) {
+  //     this.updateComplete.then(() => {
+  //       this._checkValidity();
+  //     });
+  //   }
+
+  //   super.update(changedProperties);
+  // }
 
   override updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated?.(changedProperties);
 
-    if (this.validationText?.length > 0) {
+    if (this.validationText?.length > 0 || this.invalid) {
+      this.internals.setValidity({ customError: this.invalid }, this.validationText);
       this.setCustomValidity(this.validationText);
     }
 
@@ -224,14 +248,14 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   }
 
   private _checkPasswordStrength(value: string) {
-    this._score = calculateScore(value, this.minPasswordLength);
+    this._score = calculateScore(value, this.minlength);
     this._updateStrengthInfos();
   }
 
   private _getPasswordConfig() {
     return {
       ...this.getTranslations(),
-      minimumLength: this.minPasswordLength,
+      minimumLength: this.minlength,
     };
   }
 
@@ -359,7 +383,10 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     if (this.type === 'textarea') {
       inputRender = html`
         <textarea
+          part="textarea focusable"
           ${setAttributes(this._ariaAttributes)}
+          aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
+          ?aria-invalid=${this.invalid}
           @input="${this._handleInput}"
           @blur=${this._handleBlur}
           @focus=${this._handleFocus}
@@ -369,20 +396,19 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           name="${this.name}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
-          .value="${this._value}"
           ?required=${this.required}
-          ?invalid=${this.invalid}
-          ?aria-invalid=${this.invalid}
-          part="textarea focusable"
+          .value="${this._value}"
           placeholder=${ifDefined(this.placeholder || undefined)}
-          aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
           class="${inputClasses}"
         ></textarea>
       `;
     } else {
       inputRender = html`
         <input
+          part="input focusable"
           ${setAttributes(this._ariaAttributes)}
+          aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
+          ?aria-invalid=${this.invalid}
           @input="${this._handleInput}"
           @blur=${this._handleBlur}
           @focus=${this._handleFocus}
@@ -393,13 +419,9 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           name="${this.name}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
-          .value="${this._value}"
           ?required=${this.required}
-          ?invalid=${this.invalid}
-          ?aria-invalid=${this.invalid}
-          part="input focusable"
+          .value="${this._value}"
           placeholder=${ifDefined(this.placeholder || undefined)}
-          aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
           class="${inputClasses}"
         />${this._renderTogglePasswordButton()}
       `;
