@@ -413,7 +413,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           id="invalid-feedback-${this._id}"
           class="invalid-feedback form-feedback form-text form-feedback just-validate-error-label"
         >
-          ${this.validityMessage}
+          <span class="visually-hidden">${this.label}: </span>${this.validityMessage}
         </div>
       `;
     }
