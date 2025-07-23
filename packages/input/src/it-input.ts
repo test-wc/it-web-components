@@ -119,7 +119,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     }
   }
 
-  private _handleFormdata(event: FormDataEvent) {
+  _handleFormdata(event: FormDataEvent) {
     // Add name and value to the form's submission data if it's not disabled.
     if (!this.disabled) {
       const { formData } = event;
@@ -311,7 +311,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
         ${this._renderSuggestions()}
 
         <p
-          id=${`strengthMeterInfo_${this.id}`}
+          id=${`strengthMeterInfo_${this._id}`}
           class="${`strength-meter-info small form-text pt-0 text-${color}`}"
           aria-live="polite"
         >
@@ -343,7 +343,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   private _renderInput(supportTextId: string) {
     const ariaDescribedBy = this.composeClass(
       this.supportText?.length > 0 ? supportTextId : '',
-      this.passwordStrengthMeter ? `strengthMeterInfo_${this.id}` : '',
+      this.passwordStrengthMeter ? `strengthMeterInfo_${this._id}` : '',
       this._ariaAttributes['aria-describedby']?.length > 0 ? this._ariaAttributes['aria-describedby'] : '',
     );
 
@@ -364,7 +364,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           @focus=${this._handleFocus}
           @click=${this._handleClick}
           @change=${this._handleChange}
-          id="${ifDefined(this.id || undefined)}"
+          id="${this._id}"
           name="${this.name}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
@@ -387,7 +387,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           @click=${this._handleClick}
           @change=${this._handleChange}
           type="${this.type}"
-          id="${ifDefined(this.id || undefined)}"
+          id="${this._id}"
           name="${this.name}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
@@ -416,7 +416,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
   // Render the UI as a function of component state
   override render() {
-    const supportTextId = `${this.id}-support-text`;
+    const supportTextId = `${this._id}-support-text`;
 
     const supportTextRender = html` ${when(
       this.supportText,
@@ -425,7 +425,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
     return html`
       <div class="form-group" part="input-wrapper">
-        <label class="active" for="${ifDefined(this.id || undefined)}" part="label">${this.label}</label>
+        <label class="active" for="${ifDefined(this._id || undefined)}" part="label">${this.label}</label>
 
         ${when(
           this.slotted,
