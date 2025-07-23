@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
+
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
@@ -25,8 +26,6 @@ export class BaseComponent extends LitElement {
   constructor() {
     super();
     this.logger = new Logger(this.tagName.toLowerCase());
-
-    this._id = this.generateId(this.id ?? this.tagName.toLowerCase());
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -62,5 +61,9 @@ export class BaseComponent extends LitElement {
     super.connectedCallback?.();
 
     this.getAriaAttributes();
+
+    // generate internal _id
+    const prefix = this.id?.length > 0 ? this.id : this.tagName.toLowerCase();
+    this._id = this.generateId(prefix);
   }
 }
