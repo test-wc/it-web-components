@@ -17,11 +17,17 @@
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
 @import 'bootstrap-italia/src/scss/components/type';
 
-@import 'bootstrap-italia/src/scss/components/type';
-
 /*design-web-components global styles*/
+
+/* Button */
 @import '@italia/button/styles/globals';
-@import '@italia/icon/styles/globals';
-@import '@italia/section/styles/globals';
-@import '@italia/video/styles/globals';
+/* Chip */
 @import '@italia/chip/styles/globals';
+/* Icon */
+@import '@italia/icon/styles/globals';
+/* Section */
+@import '@italia/section/styles/globals';
+/* Footer */
+@import '@italia/footer/styles/globals';
+/* Video */
+@import '@italia/video/styles/globals';

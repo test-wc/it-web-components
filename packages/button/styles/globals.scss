@@ -1,5 +1,5 @@
 it-button {
-  @extend .btn;
+  // @extend .btn; va in collisione con gli hover del footer, vedi dove fixare
   display: inline-block;
   width: auto;
 }
