@@ -20,14 +20,13 @@ export class BaseComponent extends LitElement {
 
   protected _ariaAttributes: Record<string, string> = {}; // tutti gli attributi aria-* passati al Web component
 
+  protected _id?: string; // id interno del componente, da usare sui veri elementi HTML
+
   constructor() {
     super();
     this.logger = new Logger(this.tagName.toLowerCase());
 
-    // di default, tutti i componenti hanno un id (se non viene passato, viene generato)
-    if (!this.id) {
-      this.id = this.generateId(this.tagName.toLowerCase());
-    }
+    this._id = this.generateId(this.id ?? this.tagName.toLowerCase());
   }
 
   // eslint-disable-next-line class-methods-use-this
