@@ -345,6 +345,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
       this.supportText?.length > 0 ? supportTextId : '',
       this.passwordStrengthMeter ? `strengthMeterInfo_${this._id}` : '',
       this._ariaAttributes['aria-describedby']?.length > 0 ? this._ariaAttributes['aria-describedby'] : '',
+      this.validityMessage?.length > 0 ? `invalid-feedback-${this._id}` : '',
     );
 
     const inputClasses = this.composeClass(
@@ -371,6 +372,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           .value="${this._value}"
           ?required=${this.required}
           ?invalid=${this.invalid}
+          ?aria-invalid=${this.invalid}
           part="textarea focusable"
           placeholder=${ifDefined(this.placeholder || undefined)}
           aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
@@ -394,6 +396,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
           .value="${this._value}"
           ?required=${this.required}
           ?invalid=${this.invalid}
+          ?aria-invalid=${this.invalid}
           part="input focusable"
           placeholder=${ifDefined(this.placeholder || undefined)}
           aria-describedby=${ifDefined(ariaDescribedBy || undefined)}
@@ -405,7 +408,11 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     if (this.validityMessage?.length > 0) {
       inputRender = html`
         ${inputRender}
-        <div class="invalid-feedback form-feedback form-text form-feedback just-validate-error-label">
+        <div
+          role="alert"
+          id="invalid-feedback-${this._id}"
+          class="invalid-feedback form-feedback form-text form-feedback just-validate-error-label"
+        >
           ${this.validityMessage}
         </div>
       `;
