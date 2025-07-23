@@ -580,8 +580,8 @@ export const GestioneEventi: Story = {
 
 \`\`\`js
 document.querySelector('it-input#event-input-example').addEventListener('input', (event) => {
-console.log('Input event:', event);
-alert('Input event);
+  console.log('Input event:', event);
+  alert('Input event);
 });
 \`\`\`
       `,
