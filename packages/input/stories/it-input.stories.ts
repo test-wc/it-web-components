@@ -567,3 +567,42 @@ export const GestioneErrori: Story = {
     })}
   `,
 };
+
+export const GestioneEventi: Story = {
+  ...meta,
+  name: 'Gestione degli eventi',
+  parameters: {
+    docs: {
+      description: {
+        story: `E' possibile gestire gli eventi di \`input\`, \`blur\`, \`change\`, \`focus\`, \`click\` per effettuare operazioni personalizzate, come la validazione esterna o l'aggiornamento di altri campi.
+        <br/><br/>
+        E' sufficiente aggiungere un event listener al componente \`<it-input>\` per intercettare gli eventi desiderati. Ad esempio, per gestire l'evento di input, è possibile utilizzare il seguente codice:
+
+\`\`\`js
+document.querySelector('it-input#event-input-example').addEventListener('input', (event) => {
+console.log('Input event:', event);
+alert('Input event);
+});
+\`\`\`
+      `,
+      },
+    },
+  },
+
+  render: (params) => html`
+    <script>
+      document.querySelector('it-input#event-input-example').addEventListener('input', (event) => {
+        console.log('Input event:', event);
+        alert('Input event');
+      });
+    </script>
+    ${renderComponent({
+      ...params,
+      type: 'text',
+      label: 'Prova evento di input',
+      name: 'event-input-example',
+      id: 'event-input-example',
+      placeholder: 'Testo segnaposto',
+    })}
+  `,
+};

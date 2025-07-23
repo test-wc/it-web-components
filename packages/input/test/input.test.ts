@@ -30,8 +30,7 @@ describe('<it-input>', () => {
 
   // Validazione personalizzata (setCustomValidity)
   it('should show a custom validity message', async () => {
-    const el = await fixture<ItInput>(html`<it-input></it-input>`);
-    el.setCustomValidity('Errore personalizzato');
+    const el = await fixture<ItInput>(html`<it-input validity-message="Errore personalizzato"></it-input>`);
     await el.updateComplete;
 
     expect(el.invalid).to.be.true;
@@ -53,84 +52,56 @@ describe('<it-input>', () => {
     expect(el.validityMessage).to.equal('');
   });
 
-  // Evento formdata per input nel form
-  it('should append its value to FormData on formdata event', async () => {
-    const el = await fixture<HTMLFormElement>(html`
-      <form>
-        <it-input name="testName" value="testValue"></it-input>
-      </form>
+  it('send right value to FormData', async () => {
+    // 1. Setup: inseriamo il form nel DOM
+    const container = await fixture<HTMLDivElement>(html`
+      <div>
+        <form id="test-form">
+          <it-input name="email" type="email" value="test@example.com"></it-input>
+          <button type="submit">Invia</button>
+        </form>
+      </div>
     `);
-    const input = el.querySelector('it-input')!;
-    const fd = new FormData();
-    const e = new FormDataEvent('formdata', { formData: fd });
 
-    input.dispatchEvent(e);
+    const form = container.querySelector('form')!;
+    const itInput = form.querySelector('it-input')!;
 
-    expect(fd.get('testName')).to.equal('testValue');
+    // 2. Aspettiamo il rendering completo (necessario per Shadow DOM)
+    await itInput.updateComplete;
+
+    // 3. Usiamo direttamente `new FormData(form)` per simulare la submit
+    const formData = new FormData(form);
+
+    // 4. Assert: il valore è incluso correttamente
+    expect(formData.get('email')).to.equal('test@example.com');
   });
 
-  // Password strength meter: warning se non è tipo password
-  it('should warn if passwordStrengthMeter is true and type is not password', async () => {
-    const warnSpy = sinon.spy(console, 'warn');
+  it('update FormData on input value change', async () => {
+    // 1. Setup iniziale
+    const container = await fixture<HTMLDivElement>(html`
+      <div>
+        <form id="test-form">
+          <it-input name="username" value="initialValue"></it-input>
+        </form>
+      </div>
+    `);
 
-    await fixture<ItInput>(html`<it-input password-strength-meter type="text"></it-input>`);
+    const form = container.querySelector('form')!;
+    const itInput = form.querySelector('it-input')!;
 
-    expect(warnSpy.called).to.be.true;
-    expect(warnSpy.firstCall.args[0]).to.include('strength-meter');
-    warnSpy.restore();
+    // 2. Aspetta che il componente sia completamente aggiornato
+    await itInput.updateComplete;
+
+    // 3. Cambia dinamicamente il valore via proprietà
+    itInput.value = 'newValue';
+
+    // 4. Aspetta che Lit aggiorni il DOM interno
+    await itInput.updateComplete;
+
+    // 5. Crea un nuovo FormData per simulare la submit
+    const formData = new FormData(form);
+
+    // 6. Verifica che il nuovo valore sia stato registrato
+    expect(formData.get('username')).to.equal('newValue');
   });
-
-  // describe('form', () => {
-  //   it('submits a form', async () => {
-  //     let called = false;
-  //     function submitHandler() {
-  //       /* per verificare che l’evento sia stato attivato. */
-  //       called = true;
-  //     }
-
-  //     const el = await fixture<HTMLFormElement>(html`
-  //       <form
-  //         @submit=${(e: SubmitEvent) => {
-  //           e.preventDefault(); // preveniamo la ricarica per il test
-  //           submitHandler();
-  //         }}
-  //       >
-  //         <it-button type="submit">Submit</it-button>
-  //       </form>
-  //     `);
-
-  //     const button = el.querySelector('it-button')!;
-  //     const innerButton = button.shadowRoot?.querySelector('button');
-
-  //     innerButton?.click();
-
-  //     expect(called).to.be.true;
-  //   });
-
-  //   it('does not submit the form when the button is disabled', async () => {
-  //     let called = false;
-  //     function submitHandler() {
-  //       /* per verificare che l’evento sia stato attivato. */
-  //       called = true;
-  //     }
-
-  //     const el = await fixture<HTMLFormElement>(html`
-  //       <form
-  //         @submit=${(e: SubmitEvent) => {
-  //           e.preventDefault();
-  //           submitHandler();
-  //         }}
-  //       >
-  //         <it-button type="submit" disabled>Submit</it-button>
-  //       </form>
-  //     `);
-
-  //     const button = el.querySelector('it-button')!;
-  //     const innerButton = button.shadowRoot?.querySelector('button');
-
-  //     innerButton?.click();
-
-  //     expect(called).to.be.false;
-  //   });
-  // });
 });

@@ -96,6 +96,8 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @property({ type: String })
   public validityMessage: string = '';
 
+  @property({ type: Function }) onBlur?: (e: FocusEvent) => void;
+
   @property({ reflect: true })
   get value() {
     if (this._inputElement) {
@@ -117,7 +119,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     }
   }
 
-  _handleFormdata(event: FormDataEvent) {
+  private _handleFormdata(event: FormDataEvent) {
     // Add name and value to the form's submission data if it's not disabled.
     if (!this.disabled) {
       const { formData } = event;
@@ -125,14 +127,45 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     }
   }
 
-  handleInput(event: any) {
-    const input = event.target as HTMLInputElement;
+  private _handleInput(e: Event) {
+    const input = e.target as HTMLInputElement;
     this.value = input.value;
 
     if (this.passwordStrengthMeter) {
       this._checkPasswordStrength(input.value);
     }
-    // this.checkValidity(); //rimosso da qui e spostato nel @blur perchè perde il focus il campo in caso di errore
+
+    this.dispatchEvent(
+      new CustomEvent('input', {
+        detail: { value: input.value },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
+  private _handleBlur() {
+    this.checkValidity();
+    this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
+  }
+
+  private _handleFocus() {
+    this.dispatchEvent(new FocusEvent('focus', { bubbles: true, composed: true }));
+  }
+
+  private _handleClick() {
+    this.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+  }
+
+  private _handleChange(e: Event) {
+    const input = e.target as HTMLInputElement;
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: { value: input.value },
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   override firstUpdated() {
@@ -326,8 +359,11 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
       inputRender = html`
         <textarea
           ${setAttributes(this._ariaAttributes)}
-          @input="${this.handleInput}"
-          @blur=${this.checkValidity}
+          @input="${this._handleInput}"
+          @blur=${this._handleBlur}
+          @focus=${this._handleFocus}
+          @click=${this._handleClick}
+          @change=${this._handleChange}
           id="${ifDefined(this.id || undefined)}"
           name="${this.name}"
           ?disabled=${this.disabled}
@@ -345,8 +381,11 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
       inputRender = html`
         <input
           ${setAttributes(this._ariaAttributes)}
-          @input="${this.handleInput}"
-          @blur=${this.checkValidity}
+          @input="${this._handleInput}"
+          @blur=${this._handleBlur}
+          @focus=${this._handleFocus}
+          @click=${this._handleClick}
+          @change=${this._handleChange}
           type="${this.type}"
           id="${ifDefined(this.id || undefined)}"
           name="${this.name}"
