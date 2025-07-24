@@ -12,7 +12,6 @@ import {
   sendMousePlugin,
   setViewportPlugin,
 } from '@web/test-runner-commands/plugins';
-import { fileURLToPath } from 'url';
 
 const filteredLogs = ['Running in dev mode', 'Lit is in dev mode'];
 
@@ -30,7 +29,7 @@ export default {
   /** Filter out lit dev mode logs */
   filterBrowserLogs(log) {
     for (const arg of log.args) {
-      if (typeof arg === 'string' && filteredLogs.some(l => arg.includes(l))) {
+      if (typeof arg === 'string' && filteredLogs.some((l) => arg.includes(l))) {
         return false;
       }
     }
@@ -67,14 +66,14 @@ export default {
   },
   plugins: [
     rollupAdapter(),
-    esBuildPlugin(),
+    esBuildPlugin({ ts: true }),
     configuredVisualRegressionPlugin(),
     a11ySnapshotPlugin(),
     sendKeysPlugin(),
     sendMousePlugin(),
     setViewportPlugin(),
   ],
-  testRunnerHtml: testFramework => `
+  testRunnerHtml: (testFramework) => `
     <html lang="en-US">
       <head></head>
       <body>
