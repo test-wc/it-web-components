@@ -1,0 +1,7 @@
+@import 'bootstrap-italia/src/scss/components/grid';
+
+it-section .container {
+  @extend .container;
+  position: relative;
+  z-index: 2;
+}
