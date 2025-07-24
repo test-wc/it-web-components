@@ -54,6 +54,7 @@
     "@italia/button": "workspace:^",
     "@italia/icon": "workspace:^",
     "@italia/video": "workspace:^",
+    "@italia/dropdown": "workspace:^",
     "rollup-plugin-copy": "^3.5.0"
   },
   "devDependencies": {

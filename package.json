@@ -22,7 +22,7 @@
     "prepare": "husky && pnpm test:setup",
     "release": "turbo run build",
     "test:setup": "pnpm dlx playwright install",
-    "test": "turbo run test",
+    "test": "turbo run test --concurrency 1",
     "storybook:build": "pnpm build && storybook build",
     "storybook:deploy": "pnpm dlx gh-pages -d storybook-static -m 'chore: update documentation [ci skip]' --nojekyll",
     "storybook": "storybook dev -p 6006"

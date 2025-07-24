@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
@@ -6,7 +7,7 @@ import { Logger } from '../utils/logger.js';
 
 export interface BaseComponentInterface {
   addFocus(element: HTMLElement): void;
-  composeClass(...classes: any): string;
+  composeClass: typeof clsx;
 }
 
 export type BaseComponentType = typeof LitElement & Constructor<BaseComponentInterface>;
@@ -20,6 +21,8 @@ export class BaseComponent extends LitElement {
   protected logger: Logger;
 
   protected _ariaAttributes: Record<string, string> = {}; // tutti gli attributi aria-* passati al Web component
+
+  protected composeClass = clsx;
 
   protected _id?: string; // id interno del componente, da usare sui veri elementi HTML
 
@@ -39,14 +42,12 @@ export class BaseComponent extends LitElement {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  composeClass(...classes: any) {
-    let composedClass = '';
-    classes
-      .filter((c: string) => c.length > 0)
-      .forEach((newClass: string) => {
-        composedClass += ` ${newClass}`;
-      });
-    return composedClass.trim();
+  protected getActiveElement(): HTMLElement | null {
+    let active = document.activeElement;
+    while (active && active.shadowRoot && active.shadowRoot.activeElement) {
+      active = active.shadowRoot.activeElement;
+    }
+    return active as HTMLElement | null;
   }
 
   getAriaAttributes() {

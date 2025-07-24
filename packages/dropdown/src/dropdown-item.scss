@@ -1,0 +1,235 @@
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+
+@import 'bootstrap-italia/src/scss/components/dropdown';
+
+:host {
+  display: block;
+}
+
+:host li,
+:host li a {
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+a {
+  color: var(--#{$prefix}color-link);
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: var(--#{$prefix}color-link-hover);
+    text-decoration: underline;
+  }
+}
+
+li span,
+.list-item {
+  font-size: var(--#{$prefix}linklist-item-font-size);
+  line-height: var(--#{$prefix}linklist-item-line-height);
+}
+
+.list-item {
+  position: relative;
+  display: inline-block;
+  padding-top: var(--#{$prefix}linklist-item-spacing);
+  padding-bottom: var(--#{$prefix}linklist-item-spacing);
+  text-decoration: none;
+
+  &.active span,
+  &:hover:not(.disable) span {
+    text-decoration: underline;
+  }
+
+  // List item active state
+  &.active {
+    span {
+      color: var(--#{$prefix}color-text-primary-active);
+    }
+
+    // TODO is this needed?
+    .icon {
+      color: var(--#{$prefix}color-icon-primary-active);
+    }
+  }
+
+  // Hover on list item
+  &:hover:not(.disabled) {
+    span {
+      color: var(--#{$prefix}color-link-hover);
+    }
+
+    p {
+      color: var(--#{$prefix}color-text-secondary);
+    }
+
+    // TODO is this needed?
+    .icon {
+      fill: var(--#{$prefix}icon-primary-hover);
+    }
+
+    // TODO is this needed?
+    .icon.icon-inverse {
+      fill: var(--#{$prefix}icon-inverse);
+    }
+  }
+
+  // List item disabled state
+  &.disabled {
+    cursor: not-allowed;
+
+    &:hover span {
+      text-decoration: none;
+    }
+
+    span {
+      color: var(--#{$prefix}color-text-disabled);
+    }
+
+    // TODO is this needed?
+    svg {
+      fill: var(--#{$prefix}icon-disabled);
+
+      &.secondary {
+        fill: var(--#{$prefix}icon-disabled);
+      }
+    }
+  }
+
+  // TODO is this needed?
+  // Change the list item link font weight
+  &.medium,
+  .list-item-title {
+    font-weight: var(--#{$prefix}font-weight-solid);
+  }
+
+  // Increase font-size and spacing for list item link with large class
+  &.large {
+    --#{$prefix}linklist-item-font-size: var(--#{$prefix}label-font-size-m);
+  }
+
+  // Avatar position inside the list item
+  &.avatar {
+    display: flex;
+    margin-bottom: var(--#{$prefix}spacing-xxs);
+
+    .avatar {
+      display: block;
+      margin-right: var(--#{$prefix}spacing-s);
+    }
+  }
+
+  // Icon left and right inside list item
+  &.icon-right,
+  &.icon-left {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  // Icon left inside list item
+  &.icon-left {
+    .icon {
+      left: 0;
+      flex-shrink: 0;
+      margin-right: var(--#{$prefix}spacing-xxs);
+    }
+
+    p {
+      width: 100%;
+    }
+  }
+
+  &.icon-right {
+    width: 100%;
+
+    .list-item-title-icon-wrapper {
+      justify-content: space-between;
+    }
+  }
+
+  &.right-icon {
+    .list-item-title-icon-wrapper {
+      justify-content: space-between;
+    }
+
+    .icon {
+      transition: transform $dropdown-menu-animation-speed;
+
+      &.secondary {
+        color: var(--#{$prefix}icon-secondary);
+      }
+    }
+  }
+
+  &[aria-expanded='true'] .icon {
+    transform: scale(-1);
+  }
+
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .list-item-title-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .list-item-title {
+      margin-right: var(--#{$prefix}spacing-xxs);
+    }
+  }
+
+  // Text paragraph inside multiline list item
+  > p {
+    color: var(--#{$prefix}color-text-secondary);
+    font-size: var(--#{$prefix}caption-font-size);
+    line-height: var(--#{$prefix}caption-line-height);
+  }
+
+  // Listed item label wrapped in the <a> tag
+  > span {
+    display: inline-block;
+    color: var(--#{$prefix}color-link);
+  }
+}
+
+.divider {
+  display: block;
+  height: var(--#{$prefix}linklist-divider-size);
+  margin: var(--#{$prefix}spacing-xxs) 0;
+  background: var(--#{$prefix}color-border-subtle);
+}
+
+.dark {
+  a span,
+  a:hover span {
+    --#{$prefix}color-link: var(--#{$prefix}color-text-inverse);
+    --#{$prefix}color-link-hover: var(--#{$prefix}color-text-inverse);
+  }
+
+  a.active span {
+    text-decoration: underline;
+  }
+
+  li a.disabled,
+  li a.disabled span {
+    color: hsla(0, 0%, 100%, 0.35); // TODO: Add color variable for dark variant
+  }
+}
+
+.fw {
+  display: inline-block;
+  width: auto;
+
+  &:hover,
+  &:focus {
+    background: none;
+    text-decoration: underline;
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "name": "@italia/globals",
-  "description": "Utilities per i Web components del Design System .italia",
+  "name": "@italia/popover",
+  "description": "Web component it-popover del Design system .italia",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/design-web-components.git",
-    "directory": "packages/button"
+    "directory": "packages/popover"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "homepage": "https://italia.github.io/design-web-components",
@@ -22,26 +22,31 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./globals.js": "./dist/src/globals.js"
+    "./it-popover.js": "./dist/src/it-popover.js",
+    "./styles/*": "./styles/*"
   },
   "files": [
     "dist/src",
+    "styles",
     "README.md",
     "AUTHORS",
     "LICENSE",
     "custom-elements.json"
   ],
   "scripts": {
-    "analyze": "cem analyze --litelement --exclude dist",
-    "build": "tsc --build tsconfig.build.json",
-    "clean": "rimraf node_modules .turbo",
+    "build": "rollup --config rollup.config.js",
+    "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
     "prepublish": "build",
-    "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" --check",
-    "format": "eslint --ext .ts \"src/**/*.ts\" --fix && prettier \"src/**/*.ts\" --write",
-    "test-disabled": "wtr --coverage --node-resolve --config web-test-runner.config.js"
+    "lint": "eslint --ext .ts \"src/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" --write",
+    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
+    "@italia/button": "workspace:^",
+    "@italia/globals": "workspace:^",
+    "@italia/icon": "workspace:^",
+    "bootstrap-italia": "catalog:",
+    "@floating-ui/dom": "^1.7.1",
     "lit": "catalog:"
   },
   "devDependencies": {
@@ -49,9 +54,13 @@
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@web/test-runner": "catalog:",
-    "rimraf": "^6.0.1",
+    "rollup": "^4.42.0",
+    "rollup-plugin-scss-lit": "^2.1.0",
+    "sass": "catalog:",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
   },

@@ -1,0 +1,68 @@
+{
+  "name": "@italia/dropdown",
+  "description": "Web component it-dropdown del Design system .italia",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/italia/design-web-components.git",
+    "directory": "packages/dropdown"
+  },
+  "author": "Presidenza del Consiglio dei Ministri",
+  "homepage": "https://italia.github.io/design-web-components",
+  "bugs": {
+    "url": "https://github.com/italia/design-web-components/issues"
+  },
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./it-dropdown.js": "./dist/src/it-dropdown.js",
+    "./styles/*": "./styles/*"
+  },
+  "files": [
+    "dist/src",
+    "styles",
+    "README.md",
+    "AUTHORS",
+    "LICENSE",
+    "custom-elements.json"
+  ],
+  "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
+    "prepublish": "build",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
+    "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
+  },
+  "dependencies": {
+    "@italia/button": "workspace:^",
+    "@italia/globals": "workspace:^",
+    "@italia/icon": "workspace:^",
+    "@italia/popover": "workspace:^",
+    "bootstrap-italia": "catalog:",
+    "lit": "catalog:"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@italia/test-config": "workspace:^",
+    "@italia/typescript-config": "workspace:^",
+    "@open-wc/testing": "catalog:",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/mocha": "catalog:",
+    "@web/test-runner": "catalog:",
+    "rollup": "^4.42.0",
+    "rollup-plugin-scss-lit": "^2.1.0",
+    "sass": "catalog:",
+    "tslib": "^2.6.3",
+    "typescript": "catalog:"
+  },
+  "customElements": "custom-elements.json"
+}
