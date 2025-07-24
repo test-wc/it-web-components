@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
+
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
@@ -23,6 +24,8 @@ export class BaseComponent extends LitElement {
 
   protected composeClass = clsx;
 
+  protected _id?: string; // id interno del componente, da usare sui veri elementi HTML
+
   constructor() {
     super();
     this.logger = new Logger(this.tagName.toLowerCase());
@@ -33,6 +36,11 @@ export class BaseComponent extends LitElement {
     return `${prefix}-${Math.random().toString(36).slice(2)}`;
   }
 
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  addFocus(element: HTMLElement) {
+    // new TrackFocus(element); // per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
+  }
+
   // eslint-disable-next-line class-methods-use-this
   protected getActiveElement(): HTMLElement | null {
     let active = document.activeElement;
@@ -40,11 +48,6 @@ export class BaseComponent extends LitElement {
       active = active.shadowRoot.activeElement;
     }
     return active as HTMLElement | null;
-  }
-
-  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-  addFocus(element: HTMLElement) {
-    // new TrackFocus(element); // per il momento è stato disattivato perchè ci sono le pseudo classi ::focus-visible per fare quello che fa TrackFocus. Si possono aggiungere regole css in bsi-italia 3 dato che stiamo facendo una breaking release di bsi.
   }
 
   getAriaAttributes() {
@@ -59,5 +62,9 @@ export class BaseComponent extends LitElement {
     super.connectedCallback?.();
 
     this.getAriaAttributes();
+
+    // generate internal _id
+    const prefix = this.id?.length > 0 ? this.id : this.tagName.toLowerCase();
+    this._id = this.generateId(prefix);
   }
 }
