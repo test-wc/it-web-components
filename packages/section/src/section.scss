@@ -19,4 +19,9 @@
   .section.section-image::before {
     z-index: 1;
   }
+
+  .img-responsive-wrapper .img-responsive {
+    height: 100%;
+    padding: 0;
+  }
 }
