@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/web-components';
-import { html, render } from 'lit';
+import { html } from 'lit';
 import '@italia/icon';
 import '@italia/button';
 
@@ -272,7 +272,7 @@ Per una Pubblica Amministrazione potrebbe contenere tutte i riferimenti ai vari 
 Potrebbe anche contenere riferimenti alle pagine social dell’amministrazione.
 
 Le composizioni mostrate sfruttano le classi di bootstrap-italia affiancate ai web components forniti dal kit.
-\n**Assicurarsi di avere importato tutti i file sass necessari da \`bootstrap-italia\` e il file di stili globale fornito dal kit, importabile da \`@italia/footer/styles/globals.scss\` nel caso di uso della singola dipendenza \`@italia/footer\`.**
+\n**In caso non si stia utilizzando il bundle unico, assicurarsi di avere importato tutti i fogli di stile necessari da \`bootstrap-italia\`.**
         `.trim(),
       },
     },
