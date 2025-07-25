@@ -8,9 +8,8 @@ import { cookies } from '@italia/globals';
 // @ts-ignore
 import { initYoutubePlugin } from './util/youtube-video.js';
 import { type Translations, type Track, type ConsentOptions } from './types.js';
-import itLang from './locales/it.js'; //
+import itLang from './locales/it.js';
 import styles from './it-video.scss';
-import '@italia/icon';
 
 export const defaultConsentOptions: ConsentOptions = {
   icon: 'it-video', // Icona predefinita per il consenso dei cookie

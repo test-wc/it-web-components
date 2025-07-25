@@ -15,8 +15,23 @@
 @import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/utilities/icons';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
+@import 'bootstrap-italia/src/scss/components/type';
+
+@import 'bootstrap-italia/src/scss/components/headercenter';
+@import 'bootstrap-italia/src/scss/components/grid';
+@import 'bootstrap-italia/src/scss/components/linklist';
+@import 'bootstrap-italia/src/scss/components/list';
+@import 'bootstrap-italia/src/scss/components/footer';
 
 /*design-web-components global styles*/
+
+/* Button */
 @import '@italia/button/styles/globals';
+/* Chip */
+@import '@italia/chip/styles/globals';
+/* Icon */
 @import '@italia/icon/styles/globals';
+/* Section */
+@import '@italia/section/styles/globals';
+/* Video */
 @import '@italia/video/styles/globals';
