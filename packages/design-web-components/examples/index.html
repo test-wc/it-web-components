@@ -7,9 +7,6 @@
   <script type="module" src="dist/elements.js"></script>
   <!-- <link rel="stylesheet" href="../node_modules/bootstrap-italia/dist/css/bootstrap-italia.min.css" /> -->
   <link rel="stylesheet" href="dist/design-web-components.css" />
-
-
-
 </head>
 <body>
   <!-- Usa il tuo Web Component -->
@@ -23,10 +20,6 @@
           <div class="container my-5">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <section>
-              <h2>it-video</h2>
-              <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
-            </section>
-            <section>
               <h2>it-button</h2>
               <it-button
                   variant="success"
@@ -37,11 +30,6 @@
               </it-button>
             </section>
 
-
-            <section>
-              <h2>it-icon</h2>
-              <it-icon name="it-star-full" color="primary" size="xl" label="stella"></it-icon>
-            </section>
             <section class="mb-5">
               <h2>it-chip</h2>
               <div class="d-flex align-items-center gap-4">
@@ -73,6 +61,21 @@
               </div>
             </section>
 
+            <section>
+              <h2>it-icon</h2>
+              <it-icon name="it-star-full" color="primary" size="xl" label="stella"></it-icon>
+            </section>
+
+            <section>
+              <h2>it-input</h2>
+              <it-input id="email" label="E-mail" type="email" support-text="Inserisci la tua email"></it-input>
+              <it-input id="password" label="Password" type="password" minlength="10" suggestions strength-meter></it-input>
+            </section>
+
+            <section>
+              <h2>it-video</h2>
+              <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
+            </section>
           </div>
         </main>
 </body>

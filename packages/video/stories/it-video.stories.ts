@@ -15,7 +15,7 @@ interface VideoProps {
   language?: Locale;
   track?: Track;
   consentOptions?: ConsentOptions;
-  initPluginsName: string;
+  initPlugins: string;
 }
 type Story = StoryObj<VideoProps>;
 
@@ -47,7 +47,7 @@ const meta = {
     consentOptions: {},
     language: 'it',
     translations: { it: itLang },
-    initPluginsName: '',
+    initPlugins: '',
   },
   argTypes: {
     src: { control: 'text', description: 'Sorgente del video' },
@@ -68,6 +68,7 @@ const meta = {
         'Tracce per didascalie, sottotitoli, capitoli e descrizioni. Nel campo `kind` è necessario indicare la tipologia di traccia fra <ul><li>captions</li><li>subtitles</li><li>description</li><li>chapters</li><li>metadata</li></ul>',
     },
     consentOptions: {
+      name: 'consent-options',
       control: 'object',
       description:
         'Oggetto per la configurazione del riquadro per il consenso dei cookie. <br/>Di default sono gia previsti testi e icona, ma è possibile (ed è suggerito) modificare il testo con il link alla pagina della privacy policy. Di default viene salvata una variabile nel localstorage quando viene dato il consenso permanente per i cookie, ma è possibile personalizzare il comportamento passando in questo oggetto due funzioni specifiche per la gestione della memorizzazione del consenso: `onAccept` e `isAccepted`. ',
@@ -88,8 +89,9 @@ const meta = {
       description:
         'Traduzioni per le diverse lingue. Di base è disponibile solo la lingua it. Usare questa prop per aggiungere le traduzioni in altre lingue. ',
     },
-    initPluginsName: {
-      control: 'string',
+    initPlugins: {
+      name: 'init-plugins',
+      control: 'text',
       description:
         'Nome della propria funzione presente nella window che verrà invocata da video.js per inizializzare eventuali plugin aggiuntivi definiti dallo sviluppatore.',
     },
@@ -425,10 +427,10 @@ Nella sezione seguente vengono illustrate le funzioni per la gestione delle pref
 
 L'overlay di consenso viene automaticamente istanziato dal componente se si tratta di un video Youtube.
 
-Per personalizzare l'overlay di consenso è possibile passare al componente \`<it-video>\` l'attributo \`consentOptions\` con il seguente formato:
+Per personalizzare l'overlay di consenso è possibile passare al componente \`<it-video>\` l'attributo \`consent-options\` con il seguente formato:
 
 \`\`\`js
-consentOptions = {
+consent-options = {
     icon?: string; //nome dell'icona da usare nell'overlay del consenso
     text?: string; //testo da mostrare nell'overlay di consenso, comprendente il link alla privacy policy
     acceptButtonText?: string; //testo da mostrare sul bottone di accettazione

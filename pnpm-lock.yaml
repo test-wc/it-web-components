@@ -19,8 +19,8 @@ catalogs:
       specifier: ^0.9.0
       version: 0.9.0
     bootstrap-italia:
-      specifier: github:italia/bootstrap-italia#67b3a245b219fe6ac17277193caebbd8e4824797
-      version: 2.14.0
+      specifier: git@github.com:test-wc/bootstrap-italia.git#d276cb2f3bc61c2f1f8296d34624851ef9092df0
+      version: 2.15.1
     lit:
       specifier: ^3.3.0
       version: 3.3.0
@@ -79,7 +79,7 @@ importers:
         version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
       bootstrap-italia:
         specifier: 'catalog:'
-        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+        version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
@@ -151,7 +151,7 @@ importers:
         version: link:../icon
       bootstrap-italia:
         specifier: 'catalog:'
-        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+        version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
       lit:
         specifier: 'catalog:'
         version: 3.3.0
@@ -204,6 +204,9 @@ importers:
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon
+      '@italia/input':
+        specifier: workspace:^
+        version: link:../input
       '@italia/video':
         specifier: workspace:^
         version: link:../video
@@ -225,7 +228,7 @@ importers:
         version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
       bootstrap-italia:
         specifier: 'catalog:'
-        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+        version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -283,7 +286,7 @@ importers:
         version: link:../globals
       bootstrap-italia:
         specifier: 'catalog:'
-        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+        version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
       lit:
         specifier: 'catalog:'
         version: 3.3.0
@@ -315,6 +318,67 @@ importers:
       '@web/test-runner-commands':
         specifier: 'catalog:'
         version: 0.9.0
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
+  packages/input:
+    dependencies:
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -431,7 +495,7 @@ importers:
         version: link:../icon
       bootstrap-italia:
         specifier: 'catalog:'
-        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797
+        version: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0
       lit:
         specifier: 'catalog:'
         version: 3.3.0
@@ -2375,9 +2439,9 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  bootstrap-italia@https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797:
-    resolution: {tarball: https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797}
-    version: 2.14.0
+  bootstrap-italia@https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0:
+    resolution: {tarball: https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0}
+    version: 2.15.1
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -7684,7 +7748,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bootstrap-italia@https://codeload.github.com/italia/bootstrap-italia/tar.gz/67b3a245b219fe6ac17277193caebbd8e4824797:
+  bootstrap-italia@https://codeload.github.com/test-wc/bootstrap-italia/tar.gz/d276cb2f3bc61c2f1f8296d34624851ef9092df0:
     dependencies:
       '@popperjs/core': 2.11.8
       '@splidejs/splide': 4.1.4
