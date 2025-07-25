@@ -25,7 +25,7 @@ describe('<it-input>', () => {
     input.blur(); // trigger blur e checkValidity
 
     expect(el.invalid).to.be.true;
-    expect(el.validityMessage).to.equal('Compila questo campo');
+    expect(el.validityMessage).to.equal('Questo campo è obbligatorio.');
   });
 
   // Validazione personalizzata (setCustomValidity)

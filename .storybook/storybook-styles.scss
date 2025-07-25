@@ -34,3 +34,16 @@
     min-width: 800px;
   }
 }
+
+.docblock-argstable {
+  ul {
+    font-size: 13px;
+  }
+}
+
+/* Forza a capo prima del nome dell'attributo*/
+// .token.attr-name::before {
+//   content: '';
+//   white-space: pre;
+//   display: block;
+// }

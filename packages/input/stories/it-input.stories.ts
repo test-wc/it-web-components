@@ -23,6 +23,7 @@ interface InputProps {
   supportText: string;
   value: string;
   slotted: boolean;
+  labelHidden: boolean;
   passwordStrengthMeter: boolean;
   minlength: number;
   maxlength: number;
@@ -50,12 +51,14 @@ const renderComponent = (params: any) => html`
     size="${ifDefined(params.size || undefined)}"
     ?slotted="${params.slotted}"
     ?strength-meter="${params.passwordStrengthMeter}"
-    minlength="${params.minlength}"
-    maxlength="${params.maxlength}"
+    minlength="${ifDefined(params.minlength) || undefined}"
+    maxlength="${ifDefined(params.maxlength) || undefined}"
     ?suggestions="${params.suggestions}"
+    ?label-hidden="${params.labelHidden}"
     translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
-    >${ifDefined(params.children || undefined)}</it-input
   >
+    ${ifDefined(params.children || undefined)}
+  </it-input>
 `;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
@@ -79,6 +82,7 @@ const meta = {
     readonly: false,
     plaintext: false,
     slotted: false,
+    labelHidden: false,
     passwordStrengthMeter: false,
     minlength: undefined,
     maxlength: undefined,
@@ -156,6 +160,13 @@ const meta = {
         "Se vengono usati gli slot per mostrare l'icona o il bottone, questo attributo deve avere valore 'true'",
       table: { defaultValue: { summary: 'false' } },
     },
+    labelHidden: {
+      name: 'label-hidden',
+      control: 'boolean',
+      type: 'boolean',
+      description: 'Se si vuole nascondere la label. Risulterà comunque accessibile per i lettori di schermo.',
+      table: { defaultValue: { summary: 'false' } },
+    },
     passwordStrengthMeter: {
       name: 'strength-meter',
       control: 'boolean',
@@ -223,6 +234,7 @@ export const EsempioInterattivo: Story = {
       label: 'Campo di testo',
       name: 'testo',
       id: 'exampleInputText',
+      translations: undefined,
     })}
     ${renderComponent({
       ...params,
@@ -230,6 +242,7 @@ export const EsempioInterattivo: Story = {
       label: 'Campo email',
       name: 'email',
       id: 'exampleInputEmail',
+      translations: undefined,
     })}
     ${renderComponent({
       ...params,
@@ -237,6 +250,7 @@ export const EsempioInterattivo: Story = {
       label: 'Campo numerico',
       name: 'number',
       id: 'exampleInputNumber',
+      translations: undefined,
     })}
     ${renderComponent({
       ...params,
@@ -244,6 +258,7 @@ export const EsempioInterattivo: Story = {
       label: 'Campo telefonico',
       name: 'telefono',
       id: 'exampleInputTel',
+      translations: undefined,
     })}
     ${renderComponent({
       ...params,
@@ -251,13 +266,21 @@ export const EsempioInterattivo: Story = {
       label: 'Campo orario',
       name: 'orario',
       id: 'exampleInputTime',
+      translations: undefined,
     })}`,
 };
 
 export const Placeholder: Story = {
   ...meta,
   name: 'Testo segnaposto',
-  args: { placeholder: 'Testo segnaposto' },
+  args: {
+    type: 'text',
+    placeholder: 'Testo segnaposto',
+    label: 'Etichetta',
+    name: 'placeholder-example',
+    id: 'placeholder-example',
+    translations: undefined,
+  },
 
   parameters: {
     docs: {
@@ -271,11 +294,6 @@ export const Placeholder: Story = {
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
-      label: 'Etichetta',
-      placeholder: 'Testo segnaposto',
-      name: 'placeholder-example',
-      id: 'placeholder-example',
     })}
   `,
 };
@@ -283,7 +301,15 @@ export const Placeholder: Story = {
 export const TestoDiSupporto: Story = {
   ...meta,
   name: 'Testo di supporto',
-  args: { placeholder: 'Testo di supporto' },
+  args: {
+    type: 'text',
+    label: 'Etichetta',
+    placeholder: 'Testo segnaposto',
+    name: 'supportText-example',
+    id: 'supportText-example',
+    supportText: 'Testo di supporto',
+    translations: undefined,
+  },
 
   parameters: {
     docs: {
@@ -295,12 +321,25 @@ export const TestoDiSupporto: Story = {
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
-      label: 'Etichetta',
-      placeholder: 'Testo segnaposto',
-      name: 'supportText-example',
-      id: 'supportText-example',
-      supportText: 'Testo di supporto',
+    })}
+  `,
+};
+
+export const LabelHidden: Story = {
+  ...meta,
+  name: 'Etichetta nascosta',
+  args: { placeholder: 'Cerca...', label: 'Cerca nel sito', labelHidden: true, translations: undefined },
+
+  parameters: {
+    docs: {
+      description: {
+        story: `Se si vuole nascondere l'etichetta, come ad esempio nei campi di ricerca, è sufficiente passare l'attributo \`label-hidden\`.`,
+      },
+    },
+  },
+  render: (params) => html`
+    ${renderComponent({
+      ...params,
     })}
   `,
 };
@@ -308,7 +347,16 @@ export const TestoDiSupporto: Story = {
 export const IconeOPulsanti: Story = {
   ...meta,
   name: 'Icone o pulsanti',
-  args: { placeholder: 'Icone o pulsanti' },
+  args: {
+    placeholder: 'Icone o pulsanti',
+    type: 'text',
+    label: 'Campo con icona',
+    name: 'field-icon-example',
+    id: 'field-icon-example',
+    slotted: true,
+    supportText: 'Testo di supporto',
+    translations: undefined,
+  },
   parameters: {
     docs: {
       description: {
@@ -320,12 +368,6 @@ export const IconeOPulsanti: Story = {
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
-      label: 'Campo con icona',
-      name: 'field-icon-example',
-      id: 'field-icon-example',
-      slotted: true,
-      supportText: 'Testo di supporto',
       children: html`<it-icon name="it-pencil" slot="icon" size="sm"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
     })}
@@ -344,52 +386,49 @@ Per modificare questa dimensione, è possiible utilizzare l'attributo \`size\` i
 Per modificare invece la dimensione dell’icona, è possibile utilizzare l'attributo \`size\` sull'icona in questo modo:
 <table>
 <thead>
-  <tr><th>Dimensione input</th><th>Dimensione icona</th></tr>
+  <tr><th>Dimensione input</th><th>Attributo size (di it-input)</th><th>Dimensione icona</th></tr>
 </thead>
 <tbody>
-  <tr><td>\`lg\`</td><td>\`md\`</td></tr>
-  <tr><td>normale</td><td>\`sm\`</td></tr>
-  <tr><td>\`sm\`</td><td>\`xs\`</td></tr>
+  <tr><td>Grande</td><td>\`lg\`</td><td>\`md\`</td></tr>
+  <tr><td>Base (default)</td><td></td><td>\`sm\`</td></tr>
+  <tr><td>Piccola</td><td>\`sm\`</td><td>\`xs\`</td></tr>
 </tbody>
 </table>
 `,
       },
     },
   },
-
+  args: {
+    type: 'text',
+    placeholder: 'Testo segnaposto',
+    translations: undefined,
+    slotted: true,
+  },
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Campo di dimensione grande',
       name: 'field-big-example',
       id: 'field-big-example',
-      placeholder: 'Testo segnaposto',
       size: 'lg',
-      slotted: true,
       children: html`<it-icon name="it-pencil" slot="icon" size="md"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
     })}
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Campo di dimensione base',
       name: 'field-sizebase-example',
       id: 'field-sizebase-example',
       placeholder: 'Testo segnaposto',
-      slotted: true,
       children: html`<it-icon name="it-pencil" slot="icon" size="sm"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
     })}
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Campo di dimensione piccola',
       name: 'field-small-example',
       id: 'field-small-example',
-      placeholder: 'Testo segnaposto',
       size: 'sm',
-      slotted: true,
       children: html`<it-icon name="it-pencil" slot="icon" size="xs"></it-icon>
         <it-button variant="primary" slot="append">Invio</it-button>`,
     })}
@@ -405,15 +444,17 @@ export const Disabilitato: Story = {
       },
     },
   },
-
+  args: {
+    type: 'text',
+    label: 'Campo disabilitato',
+    name: 'field-disabled-example',
+    id: 'field-disabled-example',
+    disabled: true,
+    translations: undefined,
+  },
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
-      label: 'Campo disabilitato',
-      name: 'field-disabled-example',
-      id: 'field-disabled-example',
-      disabled: true,
     })}
   `,
 };
@@ -428,26 +469,20 @@ export const Readonly: Story = {
       },
     },
   },
-
+  args: { type: 'text', readonly: true, value: 'Contenuto in sola lettura' },
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Campo readonly',
       name: 'field-readonly-example',
       id: 'field-readonly-example',
-      readonly: true,
-      value: 'Contenuto in sola lettura',
     })}
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Campo readonly normalizzato come plaintext',
       name: 'field-readonlyplaintext-example',
       id: 'field-readonlyplaintext-example',
-      readonly: true,
       plaintext: true,
-      value: 'Contenuto in sola lettura',
     })}
   `,
 };
@@ -471,20 +506,17 @@ Per modificare le traduzioni dei messaggi generati dal componente, è possibile 
       },
     },
   },
-
+  args: { type: 'password', label: 'Campo password' },
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'password',
-      label: 'Campo password',
       name: 'field-password-example',
       id: 'field-password-example',
       supportText: 'Inserisci almeno 8 caratteri e alcuni caratteri speciali.',
+      translations: undefined,
     })}
     ${renderComponent({
       ...params,
-      type: 'password',
-      label: 'Campo password',
       name: 'field-password-strength-example',
       id: 'field-password-strength-example',
       supportText: 'Inserisci almeno 10 caratteri e alcuni caratteri speciali.',
@@ -506,15 +538,16 @@ export const Textarea: Story = {
       },
     },
   },
-
+  args: {
+    type: 'textarea',
+    label: 'Area di testo',
+    name: 'textarea-example',
+    id: 'textarea-example',
+    placeholder: 'Testo segnaposto',
+  },
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'textarea',
-      label: 'Area di testo',
-      name: 'textarea-example',
-      id: 'textarea-example',
-      placeholder: 'Testo segnaposto',
     })}
   `,
 };
@@ -535,15 +568,13 @@ export const GestioneErrori: Story = {
       },
     },
   },
-
+  args: { type: 'text', placeholder: 'Testo segnaposto', translations: undefined },
   render: (params) => html`
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Campo obbligatorio',
       name: 'required-example',
       id: 'required-example',
-      placeholder: 'Testo segnaposto',
       translations: {
         validityRequired: 'Questo campo è obbligatorio. Inserisci un valore.',
       },
@@ -551,11 +582,9 @@ export const GestioneErrori: Story = {
     })}
     ${renderComponent({
       ...params,
-      type: 'text',
       label: 'Validazione esterna',
       name: 'external-validation-example',
       id: 'external-validation-example',
-      placeholder: 'Testo segnaposto',
       validityMessage: 'Questo campo è obbligatorio!',
       required: undefined,
     })}
@@ -582,7 +611,14 @@ document.querySelector('it-input#event-input-example').addEventListener('input',
       },
     },
   },
-
+  args: {
+    type: 'text',
+    label: 'Prova evento di input',
+    name: 'event-input-example',
+    id: 'event-input-example',
+    placeholder: 'Testo segnaposto',
+    translations: undefined,
+  },
   render: (params) => html`
     <script>
       document.querySelector('it-input#event-input-example').addEventListener('input', (event) => {
@@ -592,11 +628,6 @@ document.querySelector('it-input#event-input-example').addEventListener('input',
     </script>
     ${renderComponent({
       ...params,
-      type: 'text',
-      label: 'Prova evento di input',
-      name: 'event-input-example',
-      id: 'event-input-example',
-      placeholder: 'Testo segnaposto',
     })}
   `,
 };

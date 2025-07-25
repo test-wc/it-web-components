@@ -46,6 +46,9 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   @property({ type: String })
   label = '';
 
+  @property({ type: Boolean, attribute: 'label-hidden' })
+  labelHidden = false;
+
   @property({ type: String })
   type: InputType = 'text';
 
@@ -119,7 +122,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     this.requestUpdate('value', oldValue);
     // we set the value directly on the input (when available)
     // so that programatic manipulation updates the UI correctly
-    if (this._inputElement.value !== value) {
+    if (this._inputElement && this._inputElement.value !== value) {
       this._inputElement.value = value;
     }
   }
@@ -149,13 +152,13 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     );
   }
 
-  private _checkValidity() {
+  checkValidity() {
     const inputValid = this._inputElement ? this._inputElement.checkValidity() : true;
-    return this.checkValidity(this.getTranslations(), inputValid);
+    return this._checkValidity(this.getTranslations(), inputValid);
   }
 
   private _handleBlur() {
-    this._checkValidity();
+    this.checkValidity();
     this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
   }
 
@@ -207,7 +210,7 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
   // protected override update(changedProperties: Map<string | number | symbol, unknown>): void {
   //   if (changedProperties.has('value') || (changedProperties.has('required') && this.required)) {
   //     this.updateComplete.then(() => {
-  //       this._checkValidity();
+  //       this.checkValidity();
   //     });
   //   }
 
@@ -231,6 +234,12 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
     if (this.suggestions && this.type !== 'password') {
       this.logger.warn(
         "The suggestions property is enabled, but type isn't password. Please, remove suggestions this property.",
+      );
+    }
+
+    if (!this.label || this.label?.length === 0) {
+      this.logger.warn(
+        `Label is required to ensure accessibility. Please, define a label for <it-input name="${this.name}" ... /> . Set attribute label-hidden="true" if you don't want to show label.`,
       );
     }
   }
@@ -454,7 +463,12 @@ export class ItInput extends ValidityMixin(FormMixin(BaseComponent)) {
 
     return html`
       <div class="form-group" part="input-wrapper">
-        <label class="active" for="${ifDefined(this._id || undefined)}" part="label">${this.label}</label>
+        <label
+          for="${ifDefined(this._id || undefined)}"
+          part="label"
+          class="${this.composeClass('active', this.labelHidden ? 'visually-hidden' : '')}"
+          >${this.label}</label
+        >
 
         ${when(
           this.slotted,

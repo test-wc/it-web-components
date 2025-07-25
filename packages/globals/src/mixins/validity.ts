@@ -105,7 +105,7 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
      *
      * @returns `true` if the value meets the constraints. `false` otherwise.
      */
-    checkValidity(translations: Record<string, string>, htmlValidity: boolean = true): boolean {
+    _checkValidity(translations: Record<string, string>, htmlValidity: boolean = true): boolean {
       // htmlValidity = this.inputElement.checkValidity(); //check browser validity
       let validity = htmlValidity;
       let message: string = validity
