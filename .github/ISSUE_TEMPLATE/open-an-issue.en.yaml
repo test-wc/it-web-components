@@ -2,24 +2,24 @@ name: Open an issue - EN
 description: To report bugs, open a discussion, or submit a contribution
 labels: []
 body:
-- type: checkboxes
-  attributes:
-    label: Does a discussion already exist on the topic you are interested in, or on a similar topic?
-    description: |
-      Please check [issue list](https://github.com/italia/TODO/issues/). If it exists, participate by posting a comment on the already existing issue.
-    options:
-    - label: I verified and it doesn't exist
-      required: true
-- type: markdown
-  attributes:
-    value: "-------"
-- type: input
-  attributes:
-    label: Library version
-    description: |
-      Version on which you encounter a problem or want to start a discussion.
-  validations:
-    required: true
+# - type: checkboxes
+#   attributes:
+#     label: Does a discussion already exist on the topic you are interested in, or on a similar topic?
+#     description: |
+#       Please check [issue list](https://github.com/italia/TODO/issues/). If it exists, participate by posting a comment on the already existing issue.
+#     options:
+#     - label: I verified and it doesn't exist
+#       required: true
+# - type: markdown
+#   attributes:
+#     value: "-------"
+# - type: input
+#   attributes:
+#     label: Library version
+#     description: |
+#       Version on which you encounter a problem or want to start a discussion.
+#   validations:
+#     required: true
 - type: textarea
   attributes:
     label: What
@@ -33,15 +33,40 @@ body:
       Make sure you do not share any personal information in the process.
   validations:
     required: true
-- type: textarea
+- type: checkboxes
   attributes:
-    label: Why
-    description: |
-      Explain why you consider this report relevant.
+    label: Accessibility tests performed
+    options:
+    - label: With WAVE browser extension
+    - label: Keyboard navigation
+    - label: Windows + Jaws + Chrome
+    - label: Windows + Jaws + Edge
+    - label: Windows + Jaws + Firefox
+    - label: Windows + NVDA + Chrome
+    - label: Windows + NVDA + Edge
+    - label: Windows + NVDA + Firefox
+    - label: MacOS + VoiceOver + Chrome
+    - label: MacOS + VoiceOver + Firefox
+    - label: MacOS + VoiceOver + Safari
+    - label: iOS + VoiceOver + Safari
+    - label: Android + TalkBack + Chrome
+- type: checkboxes
+  attributes:
+    label: Integration tests performed
+    options:
+    - label: React
+    - label: Angular
+    - label: Vue
+    - label: Svelte
+# - type: textarea
+#   attributes:
+#     label: Why
+#     description: |
+#       Explain why you consider this report relevant.
 
-      Highlight any analysis, verifications and tests you've conducted to support your issue or contribution (e.g., data analytics, heuristic analysis, usability tests, accessibility checks), if available.
-  validations:
-    required: true
+#       Highlight any analysis, verifications and tests you've conducted to support your issue or contribution (e.g., data analytics, heuristic analysis, usability tests, accessibility checks), if available.
+#   validations:
+#     required: true
 - type: textarea
   attributes:
     label: Context
