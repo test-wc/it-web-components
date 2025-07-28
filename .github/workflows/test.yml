@@ -19,9 +19,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install playwright browsers
-        run: pnpm test:setup:ci
-
       - name: Test
         run: pnpm test
 

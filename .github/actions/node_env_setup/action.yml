@@ -43,6 +43,10 @@ runs:
       shell: bash
       run: pnpm install --frozen-lockfile
 
+    - name: Install playwright browsers
+      shell: bash
+      run: pnpm test:setup:ci
+
 inputs:
   node-version:
     description: 'Node.js version'
