@@ -20,7 +20,7 @@ jobs:
           node-version: '22'
 
       - name: Install playwright browsers
-        run: pnpm dlx playwright install --with-deps
+        run: pnpm test:setup:ci
 
       - name: Test
         run: pnpm test
