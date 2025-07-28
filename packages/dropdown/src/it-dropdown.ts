@@ -70,7 +70,7 @@ export class ItDropdown extends BaseComponent {
     const items = this._slotEl.assignedElements({ flatten: true }).filter((el) => el.tagName === 'IT-DROPDOWN-ITEM');
     return (
       items
-        // @ts-ignore
+        // @ts-expect-error
         .map((item) => item.getFocusableElement())
         .filter((el): el is HTMLElement => !!el)
     );
@@ -79,8 +79,8 @@ export class ItDropdown extends BaseComponent {
   private _onKeyDown = (event: KeyboardEvent) => {
     const items = this._menuItems;
     const active = this.getActiveElement();
+    if (!active) return;
 
-    // @ts-ignore
     const currentIndex = items.indexOf(active);
 
     if (event.key === 'Tab') {
@@ -91,6 +91,15 @@ export class ItDropdown extends BaseComponent {
       }
       if (!event.shiftKey && currentIndex === items.length - 1) {
         this._popover.closePopover();
+      }
+      if (active.ariaDisabled) {
+        // as of the day of this implementation, tabbing through disabled items doesn't work natively
+        // maybe because of some web components behavior
+        if (event.shiftKey) {
+          this._ariaNav.handleKeyDown(new KeyboardEvent('keydown', { ...event, key: 'ArrowUp' }));
+        } else {
+          this._ariaNav.handleKeyDown(new KeyboardEvent('keydown', { ...event, key: 'ArrowDown' }));
+        }
       }
     }
 
@@ -151,13 +160,26 @@ export class ItDropdown extends BaseComponent {
           aria-expanded=${String(this._popoverOpen)}
           class="dropdown-toggle"
         >
+          ${this.alignment.startsWith('left')
+            ? html`<it-icon
+                name=${this._popoverOpen ? 'it-collapse' : 'it-expand'}
+                class="dropdown-toggle-icon left"
+                color=${this.variant === 'light' ? 'primary' : 'white'}
+                size="sm"
+              ></it-icon>`
+            : ''}
           ${this.label}
-          <it-icon
-            name=${this._popoverOpen ? 'it-collapse' : 'it-expand'}
-            class="dropdown-toggle-icon"
-            color=${this.variant === 'light' ? 'primary' : 'white'}
-            size="sm"
-          ></it-icon>
+          ${!this.alignment.startsWith('left')
+            ? html`<it-icon
+                name=${this._popoverOpen ? 'it-collapse' : 'it-expand'}
+                class=${this.composeClass('dropdown-toggle-icon', {
+                  right: this.alignment.startsWith('right'),
+                  top: this.alignment.startsWith('top'),
+                })}
+                color=${this.variant === 'light' ? 'primary' : 'white'}
+                size="sm"
+              ></it-icon>`
+            : ''}
         </it-button>
         <div
           slot="content"

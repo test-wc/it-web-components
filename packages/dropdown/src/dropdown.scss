@@ -47,3 +47,17 @@ it-button,
 it-popover {
   display: inline-block;
 }
+
+.dropdown-toggle-icon {
+  &.top {
+    transform: scaleY(-1);
+  }
+
+  &.left {
+    transform: rotate(90deg);
+  }
+
+  &.right {
+    transform: rotate(-90deg);
+  }
+}
