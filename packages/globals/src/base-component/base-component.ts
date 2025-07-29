@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { Constructor } from '../index.js';
+import { Constructor, LocalizeMixin } from '../index.js';
 import { Logger } from '../utils/logger.js';
 
 // import TrackFocus from '../utils/track-focus.js';
@@ -67,3 +67,5 @@ export class BaseComponent extends LitElement {
     this._id = this.generateId(prefix);
   }
 }
+
+export const BaseLocalizedComponent = LocalizeMixin(BaseComponent);

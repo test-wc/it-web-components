@@ -1,10 +1,10 @@
-import itLang from './locales/it.js';
+import itLang from './locales/it-videojs.js';
 
 export const VIDEO_LOCALE = ['it', 'en']; // Aggiungi 'fr', 'de', ecc. se necessario
 
 export type Locale = (typeof VIDEO_LOCALE)[number] | string;
-export type LocaleTranslations = typeof itLang;
-export type Translations = Record<Locale, LocaleTranslations>;
+export type VideoJSLocale = typeof itLang;
+export type VideoJSTranslations = Record<Locale, VideoJSLocale>;
 
 export type SingleTrack = {
   kind: 'captions' | 'subtitles' | 'descriptions' | 'chapters' | 'metadata';
@@ -16,10 +16,6 @@ export type SingleTrack = {
 export type Track = Array<SingleTrack>;
 
 export type ConsentOptions = {
-  icon?: string;
-  text?: string;
-  acceptButtonText?: string;
-  rememberCheckboxText?: string;
   consentKey?: string;
   onAccept?: Function;
   isAccepted?: Function;

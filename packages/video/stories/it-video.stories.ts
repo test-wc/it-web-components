@@ -1,17 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+// import { registerTranslation } from '@italia/globals';
+
 import '@italia/video';
 import '@italia/button';
+
 import itLang from '../src/locales/it.js';
-import type { ConsentOptions, Track, Translations, Locale } from '../src/types.ts';
+import type { ConsentOptions, Track, VideoJSTranslations, Locale } from '../src/types.ts';
 
 interface VideoProps {
   src: string;
   poster: string;
   type?: string;
   options?: object;
-  translations?: Translations;
+  translations?: VideoJSTranslations;
   language?: Locale;
   track?: Track;
   consentOptions?: ConsentOptions;
@@ -46,7 +49,7 @@ const meta = {
     track: [],
     consentOptions: {},
     language: 'it',
-    translations: { it: itLang },
+    translations: { it: itLang as any },
     initPluginsName: '',
   },
   argTypes: {
@@ -70,11 +73,10 @@ const meta = {
     consentOptions: {
       control: 'object',
       description:
-        'Oggetto per la configurazione del riquadro per il consenso dei cookie. <br/>Di default sono gia previsti testi e icona, ma è possibile (ed è suggerito) modificare il testo con il link alla pagina della privacy policy. Di default viene salvata una variabile nel localstorage quando viene dato il consenso permanente per i cookie, ma è possibile personalizzare il comportamento passando in questo oggetto due funzioni specifiche per la gestione della memorizzazione del consenso: `onAccept` e `isAccepted`. ',
+        'Oggetto per la configurazione del consenso dei cookie. <br/>Di default viene salvata una variabile nel localstorage con lo stesso nome del type del video, ma è possibile personalizzarla passando in `consentOptions` un valore per `consentKey`. <br/>Inoltre, quando viene dato il consenso permanente per i cookie, è possibile personalizzare il comportamento passando in questo oggetto due funzioni specifiche per la gestione della memorizzazione del consenso: `onAccept` e `isAccepted`.',
       table: {
         defaultValue: {
-          summary:
-            "{icon: 'it-video', text: 'Accetta i cookie di YouTube per vedere il video. Puoi gestire le preferenze nella <a href='#' class='text-white'>cookie policy</a>.', acceptButtonText: 'Accetta', rememberCheckboxText: 'Ricorda per tutti i video',}",
+          summary: '{}',
         },
       },
     },
@@ -89,7 +91,6 @@ const meta = {
         'Traduzioni per le diverse lingue. Di base è disponibile solo la lingua it. Usare questa prop per aggiungere le traduzioni in altre lingue. ',
     },
     initPluginsName: {
-      control: 'string',
       description:
         'Nome della propria funzione presente nella window che verrà invocata da video.js per inizializzare eventuali plugin aggiuntivi definiti dallo sviluppatore.',
     },
@@ -123,10 +124,6 @@ export default meta;
 export const EsempioInterattivo: Story = {
   ...meta,
   name: 'Esempio interattivo',
-  // args: {
-  //   src: 'https://vjs.zencdn.net/v/oceans.webm',
-  // },
-
   tags: ['!autodocs', '!dev'],
   parameters: {
     docs: {
@@ -425,19 +422,18 @@ Nella sezione seguente vengono illustrate le funzioni per la gestione delle pref
 
 L'overlay di consenso viene automaticamente istanziato dal componente se si tratta di un video Youtube.
 
-Per personalizzare l'overlay di consenso è possibile passare al componente \`<it-video>\` l'attributo \`consentOptions\` con il seguente formato:
+Per personalizzare il comportamento sulle scelte effettuate nell'overlay di consenso, è possibile passare al componente \`<it-video>\` l'attributo \`consentOptions\` con il seguente formato:
 
 \`\`\`js
 consentOptions = {
-    icon?: string; //nome dell'icona da usare nell'overlay del consenso
-    text?: string; //testo da mostrare nell'overlay di consenso, comprendente il link alla privacy policy
-    acceptButtonText?: string; //testo da mostrare sul bottone di accettazione
-    rememberCheckboxText?: string; //testo da mostrare a fianco della checkbox per il salvataggio del consenso
     consentKey?: string; //nome della variabile da usare nel localStorage per il salvataggio della preferenza sul consenso. Di default è 'youtube' per i video di Youtube.
     onAccept?: Function; //(accepted, consentKey)=>{} - funzione che viene invocata quando si accetta il consenso permanente per un video di questa tipologia. Se presente, non viene gestita la preferenza nel localstorage, ma è compito dello sviluppatore implementare la logica di salvataggio delle preferenze
     isAccepted?: Function; // (consentKey)=>{} - funzione che ritorna un valore booleano (true/false), che indica se l'utente ha gia accettato il consenso permanente per tutti i video di quel tipo.
   };
 \`\`\`
+
+Di default sono gia previsti testi e icona, ma è possibile (ed è suggerito) modificare il testo con il link alla pagina della privacy policy.
+I testi e l'icona sono modificabili attraverso il sistema di traduzioni. Vedi la guida dedicata.
 `,
       },
     },

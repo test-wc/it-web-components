@@ -22,7 +22,7 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./globals.js": "./dist/src/globals.js"
+    "./globals.js": "./dist/src/index.js"
   },
   "files": [
     "dist/src",
