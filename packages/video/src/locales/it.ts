@@ -1,4 +1,4 @@
-import type { DefaultTranslation } from '@italia/globals';
+import type { DefaultTranslation } from '@italia/i18n';
 
 const translation: DefaultTranslation = {
   $code: 'it',

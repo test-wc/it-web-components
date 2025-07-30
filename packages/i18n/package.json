@@ -1,6 +1,6 @@
 {
-  "name": "@italia/video",
-  "description": "Web component it-video del Design system .italia",
+  "name": "@italia/i18n",
+  "description": "Translations utility del Design system .italia",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/design-web-components.git",
-    "directory": "packages/video"
+    "directory": "packages/i18n"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "homepage": "https://italia.github.io/design-web-components",
@@ -22,52 +22,37 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-video.js": "./dist/src/it-video.js",
-    "./styles/*": "./styles/*"
+    "./i18n.js": "./dist/src/index.js"
   },
   "files": [
     "dist/src",
     "README.md",
     "AUTHORS",
-    "LICENSE",
-    "custom-elements.json",
-    "styles"
+    "LICENSE"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
     "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
-    "prepublish": "pnpm build",
+    "prepublish": "build",
     "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
-    "@italia/button": "workspace:^",
-    "@italia/icon": "workspace:^",
-    "@italia/globals": "workspace:^",
-    "@italia/i18n": "workspace:^",
-    "bootstrap-italia": "catalog:",
-    "lit": "catalog:",
-    "video.js": "^8.21.0",
-    "videojs-font": "^4.2.0"
+    "lit": "catalog:"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
     "@open-wc/testing": "catalog:",
-    "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
-    "rollup-plugin-copy": "^3.5.0",
     "@types/mocha": "catalog:",
     "@web/test-runner": "catalog:",
-    "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
-    "rollup-plugin-scss-lit": "^2.1.0",
     "tslib": "^2.6.3",
     "typescript": "catalog:"
-  },
-  "customElements": "custom-elements.json"
+  }
 }

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-// import { registerTranslation } from '@italia/globals';
 
 import '@italia/video';
 import '@italia/button';

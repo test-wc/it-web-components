@@ -3,7 +3,8 @@ import { property, state, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import videojs from 'video.js';
-import { cookies, registerTranslation, BaseLocalizedComponent } from '@italia/globals';
+import { cookies, BaseLocalizedComponent } from '@italia/globals';
+import { registerTranslation } from '@italia/i18n';
 
 // @ts-ignore
 import { initYoutubePlugin } from './util/youtube-video.js';
