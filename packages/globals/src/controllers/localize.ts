@@ -64,16 +64,13 @@ if (isClient) {
 export function registerTranslation(...translation: Translation[]) {
   translation.forEach((t) => {
     const code = t.$code.toLowerCase();
-    console.log('registertranslation', [...translations.entries()], code, t);
 
     if (translations.has(code)) {
       // Merge translations that share the same language code
       translations.set(code, { ...translations.get(code), ...t });
     } else {
-      console.log('   settranslations ', code, t);
       translations.set(code, t);
     }
-    console.log('   -->', [...translations.entries()]);
 
     // The first translation that's registered is the fallback
     if (!fallback) {
@@ -89,7 +86,7 @@ declare global {
   }
 }
 
-window.registerTranslation = registerTranslation;
+// window.registerTranslation = registerTranslation;
 
 /**
  * Localize Reactive Controller for components built with Lit
@@ -122,7 +119,6 @@ export class LocalizeController<UserTranslation extends Translation = DefaultTra
 
   hostConnected() {
     connectedElements.add(this.host);
-    console.log('hostconnected', connectedElements, translations);
   }
 
   hostDisconnected() {
@@ -145,6 +141,7 @@ export class LocalizeController<UserTranslation extends Translation = DefaultTra
     return `${this.host.lang || documentLanguage}`.toLowerCase();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private getTranslationData(lang: string) {
     // Convert "en_US" to "en-US". Note that both underscores and dashes are allowed per spec, but underscores result in
     // a RangeError by the call to `new Intl.Locale()`. See: https://unicode.org/reports/tr35/#unicode-locale-identifier
@@ -161,7 +158,7 @@ export class LocalizeController<UserTranslation extends Translation = DefaultTra
   exists<K extends keyof UserTranslation>(key: K, options: Partial<ExistsOptions>): boolean {
     const { primary, secondary } = this.getTranslationData(options.lang ?? this.lang());
 
-    options = {
+    const mergedOptions = {
       includeFallback: false,
       ...options,
     };
@@ -169,7 +166,7 @@ export class LocalizeController<UserTranslation extends Translation = DefaultTra
     if (
       (primary && primary[key]) ||
       (secondary && secondary[key]) ||
-      (options.includeFallback && fallback && fallback[key as keyof Translation])
+      (mergedOptions.includeFallback && fallback && fallback[key as keyof Translation])
     ) {
       return true;
     }
@@ -190,6 +187,7 @@ export class LocalizeController<UserTranslation extends Translation = DefaultTra
     } else if (fallback && fallback[key as keyof Translation]) {
       term = fallback[key as keyof Translation];
     } else {
+      // eslint-disable-next-line no-console
       console.error(`No translation found for: ${String(key)}`);
       return String(key);
     }
@@ -203,14 +201,14 @@ export class LocalizeController<UserTranslation extends Translation = DefaultTra
 
   /** Outputs a localized date in the specified format. */
   date(dateToFormat: Date | string, options?: Intl.DateTimeFormatOptions): string {
-    dateToFormat = new Date(dateToFormat);
-    return new Intl.DateTimeFormat(this.lang(), options).format(dateToFormat);
+    const date = new Date(dateToFormat);
+    return new Intl.DateTimeFormat(this.lang(), options).format(date);
   }
 
   /** Outputs a localized number in the specified format. */
   number(numberToFormat: number | string, options?: Intl.NumberFormatOptions): string {
-    numberToFormat = Number(numberToFormat);
-    return isNaN(numberToFormat) ? '' : new Intl.NumberFormat(this.lang(), options).format(numberToFormat);
+    const num = Number(numberToFormat);
+    return Number.isNaN(num) ? '' : new Intl.NumberFormat(this.lang(), options).format(num);
   }
 
   /** Outputs a localized time in relative format. */

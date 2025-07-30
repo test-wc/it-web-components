@@ -4,25 +4,25 @@
   <meta charset="UTF-8" />
   <title>Test Web Components</title>
     <!-- Importa lo script del tuo Web Component -->
-  <script type="module" src="dist/elements.js"></script>
+    <!-- <script type="module" src="dist/elements.js"></script> -->
+    <script type="module">
+      import "./dist/elements.js";
 
+      registerTranslation({
+          $code: 'it',
+          $name: 'Italiano',
+          $dir: 'ltr',
+          video_consent_accept: 'Accetto i cookie',
+        },{
+          $code: 'en',
+          $name: 'English',
+          $dir: 'ltr',
+          video_consent_accept: 'Accept',
+        });
+    </script>
 
-
-  <!-- <link rel="stylesheet" href="../node_modules/bootstrap-italia/dist/css/bootstrap-italia.min.css" /> -->
-  <link rel="stylesheet" href="dist/design-web-components.css" />
-
-  <script type="module">
-
-   import{registerTranslation} from "./dist/elements.js";
-
- console.log(MyModule);
-   registerTranslation({
-      $code: 'it',
-      $name: 'Italiano',
-      $dir: 'ltr',
-      video_consent_accept: 'Accetta da storybook',
-    });
-  </script>
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap-italia/dist/css/bootstrap-italia.min.css" /> -->
+    <link rel="stylesheet" href="dist/design-web-components.css" />
 
 
 </head>

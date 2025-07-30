@@ -58,7 +58,6 @@ describe('ItVideo', () => {
     await expect(overlayAccept).to.have.class('show');
 
     const acceptButton = el.shadowRoot?.querySelector('it-button')?.shadowRoot?.querySelector('button');
-    console.log(acceptButton);
     acceptButton?.click();
 
     await waitUntil(() => !overlayAccept?.classList.contains('show'), 'overlay still has class "show"', {

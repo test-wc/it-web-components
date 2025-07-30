@@ -220,7 +220,6 @@ export class ItVideo extends BaseLocalizedComponent {
   }
 
   render() {
-    console.log('render');
     const needsCookieConsent = this.needsCookieConsent();
 
     return needsCookieConsent
