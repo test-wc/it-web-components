@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
+import { LocalizeMixin } from '@italia/i18n';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
-import { LocalizeMixin } from '@italia/i18n';
 
 // import TrackFocus from '../utils/track-focus.js';
 

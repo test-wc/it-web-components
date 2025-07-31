@@ -18,7 +18,20 @@ export interface ExistsOptions {
 }
 
 const connectedElements = new Set<HTMLElement>();
-const translations: Map<string, Translation> = new Map();
+
+declare global {
+  interface Window {
+    translations?: Map<string, Translation>;
+  }
+}
+
+if (window && !window.translations) {
+  window.translations = new Map<string, Translation>();
+}
+
+const { translations }: { translations: Map<string, Translation> } = window as Window & {
+  translations: Map<string, Translation>;
+};
 
 let fallback: Translation;
 
@@ -86,7 +99,7 @@ declare global {
   }
 }
 
-// window.registerTranslation = registerTranslation;
+window.registerTranslation = registerTranslation;
 
 /**
  * Localize Reactive Controller for components built with Lit

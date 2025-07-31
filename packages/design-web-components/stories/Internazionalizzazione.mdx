@@ -3,9 +3,10 @@ import { Code } from '@storybook/components';
 
 <Meta title='i18n - Internazionalizzazione' />
 
-# Internazionalizzazione dei componenti
+# Internazionalizzazione
 
-L'internazionlizzazione dei componenti si basa sul package indipendente @italia/i18n. L'unica lingua fornita di default è l'Italiano. Se vi è necessità di avere traduzioni in altre lingue, è compito dello sviluppatore implementarle.
+L'internazionlizzazione dei componenti si basa sul package indipendente @italia/i18n. L'unica lingua fornita di default è l'Italiano.<br/>
+Se vi è necessità di avere traduzioni in altre lingue, è compito dello sviluppatore implementarle.
 
 ## Cambio di lingua
 
@@ -118,14 +119,14 @@ export class MyElement extends BaseLocalizedComponent {
 
 ### Uso del bundle globale
 
-La libreria di internazionalizzazione è già inclusa nel bundle globale. Pertanto sarà sufficiente fare:
+La libreria di internazionalizzazione è già inclusa nel bundle globale @italia/design-web-components. Pertanto sarà sufficiente fare:
 
 ```html
 <html lang="it">
   <head>
     ...
     <script type="module">
-      import 'desing-web-components/dist/elements.js';
+      import '@italia/desing-web-components/dist/elements.js';
 
       registerTranslation(
         {
@@ -156,6 +157,7 @@ Se invece non importi il bundle globale, ma vuoi importare solamente alcuni comp
   <head>
     ...
     <script type="module">
+      import '@italia/video'; // esempio di import di un componente specifico
       import '@italia/i18n';
 
       registerTranslation(

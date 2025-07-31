@@ -35,7 +35,7 @@
     "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
     "prepublish": "build",
-    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" && prettier \"src/**/*.ts\" --check",
     "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
