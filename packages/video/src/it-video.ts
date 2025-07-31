@@ -9,7 +9,7 @@ import { registerTranslation } from '@italia/i18n';
 // @ts-ignore
 import { initYoutubePlugin } from './util/youtube-video.js';
 import { type Track, type ConsentOptions, type VideoJSTranslations } from './types.js';
-import itLang from './locales/it-videojs.js';
+import itLang from './locales/videojs/it.js';
 import it from './locales/it.js';
 
 import styles from './it-video.scss';

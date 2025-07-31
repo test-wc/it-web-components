@@ -1,4 +1,4 @@
-import itLang from './locales/it-videojs.js';
+import itLang from './locales/videojs/it.js';
 
 export const VIDEO_LOCALE = ['it', 'en']; // Aggiungi 'fr', 'de', ecc. se necessario
 

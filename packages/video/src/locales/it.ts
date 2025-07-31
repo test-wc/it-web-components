@@ -5,7 +5,7 @@ const translation: DefaultTranslation = {
   $name: 'Italiano',
   $dir: 'ltr',
 
-  // Simple terms
+  // consenso
   video_consent_icon: 'it-video',
   video_consent_text:
     'Accetta i cookie di YouTube per vedere il video. Puoi gestire le preferenze nella <a href="#" class="text-white">cookie policy</a>.',
