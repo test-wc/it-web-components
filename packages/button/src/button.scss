@@ -42,8 +42,3 @@ button,
 //@import 'bootstrap-italia/src/scss/utilities/focus';
 
 @import 'bootstrap-italia/src/scss/components/buttons';
-
-//se viene rimossa la definizione rounded-icon-size in bs-italia per btn-xs, allora serve questa regola:
-// .btn-xs {
-//   --#{$prefix}rounded-icon-size: var(--it-icon-size-xs);
-// }
