@@ -11,5 +11,5 @@ export type ChipProps = {
   label?: string;
   href?: string;
   variant?: ChipVariant;
-  disabled?: boolean;
+  isDisabled?: boolean;
 };

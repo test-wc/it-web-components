@@ -24,7 +24,7 @@ export class ItChip extends BaseComponent {
 
   @property({ type: String }) variant: ChipVariant = '';
 
-  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean, reflect: true }) isDisabled = false;
 
   @queryAssignedElements({ slot: 'dismiss-button', flatten: true })
   closeButton!: HTMLButtonElement[];
@@ -33,7 +33,7 @@ export class ItChip extends BaseComponent {
     return this.composeClass('avatar', this.size === 'lg' ? 'size-sm' : 'size-xs');
   }
 
-  override updated(changedProps: any) {
+  override updated() {
     if (this.dismissable) {
       if (!this.closeButton.length) {
         this.logger.warn(
@@ -58,12 +58,6 @@ export class ItChip extends BaseComponent {
         });
       }
     }
-    if (changedProps.has('disabled')) {
-      this.closeButton.forEach((btn) => {
-        // eslint-disable-next-line no-param-reassign
-        btn.disabled = this.disabled;
-      });
-    }
 
     if (this.avatar && !this.avatarAlt) {
       this.logger.warn(
@@ -73,21 +67,12 @@ export class ItChip extends BaseComponent {
     }
   }
 
-  private _handleDismissSlotChange() {
-    if (this.closeButton?.length && this.disabled !== undefined) {
-      this.closeButton.forEach((btn) => {
-        // eslint-disable-next-line no-param-reassign
-        btn.disabled = this.disabled;
-      });
-    }
-  }
-
   render() {
     const classes = {
       chip: true,
       [`chip-${this.size}`]: this.size,
       [`chip-${this.variant}`]: !!this.variant,
-      'chip-disabled': this.disabled,
+      'chip-disabled': this.isDisabled,
     };
     const content = html`
       <slot name="icon"></slot>
@@ -95,7 +80,7 @@ export class ItChip extends BaseComponent {
         ? html`<div class="${this.getAvatarClass()}"><img src=${this.avatar} alt="${this.avatarAlt}" /></div>`
         : null}
       <span class="chip-label">${this.label}</span>
-      <slot name="dismiss-button" @slotchange=${this._handleDismissSlotChange}></slot>
+      <slot name="dismiss-button"></slot>
     `;
 
     return this.href

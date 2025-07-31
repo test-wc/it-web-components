@@ -68,8 +68,8 @@ describe('it-chip component', () => {
   describe('disabled state', () => {
     it('adds disabled attributes when disabled', async () => {
       const el = await fixture<ItChip>(html`
-        <it-chip label="Disabled" dismissable disabled>
-          <it-button slot="dismiss-button" icon="true" aria-label="Remove">
+        <it-chip label="Disabled" dismissable isDisabled>
+          <it-button slot="dismiss-button" icon="true" aria-label="Remove" aria-disabled="true">
             <it-icon name="it-close" size="sm"></it-icon>
           </it-button>
         </it-chip>
@@ -79,8 +79,6 @@ describe('it-chip component', () => {
       expect(container).to.exist;
 
       expect(container?.classList.contains('chip-disabled')).to.be.true;
-      const btn = el?.querySelector('it-button')!;
-      expect(btn.shadowRoot?.querySelector('button')?.hasAttribute('disabled')).to.be.true;
     });
   });
 });

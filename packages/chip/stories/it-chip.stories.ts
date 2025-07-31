@@ -15,7 +15,7 @@ const meta = {
     label: 'Etichetta',
     href: undefined,
     variant: 'primary',
-    disabled: false,
+    isDisabled: false,
     avatar: '',
     avatarAlt: 'Avatar',
     dismissable: false,
@@ -48,7 +48,7 @@ const meta = {
         "Indica che la chip può essere chiusa, ma non inserisce alcun pulsante automaticamente. Il pulsante deve essere inserito nello slot `dismiss-button` dall'utilizzatore, comprensivo di eventuale JavaScript per handling di eventi. Per un esempio completo con Javascript, vedi la story [Chip con chiusura](?path=/story/componenti-chip--chip-con-chiusura).",
       table: { defaultValue: { summary: 'false' } },
     },
-    disabled: {
+    isDisabled: {
       control: 'boolean',
       description: 'Disabilita la chip. Utile in contesti non interattivi o di sola lettura.',
       table: { defaultValue: { summary: 'false' } },
@@ -105,16 +105,28 @@ type Story = StoryObj<
   }
 >;
 
-const dismissTemplate = (label = 'Elimina etichetta') => html`
+const dismissTemplate = (label = 'Elimina etichetta', disabled = false, description = 'Aria description') => html`
   <it-button
     slot="dismiss-button"
     aria-label="${label}"
+    aria-disabled="${disabled}"
+    aria-description="${description}"
     ?icon=${true}
     @click=${(e: Event) => {
+      if (disabled) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       const chip = (e.currentTarget as HTMLElement).closest('it-chip');
       if (chip) chip.remove();
     }}
     @keydown=${(e: KeyboardEvent) => {
+      if (disabled) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       if (e.key === 'Enter' || e.key === ' ') {
         const chip = (e.currentTarget as HTMLElement).closest('it-chip');
         if (chip) chip.remove();
@@ -131,19 +143,20 @@ const iconTemplate = (color: string) => html`
 
 // Renderizza il wc it-chip di default
 const renderComponent = (params) => {
-  const { avatar, conIcona, label, size, variant, conPulsanteDismiss, dismissable, disabled, href } = params;
+  const { avatar, conIcona, label, size, variant, conPulsanteDismiss, dismissable, isDisabled, href, id } = params;
   return html`
     <it-chip
       label="${label ?? ''}"
       size="${size ?? 'sm'}"
       variant="${variant ?? ''}"
       ?dismissable=${dismissable}
-      ?disabled=${disabled}
+      ?isDisabled=${isDisabled}
       href="${ifDefined(href || undefined)}"
       avatar="${ifDefined(avatar || undefined)}"
+      ?id="${id}"
     >
       ${conIcona ? iconTemplate(variant) : null}
-      ${dismissable && conPulsanteDismiss ? dismissTemplate('I am dismissable') : null}
+      ${dismissable && conPulsanteDismiss ? dismissTemplate('I am dismissable', isDisabled) : null}
     </it-chip>
   `;
 };
@@ -234,7 +247,13 @@ export const VariantiDimensione: Story = {
 export const ChipConChiusura: Story = {
   name: 'Chip con chiusura',
   render: (params) => html`
-    ${renderComponent({ ...params, dismissable: true, conPulsanteDismiss: true, disabled: false })}
+    ${renderComponent({
+      ...params,
+      dismissable: true,
+      conPulsanteDismiss: true,
+      isDisabled: false,
+      id: 'chip-dismissable',
+    })}
   `,
   parameters: {
     docs: {
@@ -252,21 +271,27 @@ Il codice JS dell'esempio gestisce la rimozione della chip sia via click che via
 `,
       },
       source: {
-        code: `<it-chip label="Etichetta" size="sm" variant="primary" dismissable>
+        code: `<it-chip label="Etichetta" size="sm" variant="primary" dismissable id="chip-dismissable">
   <it-button
     slot="dismiss-button"
     icon
     aria-label="Elimina etichetta"
+    aria-description="Puoi premere per eliminare la chip."
   >
     <it-icon name="it-close" size="sm"></it-icon>
   </it-button>
 </it-chip>
 
 <script type="module">
-  const dismissButtons = document.querySelectorAll('it-chip [slot="dismiss-button"]');
+  const dismissButtons = document.querySelectorAll('it-chip#chip-dismissable [slot="dismiss-button"]');
 
   dismissButtons.forEach((btn) => {
     const removeChip = (e) => {
+      if (btn['aria-disabled']) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       const chip = btn.closest('it-chip');
       if (chip) chip.remove();
     };
@@ -290,7 +315,7 @@ Il codice JS dell'esempio gestisce la rimozione della chip sia via click che via
 export const ChipDisabilitata: Story = {
   name: 'Chip disabilitata',
   args: {
-    disabled: true,
+    isDisabled: true,
   },
   parameters: {
     docs: {
@@ -301,5 +326,5 @@ Aggiungendo l'attributo \`disabled\` si ottiene una chip disabilitata.
       },
     },
   },
-  render: (args) => html`${renderComponent(args)}`,
+  render: (args) => html`${renderComponent({ ...args, dismissable: true, conPulsanteDismiss: true })}`,
 };
