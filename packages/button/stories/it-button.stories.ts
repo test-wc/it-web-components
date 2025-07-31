@@ -7,7 +7,7 @@ import '@italia/icon';
 interface ButtonProps {
   variant: Variants;
   outline: boolean;
-  disabled: boolean;
+  ariaDisabled: boolean;
   slot: string;
   size: Sizes;
   type: string;
@@ -25,7 +25,7 @@ const renderComponent = (params: any, defaultSlot = '') => {
       ?outline="${params.outline}"
       size="${params.size}"
       ?block="${params.block}"
-      ?disabled="${params.disabled}"
+      ?aria-disabled="${params.ariaDisabled}"
       ?icon="${params.icon}"
       type="${params.type}"
       >${slot}</it-button
@@ -38,7 +38,7 @@ const renderDefault = (params: any) => html`
     ${renderComponent(params)}
     ${renderComponent({
       ...params,
-      disabled: true,
+      ariaDisabled: true,
       slot: `${params.slot} disabled`,
     })}
   </div>
@@ -88,7 +88,7 @@ const meta = {
     size: 'sm',
     block: false,
     outline: false,
-    disabled: false,
+    ariaDisabled: false,
     icon: false,
     type: 'button',
     value: '',
@@ -111,9 +111,10 @@ const meta = {
       description: 'Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile',
       table: { defaultValue: { summary: 'false' } },
     },
-    disabled: {
+    ariaDisabled: {
       control: 'boolean',
       type: 'boolean',
+      name: 'aria-disabled',
       table: { defaultValue: { summary: 'false' } },
     },
     outline: {
@@ -208,7 +209,7 @@ export const VariantiColore: Story = {
         disable: true,
       },
     },
-    disabled: {
+    ariaDisabled: {
       table: {
         disable: true,
       },
@@ -221,7 +222,8 @@ export const VariantiColore: Story = {
 Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
 
 #### Note sullo stato disabilitato
-- I pulsanti disabilitati includeranno l’attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive.
+- I pulsanti disabilitati dovranno avere l'attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive. Quando si utilizza l'attributo \`aria-disabled\` è consigliato usare anche l'attributo \`aria-describedby\` (o un elemento all'interno del bottone con classe \`.sr-only\`) per informare tramite gli screen-reader il motivo per il quale il pulsante è disabilitato.
+<br/> E' sconsigliato l'uso dell'attributo \`disabled\`.
 `,
       },
     },
@@ -333,7 +335,7 @@ export const SfondoScuro: Story = {
         disable: true,
       },
     },
-    disabled: {
+    ariaDisabled: {
       table: {
         disable: true,
       },
@@ -399,7 +401,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="sm"></it-icon>
@@ -411,7 +413,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="sm"></it-icon> <span>${slot ?? 'Pulsante con icona'}</span>
@@ -423,7 +425,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="xs"></it-icon>
@@ -436,10 +438,110 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
+        <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
+      </it-button>
+    </div>`;
+  },
+};
+
+/*
+https://github.com/italia/bootstrap-italia/pull/1475/files
+questa per per bootstrap-italia#feat/design-tokens, sistema la dimensione di .roundedicon nei pulsanti di dimensione xs
+*/
+export const ConIconaCerchiata: Story = {
+  ...meta,
+  name: 'Con icona cerchiata',
+  args: {},
+  argTypes: {
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    size: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
+Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` per poter avere il contorno circolare.
+<br/><br/>
+#### Dimensione dell'icona
+- Nei pulsanti di dimensione \`lg\` e \`sm\` è necessario passare l'attributo \`size="sm"\` all'icona.
+- Nei pulsanti di dimensione \`xs\`, è necessario passare l'attributo \`size="xs"\` all'icona .
+`,
+      },
+    },
+  },
+  render: (params) => {
+    const slot = params.slot?.length > 0 ? params.slot : null;
+    return html` <div class="flex">
+      <it-button
+        variant="success"
+        size="lg"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?aria-disabled="${params.ariaDisabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon">
+          <it-icon name="it-user" color="success" size="sm"></it-icon>
+        </span>
+        <span>${slot ?? 'Pulsante Large con icona'}</span>
+      </it-button>
+
+      <it-button
+        variant="primary"
+        size="sm"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?aria-disabled="${params.ariaDisabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon" size="sm">
+          <it-icon name="it-user" color="primary" size="sm"></it-icon>
+        </span>
+        <span>${slot ?? 'Pulsante con icona'}</span>
+      </it-button>
+
+      <it-button
+        variant="danger"
+        size="xs"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?aria-disabled="${params.ariaDisabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon">
+          <it-icon name="it-user" color="danger" size="xs"></it-icon>
+        </span>
+        <span>${slot ?? 'Pulsante Small con icona'}</span>
+      </it-button>
+
+      <it-button
+        variant="primary"
+        size="xs"
+        icon
+        ?outline="${params.outline}"
+        ?block="${params.block}"
+        ?aria-disabled="${params.ariaDisabled}"
+        type="${params.type}"
+      >
+        <span class="rounded-icon bg-primary">
+          <it-icon name="it-user" color="white" size="xs"></it-icon>
+        </span>
         <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
       </it-button>
     </div>`;

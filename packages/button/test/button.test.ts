@@ -19,11 +19,12 @@ describe('Button component', () => {
     });
 
     it('disabled is accessible', async () => {
-      const el = await fixture<ItButton>(html`<it-button disabled>bsi Button</it-button>`);
+      const el = await fixture<ItButton>(html`<it-button aria-disabled>bsi Button</it-button>`);
       const button = el.shadowRoot?.querySelector('button');
 
       await expect(el).to.be.accessible();
-      await expect(button?.hasAttribute('disabled')).to.be.true;
+      await expect(button?.hasAttribute('aria-disabled')).to.be.true;
+      await expect(button?.classList.contains('disabled')).to.be.true;
     });
 
     it('on bg-dark is accessible', async () => {
