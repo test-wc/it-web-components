@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -24,8 +24,14 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-      - name: Publish package to NPM
-        run: pnpm publish --no-git-checks
+      - name: Build packages
+        run: pnpm build
+
+      - name: Setup NPM for publishing
+        run: cp .npmrc.publish .npmrc
+
+      - name: Publish packages to NPM
+        run: pnpm exec changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'

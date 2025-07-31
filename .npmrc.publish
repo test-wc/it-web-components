@@ -1,3 +1,5 @@
 auto-install-peers = true
 public-hoist-pattern[]=*storybook*
 registry=https://registry.npmjs.org/
+//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+provenance=true
