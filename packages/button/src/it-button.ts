@@ -61,10 +61,15 @@ export class ItButton extends BaseComponent {
   }
 
   surfaceSubmitEvent(event: any) {
-    if (this.form) {
+    const disabled = 'aria-disabled' in this._ariaAttributes;
+    if (this.form && !disabled) {
       event.preventDefault();
       event.stopPropagation();
       this.form.requestSubmit();
+    }
+    if (disabled) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
