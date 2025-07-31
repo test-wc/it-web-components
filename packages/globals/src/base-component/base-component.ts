@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
+
 // import TrackFocus from '../utils/track-focus.js';
 
 export interface BaseComponentInterface {
@@ -20,9 +21,16 @@ export class BaseComponent extends LitElement {
 
   protected _ariaAttributes: Record<string, string> = {}; // tutti gli attributi aria-* passati al Web component
 
+  protected _id?: string; // id interno del componente, da usare sui veri elementi HTML
+
   constructor() {
     super();
     this.logger = new Logger(this.tagName.toLowerCase());
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  generateId(prefix: string) {
+    return `${prefix}-${Math.random().toString(36).slice(2)}`;
   }
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
@@ -53,5 +61,9 @@ export class BaseComponent extends LitElement {
     super.connectedCallback?.();
 
     this.getAriaAttributes();
+
+    // generate internal _id
+    const prefix = this.id?.length > 0 ? this.id : this.tagName.toLowerCase();
+    this._id = this.generateId(prefix);
   }
 }

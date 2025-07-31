@@ -11,16 +11,11 @@ jobs:
     concurrency: ci-test-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Set up Node.js environment
         uses: ./.github/actions/node_env_setup
         with:
           node-version: '22'
-
-      - name: Install playwright browsers
-        run: pnpm dlx playwright install --with-deps
 
       - name: Test
         run: pnpm test
