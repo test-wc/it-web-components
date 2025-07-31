@@ -15,7 +15,7 @@ describe('it-chip component', () => {
     it('dismissable chip with proper button is accessible', async () => {
       const el = await fixture<ItChip>(html`
         <it-chip label="Dismissable" dismissable>
-          <it-button slot="dismiss-button" icon="true" label="Remove chip">
+          <it-button slot="dismiss-button" icon="true" aria-label="Remove chip">
             <it-icon name="it-close" size="sm"></it-icon>
           </it-button>
         </it-chip>
@@ -69,7 +69,7 @@ describe('it-chip component', () => {
     it('adds disabled attributes when disabled', async () => {
       const el = await fixture<ItChip>(html`
         <it-chip label="Disabled" dismissable disabled>
-          <it-button slot="dismiss-button" icon="true" label="Remove">
+          <it-button slot="dismiss-button" icon="true" aria-label="Remove">
             <it-icon name="it-close" size="sm"></it-icon>
           </it-button>
         </it-chip>
