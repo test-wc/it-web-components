@@ -61,6 +61,7 @@
     "@web/test-runner-commands": "catalog:",
     "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-scss-lit": "^2.1.0",
     "sass": "catalog:",
     "tslib": "^2.6.3",
