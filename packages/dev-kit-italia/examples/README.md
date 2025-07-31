@@ -1,6 +1,6 @@
 # Static HTML examples
 
-- Build packages/dev-kit-italias with pnpm build or copy /dist folder from packages/dev-kit-italia
+- Build packages/dev-kit-italia with pnpm build or copy /dist folder from packages/dev-kit-italia
 
 - Move under /examples
   cd /examples
