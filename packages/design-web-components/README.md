@@ -1,1 +1,0 @@
-# @italia/design-web-components

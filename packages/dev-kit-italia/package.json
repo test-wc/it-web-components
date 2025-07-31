@@ -1,5 +1,5 @@
 {
-  "name": "@italia/design-web-components",
+  "name": "@italia/dev-kit-italia",
   "description": "Bundle dei web components del Design system .italia",
   "version": "0.0.0",
   "publishConfig": {
@@ -8,13 +8,13 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/italia/design-web-components.git",
-    "directory": "packages/design-web-components"
+    "url": "https://github.com/italia/dev-kit-italia.git",
+    "directory": "packages/dev-kit-italia"
   },
   "author": "Presidenza del Consiglio dei Ministri",
-  "homepage": "https://italia.github.io/design-web-components",
+  "homepage": "https://italia.github.io/dev-kit-italia",
   "bugs": {
-    "url": "https://github.com/italia/design-web-components/issues"
+    "url": "https://github.com/italia/dev-kit-italia/issues"
   },
   "type": "module",
   "main": "./dist/src/index.js",

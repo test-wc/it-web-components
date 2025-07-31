@@ -8,13 +8,13 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/italia/design-web-components.git",
+    "url": "https://github.com/italia/dev-kit-italia.git",
     "directory": "packages/tabs"
   },
   "author": "Presidenza del Consiglio dei Ministri",
-  "homepage": "https://italia.github.io/design-web-components",
+  "homepage": "https://italia.github.io/dev-kit-italia",
   "bugs": {
-    "url": "https://github.com/italia/design-web-components/issues"
+    "url": "https://github.com/italia/dev-kit-italia/issues"
   },
   "type": "module",
   "main": "./dist/src/index.js",
