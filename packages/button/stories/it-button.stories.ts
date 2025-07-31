@@ -7,7 +7,7 @@ import '@italia/icon';
 interface ButtonProps {
   variant: Variants;
   outline: boolean;
-  disabled: boolean;
+  ariaDisabled: boolean;
   slot: string;
   size: Sizes;
   type: string;
@@ -26,7 +26,7 @@ const renderComponent = (params: any, defaultSlot = '') => {
       ?outline="${params.outline}"
       size="${params.size}"
       ?block="${params.block}"
-      ?disabled="${params.disabled}"
+      ?aria-disabled="${params.ariaDisabled}"
       ?icon="${params.icon}"
       type="${params.type}"
       aria-label="${params['aria-label']}"
@@ -40,7 +40,7 @@ const renderDefault = (params: any) => html`
     ${renderComponent(params)}
     ${renderComponent({
       ...params,
-      disabled: true,
+      ariaDisabled: true,
       slot: `${params.slot} disabled`,
     })}
   </div>
@@ -90,7 +90,7 @@ const meta = {
     size: 'sm',
     block: false,
     outline: false,
-    disabled: false,
+    ariaDisabled: false,
     icon: false,
     type: 'button',
     value: '',
@@ -114,9 +114,10 @@ const meta = {
       description: 'Quando abilitato, estende il componente Button fino a prendere tutta la larghezza disponibile',
       table: { defaultValue: { summary: 'false' } },
     },
-    disabled: {
+    ariaDisabled: {
       control: 'boolean',
       type: 'boolean',
+      name: 'aria-disabled',
       table: { defaultValue: { summary: 'false' } },
     },
     outline: {
@@ -215,7 +216,7 @@ export const VariantiColore: Story = {
         disable: true,
       },
     },
-    disabled: {
+    ariaDisabled: {
       table: {
         disable: true,
       },
@@ -228,7 +229,8 @@ export const VariantiColore: Story = {
 Gli stili definiti da Bootstrap Italia utilizzano un naming consistente con Bootstrap, con alcune personalizzazioni:
 
 #### Note sullo stato disabilitato
-- I pulsanti disabilitati includeranno l’attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive.
+- I pulsanti disabilitati dovranno avere l'attributo \`aria-disabled="true"\` per indicare lo stato dell’elemento alle tecnologie assistive. Quando si utilizza l'attributo \`aria-disabled\` è consigliato usare anche l'attributo \`aria-describedby\` (o un elemento all'interno del bottone con classe \`.sr-only\`) per informare tramite gli screen-reader il motivo per il quale il pulsante è disabilitato.
+<br/> E' sconsigliato l'uso dell'attributo \`disabled\`.
 `,
       },
     },
@@ -340,7 +342,7 @@ export const SfondoScuro: Story = {
         disable: true,
       },
     },
-    disabled: {
+    ariaDisabled: {
       table: {
         disable: true,
       },
@@ -406,7 +408,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="sm"></it-icon>
@@ -418,7 +420,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="sm"></it-icon> <span>${slot ?? 'Pulsante con icona'}</span>
@@ -430,7 +432,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="xs"></it-icon>
@@ -443,7 +445,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
@@ -496,7 +498,7 @@ Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` pe
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <span class="rounded-icon">
@@ -511,7 +513,7 @@ Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` pe
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <span class="rounded-icon" size="sm">
@@ -526,7 +528,7 @@ Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` pe
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <span class="rounded-icon">
@@ -541,7 +543,7 @@ Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` pe
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
-        ?disabled="${params.disabled}"
+        ?aria-disabled="${params.ariaDisabled}"
         type="${params.type}"
       >
         <span class="rounded-icon bg-primary">
