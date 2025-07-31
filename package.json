@@ -24,7 +24,7 @@
     "test:setup": "pnpm exec playwright install",
     "test:setup:ci": "pnpm exec playwright install --with-deps --only-shell",
     "test": "turbo run test",
-    "storybook:build": "pnpm build && storybook build",
+    "storybook:build": "node ./serialize-sb-build.js",
     "storybook:deploy": "pnpm dlx gh-pages -d storybook-static -m 'chore: update documentation [ci skip]' --nojekyll",
     "storybook": "storybook dev -p 6006"
   },
