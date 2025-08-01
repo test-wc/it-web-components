@@ -52,11 +52,13 @@ const renderVariant = (args: ButtonProps, defaultText: string) => {
       ...args,
       slot: slot ?? defaultText,
     })}
-    ${renderDefault({
-      ...args,
-      slot: slot ?? `${defaultText} outline`,
-      outline: true,
-    })}
+    ${args.variant !== 'link'
+      ? renderDefault({
+          ...args,
+          slot: slot ?? `${defaultText} outline`,
+          outline: true,
+        })
+      : ''}
   </div>`;
 };
 
@@ -301,18 +303,18 @@ export const Tipologie: Story = {
     variant: 'primary',
   },
   render: (params) => html`
-    <div class="flex tipologie-buttons">
-      ${renderDefault({
+    <div class="flex">
+      ${renderComponent({
         ...params,
         slot: `Button - ${params.slot}`,
         type: 'button',
       })}
-      ${renderDefault({
+      ${renderComponent({
         ...params,
         slot: `Submit - ${params.slot}`,
         type: 'submit',
       })}
-      ${renderDefault({
+      ${renderComponent({
         ...params,
         slot: `Reset - ${params.slot}`,
         type: 'reset',
