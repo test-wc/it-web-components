@@ -10,7 +10,12 @@ const preview = {
         date: /Date$/i,
       },
     },
-    docs: { toc: true },
+    docs: {
+      toc: {
+        headingSelector: 'h1, h2, h3',
+        title: 'Indice',
+      },
+    },
     options: {
       storySort: {
         order: ['Welcome', 'PersonalizzazioneDegliStili', 'Componenti', ['Button', 'Icon', 'Video']],

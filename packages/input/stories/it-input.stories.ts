@@ -33,8 +33,8 @@ interface InputProps {
 }
 
 // Renderizza il wc it-input di default
-const renderComponent = (params: any) => html`
-  <it-input
+const renderComponent = (params: any) =>
+  html`<it-input
     id="${ifDefined(params.id || undefined)}"
     label="${ifDefined(params.label || undefined)}"
     type="${ifDefined(params.type || undefined)}"
@@ -56,10 +56,8 @@ const renderComponent = (params: any) => html`
     ?suggestions="${params.suggestions}"
     ?label-hidden="${params.labelHidden}"
     translations="${params.translations ? JSON.stringify(params.translations) : nothing}"
-  >
-    ${ifDefined(params.children || undefined)}
-  </it-input>
-`;
+    >${ifDefined(params.children || undefined)}</it-input
+  >`;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
