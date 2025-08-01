@@ -34,6 +34,7 @@
     "storybook": "storybook dev -p 6006"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.5",
     "@chromatic-com/storybook": "^3.2.6",
     "@commitlint/cli": "^19.8.1",
