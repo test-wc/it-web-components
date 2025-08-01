@@ -23,7 +23,7 @@ export class ItButton extends BaseComponent {
   variant: Variants = '';
 
   @property({ type: String })
-  size: Sizes = 'sm';
+  size: Sizes = '';
 
   @property({ type: Boolean })
   outline = false;
@@ -87,9 +87,14 @@ export class ItButton extends BaseComponent {
 
   // Render the UI as a function of component state
   override render() {
+    const part = this.composeClass(
+      'button',
+      this.variant?.length > 0 ? this.variant : '',
+      this.outline ? 'outline' : '',
+    );
     return html`
       <button
-        part="button ${this.variant} ${this.outline ? 'outline' : ''}"
+        part="${part}"
         type="${this.type}"
         class="${this._buttonClasses}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
