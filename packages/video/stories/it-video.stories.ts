@@ -158,10 +158,10 @@ al player le opzioni definite qui [https://videojs.com/guides/options/](https://
 sovrascrivere le traduzioni italiane pre-impostate.
 
 ### Font per le icone del player
-Per utilizzare le icone del player, è necessario includere il font \`VideoJS.woff\` nella tua applicazione. Puoi farlo aggiungendo il css compilato di design-web-components nel tuo sorgente HTML:
+Per utilizzare le icone del player, è necessario includere il font \`VideoJS.woff\` nella tua applicazione. Puoi farlo aggiungendo il css compilato di dev-kit-italia nel tuo sorgente HTML:
 
 \`\`\`html
-<link rel="stylesheet" href="design-web-components/dist/design-web-components.css" />
+<link rel="stylesheet" href="dev-kit-italia/dist/dev-kit-italia.css" />
 \`\`\`
 oppure se stai usando SCSS puoi definire il font direttamente nel tuo file SCSS:
 
@@ -173,7 +173,7 @@ oppure se stai usando SCSS puoi definire il font direttamente nel tuo file SCSS:
   font-style: normal;
 }
 \`\`\`
-copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copiare dal package design-web-components).
+copiando l'asset \`VideoJS.woff\` nella tua cartella assets/fonts (lo puoi copiare dal package dev-kit-italia).
 
 
 ### Plugin

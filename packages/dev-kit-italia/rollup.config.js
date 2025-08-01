@@ -27,7 +27,7 @@ export default [
     output: {
       dir: 'dist',
       sourcemap: true,
-      output: { file: 'design-web-components-styles.js', format: 'esm' },
+      output: { file: 'dev-kit-italia-styles.js', format: 'esm' },
     },
     plugins: [
       resolve(),
@@ -35,7 +35,7 @@ export default [
         targets: [{ src: 'assets/*', dest: 'dist/assets' }],
       }),
       scss({
-        fileName: 'design-web-components.css',
+        fileName: 'dev-kit-italia.css',
         //  outputStyle: 'compressed',
       }),
     ],
