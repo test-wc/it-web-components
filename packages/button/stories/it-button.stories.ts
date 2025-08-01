@@ -51,11 +51,13 @@ const renderVariant = (args, defaultText) => {
       ...args,
       slot: slot ?? defaultText,
     })}
-    ${renderDefault({
-      ...args,
-      slot: slot ?? `${defaultText} outline`,
-      outline: true,
-    })}
+    ${args.variant !== 'link'
+      ? renderDefault({
+          ...args,
+          slot: slot ?? `${defaultText} outline`,
+          outline: true,
+        })
+      : ''}
   </div>`;
 };
 
