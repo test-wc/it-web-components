@@ -8,6 +8,7 @@ Il processo di rilascio utilizza [Changesets](https://github.com/changesets/chan
 
 - Raccogliere le modifiche di ciascun pacchetto in changelog separati
 - Mantenere versioni sincronizzate tra tutti i pacchetti
+- Generare automaticamente un **changelog unificato** nella radice del repository
 - Pubblicare automaticamente tutti i pacchetti su NPM
 - Creare release GitHub con changelog aggregato
 
@@ -43,9 +44,10 @@ Questo script:
 4. 📝 Aggiorna le versioni di tutti i pacchetti
 5. 🔒 Aggiorna il lockfile
 6. 🔨 Builda tutti i pacchetti
-7. 💾 Committa le modifiche
-8. 🏷️ Crea un tag Git basato sulla nuova versione
-9. ⬆️ Effettua push delle modifiche e del tag
+7. � Genera il changelog unificato
+8. �💾 Committa le modifiche
+9. 🏷️ Crea un tag Git basato sulla nuova versione
+10. ⬆️ Effettua push delle modifiche e del tag
 
 ### 3. Pubblicazione Automatica
 
@@ -55,6 +57,44 @@ Il push del tag attiverà automaticamente il workflow GitHub Actions `.github/wo
 2. 📦 Pubblica tutti i pacchetti su NPM con certificazione di provenance
 3. 📄 Crea una release GitHub con changelog aggregato
 
+## Changelog Unificato 📋
+
+Oltre ai changelog individuali per ogni pacchetto, il sistema genera automaticamente un **changelog unificato** (`CHANGELOG.md`) nella radice del repository che raccoglie tutte le modifiche di tutti i pacchetti per ogni versione.
+
+### Generazione Automatica
+
+Il changelog unificato viene generato automaticamente durante il processo di rilascio (`pnpm release:create`), ma può essere generato manualmente con:
+
+```bash
+pnpm release:changelog
+```
+
+### Struttura del Changelog Unificato
+
+```markdown
+# Design Web Components Changelog
+
+## 1.2.0
+
+### button
+
+- Fix button hover state styling
+- Add support for custom icons
+
+### icon
+
+- Add new calendar icon
+- Update icon sizing system
+
+### video
+
+- Fix video player controls on mobile
+
+## 1.1.0
+
+...
+```
+
 ## Configurazione
 
 ### Pacchetti Sincronizzati
@@ -62,13 +102,8 @@ Il push del tag attiverà automaticamente il workflow GitHub Actions `.github/wo
 I seguenti pacchetti vengono rilasciati sempre con la stessa versione (configurato in `.changeset/config.json`):
 
 - `@italia/button`
-- `@italia/dropdown`
-- `@italia/globals`
 - `@italia/icon`
-- `@italia/popover`
-- `@italia/tabs`
 - `@italia/video`
-- `design-web-components`
 
 ### Pacchetti Ignorati
 
@@ -86,6 +121,7 @@ Se un pacchetto non ha modifiche, riceverà automaticamente una voce di changelo
 - `pnpm release:changeset` - Aggiungi un nuovo changeset
 - `pnpm release:version` - Aggiorna solo le versioni (senza commit/tag)
 - `pnpm release:create` - Processo completo di rilascio
+- `pnpm release:changelog` - Genera solo il changelog unificato
 - `pnpm release:publish` - Pubblica i pacchetti localmente (solo per test)
 
 ## Esempi di Utilizzo

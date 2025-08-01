@@ -93,17 +93,21 @@ function release() {
     console.log('🔨 Build dei pacchetti...');
     execSync('pnpm build', { stdio: 'inherit' });
 
-    // 4. Commit delle modifiche
+    // 4. Genera il changelog unificato
+    console.log('📝 Generazione changelog unificato...');
+    execSync('node scripts/generate-unified-changelog.js', { stdio: 'inherit' });
+
+    // 5. Commit delle modifiche
     console.log('💾 Commit delle modifiche...');
     execSync('git add .', { stdio: 'inherit' });
     execSync('git commit -m "chore: version packages"', { stdio: 'inherit' });
 
-    // 5. Creazione del tag
+    // 6. Creazione del tag
     const tag = createVersionTag();
     console.log(`🏷️ Creazione del tag ${tag}...`);
     execSync(`git tag ${tag}`, { stdio: 'inherit' });
 
-    // 6. Push
+    // 7. Push
     console.log('⬆️ Push delle modifiche e del tag...');
     execSync('git push', { stdio: 'inherit' });
     execSync('git push --tags', { stdio: 'inherit' });
@@ -111,6 +115,7 @@ function release() {
     console.log('\n✅ Rilascio completato con successo!');
     console.log(`📦 Tag creato: ${tag}`);
     console.log('🎯 Il workflow GitHub Actions si attiverà automaticamente per pubblicare i pacchetti su NPM.');
+    console.log('📝 Il changelog unificato è stato generato in CHANGELOG.md');
   } catch (error) {
     console.log('\n❌ Errore durante il rilascio:', error.message);
     process.exit(1);

@@ -26,6 +26,7 @@
     "release:version": "changeset version && pnpm install --lockfile-only",
     "release:publish": "pnpm build && changeset publish",
     "release:create": "node scripts/release.js",
+    "release:changelog": "node scripts/generate-unified-changelog.js",
     "test:setup": "pnpm exec playwright install",
     "test:setup:ci": "pnpm exec playwright install --with-deps --only-shell",
     "test": "turbo run test",
