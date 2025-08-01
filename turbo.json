@@ -3,7 +3,14 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**/*.js", "dist/**/*.js.map", "dist/**/*.d.ts", "dist/**/*.d.ts.map"]
+      "outputs": [
+        "dist/**/*.js",
+        "dist/**/*.js.map",
+        "dist/**/*.d.ts",
+        "dist/**/*.d.ts.map",
+        "src/icons/*.ts",
+        "src/icon-registry.ts"
+      ]
     },
     "build:styles": {
       "dependsOn": [],
