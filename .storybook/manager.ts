@@ -1,7 +1,6 @@
 import { addons, State } from '@storybook/manager-api';
 import { themes } from '@storybook/theming';
 
-console.log(themes.light);
 addons.setConfig({
   theme: {
     ...themes.light, // puoi anche usare themes.dark o un tema personalizzato
