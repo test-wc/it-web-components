@@ -44,10 +44,11 @@ Questo script:
 4. 📝 Aggiorna le versioni di tutti i pacchetti
 5. 🔒 Aggiorna il lockfile
 6. 🔨 Builda tutti i pacchetti
-7. � Genera il changelog unificato
-8. �💾 Committa le modifiche
-9. 🏷️ Crea un tag Git basato sulla nuova versione
-10. ⬆️ Effettua push delle modifiche e del tag
+7. 🏷️ Aggiunge entry "version bump" ai pacchetti senza modifiche
+8. 📝 Genera il changelog unificato (escludendo i version bump)
+9. 💾 Committa le modifiche
+10. 🏷️ Crea un tag Git basato sulla nuova versione
+11. ⬆️ Effettua push delle modifiche e del tag
 
 ### 3. Pubblicazione Automatica
 
@@ -114,7 +115,10 @@ I seguenti pacchetti di configurazione sono esclusi dai rilasci:
 
 ### Changelog per Pacchetti Senza Modifiche
 
-Se un pacchetto non ha modifiche, riceverà automaticamente una voce di changelog che indica un "version bump" per mantenere la sincronizzazione delle versioni.
+I pacchetti senza modifiche riceveranno automaticamente:
+
+- **Nei changelog individuali**: Una voce "- Version bump only" per documentare il rilascio
+- **Nel changelog unificato**: Vengono automaticamente **esclusi** per mantenere il changelog pulito e focalizzato solo sulle modifiche significative
 
 ## Comandi Disponibili
 
@@ -122,6 +126,7 @@ Se un pacchetto non ha modifiche, riceverà automaticamente una voce di changelo
 - `pnpm release:version` - Aggiorna solo le versioni (senza commit/tag)
 - `pnpm release:create` - Processo completo di rilascio
 - `pnpm release:changelog` - Genera solo il changelog unificato
+- `pnpm release:version-bump` - Aggiungi entry "version bump" ai pacchetti senza modifiche
 - `pnpm release:publish` - Pubblica i pacchetti localmente (solo per test)
 
 ## Esempi di Utilizzo

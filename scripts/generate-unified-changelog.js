@@ -124,12 +124,20 @@ function generateUnifiedChangelog() {
     for (const pkg of packages) {
       const versionEntry = pkg.changelog.find((entry) => entry.version === version);
       if (versionEntry && versionEntry.content.trim()) {
-        if (!hasChanges) {
-          hasChanges = true;
-        }
+        // Escludi entries che contengono solo "version bump" o varianti simili
+        const isVersionBumpOnly =
+          versionEntry.content.toLowerCase().includes('version bump') &&
+          !versionEntry.content.toLowerCase().includes('### patch changes') &&
+          versionEntry.content.split('\n').filter((line) => line.trim() && !line.includes('version bump')).length === 0;
 
-        unifiedContent += `### \`${pkg.displayName}\`\n\n`;
-        unifiedContent += `${versionEntry.content}\n\n`;
+        if (!isVersionBumpOnly) {
+          if (!hasChanges) {
+            hasChanges = true;
+          }
+
+          unifiedContent += `### \`${pkg.displayName}\`\n\n`;
+          unifiedContent += `${versionEntry.content}\n\n`;
+        }
       }
     }
 

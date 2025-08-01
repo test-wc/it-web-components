@@ -93,21 +93,25 @@ function release() {
     console.log('🔨 Build dei pacchetti...');
     execSync('pnpm build', { stdio: 'inherit' });
 
-    // 4. Genera il changelog unificato
+    // 4. Aggiungi entry "version bump" dove necessario
+    console.log('🏷️ Aggiunta entry version bump ai pacchetti senza modifiche...');
+    execSync('node scripts/add-version-bump.js', { stdio: 'inherit' });
+
+    // 5. Genera il changelog unificato
     console.log('📝 Generazione changelog unificato...');
     execSync('node scripts/generate-unified-changelog.js', { stdio: 'inherit' });
 
-    // 5. Commit delle modifiche
+    // 6. Commit delle modifiche
     console.log('💾 Commit delle modifiche...');
     execSync('git add .', { stdio: 'inherit' });
     execSync('git commit -m "chore: version packages"', { stdio: 'inherit' });
 
-    // 6. Creazione del tag
+    // 7. Creazione del tag
     const tag = createVersionTag();
     console.log(`🏷️ Creazione del tag ${tag}...`);
     execSync(`git tag ${tag}`, { stdio: 'inherit' });
 
-    // 7. Push
+    // 8. Push
     console.log('⬆️ Push delle modifiche e del tag...');
     execSync('git push', { stdio: 'inherit' });
     execSync('git push --tags', { stdio: 'inherit' });
