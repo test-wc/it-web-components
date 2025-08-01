@@ -22,7 +22,7 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./globals.js": "./dist/src/globals.js"
+    "./globals.js": "./dist/src/index.js"
   },
   "files": [
     "dist/src",
@@ -41,7 +41,8 @@
     "test-disabled": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
-    "lit": "catalog:"
+    "lit": "catalog:",
+    "@italia/i18n": "workspace:^"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",

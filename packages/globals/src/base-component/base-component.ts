@@ -1,4 +1,5 @@
 import { LitElement } from 'lit';
+import { LocalizeMixin } from '@italia/i18n';
 import { Constructor } from '../index.js';
 import { Logger } from '../utils/logger.js';
 
@@ -67,3 +68,5 @@ export class BaseComponent extends LitElement {
     this._id = this.generateId(prefix);
   }
 }
+
+export const BaseLocalizedComponent = LocalizeMixin(BaseComponent);

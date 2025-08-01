@@ -1,26 +1,23 @@
-import { LitElement, html } from 'lit';
+import { html } from 'lit';
 import { property, state, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import videojs from 'video.js';
-import { cookies } from '@italia/globals';
+import { cookies, BaseLocalizedComponent } from '@italia/globals';
+import { registerTranslation } from '@italia/i18n';
 
 // @ts-ignore
 import { initYoutubePlugin } from './util/youtube-video.js';
-import { type Translations, type Track, type ConsentOptions } from './types.js';
-import itLang from './locales/it.js'; //
-import styles from './it-video.scss';
-import '@italia/icon';
+import { type Track, type ConsentOptions, type VideoJSTranslations } from './types.js';
+import itLang from './locales/videojs/it.js';
+import it from './locales/it.js';
 
-export const defaultConsentOptions: ConsentOptions = {
-  icon: 'it-video', // Icona predefinita per il consenso dei cookie
-  text: 'Accetta i cookie di YouTube per vedere il video. Puoi gestire le preferenze nella <a href="#" class="text-white">cookie policy</a>.',
-  acceptButtonText: 'Accetta',
-  rememberCheckboxText: 'Ricorda per tutti i video',
-};
+import styles from './it-video.scss';
+
+registerTranslation(it);
 
 @customElement('it-video')
-export class ItVideo extends LitElement {
+export class ItVideo extends BaseLocalizedComponent {
   static styles = [styles];
 
   private videoId = `vjs-${Math.random().toString(36).slice(2, 11)}`;
@@ -35,11 +32,11 @@ export class ItVideo extends LitElement {
 
   @property({ type: String }) language = 'it';
 
-  @property({ type: Object }) translations: Translations = { it: itLang };
+  @property({ type: Object }) translations: VideoJSTranslations = { it: itLang };
 
   @property({ type: Array }) track: Track = [];
 
-  @property({ type: Object }) consentOptions?: ConsentOptions = defaultConsentOptions; // opzioni per il consenso dei cookie, se necessario
+  @property({ type: Object }) consentOptions?: ConsentOptions = {}; // opzioni per il consenso dei cookie, se necessario
 
   @property({ type: String, attribute: 'init-plugins' })
   initPluginsName = '';
@@ -84,7 +81,7 @@ export class ItVideo extends LitElement {
     return isYoutube || regexOthers.test(this.src || '');
   }
 
-  getconsentKey() {
+  getConsentKey() {
     const isYoutube = this.isYouTubeUrl();
     return this.consentOptions?.consentKey ?? (isYoutube ? 'youtube' : this.type);
   }
@@ -96,9 +93,9 @@ export class ItVideo extends LitElement {
     this.consentAccepted = true;
 
     if (this.consentOptions?.onAccept) {
-      this.consentOptions.onAccept(remember, this.getconsentKey());
+      this.consentOptions.onAccept(remember, this.getConsentKey());
     } else if (remember) {
-      cookies.rememberChoice(this.getconsentKey(), remember);
+      cookies.rememberChoice(this.getConsentKey(), remember);
     }
 
     // Aspetta il render DOM aggiornato e re-inizializza il player
@@ -234,24 +231,18 @@ export class ItVideo extends LitElement {
           >
             <div class="acceptoverlay-inner">
               <div class="acceptoverlay-icon">
-                <it-icon
-                  name="${this.consentOptions?.icon ?? defaultConsentOptions.icon}"
-                  size="xl"
-                  color="inverse"
-                ></it-icon>
+                <it-icon name="${this.$t('video_consent_icon')}" size="xl" color="inverse"></it-icon>
               </div>
 
-              <p>${unsafeHTML(this.consentOptions?.text ?? defaultConsentOptions.text)}</p>
+              <p>${unsafeHTML(this.$t('video_consent_text'))}</p>
               <div class="acceptoverlay-buttons bg-dark">
                 <it-button variant="primary" block @click=${() => this.acceptConsent()}>
-                  ${this.consentOptions?.acceptButtonText ?? defaultConsentOptions.acceptButtonText}
+                  ${this.$t('video_consent_accept')}
                 </it-button>
 
                 <div class="form-check">
                   <input id="chk-remember" type="checkbox" @click=${() => this.acceptConsent(true)} />
-                  <label for="chk-remember">
-                    ${this.consentOptions?.rememberCheckboxText ?? defaultConsentOptions.rememberCheckboxText}</label
-                  >
+                  <label for="chk-remember">${this.$t('video_consent_remember')}</label>
                 </div>
               </div>
             </div>
@@ -265,8 +256,8 @@ export class ItVideo extends LitElement {
     // Gestione del cookie - Lettura preferenza
     super.connectedCallback?.();
     this.consentAccepted = this.consentOptions?.isAccepted
-      ? this.consentOptions.isAccepted(this.getconsentKey())
-      : cookies.isChoiceRemembered(this.getconsentKey());
+      ? this.consentOptions.isAccepted(this.getConsentKey())
+      : cookies.isChoiceRemembered(this.getConsentKey());
   }
 
   /*

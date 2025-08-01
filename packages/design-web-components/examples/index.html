@@ -4,12 +4,26 @@
   <meta charset="UTF-8" />
   <title>Test Web Components</title>
     <!-- Importa lo script del tuo Web Component -->
-  <script type="module" src="dist/elements.js"></script>
-  <!-- <link rel="stylesheet" href="../node_modules/bootstrap-italia/dist/css/bootstrap-italia.min.css" /> -->
-  <link rel="stylesheet" href="dist/design-web-components.css" />
+    <!-- <script type="module" src="dist/elements.js"></script> -->
+    <script type="module">
 
+       import "./dist/elements.js";
 
+      registerTranslation({
+          $code: 'it',
+          $name: 'Italiano',
+          $dir: 'ltr',
+          video_consent_accept: 'Accetto i cookie',
+        },{
+          $code: 'en',
+          $name: 'English',
+          $dir: 'ltr',
+          video_consent_accept: 'Accept',
+        });
+    </script>
 
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap-italia/dist/css/bootstrap-italia.min.css" /> -->
+    <link rel="stylesheet" href="dist/design-web-components.css" />
 </head>
 <body>
   <!-- Usa il tuo Web Component -->
@@ -25,6 +39,8 @@
             <section>
               <h2>it-video</h2>
               <it-video src="https://vjs.zencdn.net/v/oceans.webm"></it-video>
+              <h3>Youtube:</h3>
+              <it-video src="https://youtu.be/_0j7ZQ67KtY"></it-video>
             </section>
             <section>
               <h2>it-button</h2>
@@ -45,7 +61,6 @@
             <section class="mb-5">
               <h2>it-chip</h2>
               <div class="d-flex align-items-center gap-4">
-
                 <it-chip
                   label="Chip con icona"
                   dismissable

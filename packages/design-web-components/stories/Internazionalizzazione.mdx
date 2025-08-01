@@ -1,0 +1,181 @@
+import { Meta } from '@storybook/blocks';
+import { Code } from '@storybook/components';
+
+<Meta title='i18n - Internazionalizzazione' />
+
+# Internazionalizzazione
+
+L'internazionlizzazione dei componenti si basa sul package indipendente @italia/i18n. L'unica lingua fornita di default è l'Italiano.<br/>
+Se vi è necessità di avere traduzioni in altre lingue, è compito dello sviluppatore implementarle.
+
+## Cambio di lingua
+
+Per cambiare la lingua corrente a livello di sito, è sufficiente modificare l'attributo `lang` sull'elemento `html`. Le modifiche a `<html lang>` attivano automaticamente l’aggiornamento di tutti i componenti localizzati:
+
+```html
+<html lang="en">
+  ...
+</html>
+```
+
+E' inoltre possibile cambiare la lingua solo per una parte dei componenti presenti in pagina, passando l'attributo `lang` ad ogni singolo componente:
+
+```html
+<html lang="it">
+  <body>
+    <my-element>Questo elemento è in Italiano</my-element>
+    <my-element lang="en">This will be English</my-element>
+  </body>
+</html>
+```
+
+## Come si usa
+
+### Creazione delle traduzioni
+
+Ogni traduzione deve estendere il tipo `Translation` e includere le proprietà meta con il prefisso `$`, più eventuali termini addizionali:
+
+```ts
+// en.ts
+import type { Translation } from '@italia/i18n';
+
+const translation: Translation = {
+  $code: 'en',
+  $name: 'English',
+  $dir: 'ltr',
+  upload: 'Upload',
+  greetUser: (name: string) => `Hello, ${name}!`,
+  numFilesSelected: (count: number) => {
+    if (count === 0) return 'No files selected';
+    if (count === 1) return '1 file selected';
+    return `${count} files selected`;
+  },
+};
+
+export default translation;
+```
+
+### Definizione delle traduzioni.
+
+Ogni componente che prevede traduzioni, registra le sue traduzioni tramite `registerTranslation`:
+
+```ts
+import { registerTranslation } from '@italia/i18n';
+import en from './en';
+import es from './es';
+
+registerTranslation(en, es);
+```
+
+È inoltre possibile registrare le traduzioni dinamicamente in risposta alle modifiche della lingua:
+
+```ts
+async function changeLanguage(lang) {
+  if (['en', 'es', 'fr', 'de'].includes(lang)) {
+    const translation = await import(`/translations/${lang}.js`);
+    registerTranslation(translation);
+  }
+}
+```
+
+### Localizzare i componenti
+
+Se si vuole definire un proprio componente, e abilitare su di esso le traduzioni, questo deve estendere `BaseLocalizedComponent` di `@italia/globals`:
+
+```ts
+import { registerTranslation } from '@italia/i18n';
+import { BaseLocalizedComponent } from '@italia/globals';
+import en from '../translations/en';
+import es from '../translations/es';
+
+registerTranslation(en, es);
+
+@customElement('my-element')
+export class MyElement extends BaseLocalizedComponent {
+  render() {
+    return html` <div>
+        <h2>Lang</h2>
+        ${this.$localize.lang()}
+      </div>
+      <div>
+        <h2>Direction</h2>
+        ${this.$localize.dir()}
+      </div>
+      <div>
+        <h2>Translate string</h2>
+        ${this.$t('hello_world')}
+      </div>
+      <div>
+        <h2>Date</h2>
+        ${this.$d('2021-09-15 14:00:00 ET', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </div>
+      <div>
+        <h2>Number</h2>
+        ${this.$n(1234.56, { style: 'currency', currency: 'USD' })}
+      </div>`;
+  }
+}
+```
+
+### Uso del bundle globale
+
+La libreria di internazionalizzazione è già inclusa nel bundle globale @italia/design-web-components. Pertanto sarà sufficiente fare:
+
+```html
+<html lang="it">
+  <head>
+    ...
+    <script type="module">
+      import '@italia/desing-web-components/dist/elements.js';
+
+      registerTranslation(
+        {
+          $code: 'it',
+          $name: 'Italiano',
+          $dir: 'ltr',
+          video_consent_accept: 'Accetto i cookie',
+        },
+        {
+          $code: 'en',
+          $name: 'English',
+          $dir: 'ltr',
+          video_consent_accept: 'Accept',
+        },
+      );
+    </script>
+  </head>
+  ...
+</html>
+```
+
+### Uso di bundle specifici
+
+Se invece non importi il bundle globale, ma vuoi importare solamente alcuni component nella tua applicazione, puoi fare:
+
+```html
+<html lang="it">
+  <head>
+    ...
+    <script type="module">
+      import '@italia/video'; // esempio di import di un componente specifico
+      import '@italia/i18n';
+
+      registerTranslation(
+        {
+          $code: 'it',
+          $name: 'Italiano',
+          $dir: 'ltr',
+          video_consent_accept: 'Accetto i cookie',
+        },
+        {
+          $code: 'en',
+          $name: 'English',
+          $dir: 'ltr',
+          video_consent_accept: 'Accept',
+        },
+      );
+    </script>
+  </head>
+  ...
+</html>
+```

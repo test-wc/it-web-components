@@ -319,7 +319,6 @@ const initYoutubePlugin = (videojs) => {
     }
 
     onPlayerError(e) {
-      console.log('---onPlayerError()---');
       this.errorNumber = e.data;
       this.trigger('pause');
       this.trigger('error');

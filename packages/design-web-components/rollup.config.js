@@ -32,7 +32,18 @@ export default [
     plugins: [
       resolve(),
       copy({
-        targets: [{ src: 'assets/*', dest: 'dist/assets' }],
+        targets: [
+          { src: 'assets/*', dest: 'dist/assets' },
+          // gli assets degli altri packages del monorepo
+          {
+            src: '../*/assets/*',
+            dest: 'dist/assets',
+            flatten: true,
+          },
+        ],
+        verbose: true,
+        copyOnce: false,
+        // flatten: false, // Mantiene la struttura interna
       }),
       scss({
         fileName: 'design-web-components.css',
@@ -45,6 +56,7 @@ export default [
     output: {
       dir: 'dist',
       sourcemap: true,
+      format: 'esm',
     },
     plugins: [
       resolve(),
