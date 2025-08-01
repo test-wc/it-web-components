@@ -35,6 +35,11 @@ body:
     required: true
 - type: checkboxes
   attributes:
+    label: Consistency with the UI kit
+    options:
+      - label: Checked consistency with the UI kit
+- type: checkboxes
+  attributes:
     label: Accessibility tests performed
     options:
     - label: With WAVE browser extension
