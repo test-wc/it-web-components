@@ -6,11 +6,27 @@
   margin: auto;
 }
 
+.docs-story {
+  background-color: #f7f7f7;
+}
+
 .flex {
   display: flex;
   align-items: start;
   padding: 0.3rem 0;
   gap: 0.6rem;
+}
+
+.toc-wrapper {
+  ul {
+    font-size: 0.85rem;
+    line-height: 1.2;
+
+    li.toc-list-item {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
 }
 
 #anchor--componenti-icona--informazioni-utili .sbdocs-preview {
