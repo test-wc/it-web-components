@@ -1,0 +1,63 @@
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+
+@import 'bootstrap-italia/src/scss/components/dropdown';
+@import 'bootstrap-italia/src/scss/components/linklist';
+
+.dropdown-menu {
+  &::before {
+    content: none;
+  }
+
+  &.dark {
+    --#{$prefix}dropdown-header-color: var(--#{$prefix}color-text-inverse);
+    --#{$prefix}color-border-subtle: #2e465e;
+  }
+
+  .arrow {
+    width: var(--bs-dropdown-notch-base-size);
+    height: var(--bs-dropdown-notch-base-size);
+    border-radius: var(--bs-dropdown-border-radius);
+    background-color: var(--bs-dropdown-background);
+  }
+
+  @if $dropdown-padding-y == 0 {
+    it-dropdown-item:first-child {
+      @include border-top-radius(var(--#{$prefix}dropdown-inner-border-radius));
+    }
+
+    it-dropdown-item:last-child {
+      @include border-bottom-radius(var(--#{$prefix}dropdown-inner-border-radius));
+    }
+  }
+}
+
+.link-list {
+  margin-top: 0;
+}
+
+:host {
+  position: relative;
+  display: inline-block;
+}
+
+it-button,
+it-popover {
+  display: inline-block;
+}
+
+.dropdown-toggle-icon {
+  &.top {
+    transform: scaleY(-1);
+  }
+
+  &.left {
+    transform: rotate(90deg);
+  }
+
+  &.right {
+    transform: rotate(-90deg);
+  }
+}

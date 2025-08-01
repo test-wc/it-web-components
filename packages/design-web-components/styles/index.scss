@@ -1,4 +1,5 @@
 /* BOOTSTRAP ITALIA base styles */
+@import 'bootstrap-italia/src/scss/base/version';
 @import 'bootstrap-italia/src/scss/base/functions';
 @import 'bootstrap-italia/src/scss/base/variables';
 @import 'bootstrap-italia/src/scss/base/mixins';
@@ -11,12 +12,17 @@
 @import 'bootstrap-italia/src/scss/base/helpers';
 
 @import 'bootstrap-italia/src/scss/base/utilities/api';
-@import 'bootstrap-italia/src/scss/utilities/colors';
 @import 'bootstrap-italia/src/scss/utilities/focus';
 @import 'bootstrap-italia/src/scss/utilities/icons';
+@import 'bootstrap-italia/src/scss/utilities/colors';
 @import 'bootstrap-italia/src/scss/utilities/text-colors';
+
+@import 'bootstrap-italia/src/scss/components/type';
+@import 'bootstrap-italia/src/scss/components/linklist';
+@import 'bootstrap-italia/src/scss/components/dropdown';
 
 /*design-web-components global styles*/
 @import '@italia/button/styles/globals';
+@import '@italia/dropdown/styles/globals';
 @import '@italia/icon/styles/globals';
 @import '@italia/video/styles/globals';

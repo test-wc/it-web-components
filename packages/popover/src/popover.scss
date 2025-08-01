@@ -1,0 +1,17 @@
+@import 'bootstrap-italia/src/scss/base/functions';
+@import 'bootstrap-italia/src/scss/base/variables';
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+
+:host {
+  --#{$prefix}dropdown-background: var(--#{$prefix}color-background-inverse);
+  // .arrow {
+  //   position: absolute;
+  //   width: 1rem; // 16px, o come vuoi
+  //   height: 1rem;
+  //   background-color: var(--bs-dropdown-background);
+  //   pointer-events: none;
+  //   transform: rotate(45deg);
+  //   /* posizione (left/top/bottom/right) la imposti solo via JS */
+  // }
+}

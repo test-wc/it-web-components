@@ -14,9 +14,6 @@ export class ItButton extends BaseComponent {
   }
 
   @property({ type: String })
-  private _buttonClasses = '';
-
-  @property({ type: String })
   type = 'button';
 
   @property({ type: String })
@@ -48,18 +45,6 @@ export class ItButton extends BaseComponent {
     }
   }
 
-  override updated() {
-    this._buttonClasses = this.composeClass(
-      'btn',
-      !this.outline && this.variant !== '' ? `btn-${this.variant}` : '',
-      this.outline ? `${this.variant ? 'btn-outline-' : ''}${this.variant}` : '',
-      'aria-disabled' in this._ariaAttributes ? 'disabled' : '',
-      this.size ? `btn-${this.size}` : '',
-      this.block ? 'd-block w-100' : '',
-      this.icon ? 'btn-icon' : '',
-    );
-  }
-
   surfaceSubmitEvent(event: any) {
     const disabled = 'aria-disabled' in this._ariaAttributes;
     if (this.form && !disabled) {
@@ -87,11 +72,20 @@ export class ItButton extends BaseComponent {
 
   // Render the UI as a function of component state
   override render() {
+    const classes = this.composeClass('btn', this.className, {
+      [`btn-${this.variant}`]: !!this.variant && !this.outline,
+      [`btn-outline-${this.variant}`]: !!this.variant && this.outline,
+      [`btn-${this.size}`]: !!this.size,
+      disabled: 'aria-disabled' in this._ariaAttributes,
+      'btn-icon': this.icon,
+      'd-block w-100': this.block,
+    });
     return html`
       <button
+        id=${ifDefined(this.id || undefined)}
         part="button ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
-        class="${this._buttonClasses}"
+        class="${classes}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
         .value="${ifDefined(this.value ? this.value : undefined)}"
         ${setAttributes(this._ariaAttributes)}
