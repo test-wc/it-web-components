@@ -7,6 +7,11 @@ it-button {
 .bg-dark {
   it-button::part(link) {
     --#{$prefix}btn-text-color: var(--#{$prefix}color-text-inverse);
+    &:hover,
+    &:focus {
+      --#{$prefix}color-link-hover: var(--#{$prefix}color-text-inverse);
+      text-decoration-thickness: 2px;
+    }
   }
 
   it-button::part(outline) {
