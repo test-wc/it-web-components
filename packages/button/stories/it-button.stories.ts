@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Sizes, type Variants, BUTTON_SIZES, BUTTON_VARIANTS } from '../src/types.ts';
 import '@italia/button';
 import '@italia/icon';
@@ -17,23 +18,23 @@ interface ButtonProps {
 }
 
 // Renderizza il wc it-button di default
-const renderComponent = (params: any, defaultSlot = '') => {
+const renderComponent = (params: ButtonProps, defaultSlot = '') => {
   const slot = params.slot?.length > 0 ? params.slot : defaultSlot;
   return html`
     <it-button
-      variant="${params.variant}"
+      variant="${ifDefined(params.variant)}"
       ?outline="${params.outline}"
-      size="${params.size}"
+      size="${ifDefined(params.size)}"
       ?block="${params.block}"
       ?aria-disabled="${params.ariaDisabled}"
       ?icon="${params.icon}"
-      type="${params.type}"
+      type="${ifDefined(params.type)}"
       >${slot}</it-button
     >
   `;
 };
 
-const renderDefault = (params: any) => html`
+const renderDefault = (params: ButtonProps) => html`
   <div class="flex">
     ${renderComponent(params)}
     ${renderComponent({
@@ -44,7 +45,7 @@ const renderDefault = (params: any) => html`
   </div>
 `;
 
-const renderVariant = (args, defaultText) => {
+const renderVariant = (args: ButtonProps, defaultText: string) => {
   const slot = args.slot?.length > 0 ? args.slot : null;
   return html`<div class="flex p-0">
     ${renderDefault({
@@ -59,7 +60,7 @@ const renderVariant = (args, defaultText) => {
   </div>`;
 };
 
-const renderSizeVariant = (args, defaultText) =>
+const renderSizeVariant = (args: ButtonProps, defaultText: string) =>
   html`<div class="flex">
     ${renderComponent(
       {
@@ -85,7 +86,7 @@ const meta = {
   args: {
     slot: 'Testo del pulsante',
     variant: 'primary',
-    size: 'sm',
+    size: undefined,
     block: false,
     outline: false,
     ariaDisabled: false,
@@ -103,7 +104,6 @@ const meta = {
       control: 'select',
       description: 'Dimensione del pulsante',
       options: BUTTON_SIZES,
-      table: { defaultValue: { summary: 'sm' } },
     },
     block: {
       control: 'boolean',
@@ -261,7 +261,7 @@ export const VariantiDimensione: Story = {
     docs: {
       description: {
         story: `
-Per ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo \`size\` con i valori \`"lg"\`, \`"sm"\`, \`"xs"\`.
+Per ottenere pulsanti di dimensione più grande o più piccola, è sufficiente utilizzare l'attributo \`size\` con i valori \`lg\` o \`xs\`.
 
 Utilizzando invece l'attributo \`block\` si ottengono pulsanti che prendono tutta l’ampiezza a loro disposizione, a seconda delle dimensioni del loro contenitore.
 `,
@@ -269,7 +269,7 @@ Utilizzando invece l'attributo \`block\` si ottengono pulsanti che prendono tutt
     },
   },
   render: (args) => html`
-    ${renderSizeVariant({ ...args, size: 'lg' }, 'Large')} ${renderSizeVariant({ ...args, size: 'sm' }, 'Small')}
+    ${renderSizeVariant({ ...args, size: 'lg' }, 'Large')} ${renderSizeVariant({ ...args }, 'Default')}
     ${renderSizeVariant({ ...args, size: 'xs' }, 'Extra Small')}
     <div class="flex">
       ${renderComponent(
@@ -386,7 +386,7 @@ export const ConIcona: Story = {
 L’icona può essere posizionata a sinistra o a destra del testo, a seconda della posizione in cui viene inserita all’interno del pulsante.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \`lg\` e \`sm\` è necessario passare l'attributo \`size="sm"\` all'icona.
+- Nei pulsanti di dimensione \`lg\` o default (\`sm\`), è necessario passare l'attributo \`size="sm"\` all'icona.
 - Nei pulsaanti di dimensione \`xs\`, è necessario passare l'attributo \`size="xs"\` all'icona .
 `,
       },
@@ -429,7 +429,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="white" size="xs"></it-icon>
-        <span>${slot ?? 'Pulsante Smal con icona'}</span>
+        <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
       </it-button>
 
       <it-button
@@ -442,7 +442,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
         type="${params.type}"
       >
         <it-icon name="it-star-full" color="primary" size="xs"></it-icon>
-        <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
+        <span>${slot ?? 'Pulsante Link Extra Small con icona'}</span>
       </it-button>
     </div>`;
   },
@@ -476,7 +476,7 @@ L’icona può essere posizionata a sinistra o a destra del testo, a seconda del
 Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` per poter avere il contorno circolare.
 <br/><br/>
 #### Dimensione dell'icona
-- Nei pulsanti di dimensione \`lg\` e \`sm\` è necessario passare l'attributo \`size="sm"\` all'icona.
+- Nei pulsanti di dimensione \`lg\` o default (\`sm\`), è necessario passare l'attributo \`size="sm"\` all'icona.
 - Nei pulsaanti di dimensione \`xs\`, è necessario passare l'attributo \`size="xs"\` all'icona .
 `,
       },
@@ -502,7 +502,6 @@ Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` pe
 
       <it-button
         variant="primary"
-        size="sm"
         icon
         ?outline="${params.outline}"
         ?block="${params.block}"
@@ -542,7 +541,7 @@ Deve essere contenuta all'interno di uno elemento con classe\`.rounded-icon\` pe
         <span class="rounded-icon bg-primary">
           <it-icon name="it-user" color="white" size="xs"></it-icon>
         </span>
-        <span>${slot ?? 'Pulsante Extra Small con icona'}</span>
+        <span>${slot ?? 'Pulsante Link Extra Small con icona'}</span>
       </it-button>
     </div>`;
   },
