@@ -35,29 +35,34 @@ body:
     required: true
 - type: checkboxes
   attributes:
+    label: Coerenza con il kit UI
+    options:
+      - label: Controllata la coerenza con il kit UI
+- type: checkboxes
+  attributes:
     label: Test di accessibilità effettuati
     options:
-    - label: Con estensione browser WAVE
-    - label: Navigazione con tastiera
-    - label: Windows + Jaws + Chrome
-    - label: Windows + Jaws + Edge
-    - label: Windows + Jaws + Firefox
-    - label: Windows + NVDA + Chrome
-    - label: Windows + NVDA + Edge
-    - label: Windows + NVDA + Firefox
-    - label: MacOS + VoiceOver + Chrome
-    - label: MacOS + VoiceOver + Firefox
-    - label: MacOS + VoiceOver + Safari
-    - label: iOS + VoiceOver + Safari
-    - label: Android + TalkBack + Chrome
+      - label: Con estensione browser WAVE
+      - label: Navigazione con tastiera
+      - label: Windows + Jaws + Chrome
+      - label: Windows + Jaws + Edge
+      - label: Windows + Jaws + Firefox
+      - label: Windows + NVDA + Chrome
+      - label: Windows + NVDA + Edge
+      - label: Windows + NVDA + Firefox
+      - label: MacOS + VoiceOver + Chrome
+      - label: MacOS + VoiceOver + Firefox
+      - label: MacOS + VoiceOver + Safari
+      - label: iOS + VoiceOver + Safari
+      - label: Android + TalkBack + Chrome
 - type: checkboxes
   attributes:
     label: Test di integrazione effettuati
     options:
-    - label: React
-    - label: Angular
-    - label: Vue
-    - label: Svelte
+      - label: React
+      - label: Angular
+      - label: Vue
+      - label: Svelte
 # - type: textarea
 #   attributes:
 #     label: Perché
