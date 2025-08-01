@@ -207,6 +207,9 @@ importers:
       '@italia/icon':
         specifier: workspace:^
         version: link:../icon
+      '@italia/input':
+        specifier: workspace:^
+        version: link:../input
       '@italia/video':
         specifier: workspace:^
         version: link:../video
@@ -318,6 +321,67 @@ importers:
       '@web/test-runner-commands':
         specifier: 'catalog:'
         version: 0.9.0
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      rollup:
+        specifier: ^4.42.0
+        version: 4.42.0
+      rollup-plugin-scss-lit:
+        specifier: ^2.1.0
+        version: 2.1.0(lit@3.3.0)(rollup@4.42.0)
+      sass:
+        specifier: 'catalog:'
+        version: 1.89.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.8.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
+  packages/input:
+    dependencies:
+      '@italia/button':
+        specifier: workspace:^
+        version: link:../button
+      '@italia/globals':
+        specifier: workspace:^
+        version: link:../globals
+      '@italia/icon':
+        specifier: workspace:^
+        version: link:../icon
+      bootstrap-italia:
+        specifier: 'catalog:'
+        version: https://codeload.github.com/italia/bootstrap-italia/tar.gz/cdb6bbb33c0111fee4d06fccab870e4dd4cbde15
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.0
+    devDependencies:
+      '@custom-elements-manifest/analyzer':
+        specifier: ^0.10.3
+        version: 0.10.4
+      '@italia/test-config':
+        specifier: workspace:^
+        version: link:../test-config
+      '@italia/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
+      '@open-wc/testing':
+        specifier: 'catalog:'
+        version: 4.0.0
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.1
+        version: 16.0.1(rollup@4.42.0)
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.2
+        version: 12.1.2(rollup@4.42.0)(tslib@2.8.1)(typescript@5.8.3)
+      '@types/mocha':
+        specifier: 'catalog:'
+        version: 10.0.10
+      '@web/test-runner':
+        specifier: 'catalog:'
+        version: 0.18.3
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1

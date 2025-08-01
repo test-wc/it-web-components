@@ -1,6 +1,6 @@
 import { BaseComponent, setAttributes } from '@italia/globals';
 import { html, PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Sizes, type Variants } from './types.js';
 import styles from './button.scss';
@@ -12,6 +12,9 @@ export class ItButton extends BaseComponent {
   static get formAssociated() {
     return true;
   }
+
+  @query('button')
+  private _nativeButton!: HTMLButtonElement;
 
   @property({ type: String })
   private _buttonClasses = '';
@@ -77,19 +80,33 @@ export class ItButton extends BaseComponent {
     return this.internals ? this.internals.form : null;
   }
 
+  private _onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this._nativeButton?.click();
+    }
+  };
+
   connectedCallback(): void {
     super.connectedCallback?.();
 
     if (this.block) {
       this.classList.add('d-block', 'w-100');
     }
+
+    this.addEventListener('keydown', this._onKeyDown);
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('keydown', this._onKeyDown);
+    super.disconnectedCallback?.();
   }
 
   // Render the UI as a function of component state
   override render() {
     return html`
       <button
-        part="button ${this.variant} ${this.outline ? 'outline' : ''}"
+        part="button focusable ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
         class="${this._buttonClasses}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
