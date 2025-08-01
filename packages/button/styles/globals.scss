@@ -1,7 +1,7 @@
 it-button {
-  // @extend .btn; va in collisione con gli hover del footer, vedi dove fixare
   display: inline-block;
   width: auto;
+  cursor: default !important; //per non applicare gli stili di default del browser su questi stati: [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled)
 }
 
 .bg-dark {

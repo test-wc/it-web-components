@@ -2,24 +2,24 @@ name: Apri una segnalazione - IT
 description: Per segnalare bug, aprire una discussione o inviare un contributo
 labels: []
 body:
-- type: checkboxes
-  attributes:
-    label: Esiste già una discussione sul tema che ti interessa, o su un tema simile?
-    description: |
-      Verifica nella [lista delle discussioni](https://github.com/italia/TODO/issues/). Se esiste, vai alla discussione esistente e partecipa lasciando un commento.
-    options:
-    - label: Ho verificato e non esiste
-      required: true
-- type: markdown
-  attributes:
-    value: "-------"
-- type: input
-  attributes:
-    label: Versione della libreria
-    description: |
-      Versione utilizzata sulla quale si riscontra un problema o si vuole avviare la discussione.
-  validations:
-    required: true
+# - type: checkboxes
+#   attributes:
+#     label: Esiste già una discussione sul tema che ti interessa, o su un tema simile?
+#     description: |
+#       Verifica nella [lista delle discussioni](https://github.com/italia/design-web-components/issues/). Se esiste, vai alla discussione esistente e partecipa lasciando un commento.
+#     options:
+#     - label: Ho verificato e non esiste
+#       required: true
+# - type: markdown
+#   attributes:
+#     value: "-------"
+# - type: input
+#   attributes:
+#     label: Versione della libreria
+#     description: |
+#       Versione utilizzata sulla quale si riscontra un problema o si vuole avviare la discussione.
+#   validations:
+#     required: true
 - type: textarea
   attributes:
     label: Cosa
@@ -33,15 +33,45 @@ body:
       Assicurati di non condividere informazioni personali.
   validations:
     required: true
-- type: textarea
+- type: checkboxes
   attributes:
-    label: Perché
-    description: |
-      Spiega perché ritieni rilevante la segnalazione.
+    label: Coerenza con il kit UI
+    options:
+      - label: Controllata la coerenza con il kit UI
+- type: checkboxes
+  attributes:
+    label: Test di accessibilità effettuati
+    options:
+      - label: Con estensione browser WAVE
+      - label: Navigazione con tastiera
+      - label: Windows + Jaws + Chrome
+      - label: Windows + Jaws + Edge
+      - label: Windows + Jaws + Firefox
+      - label: Windows + NVDA + Chrome
+      - label: Windows + NVDA + Edge
+      - label: Windows + NVDA + Firefox
+      - label: MacOS + VoiceOver + Chrome
+      - label: MacOS + VoiceOver + Firefox
+      - label: MacOS + VoiceOver + Safari
+      - label: iOS + VoiceOver + Safari
+      - label: Android + TalkBack + Chrome
+- type: checkboxes
+  attributes:
+    label: Test di integrazione effettuati
+    options:
+      - label: React
+      - label: Angular
+      - label: Vue
+      - label: Svelte
+# - type: textarea
+#   attributes:
+#     label: Perché
+#     description: |
+#       Spiega perché ritieni rilevante la segnalazione.
 
-      Indica analisi, verifiche e test svolti a supporto (es. dati di analytics, analisi euristiche, test di usabilità, verifiche di accessibilità), se disponibili.
-  validations:
-    required: true
+#       Indica analisi, verifiche e test svolti a supporto (es. dati di analytics, analisi euristiche, test di usabilità, verifiche di accessibilità), se disponibili.
+#   validations:
+#     required: true
 - type: textarea
   attributes:
     label: Contesto

@@ -32,9 +32,6 @@ export class ItButton extends BaseComponent {
   block = false;
 
   @property({ type: Boolean })
-  disabled = false;
-
-  @property({ type: Boolean })
   icon = false;
 
   @property({ type: String })
@@ -56,7 +53,7 @@ export class ItButton extends BaseComponent {
       'btn',
       !this.outline && this.variant !== '' ? `btn-${this.variant}` : '',
       this.outline ? `${this.variant ? 'btn-outline-' : ''}${this.variant}` : '',
-      this.disabled ? 'disabled' : '',
+      'aria-disabled' in this._ariaAttributes ? 'disabled' : '',
       this.size ? `btn-${this.size}` : '',
       this.block ? 'd-block w-100' : '',
       this.icon ? 'btn-icon' : '',
@@ -64,10 +61,15 @@ export class ItButton extends BaseComponent {
   }
 
   surfaceSubmitEvent(event: any) {
-    if (this.form) {
+    const disabled = 'aria-disabled' in this._ariaAttributes;
+    if (this.form && !disabled) {
       event.preventDefault();
       event.stopPropagation();
       this.form.requestSubmit();
+    }
+    if (disabled) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
@@ -89,7 +91,6 @@ export class ItButton extends BaseComponent {
       <button
         part="button ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
-        ?disabled=${ifDefined(this.disabled) || undefined}
         class="${this._buttonClasses}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
         .value="${ifDefined(this.value ? this.value : undefined)}"
