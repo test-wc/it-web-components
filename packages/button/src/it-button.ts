@@ -1,4 +1,4 @@
-import { BaseComponent } from '@italia/globals';
+import { BaseComponent, setAttributes } from '@italia/globals';
 import { html, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -29,9 +29,6 @@ export class ItButton extends BaseComponent {
   block = false;
 
   @property({ type: Boolean })
-  disabled = false;
-
-  @property({ type: Boolean })
   icon = false;
 
   @property({ type: String })
@@ -49,10 +46,15 @@ export class ItButton extends BaseComponent {
   }
 
   surfaceSubmitEvent(event: any) {
-    if (this.form) {
+    const disabled = 'aria-disabled' in this._ariaAttributes;
+    if (this.form && !disabled) {
       event.preventDefault();
       event.stopPropagation();
       this.form.requestSubmit();
+    }
+    if (disabled) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
@@ -74,7 +76,7 @@ export class ItButton extends BaseComponent {
       [`btn-${this.variant}`]: !!this.variant && !this.outline,
       [`btn-outline-${this.variant}`]: !!this.variant && this.outline,
       [`btn-${this.size}`]: !!this.size,
-      disabled: this.disabled,
+      disabled: 'aria-disabled' in this._ariaAttributes,
       'btn-icon': this.icon,
       'd-block w-100': this.block,
     });
@@ -83,10 +85,10 @@ export class ItButton extends BaseComponent {
         id=${ifDefined(this.id || undefined)}
         part="button ${this.variant} ${this.outline ? 'outline' : ''}"
         type="${this.type}"
-        ?disabled=${ifDefined(this.disabled || undefined)}
         class="${classes}"
         @click="${this.type === 'submit' ? this.surfaceSubmitEvent : undefined}"
         .value="${ifDefined(this.value ? this.value : undefined)}"
+        ${setAttributes(this._ariaAttributes)}
       >
         <slot></slot>
       </button>

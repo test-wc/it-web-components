@@ -3,11 +3,12 @@ import type { ItIcon } from '@italia/icon';
 import { LitElement, TemplateResult } from 'lit';
 import '@italia/icon';
 
-async function fixtureWithDelay<T extends LitElement>(template: TemplateResult, delayMs = 10): Promise<T> {
+async function fixtureWithDelay<T extends LitElement>(template: TemplateResult, delayMs = 100): Promise<T> {
   const el = await fixture<T>(template);
   await new Promise((res) => {
     setTimeout(res, delayMs);
   });
+  await el.updateComplete;
   return el;
 }
 
