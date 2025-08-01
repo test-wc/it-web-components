@@ -10,6 +10,7 @@ const preview = {
         date: /Date$/i,
       },
     },
+    docs: { toc: true },
     options: {
       storySort: {
         order: ['Welcome', 'PersonalizzazioneDegliStili', 'Componenti', ['Button', 'Icon', 'Video']],
