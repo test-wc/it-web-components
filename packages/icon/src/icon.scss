@@ -25,4 +25,8 @@ $utilities: (
 
 .icon-white {
   fill: #fff !important;
+  // Alcune icone bsi hanno attr di path fissati come fill:black, per ora patchiamo qui
+  path {
+    fill: #fff !important;
+  }
 }
