@@ -1,6 +1,6 @@
 {
-  "name": "@italia/icon",
-  "description": "Web component it-icon del Design system .italia",
+  "name": "@italia/chip",
+  "description": "Web component it-chip del Design system .italia",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/italia/design-web-components.git",
-    "directory": "packages/icon"
+    "directory": "packages/chip"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "homepage": "https://italia.github.io/design-web-components",
@@ -19,11 +19,10 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "module": "./dist/src/index.js",
-  "types": "./dist/src/it-icon.d.ts",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": "./dist/src/index.js",
-    "./it-icon.js": "./dist/src/it-icon.js",
-    "./icons/*": "./dist/src/icons/*",
+    "./it-chip.js": "./dist/src/it-chip.js",
     "./styles/*": "./styles/*"
   },
   "files": [
@@ -36,12 +35,11 @@
   ],
   "scripts": {
     "analyze": "cem analyze --litelement --exclude dist",
-    "build:iconset": "node generate-icon-registry.js",
-    "build": "pnpm build:iconset && rollup --config rollup.config.js",
+    "build": "rollup --config rollup.config.js",
     "clean": "rimraf node_modules .turbo .rollup.cache dist coverage",
     "prepublish": "build",
-    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
-    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
+    "lint": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" && stylelint \"src/**/*.scss\" && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --check",
+    "format": "eslint --ext .ts \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --fix && stylelint \"src/**/*.scss\" --fix && prettier \"src/**/*.ts\" \"stories/**/*.ts\" \"test/**/*.ts\" --write",
     "test": "wtr --coverage --node-resolve --config web-test-runner.config.js"
   },
   "dependencies": {
@@ -53,15 +51,14 @@
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@italia/test-config": "workspace:^",
     "@italia/typescript-config": "workspace:^",
+    "@italia/button": "workspace:^",
+    "@italia/icon": "workspace:^",
     "@open-wc/testing": "catalog:",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/mocha": "catalog:",
     "@web/test-runner": "catalog:",
-    "@web/test-runner-commands": "catalog:",
-    "rimraf": "^6.0.1",
     "rollup": "^4.42.0",
-    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-scss-lit": "^2.1.0",
     "sass": "catalog:",
     "tslib": "^2.6.3",
